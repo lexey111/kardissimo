@@ -1,4 +1,4 @@
-export const Fonts = {
+export const Fonts: Record<string, string> = {
 	Roboto: "https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxM.woff",
 	"Noto Sans": "https://fonts.gstatic.com/s/notosans/v7/o-0IIpQlx3QUlC5A4PNr5TRG.woff",
 	Comfortaa: "https://fonts.gstatic.com/s/comfortaa/v12/1Ptsg8LJRfWJmhDAuUs4TYFs.woff",
