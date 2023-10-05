@@ -1,10 +1,10 @@
-import {Fonts} from "../../resources/fonts.ts";
-import {TCardFace, TCardFaceProp, TExtendedCardProps} from "./card-types.ts";
+import {Fonts} from "../../../resources/fonts.ts";
+import {TCardFace, TCardFaceProp, TExtendedCardProps} from "../card-types.ts";
 
 export const cardWidth = 200;
 export const cardHeight = 300;
 export const cardBorderRadius = 20;
-export const cardThickness = 4;
+export const cardThickness = 1;
 
 export const DefaultValues: TCardFace = {
 	text: 'No text',
