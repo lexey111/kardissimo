@@ -20,6 +20,5 @@ export const App: React.FC = () => {
 				</Route>
 			</Routes>
 		</div>
-	</BrowserRouter>
-		;
+	</BrowserRouter>;
 };

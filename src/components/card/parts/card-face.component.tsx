@@ -1,7 +1,7 @@
 import React from "react";
 
 import {Text} from "@react-three/drei";
-import {CardSurface} from "./card-surface-component.tsx";
+import {CardSurface} from "./card-surface.component.tsx";
 import {TExtendedCardProps} from "../card-types.ts";
 import {cardThickness} from "./card-utils.ts";
 

@@ -26,7 +26,7 @@ export type TCardSurfaceProps = {
 };
 
 export const CardSurface: React.FC<TCardSurfaceProps> = ({color, positionZ}) => {
-	return <mesh position={[-cardWidth / 2, -cardHeight / 2, (positionZ || 0) - cardThickness / 2]}>
+	return <mesh position={[-cardWidth / 2, -cardHeight / 2, (positionZ || 0) - cardThickness / 2]} castShadow={true} receiveShadow={true}>
 		<extrudeGeometry args={[cardSurfaceShape, extrudeSettings]}/>
 		<meshPhongMaterial color={color}/>
 		{/*<meshBasicMaterial color={color} transparent={true} opacity={0.8}/>*/}

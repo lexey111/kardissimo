@@ -1,10 +1,10 @@
 import React, {useCallback, useRef, useState} from "react";
 import {TCardProps} from "./card-types.ts";
 import {cardThickness, getFaceParameters} from "./parts/card-utils.ts";
-import {CardFace} from "./parts/card-face-component.tsx";
+import {CardFace} from "./parts/card-face.component.tsx";
 import {animated, config, useSpring} from '@react-spring/three'
-import {CardActiveOver} from "./parts/card-active-over-component.tsx";
-import {CardActiveClick} from "./parts/card-active-click-component.tsx";
+import {CardActiveOver} from "./parts/card-active-over.component.tsx";
+import {CardActiveClick} from "./parts/card-active-click.component.tsx";
 import {useThree} from "@react-three/fiber";
 
 export type TCardState = 'stale' | 'rotateLeft' | 'rotateRight';
