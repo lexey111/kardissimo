@@ -5,6 +5,7 @@ import {CardFace} from "./parts/card-face-component.tsx";
 import {animated, config, useSpring} from '@react-spring/three'
 import {CardActiveOver} from "./parts/card-active-over-component.tsx";
 import {CardActiveClick} from "./parts/card-active-click-component.tsx";
+import {useThree} from "@react-three/fiber";
 
 export type TCardState = 'stale' | 'rotateLeft' | 'rotateRight';
 
@@ -12,6 +13,7 @@ const subRotateHSize = Math.PI / 32;
 const subRotateVSize = Math.PI / 64;
 
 export const Card: React.FC<TCardProps> = (props: TCardProps) => {
+	const {viewport} = useThree();
 
 	const [cardState, setCardState] = useState<TCardState>('stale')
 
@@ -135,7 +137,9 @@ export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 	const face1 = getFaceParameters(props.faces[0]);
 	const face2 = getFaceParameters(props.faces[1]);
 
-	return <mesh>
+	const scale = Math.min(viewport.width / 250, viewport.height / 350);
+
+	return <mesh scale={[scale, scale, 1]}>
 		<CardActiveOver onLeave={moveNone}
 		                onBottom={moveBottom}
 		                onLeft={moveLeft}
