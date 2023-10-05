@@ -6,7 +6,7 @@ import {Scene} from "./components/scene/scene-component.tsx";
 // https://docs.pmnd.rs/react-three-fiber/api/canvas
 export const App: React.FC = () => {
 	return <div>
-		<p>Elements</p>
+		<p>Scene</p>
 		<Scene/>
 	</div>;
 };
