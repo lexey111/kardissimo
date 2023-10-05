@@ -17,24 +17,18 @@ export const App: React.FC = () => {
 			}}
 			camera={{fov: 75, near: 0.1, far: 1000, position: [0, 0, 300]}}
 		>
-			<ambientLight/>
+			<ambientLight intensity={2}/>
+			<directionalLight/>
 			{/*<OrbitControls/>*/}
 
 			<Center>
-				<Card faces={[{text: text, color: '#FDBA66'}, {
-					text: text2, color: '#8899ff', textColor: '#ffffff', fontSize: 48
+				<Card faces={[{text: text, color: '#FDBA66', textColor: '#4f351a'}, {
+					text: text2, color: '#8899ff', textColor: '#2b3b62', fontSize: 48
 				}]}/>
 			</Center>
 
 			<pointLight position={[-100, 100, 100]}
 			            color={'#FFFFFF'}
-			            intensity={20000}/>
-
-			<pointLight position={[-100, 50, 0]}
-			            color={'#FFFF22'}
-			            intensity={10000}/>
-			<pointLight position={[0, -50, -100]}
-			            color={'#CCCCCC'}
 			            intensity={20000}/>
 		</Canvas>
 	</div>;

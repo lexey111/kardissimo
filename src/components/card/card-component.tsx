@@ -2,18 +2,17 @@ import React, {useCallback, useRef, useState} from "react";
 import {TCardProps} from "./card-types.ts";
 import {cardThickness, getFaceParameters} from "./parts/card-utils.ts";
 import {CardFace} from "./parts/card-face-component.tsx";
-import {useFrame} from "@react-three/fiber";
 import {animated, config, useSpring} from '@react-spring/three'
 import {CardActiveOver} from "./parts/card-active-over-component.tsx";
 import {CardActiveClick} from "./parts/card-active-click-component.tsx";
 
 export type TCardState = 'stale' | 'rotateLeft' | 'rotateRight';
 
+const subRotateHSize = Math.PI / 64;
+const subRotateVSize = Math.PI / 128;
+
 export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 	const ref = useRef<any>();
-	// State
-	const [rotation, setRotation] = useState([0, 0, 0]);
-	const [rotation2, setRotation2] = useState([0, Math.PI, 0]);
 
 	const [cardState, setCardState] = useState<TCardState>('stale')
 
@@ -24,66 +23,27 @@ export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 
 	const {rotateY, rotateX} = useSpring({
 		rotateY: activeSubRotateLeft
-			? Math.PI / 32
+			? -subRotateHSize
 			: activeSubRotateRight
-				? -Math.PI / 32
+				? subRotateHSize
 				: 0,
 		rotateX: activeSubRotateTop
-			? Math.PI / 128
+			? -subRotateVSize
 			: activeSubRotateBottom
-				? -Math.PI / 128
+				? subRotateVSize
 				: 0,
-		config: config.wobbly
+		config: config.slow
 	});
 
+	const currentRotation = useRef(0);
 
-	useFrame((_, delta) => {
-		if (!ref.current) {
-			return;
-		}
-
-		if (cardState === 'stale') {
-			return;
-		}
-
-		//                                   *
-		//  [-2*Math.PI = 0] - [-Math.PI] - [0] - [Math.PI] - [2*Math.PI = 0]
-		if (cardState === 'rotateRight') {
-			ref.current.rotation.y += 7 * delta;
-		}
-
-		if (cardState === 'rotateLeft') {
-			ref.current.rotation.y -= 7 * delta;
-		}
-
-		if (ref.current.rotation.y >= Math.PI) {
-			console.log('STOP R');
+	const {rotateYTotal} = useSpring({
+		rotateYTotal: currentRotation.current,
+		config: {tension: 180, friction: 12, duration: 400},
+		onRest: () => {
 			setCardState('stale');
-			ref.current.rotation.y = Math.PI;
-			return;
-		}
-
-		if (ref.current.rotation.y <= 0) {
-			console.log('STOP L');
-			setCardState('stale');
-			ref.current.rotation.y = 0;
-			return;
 		}
 	});
-
-	const onMouseClick = useCallback((e: any) => {
-		if (cardState !== 'stale') {
-			return;
-		}
-
-		if (e.clientX > window.innerWidth / 2) {
-			console.log('click right');
-			setCardState('rotateRight');
-		} else {
-			console.log('click left');
-			setCardState('rotateLeft');
-		}
-	}, [cardState, setCardState]);
 
 	const moveTopLeft = useCallback(() => {
 		setActiveSubRotateTop(true);
@@ -157,18 +117,26 @@ export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 	}, []);
 
 	const clickLeft = useCallback(() => {
-		console.log('click left')
-	}, []);
+		if (cardState !== 'stale') {
+			return;
+		}
+		currentRotation.current -= Math.PI;
+		setCardState('rotateLeft');
+	}, [cardState]);
 
 	const clickRight = useCallback(() => {
-		console.log('click right')
-	}, []);
+		if (cardState !== 'stale') {
+			return;
+		}
+		currentRotation.current += Math.PI;
+		setCardState('rotateRight');
+	}, [cardState]);
 
 	// Input parameters
 	const face1 = getFaceParameters(props.faces[0]);
 	const face2 = getFaceParameters(props.faces[1]);
 
-	return <mesh onClick={onMouseClick} ref={ref}>
+	return <mesh ref={ref}>
 		<CardActiveOver onLeave={moveNone}
 		                onBottom={moveBottom}
 		                onLeft={moveLeft}
@@ -182,12 +150,15 @@ export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 		<CardActiveClick onClickLeft={clickLeft} onClickRight={clickRight}/>
 
 		<animated.mesh
-			visible={true}
 			rotation-y={rotateY}
 			rotation-x={rotateX}
 		>
-			<CardFace face={face1} positionZ={cardThickness / 2} rotation={rotation}/>
-			<CardFace face={face2} positionZ={-cardThickness / 2} rotation={rotation2}/></animated.mesh>
-	</mesh>
-		;
+			<animated.mesh
+				rotation-y={rotateYTotal}
+			>
+				<CardFace face={face1} positionZ={cardThickness / 2} rotation={[0, 0, 0]}/>
+				<CardFace face={face2} positionZ={-cardThickness / 2} rotation={[0, Math.PI, 0]}/>
+			</animated.mesh>
+		</animated.mesh>
+	</mesh>;
 };
