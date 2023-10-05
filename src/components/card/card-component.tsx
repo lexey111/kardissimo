@@ -8,11 +8,10 @@ import {CardActiveClick} from "./parts/card-active-click-component.tsx";
 
 export type TCardState = 'stale' | 'rotateLeft' | 'rotateRight';
 
-const subRotateHSize = Math.PI / 64;
-const subRotateVSize = Math.PI / 128;
+const subRotateHSize = Math.PI / 32;
+const subRotateVSize = Math.PI / 64;
 
 export const Card: React.FC<TCardProps> = (props: TCardProps) => {
-	const ref = useRef<any>();
 
 	const [cardState, setCardState] = useState<TCardState>('stale')
 
@@ -21,13 +20,13 @@ export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 	const [activeSubRotateTop, setActiveSubRotateTop] = useState(false);
 	const [activeSubRotateBottom, setActiveSubRotateBottom] = useState(false);
 
-	const {rotateY, rotateX} = useSpring({
-		rotateY: activeSubRotateLeft
+	const {subRotateY, subRotateX} = useSpring({
+		subRotateY: activeSubRotateLeft
 			? -subRotateHSize
 			: activeSubRotateRight
 				? subRotateHSize
 				: 0,
-		rotateX: activeSubRotateTop
+		subRotateX: activeSubRotateTop
 			? -subRotateVSize
 			: activeSubRotateBottom
 				? subRotateVSize
@@ -37,7 +36,7 @@ export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 
 	const currentRotation = useRef(0);
 
-	const {rotateYTotal} = useSpring({
+	const {rotateYTotal: rotateCard} = useSpring({
 		rotateYTotal: currentRotation.current,
 		config: {tension: 180, friction: 12, duration: 400},
 		onRest: () => {
@@ -136,7 +135,7 @@ export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 	const face1 = getFaceParameters(props.faces[0]);
 	const face2 = getFaceParameters(props.faces[1]);
 
-	return <mesh ref={ref}>
+	return <mesh>
 		<CardActiveOver onLeave={moveNone}
 		                onBottom={moveBottom}
 		                onLeft={moveLeft}
@@ -150,12 +149,10 @@ export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 		<CardActiveClick onClickLeft={clickLeft} onClickRight={clickRight}/>
 
 		<animated.mesh
-			rotation-y={rotateY}
-			rotation-x={rotateX}
+			rotation-y={subRotateY}
+			rotation-x={subRotateX}
 		>
-			<animated.mesh
-				rotation-y={rotateYTotal}
-			>
+			<animated.mesh rotation-y={rotateCard}>
 				<CardFace face={face1} positionZ={cardThickness / 2} rotation={[0, 0, 0]}/>
 				<CardFace face={face2} positionZ={-cardThickness / 2} rotation={[0, Math.PI, 0]}/>
 			</animated.mesh>
