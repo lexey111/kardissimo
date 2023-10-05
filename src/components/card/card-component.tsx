@@ -40,7 +40,7 @@ export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 
 	const {rotateYTotal: rotateCard} = useSpring({
 		rotateYTotal: currentRotation.current,
-		config: {tension: 180, friction: 12, duration: 400},
+		config: config.wobbly,//{tension: 180, friction: 12, duration: 400},
 		onRest: () => {
 			setCardState('stale');
 		}

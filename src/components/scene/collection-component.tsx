@@ -8,7 +8,7 @@ const text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ei
 const text2 = 'Other side';
 
 // https://docs.pmnd.rs/react-three-fiber/api/canvas
-export const Scene: React.FC = () => {
+export const Collection: React.FC = () => {
 
 	return <Canvas
 		style={{
