@@ -1,12 +1,17 @@
 import React from "react";
 
-import "./styles.css";
-import {Scene} from "./components/scene/scene-component.tsx";
+import {AboutPage} from "./pages/about-page.tsx";
+import {HomePage} from "./pages/home-page.tsx";
+import {ScenePage} from "./pages/scene-page.tsx";
+import {Route, Routes} from "react-router";
+import {BrowserRouter} from "react-router-dom";
 
-// https://docs.pmnd.rs/react-three-fiber/api/canvas
 export const App: React.FC = () => {
-	return <div>
-		<p>Scene</p>
-		<Scene/>
-	</div>;
+	return <BrowserRouter>
+		<Routes>
+			<Route path="/" element={<HomePage/>}/>
+			<Route path="/about" element={<AboutPage/>}/>
+			<Route path="/scene" element={<ScenePage/>}/>
+		</Routes>
+	</BrowserRouter>;
 };
