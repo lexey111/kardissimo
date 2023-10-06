@@ -22,13 +22,13 @@ const extrudeSettings = {
 
 export type TCardSurfaceProps = {
 	color: string
-	positionZ: number
+	positionZ?: number
 };
 
 export const CardSurface: React.FC<TCardSurfaceProps> = ({color, positionZ}) => {
-	return <mesh position={[-cardWidth / 2, -cardHeight / 2, (positionZ || 0) - cardThickness / 2]} castShadow={true} receiveShadow={true}>
+	return <mesh position={[-cardWidth / 2, -cardHeight / 2, (positionZ || 0) - cardThickness / 2]} castShadow={true}
+	             receiveShadow={true}>
 		<extrudeGeometry args={[cardSurfaceShape, extrudeSettings]}/>
 		<meshPhongMaterial color={color}/>
-		{/*<meshBasicMaterial color={color} transparent={true} opacity={0.8}/>*/}
 	</mesh>;
 };

@@ -2,7 +2,7 @@ import React, {useCallback, useRef, useState} from "react";
 import {TCardProps} from "./card-types.ts";
 import {cardThickness, getFaceParameters} from "./parts/card-utils.ts";
 import {CardFace} from "./parts/card-face.component.tsx";
-import {animated, config, useSpring} from '@react-spring/three'
+import {animated, config, useSpring} from '@react-spring/three';
 import {CardActiveOver} from "./parts/card-active-over.component.tsx";
 import {CardActiveClick} from "./parts/card-active-click.component.tsx";
 import {useThree} from "@react-three/fiber";
@@ -12,7 +12,7 @@ export type TCardState = 'stale' | 'rotateLeft' | 'rotateRight';
 const subRotateHSize = Math.PI / 32;
 const subRotateVSize = Math.PI / 64;
 
-export const Card: React.FC<TCardProps> = (props: TCardProps) => {
+export const FlatCard: React.FC<TCardProps> = ({faces, active = true}) => {
 	const {viewport} = useThree();
 
 	const [cardState, setCardState] = useState<TCardState>('stale')
@@ -38,8 +38,8 @@ export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 
 	const currentRotation = useRef(0);
 
-	const {rotateYTotal: rotateCard} = useSpring({
-		rotateYTotal: currentRotation.current,
+	const {rotateCard} = useSpring({
+		rotateCard: currentRotation.current,
 		config: config.wobbly,//{tension: 180, friction: 12, duration: 400},
 		onRest: () => {
 			setCardState('stale');
@@ -134,23 +134,23 @@ export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 	}, [cardState]);
 
 	// Input parameters
-	const face1 = getFaceParameters(props.faces[0]);
-	const face2 = getFaceParameters(props.faces[1]);
+	const face1 = getFaceParameters(faces[0]);
+	const face2 = getFaceParameters(faces[1]);
 
 	const scale = Math.min(viewport.width / 250, viewport.height / 350);
 
-	return <mesh scale={[scale, scale, 1]}>
-		<CardActiveOver onLeave={moveNone}
-		                onBottom={moveBottom}
-		                onLeft={moveLeft}
-		                onLeftBottom={moveLeftBottom}
-		                onRight={moveRight}
-		                onRightBottom={moveRightBottom}
-		                onTop={moveTop}
-		                onTopLeft={moveTopLeft}
-		                onTopRight={moveTopRight}
-		/>
-		<CardActiveClick onClickLeft={clickLeft} onClickRight={clickRight}/>
+	return <group scale={[scale, scale, 1]}>
+		{active && <CardActiveOver onLeave={moveNone}
+		                           onBottom={moveBottom}
+		                           onLeft={moveLeft}
+		                           onLeftBottom={moveLeftBottom}
+		                           onRight={moveRight}
+		                           onRightBottom={moveRightBottom}
+		                           onTop={moveTop}
+		                           onTopLeft={moveTopLeft}
+		                           onTopRight={moveTopRight}
+		/>}
+		{active && <CardActiveClick onClickLeft={clickLeft} onClickRight={clickRight}/>}
 
 		<animated.mesh
 			rotation-y={subRotateY}
@@ -161,5 +161,5 @@ export const Card: React.FC<TCardProps> = (props: TCardProps) => {
 				<CardFace face={face2} positionZ={-cardThickness / 2} rotation={[0, Math.PI, 0]}/>
 			</animated.mesh>
 		</animated.mesh>
-	</mesh>;
+	</group>;
 };
