@@ -3,6 +3,7 @@ import {Canvas} from "@react-three/fiber";
 import {CollectionObject} from "../collection/collection-object.component.tsx";
 
 // https://docs.pmnd.rs/react-three-fiber/api/canvas
+
 export const CollectionScene: React.FC = () => {
 	return <Canvas shadows
 	               style={{

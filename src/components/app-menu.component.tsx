@@ -8,6 +8,9 @@ export const AppMenu: React.FC = () => {
 				<NavLink to="/">Home</NavLink>
 			</li>
 			<li>
+				<NavLink to="/collections">Collections</NavLink>
+			</li>
+			<li>
 				<NavLink to="/about">About</NavLink>
 			</li>
 			<li>
