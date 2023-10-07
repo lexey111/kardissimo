@@ -1,14 +1,21 @@
-@import "menu.scss";
-@import "page.scss";
-@import "collections.scss";
-@import "header.scss";
+@import "styles/precompiled/_fonts.css";
+@import "styles/precompiled/_normalize.css";
+
+@import "styles/variables.css";
+@import "styles/menu";
+@import "styles/page";
+@import "styles/collections";
+@import "styles/header";
+@import "styles/buttons";
 
 html {
   font-family: sans-serif;
 }
 
 body {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui;
+  font-display: optional;
+  //font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -27,4 +34,8 @@ body {
   margin: 0;
   padding: 0;
   position: relative;
+}
+
+h1, h2, h3 {
+  font-weight: normal;
 }

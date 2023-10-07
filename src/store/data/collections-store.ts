@@ -9,8 +9,8 @@ export type TBackgroundAppearance = {
 }
 
 export type TCollectionStat = {
-	created_at: number
-	changed_at: number
+	created_at: Date
+	changed_at: Date
 }
 
 export type TCollectionAppearance = {

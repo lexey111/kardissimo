@@ -1,0 +1,143 @@
+.collection-item {
+	display: flex;
+	flex-flow: row nowrap;
+	background: rgba(255, 255, 255, .4);
+	border-radius: 18px;
+	margin: 0 0 32px 0;
+	padding: 16px;
+	align-items: center;
+}
+
+.collection-item-actions {
+	display: flex;
+	flex-flow: column wrap;
+	margin-left: auto;
+	background: rgba(255, 255, 255, .4);
+	border-radius: 12px;
+	padding: 16px;
+}
+
+.collection-item-content {
+	display: flex;
+	flex-flow: column wrap;
+}
+
+.collection-editor {
+	display: flex;
+	flex-flow: column wrap;
+	align-content: center;
+
+	input::placeholder {
+		color: #9ac1d9;
+	}
+
+	form {
+		display: flex;
+		flex-flow: column wrap;
+		background-color: rgba(255, 255, 255, 0.4);
+		box-shadow: 4px 4px 18px rgba(0, 0, 0, .2);
+		border-radius: 8px;
+		padding: 32px;
+		max-width: 600px;
+		color: #333;
+	}
+
+	fieldset {
+		display: flex;
+		flex-flow: row wrap;
+		outline: none;
+		border: none;
+		align-items: center;
+		align-content: center;
+
+		&.actions {
+			margin-top: 32px;
+			justify-content: flex-end;
+		}
+	}
+
+	div.error {
+		font-size: .9rem;
+		margin: 0 0 1rem 7rem;
+		color: #560220;
+		display: inline-flex;
+		align-content: center;
+		align-items: center;
+		transform-origin: top left;
+		animation-name: appear-message;
+		animation-timing-function: ease-in;
+		animation-duration: .2s;
+
+		&:before {
+			content: '\26A0';
+			background: #ff005b;
+			color: white;
+			font-size: 1rem;
+			line-height: 1;
+			padding: 8px;
+			border-radius: 100%;
+			font-weight: bold;
+			margin-right: .4em;
+		}
+	}
+
+	label {
+		width: 6rem;
+		display: inline-flex;
+		align-items: center;
+		position: relative;
+		padding: 0;
+		margin: 0;
+	}
+
+	input[type=text] {
+		display: inline-flex;
+		margin: 0;
+		flex-grow: 2;
+		padding: 12px 16px;
+		border: none;
+		border-bottom: 4px solid rgba(119, 119, 119, 0.1);
+		outline: none;
+		border-radius: 4px;
+		transition: all .4s ease;
+
+		&:focus {
+			box-shadow: 2px 2px 12px rgba(0, 0, 0, .2);
+			border: none;
+			border-bottom: 4px solid rgba(239, 186, 0, 1);
+			outline: none;
+		}
+		&.error {
+			border-bottom-color: #ff005b;
+		}
+	}
+}
+
+@keyframes appear-message {
+	0% {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+
+// temp
+.collection-count {
+	background: rgba(255, 255, 255, 0.4);
+	display: inline-flex;
+	aspect-ratio: 1/1;
+	line-height: 1;
+	vertical-align: middle;
+	border-radius: 12px;
+	margin: 0;
+	padding: 16px;
+	font-size: 1.4rem;
+	align-content: center;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: nowrap;
+}
