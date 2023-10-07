@@ -1,10 +1,14 @@
 import React from "react";
 import {AppPage} from "../components/app-page.component.tsx";
+import {AppPageHeader} from "../components/app-page-header.component.tsx";
 
 export const AboutPage: React.FC = () => {
 	return <AppPage title={'About page'}>
+		<AppPageHeader
+			title={'About'}
+			subtitle={'What that is and what for'}
+		/>
 		<div className={'about-page'}>
-			<h1>About page</h1>
 			<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda commodi consequatur dolor
 				esse inventore, ipsam laudantium nostrum odit officiis placeat quia quibusdam recusandae repellat rerum
 				similique tempora ullam voluptates.
