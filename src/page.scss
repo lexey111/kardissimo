@@ -41,26 +41,6 @@
 	}
 }
 
-.collections {
-	flex-flow: row nowrap;
-	align-items: center;
-	justify-content: center;
-	display: grid;
-	grid-template-columns: 4fr 1fr;
-	background: rgba(0, 0, 0, .3);
-	border-radius: 18px;
-	padding: 32px;
-	min-height: 50vh;
-
-	.collection-test-1, .collection-test-2 {
-		position: relative;
-		background: rgba(255, 255, 255, .4);
-		border-radius: 18px;
-		margin-right: 32px;
-		aspect-ratio: 1/1;
-	}
-}
-
 .scenes {
 	display: grid;
 	height: 100%;
