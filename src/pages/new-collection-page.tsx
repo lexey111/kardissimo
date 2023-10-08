@@ -1,11 +1,10 @@
 import React, {useCallback, useState} from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {CollectionScene} from "../components/scene/collection-scene.component.tsx";
-import {AppPageHeader} from "../components/app-page-header.component.tsx";
 import {useNavigate} from 'react-router-dom';
 import {ErrorMessage, Field, Form, Formik, FormikHelpers,} from 'formik';
 import {TCollection} from "../store/data/collections-store.ts";
-
+import {AppSecondaryPageHeader} from "../components/app-secondary-page-header.component.tsx";
 
 const InitialValues: TCollection = {
 	title: '',
@@ -13,13 +12,16 @@ const InitialValues: TCollection = {
 	isLocal: true
 }
 
-function getInitialValues(): TCollection {
+// TODO: replace sides with array
+function getInitialValues(): TCollection & { side1: string, side2: string } {
 	return {
 		...InitialValues,
 		stat: {
 			changed_at: new Date(),
 			created_at: new Date()
-		}
+		},
+		side1: 'Side 1',
+		side2: 'Side 2'
 	};
 }
 
@@ -66,6 +68,29 @@ const CollectionForm = ({
 			       maxLength={50} size={40}
 			       placeholder="John Doe" type={'text'}/>
 		</fieldset>
+
+		<fieldset>
+			<label htmlFor="side1">Side I Name*</label>
+			<Field id="side1" name="side1"
+			       validate={validateTitle}
+			       autoComplete="off"
+			       maxLength={50} size={40}
+			       className={errors.side1 && touched.side1 ? 'error' : ''}
+			       placeholder="English" type={'text'}/>
+		</fieldset>
+		{touched.side1 && <ErrorMessage name="side1" component="div" className={'error'}/>}
+
+		<fieldset>
+			<label htmlFor="side2">Side II Name*</label>
+			<Field id="side2" name="side2"
+			       validate={validateTitle}
+			       autoComplete="off"
+			       maxLength={50} size={40}
+			       className={errors.side2 && touched.side2 ? 'error' : ''}
+			       placeholder="Español" type={'text'}/>
+		</fieldset>
+		{touched.side2 && <ErrorMessage name="side2" component="div" className={'error'}/>}
+
 		<fieldset className={'actions'}>
 			<button type="button" className={'pure-button'} onClick={handleReset}>&larr; Cancel</button>
 			&nbsp;
@@ -91,19 +116,18 @@ export const NewCollectionPage: React.FC = () => {
 	}, []);
 
 	return <AppPage title={'New collection page'}>
-		<AppPageHeader
+		<AppSecondaryPageHeader
 			title={'New collection'}
 			subtitle={'Create your own set of cards'}
 			image={<CollectionScene/>}
 			onBack={handleBack}
 		/>
 		<div className={'collection-editor'}>
-			<h1>Fill the form, please</h1>
 			<Formik
 				initialValues={initState}
 				onReset={handleBack}
 				onSubmit={handleSubmit}
-				validateOnBlur={false}
+				validateOnBlur={true}
 				component={CollectionForm}/>
 		</div>
 	</AppPage>;

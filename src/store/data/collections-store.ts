@@ -24,6 +24,7 @@ export type TCollection = {
 	author?: string
 	stat?: TCollectionStat
 	appearance?: TCollectionAppearance
+	sides?: [string, string] // 2
 	// cards: Array<TCard> // TBD
 }
 

@@ -38,27 +38,39 @@
 		box-shadow: 4px 4px 18px rgba(0, 0, 0, .2);
 		border-radius: 8px;
 		padding: 32px;
-		max-width: 600px;
+		max-width: 700px;
 		color: #333;
 	}
 
 	fieldset {
 		display: flex;
+		padding: 6px;
+		//min-height: 58px;
 		flex-flow: row wrap;
 		outline: none;
 		border: none;
 		align-items: center;
 		align-content: center;
+		transition: all .2s ease;
 
 		&.actions {
 			margin-top: 32px;
 			justify-content: flex-end;
 		}
+
+		&:focus-within {
+			background-color: rgba(255, 255, 255, 0.2);
+			border-radius: 4px;
+
+			label {
+				font-weight: bold;
+			}
+		}
 	}
 
 	div.error {
 		font-size: .9rem;
-		margin: 0 0 1rem 7rem;
+		margin: 0 0 1rem 9rem;
 		color: #560220;
 		display: inline-flex;
 		align-content: center;
@@ -82,11 +94,11 @@
 	}
 
 	label {
-		width: 6rem;
+		width: 8rem;
 		display: inline-flex;
 		align-items: center;
 		position: relative;
-		padding: 0;
+		padding: 0 0 0 12px;
 		margin: 0;
 	}
 
@@ -107,11 +119,14 @@
 			border-bottom: 4px solid rgba(239, 186, 0, 1);
 			outline: none;
 		}
+
 		&.error {
 			border-bottom-color: #ff005b;
 		}
 	}
 }
+
+// media: 650px on wrap
 
 @keyframes appear-message {
 	0% {

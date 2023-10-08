@@ -1,0 +1,133 @@
+.app-secondary-page-header {
+	display: flex;
+	flex-flow: row nowrap;
+	width: 100vw;
+	margin: -16px 0 32px 0;
+	justify-content: flex-start;
+	background: rgba(255, 255, 255, .4);
+	position: relative;
+
+	.app-ph-image {
+		width: 120px;
+		height: 120px;
+		flex-shrink: 0;
+		position: absolute;
+		right: 24px;
+		top: -32px;
+		padding: 0;
+		border: 2px solid rgba(255,255,255, .4);
+		border-bottom: none;
+		border-radius: 100%;
+
+		animation-name: appear-image;
+		animation-timing-function: ease-in;
+		animation-duration: 1s;
+	}
+
+	.app-ph-back {
+		display: flex;
+		position: absolute;
+		font-size: 1.2rem;
+		top: 1.5rem;
+		left: -2rem;
+		width: 1.2rem;
+		height: 1.2rem;
+		padding: 6px;
+
+		border-radius: 100%;
+		border: 2px solid rgba(255, 255, 255, .3);
+
+		cursor: pointer;
+		transition: all .4s ease;
+		animation-name: appear-back;
+		animation-timing-function: ease-in-out;
+		animation-duration: 1.5s;
+
+		&:hover {
+			background: rgba(255, 255, 255, .4);
+			border: 2px solid rgba(255, 255, 255, .6);
+			transform: scale(1.2);
+		}
+	}
+
+	.app-ph-title {
+		line-height: 1;
+		position: relative;
+		margin: 0 auto;
+		min-width: 600px;
+		width: 70%;
+	}
+
+	.app-ph-caption {
+		font-size: 3rem;
+		font-weight: 200;
+		color: #fff;
+		padding: 1rem 2rem 0;
+		margin: 0;
+		position: relative;
+		display: flex;
+		flex-flow: column nowrap;
+		word-break: normal;
+		white-space: nowrap;
+		hyphens: none;
+		font-variant: small-caps;
+	}
+
+
+	.app-ph-subtitle {
+		padding: 0 0 1rem 0;
+		margin: 0;
+		font-size: 1rem;
+		font-weight: 400;
+		font-variant: small-caps;
+		color: #fff;
+		opacity: .8;
+		position: relative;
+		display: flex;
+		width: auto;
+		animation-name: appear-subpage-subtitle;
+		animation-timing-function: ease-in-out;
+		animation-duration: 1.5s;
+	}
+
+
+	&.no-back {
+		.app-ph-subtitle {
+			margin: -.5rem 0 2rem 0rem;
+		}
+	}
+}
+
+@keyframes appear-image {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes appear-back {
+	0% {
+		transform: translateX(-50px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+@keyframes appear-subpage-subtitle {
+	0% {
+		transform: translateY(-40px);
+		opacity: 0;
+	}
+	50% {
+		transform: translateY(20px);
+		opacity: .8;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
