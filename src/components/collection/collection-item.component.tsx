@@ -11,12 +11,10 @@ export const CollectionItem: React.FC<TCollectionItemProps> = React.memo(({id}) 
 		return null;
 	}
 
-	console.log('[ITEM]', collection.id);
-
 	return <div className={'collection-item-content'}>
-		<div className={'collection-id'}>{collection.id}</div>
-		<div className={'collection-is-local'}>{collection.isLocal ? 'Local' : 'Cloud'}</div>
 		<div className={'collection-title'}>{collection.title}</div>
-		<div className={'collection-author'}>{collection.author}</div>
+		<div className={'collection-author'}>by {collection.author}</div>
+		<div className={'collection-is-local'}>{collection.isLocal ? 'Local' : 'Cloud'}</div>
+		<div className={'collection-sides'}>Content: {collection.sides?.join(', ')}</div>
 	</div>;
 }, () => true);

@@ -86,6 +86,11 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	color: #fff;
 	opacity: 1;
 }
+.pure-button-danger, .pure-button-selected, a.pure-button-danger, a.pure-button-selected {
+	background-color: #ff005b;
+	color: #fff;
+	opacity: 1;
+}
 
 .pure-button-group .pure-button {
 	margin: 0;

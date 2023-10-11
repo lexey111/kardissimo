@@ -9,6 +9,7 @@ import {AnimationLayout} from "./components/animation-layout.component.tsx";
 import {AppMenu} from "./components/app-menu.component.tsx";
 import {CollectionsPage} from "./pages/collections-page.tsx";
 import {NewCollectionPage} from "./pages/new-collection-page.tsx";
+import {EditCollectionPage} from "./pages/edit-collection-page.tsx";
 
 export const App: React.FC = () => {
 	return <BrowserRouter>
@@ -19,6 +20,7 @@ export const App: React.FC = () => {
 					<Route path="/" element={<HomePage/>}/>
 					<Route path="/collections" element={<CollectionsPage/>}/>
 					<Route path="/collections/new" element={<NewCollectionPage/>}/>
+					<Route path="/collections/:id" element={<EditCollectionPage/>}/>
 					<Route path="/about" element={<AboutPage/>}/>
 					<Route path="/scene" element={<ScenePage/>}/>
 				</Route>

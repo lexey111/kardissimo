@@ -8,7 +8,6 @@ const selector = (state: ICollectionState) => state.collections.map(c => c.id);
 export const CollectionList: React.FC = () => {
 	const collectionIds = useCollectionStore(useShallow(selector));
 
-	console.log('[LIST]');
 	return <div className={'collection-list'}>
 		{collectionIds.map(collectionId => {
 			return <div key={collectionId} className={'collection-item'}>

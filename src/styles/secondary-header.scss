@@ -2,10 +2,11 @@
 	display: flex;
 	flex-flow: row nowrap;
 	width: 100vw;
-	margin: -16px 0 32px 0;
+	margin: -16px 0 0 0;
 	justify-content: flex-start;
-	background: rgba(255, 255, 255, .4);
+	background: rgba(255, 255, 255, .2);
 	position: relative;
+	color: #345e98;
 
 	.app-ph-image {
 		width: 120px;
@@ -21,31 +22,33 @@
 
 		animation-name: appear-image;
 		animation-timing-function: ease-in;
-		animation-duration: 1s;
+		animation-duration: .5s;
+		animation-delay: .5s;
+		animation-play-state: revert;
+		animation-fill-mode: backwards;
 	}
 
 	.app-ph-back {
 		display: flex;
 		position: absolute;
 		font-size: 1.2rem;
-		top: 1.5rem;
+		top: 1.8rem;
 		left: -2rem;
 		width: 1.2rem;
 		height: 1.2rem;
 		padding: 6px;
+		font-weight: 300;
 
 		border-radius: 100%;
-		border: 2px solid rgba(255, 255, 255, .3);
+		border: 2px solid #345e98;;
 
 		cursor: pointer;
 		transition: all .4s ease;
 		animation-name: appear-back;
 		animation-timing-function: ease-in-out;
-		animation-duration: 1.5s;
+		animation-duration: 1s;
 
 		&:hover {
-			background: rgba(255, 255, 255, .4);
-			border: 2px solid rgba(255, 255, 255, .6);
 			transform: scale(1.2);
 		}
 	}
@@ -61,7 +64,6 @@
 	.app-ph-caption {
 		font-size: 3rem;
 		font-weight: 200;
-		color: #fff;
 		padding: 1rem 2rem 0;
 		margin: 0;
 		position: relative;
@@ -80,14 +82,13 @@
 		font-size: 1rem;
 		font-weight: 400;
 		font-variant: small-caps;
-		color: #fff;
 		opacity: .8;
 		position: relative;
 		display: flex;
 		width: auto;
 		animation-name: appear-subpage-subtitle;
 		animation-timing-function: ease-in-out;
-		animation-duration: 1.5s;
+		animation-duration: 1s;
 	}
 
 
@@ -101,7 +102,7 @@
 @keyframes appear-image {
 	0% {
 		opacity: 0;
-		transform: translateX(10px);
+		transform: translateX(20px);
 	}
 	100% {
 		opacity: 1;
@@ -122,11 +123,11 @@
 
 @keyframes appear-subpage-subtitle {
 	0% {
-		transform: translateY(-40px);
+		transform: translateY(-20px);
 		opacity: 0;
 	}
 	50% {
-		transform: translateY(20px);
+		transform: translateY(10px);
 		opacity: .8;
 	}
 	100% {

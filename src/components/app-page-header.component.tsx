@@ -3,10 +3,11 @@ import React, {useEffect, useRef, useState} from "react";
 export type TAppPageHeaderProps = {
 	title: string
 	subtitle?: string
+	count?: string
 	image?: JSX.Element
 	onBack?: () => void
 }
-export const AppPageHeader: React.FC<TAppPageHeaderProps> = ({title, subtitle, image, onBack}) => {
+export const AppPageHeader: React.FC<TAppPageHeaderProps> = ({title, count, subtitle, image, onBack}) => {
 	const [show, setShow] = useState(false);
 
 	const destroying = useRef(false);
@@ -33,6 +34,7 @@ export const AppPageHeader: React.FC<TAppPageHeaderProps> = ({title, subtitle, i
 						&larr;
 					</span>}
 				{title}
+				{!!count && <span className={'app-ph-count'}>{count}</span>}
 			</div>
 			{subtitle && <div className={'app-ph-subtitle'}>{subtitle}</div>}
 		</div>

@@ -2,7 +2,7 @@
 	display: flex;
 	flex-flow: row nowrap;
 	width: auto;
-	margin: 64px 0 32px 0;
+	margin: 64px 0 0 0;
 	justify-content: flex-start;
 	position: relative;
 
@@ -16,7 +16,21 @@
 
 		animation-name: appear-image;
 		animation-timing-function: ease-in;
-		animation-duration: 1s;
+		animation-duration: .8s;
+		animation-delay: .5s;
+		animation-play-state: revert;
+		animation-fill-mode: backwards;
+	}
+
+	.app-ph-count {
+		margin-left: 2rem;
+		padding: 0 2rem;
+		font-size: .5em;
+		//border-left: 1px solid rgba(255, 255, 255, .8);
+		opacity: .5;
+		border-left-width: 2px;
+		border-left-style: solid;
+		border-image: linear-gradient(to bottom, transparent, rgba(255, 255, 255, .6)) 1;
 	}
 
 	.app-ph-back {
@@ -43,6 +57,7 @@
 	.app-ph-title {
 		line-height: 1;
 		position: relative;
+		font-weight: 300;
 
 		&:before {
 			content: '';
@@ -81,7 +96,7 @@
 			transform-origin: top left;
 			animation-name: appear;
 			animation-timing-function: ease-in-out;
-			animation-duration: .8s;
+			animation-duration: .7s;
 		}
 	}
 
@@ -98,7 +113,7 @@
 		width: auto;
 		animation-name: appear-subtitle;
 		animation-timing-function: ease-in-out;
-		animation-duration: 1.2s;
+		animation-duration: 1s;
 	}
 
 

@@ -1,5 +1,7 @@
 import {create} from 'zustand';
-import {nanoid} from "nanoid";
+import {customAlphabet, urlAlphabet} from 'nanoid';
+
+const nanoid = customAlphabet(urlAlphabet, 16);
 
 
 export type TBackgroundAppearance = {
@@ -32,17 +34,28 @@ export type TCollection = {
 
 export interface ICollectionState {
 	collections: Array<TCollection>
-	// getCollection: (id: string) => TCollection | undefined
 	add: (newCollection: TCollection) => void
 	remove: (id: string) => void
-	rename: (id: string, title: string) => void
+	update: (data: TCollection) => void
 }
 
+// const collection = useCollectionStore((state) => state.collections.find(c => c.id === id));
 export const useCollectionStore = create<ICollectionState>((set) => ({
-	collections: [{id: nanoid(), title: 'Test collection'}, {id: nanoid(), title: 'Second collection', isLocal: true}],
-	// getCollection: (id) => {
-	// 	return collectionStore.collections.find(c => c.id === id);
-	// },
+	collections: [
+		{
+			id: nanoid(),
+			title: 'Test collection',
+			author: 'unknown',
+			isLocal: true,
+			sides: ['aaa', 'bbb']
+		},
+		{
+			id: nanoid(),
+			title: 'Second collection',
+			author: 'unknown',
+			isLocal: true,
+			sides: ['a123', 'b234']
+		}],
 	add: (newCollection: TCollection) => set((state) => {
 		let _collection = {...newCollection};
 		if (!newCollection.id) {
@@ -58,9 +71,15 @@ export const useCollectionStore = create<ICollectionState>((set) => ({
 			collections: state.collections.filter(c => c.id !== id)
 		};
 	}),
-	rename: (id, title) => set((state,) => {
+	update: (data) => set((state) => {
+		const oldData = state.collections.find(c => c.id === data?.id);
+		if (!oldData) {
+			return {...state.collections};
+		}
 		return {
-			collections: state.collections.map(c => c.id !== id ? c : {...c, title})
+			collections: state.collections.map(c => c.id !== data.id
+				? c
+				: {...data})
 		};
 	}),
 }));

@@ -1,6 +1,5 @@
 import React from "react";
 import {AppPage} from "../components/app-page.component.tsx";
-import {CollectionCount} from "../components/collection/collection-count.component.tsx";
 import {AppPageHeader} from "../components/app-page-header.component.tsx";
 
 export const HomePage: React.FC = () => {
@@ -9,6 +8,5 @@ export const HomePage: React.FC = () => {
 			title={'Home'}
 			subtitle={'Welcome here! How do you do?'}
 		/>
-		<CollectionCount/>
 	</AppPage>;
 };

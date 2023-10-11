@@ -1,0 +1,30 @@
+.big-error {
+	width: 100%;
+	text-align: center;
+
+	.big-error-title {
+		background-color: #ff005b;
+		color: #fff;
+		margin: 0;
+		padding: 32px;
+	}
+
+	.big-error-caption {
+		font-size: 3rem;
+		font-weight: 200;
+
+	}
+
+	.big-error-subtitle {
+		font-size: 1.5rem;
+		font-weight: 200;
+	}
+
+	.big-error-back {
+		margin-top: 32px;
+
+		a {
+			color: #fff;
+		}
+	}
+}
