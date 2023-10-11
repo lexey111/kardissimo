@@ -2,9 +2,11 @@ import React, {useCallback, useState} from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {CollectionScene} from "../components/scene/collection-scene.component.tsx";
 import {useNavigate} from 'react-router-dom';
-import {ErrorMessage, Field, Form, Formik, FormikHelpers,} from 'formik';
+import {Field, Form, Formik, FormikHelpers,} from 'formik';
 import {TCollection} from "../store/data/collections-store.ts";
 import {AppSecondaryPageHeader} from "../components/app-secondary-page-header.component.tsx";
+import {Tooltip} from 'react-tooltip';
+
 
 const InitialValues: TCollection = {
 	title: '',
@@ -13,25 +15,24 @@ const InitialValues: TCollection = {
 }
 
 // TODO: replace sides with array
-function getInitialValues(): TCollection & { side1: string, side2: string } {
+function getInitialValues(): TCollection {
 	return {
 		...InitialValues,
 		stat: {
 			changed_at: new Date(),
 			created_at: new Date()
 		},
-		side1: 'Side 1',
-		side2: 'Side 2'
+		sides: ['English', 'Español']
 	};
 }
 
-function validateTitle(value: string) {
+function validateRequired(value: string) {
 	let error;
 	if (!value || !value.trim()) {
-		error = 'Please fill the field';
+		return 'Please fill the field';
 	}
 	if (value.length < 3 || value.length > 50) {
-		error = 'Length must be from 3 to 50 characters';
+		return 'Must be 3..50 characters long';
 	}
 	return error;
 }
@@ -41,60 +42,87 @@ const CollectionForm = ({
 	                        handleReset,
 	                        // handleChange,
 	                        // handleBlur,
-	                        // values,
+	                        values,
 	                        errors,
 	                        touched,
 	                        // setErrors,
                         }: any) => {
 
+	const titleError = touched.title && errors.title;
+	const titleClass = touched.title
+		? errors.title ? ' invalid' : ' valid'
+		: '';
+
+	const hasErrors = Object.keys(errors).length > 0;
 
 	return <Form>
-		<fieldset>
-			<label htmlFor="title">Title*</label>
-			<Field id="title" name="title" type={'text'}
-			       validate={validateTitle}
-			       autoFocus={'on'}
-			       autoComplete="off"
-			       maxLength={50} size={40}
-			       className={errors.title && touched.title ? 'error' : ''}
-			       placeholder="My first collection" required/>
+		<fieldset className={'required' + titleClass}>
+			<label htmlFor="title">Title</label>
+			<div className={'field-set'}>
+				<Field id="title" name="title" type={'text'}
+				       validate={validateRequired}
+				       autoFocus={'on'}
+				       autoComplete="off"
+				       maxLength={50} size={40}
+				       placeholder="My first collection" required/>
+				{titleError && <div>
+					<a data-tooltip-id="title-tooltip" className={'tooltip-error'}>⚠</a>
+					<Tooltip id="title-tooltip" place={'right'}
+					         style={{backgroundColor: "#ff005b", color: "#fff"}}>
+						{errors.title}
+					</Tooltip>
+				</div>}
+			</div>
 		</fieldset>
-		{touched.title && <ErrorMessage name="title" component="div" className={'error'}/>}
 
 		<fieldset>
 			<label htmlFor="author">Author</label>
-			<Field id="author" name="author"
-			       autoComplete="off"
-			       maxLength={50} size={40}
-			       placeholder="John Doe" type={'text'}/>
+			<div className={'field-set'}>
+				<Field id="author" name="author"
+				       autoComplete="off"
+				       maxLength={50} size={40}
+				       placeholder="John Doe" type={'text'}/>
+			</div>
 		</fieldset>
 
-		<fieldset>
-			<label htmlFor="side1">Side I Name*</label>
-			<Field id="side1" name="side1"
-			       validate={validateTitle}
-			       autoComplete="off"
-			       maxLength={50} size={40}
-			       className={errors.side1 && touched.side1 ? 'error' : ''}
-			       placeholder="English" type={'text'}/>
-		</fieldset>
-		{touched.side1 && <ErrorMessage name="side1" component="div" className={'error'}/>}
+		<h3>Side Names</h3>
+		{values.sides.map((_: string, idx: number) => {
+			const name = 'sides[' + idx + ']';
+			const sideClass = touched.sides?.[idx]
+				? errors.sides?.[idx] ? ' invalid' : ' valid' : '';
 
-		<fieldset>
-			<label htmlFor="side2">Side II Name*</label>
-			<Field id="side2" name="side2"
-			       validate={validateTitle}
-			       autoComplete="off"
-			       maxLength={50} size={40}
-			       className={errors.side2 && touched.side2 ? 'error' : ''}
-			       placeholder="Español" type={'text'}/>
-		</fieldset>
-		{touched.side2 && <ErrorMessage name="side2" component="div" className={'error'}/>}
+			const sideError = touched.sides?.[idx] && errors.sides?.[idx];
+
+			return <fieldset className={'required' + sideClass} key={name}>
+				<label htmlFor={'sides[' + idx + ']'}>Side {idx + 1}</label>
+				<div className={'field-set'}>
+					<Field id={name} name={name}
+					       validate={validateRequired}
+					       autoComplete="off"
+					       maxLength={30} size={40}
+					       placeholder="English" type={'text'}/>
+
+					{sideError && <div>
+						<a data-tooltip-id={"title-tooltip-" + idx} className={'tooltip-error'}>⚠</a>
+						<Tooltip id={"title-tooltip-" + idx} place={'right'}
+						         style={{backgroundColor: "#ff005b", color: "#fff"}}>
+							{errors.sides?.[idx]}
+						</Tooltip>
+					</div>}
+				</div>
+			</fieldset>
+		})}
 
 		<fieldset className={'actions'}>
-			<button type="button" className={'pure-button'} onClick={handleReset}>&larr; Cancel</button>
+			<button type="button" className={'pure-button'}
+			        onClick={handleReset}>&larr; Cancel
+			</button>
 			&nbsp;
-			<button type="button" onClick={handleSubmit} className={'pure-button pure-button-primary'}>Continue</button>
+			<button type="button"
+			        onClick={handleSubmit}
+			        disabled={hasErrors}
+			        className={'pure-button pure-button-primary'}>Continue &rarr;
+			</button>
 		</fieldset>
 	</Form>
 };
@@ -105,7 +133,6 @@ export const NewCollectionPage: React.FC = () => {
 	const [initState] = useState<TCollection>(getInitialValues());
 
 	const handleBack = useCallback(() => {
-		console.log('go back');
 		navigate(-1);
 	}, []);
 
@@ -127,6 +154,8 @@ export const NewCollectionPage: React.FC = () => {
 				initialValues={initState}
 				onReset={handleBack}
 				onSubmit={handleSubmit}
+				validateOnMount={true}
+				validateOnChange={true}
 				validateOnBlur={true}
 				component={CollectionForm}/>
 		</div>

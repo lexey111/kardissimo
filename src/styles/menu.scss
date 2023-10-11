@@ -21,6 +21,7 @@
 			margin: 0 8px 0 0;
 			padding: 0;
 			display: flex;
+
 			&:last-child {
 				margin-right: 0;
 			}
@@ -31,9 +32,16 @@
 				padding: 8px 16px;
 				border-radius: 6px;
 				transition: all .4s ease;
+				outline: none;
 
 				&:hover, &.active {
 					background: rgba(0, 0, 0, .4);
+					//outline: none;
+				}
+
+				&:focus {
+					text-decoration: underline;
+					text-underline-offset: 6px;
 				}
 			}
 		}
