@@ -18,8 +18,13 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 		navigate('/collections/' + id);
 	}, []);
 
+	const goCards = useCallback((id: string) => {
+		navigate('/collections/' + id + '/cards');
+	}, []);
+
 	return <div className={'collection-item-actions'}>
-		<button onClick={() => editCollection(id!)} className={'pure-button pure-button-primary'}>Edit</button>
+		<button onClick={() => editCollection(id!)} className={'pure-button pure-button-secondary'}>Edit</button>
+		<button onClick={() => goCards(id!)} className={'pure-button pure-button-primary'}>Cards</button>
 		<button onClick={() => removeCollection(id!)} className={'pure-button pure-button-danger'}>Remove</button>
 	</div>;
 };

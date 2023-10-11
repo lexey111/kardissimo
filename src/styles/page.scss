@@ -10,8 +10,13 @@
 }
 
 a {
-	text-underline-offset: 6px;
+	text-underline-offset: 10px;
+	text-decoration-thickness: 1px;
 	transition: all .2s ease;
+}
+
+a:hover, a:focus {
+	text-underline-offset: 4px;
 }
 
 .app-page {
@@ -32,7 +37,6 @@ a {
 		.app-page-content {
 			// page
 			padding: 16px 32px;
-			// max-width: 1200px;
 			min-width: 70%;
 			flex-grow: 2;
 			position: relative;

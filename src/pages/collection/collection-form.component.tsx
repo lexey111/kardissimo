@@ -102,7 +102,7 @@ export const CollectionForm: React.FC = ({
 			<button type="button"
 			        onClick={handleSubmit}
 			        disabled={hasErrors}
-			        className={'pure-button pure-button-primary'}>Continue &rarr;
+			        className={'pure-button pure-button-primary'}>Save
 			</button>
 		</fieldset>
 	</Form>

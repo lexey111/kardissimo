@@ -1,12 +1,12 @@
 import React, {useCallback, useState} from "react";
-import {AppPage} from "../components/app-page.component.tsx";
-import {CollectionScene} from "../components/scene/collection-scene.component.tsx";
+import {AppPage} from "../../components/app-page.component.tsx";
+import {CollectionScene} from "../../components/scene/collection-scene.component.tsx";
 import {NavLink, useNavigate, useParams} from 'react-router-dom';
 import {Formik, FormikHelpers,} from 'formik';
-import {ICollectionState, TCollection, useCollectionStore} from "../store/data/collections-store.ts";
-import {AppSecondaryPageHeader} from "../components/app-secondary-page-header.component.tsx";
-import {CollectionForm} from "./collection/collection-form.component.tsx";
-import {AppPageError} from "../components/app-page-error.component.tsx";
+import {ICollectionState, TCollection, useCollectionStore} from "../../store/data/collections-store.ts";
+import {AppSecondaryPageHeader} from "../../components/app-secondary-page-header.component.tsx";
+import {CollectionForm} from "./collection-form.component.tsx";
+import {AppPageError} from "../../components/app-page-error.component.tsx";
 
 const selector = (state: ICollectionState) => state.update;
 export const EditCollectionPage: React.FC = () => {
