@@ -5,6 +5,7 @@ import {CollectionActions} from "./collection-actions.component.tsx";
 import {useShallow} from "zustand/react/shallow";
 
 const selector = (state: ICollectionState) => state.collections.map(c => c.id);
+
 export const CollectionList: React.FC = () => {
 	const collectionIds = useCollectionStore(useShallow(selector));
 

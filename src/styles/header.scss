@@ -2,8 +2,8 @@
 	display: flex;
 	flex-flow: row nowrap;
 	width: auto;
-	margin: 64px 0 0 0;
-	justify-content: flex-start;
+	margin: 32px 0 0 0;
+	align-self: flex-start;
 	position: relative;
 
 	.app-ph-image {

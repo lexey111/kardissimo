@@ -1,18 +1,15 @@
 import React, {useCallback} from "react";
-import {useCollectionStore} from "../../store/data/collections-store.ts";
 import {useNavigate} from "react-router-dom";
+import {removeCollection} from "../../store/data/collections-store.actions.ts";
+import {countCards} from "../../store/data/collections-store.selectors.ts";
 
 export type TCollectionActionsProps = {
 	id: string;
 }
 export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
-	const {remove} = useCollectionStore();
 	const navigate = useNavigate();
 
-	const removeCollection = useCallback((id: string) => {
-		console.log('Remove', id);
-		remove(id);
-	}, []);
+	const cardCount = countCards(id);
 
 	const editCollection = useCallback((id: string) => {
 		navigate('/collections/' + id);
@@ -24,7 +21,7 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 
 	return <div className={'collection-item-actions'}>
 		<button onClick={() => editCollection(id!)} className={'pure-button pure-button-secondary'}>Edit</button>
-		<button onClick={() => goCards(id!)} className={'pure-button pure-button-primary'}>Cards</button>
+		<button onClick={() => goCards(id!)} className={'pure-button pure-button-primary'}>Cards ({cardCount})</button>
 		<button onClick={() => removeCollection(id!)} className={'pure-button pure-button-danger'}>Remove</button>
 	</div>;
 };

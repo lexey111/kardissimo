@@ -66,7 +66,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 
 .pure-button-active, .pure-button:active {
 	box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 0 6px rgba(0, 0, 0, .2) inset;
-	border-color: #000
+	//border-color: #000
 }
 
 .pure-button-disabled, .pure-button-disabled:active, .pure-button-disabled:focus, .pure-button-disabled:hover, .pure-button[disabled] {
@@ -87,6 +87,33 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	color: #fff;
 	opacity: 1;
 }
+
+.pure-button-floating {
+	border-radius: 100%;
+	font-size: 3rem;
+	display: flex;
+	flex-flow: row nowrap;
+	align-content: center;
+	justify-content: center;
+	line-height: 1;
+	padding: 6px;
+	width: 56px;
+	height: 56px;
+	margin: 0;
+	box-shadow: 2px 4px 8px rgba(0, 0, 0, .4);
+	border: 2px solid rgba(255, 255, 255, .7);
+	box-sizing: content-box;
+}
+
+.pure-button-floating:focus, .pure-button-floating:hover {
+	text-decoration: none;
+}
+
+.pure-button-floating:hover {
+	box-shadow: 2px 4px 12px rgba(0, 0, 0, .6);
+	border-color: rgba(255, 255, 255, .9);
+}
+
 .pure-button-danger, .pure-button-selected, a.pure-button-danger, a.pure-button-selected {
 	background-color: #ff005b;
 	color: #fff;

@@ -38,10 +38,20 @@ a:hover, a:focus {
 			// page
 			padding: 16px 32px;
 			min-width: 70%;
+			width: 100%;
 			flex-grow: 2;
+			display: flex;
+			flex-flow: column nowrap;
+			align-items: center;
 			position: relative;
 		}
 	}
+}
+
+.page {
+	width: 1200px;
+	max-width: 70%;
+	min-width: 400px;
 }
 
 .about-page {

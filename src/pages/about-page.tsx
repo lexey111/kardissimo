@@ -9,6 +9,16 @@ export const AboutPage: React.FC = () => {
 			subtitle={'What that is and what for'}
 		/>
 		<div className={'about-page'}>
+			<ul>
+				<li>Zustand</li>
+				<li>Formik</li>
+				<li>ThreeJS</li>
+				<li>drei, troika text</li>
+				<li>Tooltip</li>
+				<li>React</li>
+				<li>Vite</li>
+				<li>Typescript</li>
+			</ul>
 			<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda commodi consequatur dolor
 				esse inventore, ipsam laudantium nostrum odit officiis placeat quia quibusdam recusandae repellat rerum
 				similique tempora ullam voluptates.

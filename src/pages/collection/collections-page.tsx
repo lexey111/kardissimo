@@ -4,11 +4,10 @@ import {CollectionList} from "../../components/collection/collection-list.compon
 import {AddNewCollection} from "../../components/collection/collection-add.component.tsx";
 import {AppPageHeader} from "../../components/app-page-header.component.tsx";
 import {CollectionScene} from "../../components/scene/collection-scene.component.tsx";
-import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
+import {countCollections} from "../../store/data/collections-store.selectors.ts";
 
-const selector = (state: ICollectionState) => state.collections.length;
 export const CollectionsPage: React.FC = () => {
-	const count = useCollectionStore(selector);
+	const count = countCollections();
 
 	return <AppPage title={'Collections page'}>
 		<AppPageHeader
@@ -17,9 +16,8 @@ export const CollectionsPage: React.FC = () => {
 			subtitle={'Decks of cards'}
 			image={<CollectionScene/>}
 		/>
-		<CollectionList/>
-
-		<div>
+		<div className={'page'}>
+			<CollectionList/>
 			<AddNewCollection/>
 		</div>
 	</AppPage>;

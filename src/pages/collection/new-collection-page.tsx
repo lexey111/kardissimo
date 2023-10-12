@@ -3,10 +3,10 @@ import {AppPage} from "../../components/app-page.component.tsx";
 import {CollectionScene} from "../../components/scene/collection-scene.component.tsx";
 import {useNavigate} from 'react-router-dom';
 import {Formik, FormikHelpers,} from 'formik';
-import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
 import {AppSecondaryPageHeader} from "../../components/app-secondary-page-header.component.tsx";
 import {CollectionForm} from "./collection-form.component.tsx";
 import {TCollection} from "../../store/data/types.ts";
+import {createCollection} from "../../store/data/collections-store.actions.ts";
 
 const InitialValues: TCollection = {
 	title: '',
@@ -25,11 +25,8 @@ function getInitialValues(): TCollection {
 	};
 }
 
-const selector = (state: ICollectionState) => state.add;
-
 export const NewCollectionPage: React.FC = () => {
 	const navigate = useNavigate();
-	const add = useCollectionStore(selector);
 
 	const [initState] = useState<TCollection>(getInitialValues());
 
@@ -53,7 +50,7 @@ export const NewCollectionPage: React.FC = () => {
 		// 	"Español"
 		// ]
 		// }
-		add({
+		createCollection({
 			title: values.title,
 			isLocal: true,
 			author: values.author,

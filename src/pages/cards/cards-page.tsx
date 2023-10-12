@@ -1,15 +1,16 @@
 import React, {useCallback} from "react";
 import {AppPage} from "../../components/app-page.component.tsx";
-import {useCollectionStore} from "../../store/data/collections-store.ts";
 import {useNavigate, useParams} from "react-router-dom";
 import {AppSecondaryPageHeader} from "../../components/app-secondary-page-header.component.tsx";
-import {CardList} from "../../components/card-editor/cards-component.tsx";
 import {CollectionNotFound} from "../../components/utils/collection-not-found.component.tsx";
+import {getCollection} from "../../store/data/collections-store.selectors.ts";
+import {CardAddFloating} from "../../components/card-editor/card-add-floating.component.tsx";
+import {CardList} from "../../components/card-editor/card-list.component.tsx";
 
 export const CardsPage: React.FC = () => {
 	const navigate = useNavigate();
 	const params = useParams()
-	const collection = useCollectionStore((state) => state.collections.find(c => c.id === params.id));
+	const collection = getCollection(params.id);
 
 	const handleBack = useCallback(() => {
 		navigate('/collections');
@@ -25,6 +26,11 @@ export const CardsPage: React.FC = () => {
 			subtitle={'Fill the deck'}
 			onBack={handleBack}
 		/>
-		<CardList collectionId={collection?.id}/>
-	</AppPage>;
+
+		<div className={'page'}>
+			<CardList collectionId={collection.id}/>
+			<CardAddFloating collectionId={collection.id}/>
+		</div>
+	</AppPage>
+		;
 };

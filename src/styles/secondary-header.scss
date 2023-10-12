@@ -1,7 +1,8 @@
 .app-secondary-page-header {
 	display: flex;
 	flex-flow: row nowrap;
-	width: 100vw;
+	width: 100%;
+	flex-grow: 0;
 	margin: -16px 0 0 0;
 	justify-content: flex-start;
 	background: rgba(255, 255, 255, .2);
