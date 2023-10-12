@@ -21,16 +21,23 @@
 		padding: 32px 0 0;
 		max-width: 700px;
 		color: #333;
+
 	}
 
 	h3 {
 		font-size: 1rem;
 		font-weight: 300;
 		text-transform: uppercase;
-		background-color: rgba(0, 0, 0, .2);
+		background-color: rgba(255, 255, 255, .4);
 		text-align: center;
 		padding: 0 6px;
-		color: rgba(255, 255, 255, .7);
+		color: #0f384f;
+
+		&.title {
+			border-radius: 8px 8px 0 0;
+			padding: 0;
+			margin: -32px 0 16px 0;
+		}
 	}
 
 	fieldset {
@@ -131,7 +138,7 @@
 	}
 
 	label {
-		width: 8rem;
+		width: 6rem;
 		display: inline-flex;
 		align-items: center;
 		position: relative;
@@ -139,7 +146,7 @@
 		margin: 0;
 	}
 
-	input[type=text] {
+	input[type=text], textarea {
 		display: inline-flex;
 		margin: 0;
 		flex-grow: 2;
@@ -158,6 +165,10 @@
 		}
 	}
 
+	textarea {
+		height: 4rem;
+		min-height: 2rem;
+	}
 }
 
 

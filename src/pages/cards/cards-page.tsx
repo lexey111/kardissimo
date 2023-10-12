@@ -20,17 +20,16 @@ export const CardsPage: React.FC = () => {
 		return <CollectionNotFound/>;
 	}
 
-	return <AppPage title={'Cards: ' + collection?.title}>
+	return <AppPage title={'Cards: ' + collection?.title}
+	                float={<CardAddFloating collectionId={collection.id}/>}>
+
 		<AppSecondaryPageHeader
 			title={'Cards: ' + collection?.title}
-			subtitle={'Fill the deck'}
 			onBack={handleBack}
 		/>
 
 		<div className={'page'}>
 			<CardList collectionId={collection.id}/>
-			<CardAddFloating collectionId={collection.id}/>
 		</div>
-	</AppPage>
-		;
+	</AppPage>;
 };

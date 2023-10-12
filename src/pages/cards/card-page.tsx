@@ -4,6 +4,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import {AppSecondaryPageHeader} from "../../components/app-secondary-page-header.component.tsx";
 import {CollectionNotFound} from "../../components/utils/collection-not-found.component.tsx";
 import {getCollection} from "../../store/data/collections-store.selectors.ts";
+import {CardEditor} from "../../components/card-editor/card-editor.component.tsx";
+import {CardNotFound} from "../../components/utils/card-not-found.component.tsx";
 
 export const CardPage: React.FC = () => {
 	const navigate = useNavigate();
@@ -18,6 +20,12 @@ export const CardPage: React.FC = () => {
 		return <CollectionNotFound/>;
 	}
 
+	const card = collection.cards?.find(c => c.id === params.cardId);
+
+	if (!card || !card.sides) {
+		return <CardNotFound collectionId={params.id}/>;
+	}
+
 	return <AppPage title={'Cards | ' + collection?.title}>
 		<AppSecondaryPageHeader
 			title={'Card of ' + collection?.title}
@@ -25,8 +33,7 @@ export const CardPage: React.FC = () => {
 		/>
 
 		<div className={'page'}>
-			Card editor here
+			<CardEditor collectionId={collection.id} cardId={card.id}/>
 		</div>
-	</AppPage>
-		;
+	</AppPage>;
 };

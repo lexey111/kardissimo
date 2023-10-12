@@ -1,5 +1,5 @@
 import {customAlphabet, urlAlphabet} from 'nanoid';
-import {TCollection} from "./types.ts";
+import {TCard, TCollection} from "./types.ts";
 import {useCollectionStore} from "./collections-store.ts";
 
 const nanoid = customAlphabet(urlAlphabet, 16);
@@ -52,6 +52,26 @@ export const createCard = (collectionId?: string) => useCollectionStore.setState
 			]
 		}
 	);
+
+	return {
+		collections: state.collections
+	};
+});
+
+export const updateCard = (collectionId?: string, data?: TCard) => useCollectionStore.setState((state) => {
+	const collection = state.collections.find(c => c.id === collectionId);
+
+	if (!collection) {
+		return {...state.collections}; // collection not found
+	}
+
+	const hasCard = collection.cards?.find(c => c.id === data?.id);
+
+	if (!hasCard) {
+		return {...state.collections}; // card not found
+	}
+
+	collection.cards = collection!.cards!.map(c => c.id !== data!.id ? c : data!);
 
 	return {
 		collections: state.collections

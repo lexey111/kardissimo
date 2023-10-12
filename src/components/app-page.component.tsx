@@ -4,6 +4,7 @@ import {AppFooter} from "./app-footer.component.tsx";
 export type TAppPageProps = {
 	title: string
 	children: any
+	float?: JSX.Element
 	pageClass?: string
 }
 export const AppPage: React.FC<TAppPageProps> = (props) => {
@@ -11,6 +12,7 @@ export const AppPage: React.FC<TAppPageProps> = (props) => {
 		<div className={'app-page-content' + (props.pageClass ? ' ' + props.pageClass : '')}>
 			{props.children}
 		</div>
+		{props.float && props.float}
 		<AppFooter/>
 	</div>;
 };

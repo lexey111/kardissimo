@@ -25,7 +25,7 @@ function getInitialValues(): TCollection {
 	};
 }
 
-export const NewCollectionPage: React.FC = () => {
+export const CollectionNewPage: React.FC = () => {
 	const navigate = useNavigate();
 
 	const [initState] = useState<TCollection>(getInitialValues());
@@ -35,21 +35,6 @@ export const NewCollectionPage: React.FC = () => {
 	}, []);
 
 	const handleSubmit = useCallback((values: TCollection, actions: FormikHelpers<TCollection>) => {
-		// console.log({values, actions});
-		// alert(JSON.stringify(values, null, 2));
-		// {
-		// 	"title": "wdw",
-		// 	"author": "dwqdfrf re",
-		// 	"isLocal": true,
-		// 	"stat": {
-		// 	"changed_at": "2023-10-11T13:54:04.561Z",
-		// 		"created_at": "2023-10-11T13:54:04.561Z"
-		// },
-		// 	"sides": [
-		// 	"English",
-		// 	"Español"
-		// ]
-		// }
 		createCollection({
 			title: values.title,
 			isLocal: true,

@@ -10,7 +10,7 @@ import {CollectionNotFound} from "../../components/utils/collection-not-found.co
 import {updateCollection} from "../../store/data/collections-store.actions.ts";
 import {getCollection} from "../../store/data/collections-store.selectors.ts";
 
-export const EditCollectionPage: React.FC = () => {
+export const CollectionEditorPage: React.FC = () => {
 	const navigate = useNavigate();
 	const params = useParams()
 	const collection = getCollection(params.id)

@@ -1,7 +1,8 @@
 #root {
 	display: flex;
 	flex-flow: column wrap;
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 	position: absolute;
 	top: 0;
 	left: 0;

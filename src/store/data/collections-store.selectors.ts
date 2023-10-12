@@ -11,7 +11,9 @@ export const countCollections = () => useCollectionStore.getState().collections?
 
 export const getCards = (collectionId: string) => useCollectionStore.getState().collections?.find(c => c.id === collectionId)?.cards;
 
-export const getCard = (collectionId?: string, cardId?: string) => useCollectionStore(state => (state
-	.collections?.find(c => c.id === collectionId)?.cards?.find(c => c.id === cardId)));
+export const getCard = (collectionId?: string, cardId?: string) => useCollectionStore(state => (
+	state.collections
+		?.find(c => c.id === collectionId)?.cards
+		?.find(c => c.id === cardId)));
 
 export const countCards = (collectionId?: string) => useCollectionStore(state => state.collections?.find(c => c.id === collectionId)?.cards?.length || 0)
