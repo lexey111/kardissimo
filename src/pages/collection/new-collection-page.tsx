@@ -3,9 +3,10 @@ import {AppPage} from "../../components/app-page.component.tsx";
 import {CollectionScene} from "../../components/scene/collection-scene.component.tsx";
 import {useNavigate} from 'react-router-dom';
 import {Formik, FormikHelpers,} from 'formik';
-import {ICollectionState, TCollection, useCollectionStore} from "../../store/data/collections-store.ts";
+import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
 import {AppSecondaryPageHeader} from "../../components/app-secondary-page-header.component.tsx";
 import {CollectionForm} from "./collection-form.component.tsx";
+import {TCollection} from "../../store/data/types.ts";
 
 const InitialValues: TCollection = {
 	title: '',

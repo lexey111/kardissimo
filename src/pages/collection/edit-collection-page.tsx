@@ -1,12 +1,13 @@
 import React, {useCallback, useState} from "react";
 import {AppPage} from "../../components/app-page.component.tsx";
 import {CollectionScene} from "../../components/scene/collection-scene.component.tsx";
-import {NavLink, useNavigate, useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {Formik, FormikHelpers,} from 'formik';
-import {ICollectionState, TCollection, useCollectionStore} from "../../store/data/collections-store.ts";
+import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
 import {AppSecondaryPageHeader} from "../../components/app-secondary-page-header.component.tsx";
 import {CollectionForm} from "./collection-form.component.tsx";
-import {AppPageError} from "../../components/app-page-error.component.tsx";
+import {TCollection} from "../../store/data/types.ts";
+import {CollectionNotFound} from "../../components/utils/collection-not-found.component.tsx";
 
 const selector = (state: ICollectionState) => state.update;
 export const EditCollectionPage: React.FC = () => {
@@ -30,9 +31,7 @@ export const EditCollectionPage: React.FC = () => {
 	}, []);
 
 	if (!collection || !collection.sides) {
-		return <AppPageError title={'Collection Not Found'}
-		                     subtitle={'Sorry for that.'}
-		                     back={<NavLink to={'/collections'}>&larr; Back to collections</NavLink>}/>;
+		return <CollectionNotFound/>;
 	}
 
 	return <AppPage title={'Collection page'}>

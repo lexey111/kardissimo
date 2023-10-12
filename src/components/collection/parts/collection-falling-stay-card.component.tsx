@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {animated, config, useSpring} from '@react-spring/three';
-import {FlatCard} from "../../card/flat-card.component.tsx";
+import {FlatCard} from "../../card3d/flat-card.component.tsx";
 
 export const CollectionFallingStayCard: React.FC = () => {
 	const [falling, setFalling] = useState(false);

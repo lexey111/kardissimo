@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {animated, config, useSpring} from '@react-spring/three';
-import {CardSurface} from "../../card/parts/card-surface.component.tsx";
+import {CardSurface} from "../../card3d/parts/card-surface.component.tsx";
 
 export type TCollectionFallingCardProps = {
 	color: string

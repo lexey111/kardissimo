@@ -1,8 +1,8 @@
 import React, {useRef} from "react";
-import {CollectionStand} from "./parts/collection-stand.component.tsx";
+import {CollectionStand} from "./collection-stand.component.tsx";
 import {useFrame, useThree} from "@react-three/fiber";
-import {CollectionFallingCard} from "./parts/collection-falling-card.component.tsx";
-import {CollectionFallingStayCard} from "./parts/collection-falling-stay-card.component.tsx";
+import {CollectionFallingCard} from "./collection-falling-card.component.tsx";
+import {CollectionFallingStayCard} from "./collection-falling-stay-card.component.tsx";
 
 const sheetsArray = Array.from({length: 30}, () => {
 	return Math.random() > 0.7 ? '#' + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0') : '#a99';
