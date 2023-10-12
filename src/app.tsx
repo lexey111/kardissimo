@@ -11,6 +11,7 @@ import {CollectionsPage} from "./pages/collection/collections-page.tsx";
 import {NewCollectionPage} from "./pages/collection/new-collection-page.tsx";
 import {EditCollectionPage} from "./pages/collection/edit-collection-page.tsx";
 import {CardsPage} from "./pages/cards/cards-page.tsx";
+import {CardPage} from "./pages/cards/card-page.tsx";
 
 export const App: React.FC = () => {
 	return <BrowserRouter>
@@ -23,6 +24,7 @@ export const App: React.FC = () => {
 				<Route path="/collections/new" element={<NewCollectionPage/>}/>
 				<Route path="/collections/:id" element={<EditCollectionPage/>}/>
 				<Route path="/collections/:id/cards" element={<CardsPage/>}/>
+				<Route path="/collections/:id/cards/:cardId" element={<CardPage/>}/>
 				<Route path="/about" element={<AboutPage/>}/>
 				<Route path="/scene" element={<ScenePage/>}/>
 				{/*</Route>*/}

@@ -41,7 +41,9 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 
 		{cardIds.map((cardId, idx) => {
 			return <div key={cardId} className={'card-item'}>
-				<div className={'card-number'}>{idx + 1}</div>
+				<div className={'card-number'}>{idx + 1}
+					{idx %2 === 0 && <span>of {cardIds.length}</span>}
+				</div>
 
 				<div className={'card-sides'}>
 					{sides?.map((_, idx) => {

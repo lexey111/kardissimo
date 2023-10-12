@@ -26,7 +26,8 @@ export const AppSecondaryPageHeader: React.FC<TAppPageHeaderProps> = ({title, su
 	}, [setShow]);
 
 
-	return <div className={'app-secondary-page-header' + (onBack ? ' with-back' : ' no-back')}>
+	return <div
+		className={'app-secondary-page-header' + (onBack ? ' with-back' : ' no-back') + (subtitle ? ' with-subtitle' : ' no-subtitle')}>
 		<div className={'app-ph-title'}>
 			<div className={'app-ph-caption'}>
 				{onBack && <span className={'app-ph-back'} onClick={onBack}>

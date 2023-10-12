@@ -77,7 +77,7 @@ createCollection({
 	id: '1234', //nanoid(),
 	title: 'First Test collection',
 	isLocal: true,
-	sides: ['aaa', 'bbb']
+	sides: ['English', 'Español']
 });
 
 createCollection({
@@ -85,7 +85,7 @@ createCollection({
 	title: 'Second collection',
 	author: 'John Doe',
 	isLocal: true,
-	sides: ['a123', 'b234']
+	sides: ['English', 'Español']
 });
 
 createCollection({
@@ -93,7 +93,7 @@ createCollection({
 	title: 'Dynamic collection',
 	author: 'John Doe',
 	isLocal: true,
-	sides: ['a123', 'b234']
+	sides: ['English', 'Español']
 });
 
 for (let i = 0; i < 100; i++) {

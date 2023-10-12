@@ -92,6 +92,23 @@
 		animation-duration: 1s;
 	}
 
+	&.no-subtitle {
+		.app-ph-back {
+			top: .55rem;
+			font-size: 1rem;
+			left: -1rem;
+			width: 1rem;
+			height: 1rem;
+			padding: 6px;
+			border-width: 1px;
+		}
+
+		.app-ph-caption {
+			font-size: 2rem;
+			font-weight: 200;
+			padding: .5rem 2rem;
+		}
+	}
 
 	&.no-back {
 		.app-ph-subtitle {
