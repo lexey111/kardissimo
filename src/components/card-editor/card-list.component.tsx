@@ -3,8 +3,13 @@ import {ICollectionState, useCollectionStore} from "../../store/data/collections
 import {CardSide} from "./card-side.component.tsx";
 import {useShallow} from "zustand/react/shallow";
 import {CardRemove} from "./card-remove.component.tsx";
-import {createCard} from "../../store/data/collections-store.actions.ts";
 import {useNavigate} from "react-router-dom";
+import {CardListAdd} from "./card-list-add.component.tsx";
+import {IoIosAddCircle} from "react-icons/io";
+import {createCard} from "../../store/data/collections-store.actions.ts";
+import {customAlphabet, urlAlphabet} from "nanoid";
+
+const nanoid = customAlphabet(urlAlphabet, 16);
 
 export type TCardListProps = {
 	collectionId?: string
@@ -19,59 +24,58 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 	const sides = useCollectionStore(useShallow((state: ICollectionState) => state.collections
 		.find(c => c.id === collectionId)?.sides));
 
-	const navigateToCard = useCallback((cardId: string) => {
-		navigate(`/collections/${collectionId}/cards/${cardId}`);
+	const handleAdd = useCallback(() => {
+		const newId = nanoid();
+
+		createCard(collectionId!, newId);
+		navigate(`/collections/${collectionId}/cards/${newId}?new`);
 	}, []);
 
 	console.log('[LIST]')
 
 	if (!cardIds || cardIds.length === 0) {
-		return <div className={'card-no-data'}>
-			<p>
-				No data to display. Please, use the button below to create the first one.
+		return <div className={'margin-center'}>
+			<CardListAdd sides={sides} onClick={handleAdd}/>
+			<p className={'center'}>
+				No cards to display, yet. Please, use the button <IoIosAddCircle/> above to create the first one.
 			</p>
-
-			<button onClick={() => createCard(collectionId)}
-			        className={'pure-button pure-button-primary'}>Create card
-			</button>
 		</div>;
 	}
 
-	return <div className={'card-list'}>
-		<div className={'card-sides-header'}>
-			{sides?.map((sideName, idx) => {
-				return <div className={'card-side-name'} key={sideName + idx.toString()}>
-					{sideName}
-				</div>
+	return <div>
+		<div className={'card-list'}>
+			<div className={'card-sides-header'}>
+				{sides?.map((sideName, idx) => {
+					return <div className={'card-side-name'} key={sideName + idx.toString()}>
+						{sideName}
+					</div>
+				})}
+			</div>
+
+			{cardIds.map((cardId, idx) => {
+				return <div key={cardId} className={'card-item'}>
+					<div className={'card-number'}>{idx + 1}
+						{idx % 2 === 0 && <span>of {cardIds.length}</span>}
+					</div>
+
+					<div className={'card-sides'}>
+						{sides?.map((_, idx) => {
+							return <CardSide
+								collectionId={collectionId}
+								cardId={cardId}
+								sideIdx={idx}
+								key={cardId + idx.toString()}/>
+						})}
+					</div>
+
+					<div className={'card-actions'}>
+						{/*<CardAdd collectionId={collectionId}/>*/}
+						<CardRemove collectionId={collectionId} cardId={cardId}/>
+					</div>
+				</div>;
 			})}
 		</div>
-
-		{cardIds.map((cardId, idx) => {
-			return <div key={cardId} className={'card-item'}>
-				<div className={'card-number'}>{idx + 1}
-					{idx % 2 === 0 && <span>of {cardIds.length}</span>}
-				</div>
-
-				<div className={'card-sides'}>
-					{sides?.map((_, idx) => {
-						return <CardSide
-							collectionId={collectionId}
-							cardId={cardId}
-							sideIdx={idx}
-							key={cardId + idx.toString()}/>
-					})}
-				</div>
-
-				<div className={'card-actions'}>
-					<button onClick={() => navigateToCard(cardId)}
-					        className={'pure-button pure-button-primary'}>
-						Edit
-					</button>
-
-					<CardRemove collectionId={collectionId} cardId={cardId}/>
-				</div>
-			</div>;
-		})}
+		<CardListAdd sides={sides} onClick={handleAdd} showHeader={false}/>
 	</div>;
 
 };

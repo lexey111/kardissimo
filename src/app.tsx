@@ -9,9 +9,9 @@ import {AnimationLayout} from "./components/animation-layout.component.tsx";
 import {AppMenu} from "./components/app-menu.component.tsx";
 import {CollectionsPage} from "./pages/collection/collections-page.tsx";
 import {CollectionNewPage} from "./pages/collection/collection-new-page.tsx";
-import {CollectionEditorPage} from "./pages/collection/collection-editor.page.tsx";
+import {CollectionEditPage} from "./pages/collection/collection-edit.page.tsx";
 import {CardsPage} from "./pages/cards/cards-page.tsx";
-import {CardPage} from "./pages/cards/card-page.tsx";
+import {CardEditPage} from "./pages/cards/card-edit.page.tsx";
 
 export const App: React.FC = () => {
 	return <BrowserRouter>
@@ -24,9 +24,9 @@ export const App: React.FC = () => {
 				</Route>
 
 				<Route path="/collections/new" element={<CollectionNewPage/>}/>
-				<Route path="/collections/:id" element={<CollectionEditorPage/>}/>
+				<Route path="/collections/:id" element={<CollectionEditPage/>}/>
 				<Route path="/collections/:id/cards" element={<CardsPage/>}/>
-				<Route path="/collections/:id/cards/:cardId" element={<CardPage/>}/>
+				<Route path="/collections/:id/cards/:cardId" element={<CardEditPage/>}/>
 
 				<Route element={<AnimationLayout/>}>
 					<Route path="/about" element={<AboutPage/>}/>

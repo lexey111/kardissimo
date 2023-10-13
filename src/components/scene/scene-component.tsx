@@ -10,7 +10,6 @@ const text2 = 'Other side';
 // https://docs.pmnd.rs/react-three-fiber/api/canvas
 // https://github.com/pmndrs/drei#screenspace
 export const Scene: React.FC = () => {
-
 	return <Canvas
 		style={{
 			position: "absolute", top: 0, left: 0, width: "100%", height: "100%"

@@ -1,5 +1,6 @@
 import React from "react";
 import {removeCard} from "../../store/data/collections-store.actions.ts";
+import {FaTrashCan} from "react-icons/fa6";
 
 export type TCardRemoveProps = {
 	collectionId?: string
@@ -7,8 +8,5 @@ export type TCardRemoveProps = {
 }
 
 export const CardRemove: React.FC<TCardRemoveProps> = ({collectionId, cardId}) => {
-	return <button onClick={() => removeCard(collectionId, cardId)}
-	               className={'pure-button pure-button-danger'}>
-		Remove
-	</button>;
+	return <div onClick={() => removeCard(collectionId, cardId)}><FaTrashCan/></div>;
 };

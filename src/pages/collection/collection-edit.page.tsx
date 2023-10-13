@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from "react";
 import {AppPage} from "../../components/app-page.component.tsx";
 import {CollectionScene} from "../../components/scene/collection-scene.component.tsx";
-import {useNavigate, useParams} from 'react-router-dom';
+import {NavLink, useNavigate, useParams} from 'react-router-dom';
 import {Formik, FormikHelpers,} from 'formik';
 import {AppSecondaryPageHeader} from "../../components/app-secondary-page-header.component.tsx";
 import {CollectionForm} from "./collection-form.component.tsx";
@@ -10,7 +10,7 @@ import {CollectionNotFound} from "../../components/utils/collection-not-found.co
 import {updateCollection} from "../../store/data/collections-store.actions.ts";
 import {getCollection} from "../../store/data/collections-store.selectors.ts";
 
-export const CollectionEditorPage: React.FC = () => {
+export const CollectionEditPage: React.FC = () => {
 	const navigate = useNavigate();
 	const params = useParams()
 	const collection = getCollection(params.id)
@@ -35,8 +35,11 @@ export const CollectionEditorPage: React.FC = () => {
 
 	return <AppPage title={'Collection page'}>
 		<AppSecondaryPageHeader
-			title={'Collection'}
-			subtitle={collection.title}
+			title={<div>
+				<NavLink to={'/collections'}>Collections</NavLink>
+				<i>|</i>
+				<b>{collection.title}</b>&nbsp; &mdash; Edit
+			</div>}
 			image={<CollectionScene/>}
 			onBack={handleBack}
 		/>

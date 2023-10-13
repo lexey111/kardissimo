@@ -33,7 +33,7 @@ export const updateCollection = (data: TCollection) => useCollectionStore.setSta
 	};
 });
 
-export const createCard = (collectionId?: string) => useCollectionStore.setState((state) => {
+export const createCard = (collectionId: string, newId: string) => useCollectionStore.setState((state) => {
 	const collection = state.collections.find(c => c.id === collectionId);
 
 	if (!collection) {
@@ -44,8 +44,9 @@ export const createCard = (collectionId?: string) => useCollectionStore.setState
 		collection.cards = [];
 	}
 
+
 	collection.cards.push({
-			id: nanoid(),
+			id: newId,
 			sides: [
 				{word: 'The word'},
 				{word: 'La palabra'}
@@ -117,5 +118,5 @@ createCollection({
 });
 
 for (let i = 0; i < 100; i++) {
-	createCard('6789');
+	createCard('6789', nanoid());
 }

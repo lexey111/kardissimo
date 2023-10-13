@@ -1,47 +1,63 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import {Field, Form,} from 'formik';
-import {TCardSide} from "../../store/data/types.ts";
+import {TCard, TCardSide} from "../../store/data/types.ts";
 
-export const CardForm: React.FC = ({
-	                                   handleSubmit,
-	                                   handleReset,
-	                                   values,
-                                   }: any) => {
+export type TCardFormProps = {
+	handleReset: any
+	handleChange: any
+	values: TCard
+}
+export const CardForm: React.FC<TCardFormProps> = ({
+	                                                   handleReset,
+	                                                   handleChange,
+	                                                   values,
+                                                   }: any) => {
 
-	// {"id":"D-rt4bwbcetiss4z","sides":[{"word":"The word"},{"word":"La palabra"}]}
-	return <Form>
+	const destroying = useRef(false);
+	useEffect(() => {
+		return () => {
+			destroying.current = true;
+		}
+	}, []);
+
+	useEffect(() => {
+		setTimeout(() => {
+			if (!destroying.current) {
+				document.getElementById('sides[0].header')?.focus();
+			}
+		}, 200);
+	}, []);
+
+	return <Form onChange={handleChange}>
 		{values.sides?.map((_: TCardSide, idx: number) => {
 			return <div key={idx.toString()}>
 				<h3 className={idx === 0 ? 'title' : ''}>Side {idx + 1}: <b>{values.names[idx]}</b></h3>
 
 				<fieldset>
-					<label htmlFor={`sides[${idx}].header`}>Header</label>
 					<div className={'field-set'}>
 						<Field id={`sides[${idx}].header`} name={`sides[${idx}].header`}
 						       autoComplete="off"
-						       maxLength={128} size={40}
+						       maxLength={128} size={30}
 						       placeholder="Top text"
 						       type={'text'}/>
 					</div>
 				</fieldset>
 
 				<fieldset>
-					<label htmlFor={`sides[${idx}].word`}>Text</label>
 					<div className={'field-set'}>
 						<Field id={`sides[${idx}].word`} name={`sides[${idx}].word`}
 						       autoComplete="off"
-						       maxLength={256} size={40}
+						       maxLength={256} size={30}
 						       placeholder="Main text"
 						       as={'textarea'}/>
 					</div>
 				</fieldset>
 
 				<fieldset>
-					<label htmlFor={`sides[${idx}].footer`}>Footer</label>
 					<div className={'field-set'}>
 						<Field id={`sides[${idx}].footer`} name={`sides[${idx}].footer`}
 						       autoComplete="off"
-						       maxLength={128} size={40}
+						       maxLength={128} size={30}
 						       placeholder="Bottom text"
 						       type={'text'}/>
 					</div>
@@ -54,9 +70,9 @@ export const CardForm: React.FC = ({
 			        onClick={handleReset}>&larr; Cancel
 			</button>
 			&nbsp;
-			<button type="button"
-			        onClick={handleSubmit}
-			        className={'pure-button pure-button-primary'}>Save
+			<button type="submit"
+				//onClick={handleSubmit}
+				    className={'pure-button pure-button-primary'}>Save
 			</button>
 		</fieldset>
 	</Form>
