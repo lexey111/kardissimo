@@ -5,6 +5,7 @@ import {CardListAdd} from "./card-list-add.component.tsx";
 import {useSettingsStore} from "../../store/settings/settings-store.ts";
 import {CardListNoData} from "./card-list-no-data.component.tsx";
 import {CardListItem} from "./card-list-item.component.tsx";
+import {CardTable} from "./card-table.component.tsx";
 
 export type TCardListProps = {
 	collectionId?: string
@@ -26,6 +27,7 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 
 	if (currentStyle === 'table') {
 		// table style uses separate component
+		return <CardTable collectionId={collectionId}/>
 	}
 
 	// list and card styles are serviced by CSS

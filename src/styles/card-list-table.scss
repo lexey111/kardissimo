@@ -1,0 +1,32 @@
+.card-table {
+	.ag-root-wrapper {
+		border-radius: 12px;
+		border: none;
+	}
+
+	.ag-theme-alpine {
+		--ag-header-height: 24px;
+		--ag-header-foreground-color: #222;
+		--ag-header-background-color: #f2f2f2;
+		--ag-header-cell-hover-background-color: #fff;
+		--ag-header-cell-moving-background-color: rgb(106, 167, 241);
+	}
+
+	.ag-theme-alpine .ag-header-group-cell {
+		font-weight: normal;
+		justify-content: center;
+		text-transform: uppercase;
+		font-size: .9rem;
+		transition: background-color .2s ease;
+		pointer-events: none;
+		background-color: rgba(106, 167, 241, .4);
+	}
+
+	.ag-theme-alpine .ag-header-cell {
+		font-weight: bold;
+		font-size: .8rem;
+		transition: background-color .2s ease;
+		border: none !important;
+		outline: none !important;
+	}
+}
