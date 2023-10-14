@@ -13,22 +13,24 @@ export type TCardTableProps = {
 }
 
 function getTableDefs(collectionId?: string, sides?: [string, string], tableEditMode?: TCardListTableMode, tableViewMode?: TCardListTableViewMode) {
-	const result: any = [
-		{
-			field: '_preview',
-			headerName: '',
-			width: 50,
-			editable: false, sortable: false, resizable: false, filter: '',
-			cellRenderer: PreviewCell,
-			cellRendererParams: {
-				collectionId: collectionId
-			}
-		}];
+	let result = [];
+
+	const firstColumn: any = {
+		field: '_preview',
+		headerName: '',
+		width: 50,
+		editable: false, sortable: false, resizable: false, filter: '',
+		cellRenderer: PreviewCell,
+		cellRendererParams: {
+			collectionId: collectionId
+		}
+	};
 
 	if (tableViewMode === 'wide') {
 		result.push(...(sides || []).map((side, idx) => {
 			return {
 				headerName: side,
+				editable: false, sortable: false, resizable: false, filter: '',
 				children: [
 					{
 						field: `sides.${idx}.header`,
@@ -51,7 +53,9 @@ function getTableDefs(collectionId?: string, sides?: [string, string], tableEdit
 						// hide: tableViewMode === 'narrow'
 					}]
 			};
-		}))
+		}));
+
+		result[0].children.splice(0, 0, firstColumn);
 	} else {
 		result.push(...(sides || []).map((side, idx) => {
 			return {
@@ -60,9 +64,11 @@ function getTableDefs(collectionId?: string, sides?: [string, string], tableEdit
 				editable: tableEditMode === 'editable',
 				filter: 'string',
 			};
-		}))
+		}));
 
+		result.splice(0, 0, firstColumn);
 	}
+
 	return result;
 }
 
@@ -98,15 +104,17 @@ export const CardTable: React.FC<TCardTableProps> = ({
 
 		setColumnDefs(getTableDefs(collectionId, sides, tableEditMode, tableViewMode));
 
-		// sides?.forEach((_, idx) => {
-		// 	gridRef.current.columnApi.setColumnVisible(`sides.${idx}.header`, tableViewMode === 'wide');
-		// 	gridRef.current.columnApi.setColumnVisible(`sides.${idx}.footer`, tableViewMode === 'wide');
-		// });
-		//
+	}, [gridRef.current, tableEditMode, tableViewMode, sides]);
+
+	useEffect(() => {
+		if (!gridRef.current.api) {
+			return;
+		}
+
 		setTimeout(() => {
 			gridRef.current?.api && gridRef.current.api.sizeColumnsToFit();
-		}, 10);
-	}, [gridRef.current, tableEditMode, tableViewMode, sides]);
+		}, 0);
+	}, [gridRef.current, tableViewMode, tableEditMode]);
 
 
 	const defaultColDef = useMemo(() => ({
@@ -132,7 +140,7 @@ export const CardTable: React.FC<TCardTableProps> = ({
 		}
 	}, [readonly]);
 
-	return <div className={'card-table ' + (readonly ? 'readonly' : 'editable')}>
+	return <div className={'card-table ' + tableEditMode + ' ' + tableViewMode}>
 		<div className="ag-theme-alpine">
 			<AgGridReact
 				ref={gridRef}
@@ -140,7 +148,7 @@ export const CardTable: React.FC<TCardTableProps> = ({
 				rowData={cards}
 				columnDefs={columnDefs as any}
 				defaultColDef={defaultColDef}
-				animateRows={true}
+				animateRows={false}
 				rowSelection={'single'}
 				suppressCellFocus={readonly}
 				enableCellEditingOnBackspace={true}
