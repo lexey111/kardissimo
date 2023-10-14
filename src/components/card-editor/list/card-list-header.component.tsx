@@ -1,7 +1,7 @@
 import React from "react";
 import {CardListStyleSelector} from "./card-list-style-selector.component.tsx";
-import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
-import {useSettingsStore} from "../../store/settings/settings-store.ts";
+import {ICollectionState, useCollectionStore} from "../../../store/data/collections-store.ts";
+import {useSettingsStore} from "../../../store/settings/settings-store.ts";
 import {useShallow} from "zustand/react/shallow";
 
 export type TCardListHeaderProps = {

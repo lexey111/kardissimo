@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
+import {ICollectionState, useCollectionStore} from "../../../store/data/collections-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {AgGridReact} from 'ag-grid-react'; // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import {useNavigate} from "react-router-dom";
-import {TCardListTableMode, TCardListTableViewMode, useSettingsStore} from "../../store/settings/settings-store.ts";
+import {TCardListTableMode, TCardListTableViewMode, useSettingsStore} from "../../../store/settings/settings-store.ts";
 import {PreviewCell} from "./card-table-preview.component.tsx";
 import {RemoveCell} from "./card-table-remove.component.tsx"; // Optional theme CSS
 
@@ -24,7 +24,6 @@ function getTableDefs(collectionId?: string, sides?: [string, string], tableEdit
 		minWidth: 60,
 		editable: false, sortable: false, resizable: false, filter: '',
 		cellRenderer: PreviewCell,
-		type: 'leftAligned',
 		cellRendererParams: {
 			collectionId: collectionId
 		}

@@ -5,11 +5,13 @@ import {TCard, TCardSide} from "../../store/data/types.ts";
 export type TCardFormProps = {
 	handleReset: any
 	handleChange: any
+	handleSideFocus: any
 	values: TCard
 }
 export const CardForm: React.FC<TCardFormProps> = ({
 	                                                   handleReset,
 	                                                   handleChange,
+	                                                   handleSideFocus,
 	                                                   values,
                                                    }: any) => {
 
@@ -38,6 +40,7 @@ export const CardForm: React.FC<TCardFormProps> = ({
 						<Field id={`sides[${idx}].header`} name={`sides[${idx}].header`}
 						       autoComplete="off"
 						       maxLength={128} size={30}
+						       onFocus={handleSideFocus}
 						       placeholder="Top text"
 						       type={'text'}/>
 					</div>
@@ -47,6 +50,7 @@ export const CardForm: React.FC<TCardFormProps> = ({
 					<div className={'field-set'}>
 						<Field id={`sides[${idx}].word`} name={`sides[${idx}].word`}
 						       autoComplete="off"
+						       onFocus={handleSideFocus}
 						       maxLength={256} size={30}
 						       placeholder="Main text"
 						       as={'textarea'}/>
@@ -57,6 +61,7 @@ export const CardForm: React.FC<TCardFormProps> = ({
 					<div className={'field-set'}>
 						<Field id={`sides[${idx}].footer`} name={`sides[${idx}].footer`}
 						       autoComplete="off"
+						       onFocus={handleSideFocus}
 						       maxLength={128} size={30}
 						       placeholder="Bottom text"
 						       type={'text'}/>

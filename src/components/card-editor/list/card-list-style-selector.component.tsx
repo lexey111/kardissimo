@@ -1,8 +1,8 @@
 import React from "react";
 import {FaBars} from "react-icons/fa";
 import {FaGrip, FaTable} from "react-icons/fa6";
-import {setCardListStyle, setTableEditMode, setTableViewMode} from "../../store/settings/settings-store.actions.ts";
-import {useSettingsStore} from "../../store/settings/settings-store.ts";
+import {setCardListStyle, setTableEditMode, setTableViewMode} from "../../../store/settings/settings-store.actions.ts";
+import {useSettingsStore} from "../../../store/settings/settings-store.ts";
 import {RiEditBoxFill} from "react-icons/ri";
 import {AiFillEye} from "react-icons/ai";
 import {TbViewportNarrow, TbViewportWide} from "react-icons/tb";

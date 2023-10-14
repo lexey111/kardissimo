@@ -5,9 +5,9 @@ import {AppSecondaryPageHeader} from "../../components/app-secondary-page-header
 import {CollectionNotFound} from "../../components/utils/collection-not-found.component.tsx";
 import {countCards, getCollection} from "../../store/data/collections-store.selectors.ts";
 import {CardAddFloating} from "../../components/card-editor/card-add-floating.component.tsx";
-import {CardList} from "../../components/card-editor/card-list.component.tsx";
+import {CardList} from "../../components/card-editor/list/card-list.component.tsx";
 import {CollectionScene} from "../../components/scene/collection-scene.component.tsx";
-import {CardListHeader} from "../../components/card-editor/card-list-header.component.tsx";
+import {CardListHeader} from "../../components/card-editor/list/card-list-header.component.tsx";
 
 export const CardsPage: React.FC = () => {
 	const navigate = useNavigate();

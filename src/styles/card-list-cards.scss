@@ -96,7 +96,20 @@
 		}
 	}
 
-	.card-item-create {
-		//margin: 0;
+}
+
+.empty-list .card-list-add-table {
+	.card-sides {
+		grid-column-gap: 0;
+
+		.card-side-content:first-child {
+			border-right: none;
+			margin-right: 0;
+		}
+
+		.card-side-content:last-child {
+			border-left: none;
+			margin-left: 0;
+		}
 	}
 }

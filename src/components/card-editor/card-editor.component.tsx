@@ -13,6 +13,8 @@ export type TCardEditorProps = {
 	isNew?: boolean
 }
 
+const targetMatcher = new RegExp(/sides\[(\d+)]/);
+
 export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId, isNew = false}) => {
 
 	const collection = getCollection(collectionId);
@@ -21,6 +23,8 @@ export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId, is
 
 	const [text1, setText1] = useState(cardData.sides[0].word);
 	const [text2, setText2] = useState(cardData.sides[1].word);
+
+	const [side, setSide] = useState(0);
 
 	const navigate = useNavigate();
 
@@ -58,14 +62,28 @@ export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId, is
 		navigate(`/collections/${collectionId}/cards`);
 	}, []);
 
+	const handleSideFocus = useCallback((e: any) => {
+		const targetId = e?.target?.id;
+		if (!targetId) {
+			return;
+		}
+		// sides[0].header
+		targetMatcher.lastIndex = -1;
+		const side = Number(targetMatcher.exec(targetId)?.[1]);
+		if (isNaN(side)) {
+			return;
+		}
+
+		setSide(side);
+	}, []);
+
 	return <div className={'card-side-editor'}>
 		<div className={'form-editor'}>
-			<Formik
-				initialValues={cardData!}
-				onReset={handleBack}
-				onSubmit={handleSubmit}
-			>
+			<Formik initialValues={cardData!}
+			        onReset={handleBack}
+			        onSubmit={handleSubmit}>
 				<CardForm values={cardData!}
+				          handleSideFocus={handleSideFocus}
 				          handleReset={handleBack}
 				          handleChange={handleChange}/>
 			</Formik>
@@ -75,6 +93,7 @@ export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId, is
 			<CardPreview
 				text1={text1}
 				text2={text2}
+				side={side}
 			/>
 		</div>
 

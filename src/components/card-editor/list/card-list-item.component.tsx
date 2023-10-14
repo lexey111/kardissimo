@@ -1,7 +1,7 @@
 import React from "react";
-import {CardSide} from "./card-side.component.tsx";
-import {CardRemove} from "./card-remove.component.tsx";
-import {TCardListStyle} from "../../store/settings/settings-store.ts";
+import {CardSide} from "../card-side.component.tsx";
+import {CardRemove} from "../card-remove.component.tsx";
+import {TCardListStyle} from "../../../store/settings/settings-store.ts";
 
 export type TCardListItemProps = {
 	collectionId?: string

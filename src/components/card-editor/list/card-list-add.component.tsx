@@ -1,10 +1,10 @@
 import React, {useCallback} from "react";
 import {IoIosAddCircle} from "react-icons/io";
-import {useSettingsStore} from "../../store/settings/settings-store.ts";
-import {createCard} from "../../store/data/collections-store.actions.ts";
+import {useSettingsStore} from "../../../store/settings/settings-store.ts";
+import {createCard} from "../../../store/data/collections-store.actions.ts";
 import {useNavigate} from "react-router-dom";
 import {customAlphabet, urlAlphabet} from "nanoid";
-import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
+import {ICollectionState, useCollectionStore} from "../../../store/data/collections-store.ts";
 import {useShallow} from "zustand/react/shallow";
 
 const nanoid = customAlphabet(urlAlphabet, 16);

@@ -1,11 +1,11 @@
 import React from "react";
-import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
+import {ICollectionState, useCollectionStore} from "../../../store/data/collections-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {CardListAdd} from "./card-list-add.component.tsx";
-import {useSettingsStore} from "../../store/settings/settings-store.ts";
+import {useSettingsStore} from "../../../store/settings/settings-store.ts";
 import {CardListNoData} from "./card-list-no-data.component.tsx";
 import {CardListItem} from "./card-list-item.component.tsx";
-import {CardTable} from "./card-table.component.tsx";
+import {CardTable} from "../table/card-table.component.tsx";
 
 export type TCardListProps = {
 	collectionId?: string
@@ -27,9 +27,13 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 
 	if (currentStyle === 'table') {
 		// table style uses separate component
-		return <CardTable collectionId={collectionId}/>
+		return <>
+			<CardTable collectionId={collectionId}/>
+			{cardIds.length < 7 && <CardListAdd collectionId={collectionId}/>}
+		</>;
 	}
 
+	const threshold = currentStyle === 'list' ? 3: 18;
 	// list and card styles are serviced by CSS
 	return <div className={`card-list list-style-${currentStyle}`}>
 		{cardIds.map((cardId, idx) => {
@@ -42,6 +46,6 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 			                     count={cardIds.length}
 			/>
 		})}
-		<CardListAdd collectionId={collectionId}/>
+		{cardIds.length < threshold && <CardListAdd collectionId={collectionId}/>}
 	</div>;
 };

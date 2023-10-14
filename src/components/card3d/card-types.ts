@@ -15,7 +15,8 @@ export type TCardFaceProp = Pick<TCardFace, 'text'> & (Partial<Omit<TCardFace, '
 
 export type TCardProps = {
 	faces: [TCardFaceProp, TCardFaceProp]
-	active?: boolean
+	active?: 'active' | 'slight' | 'none'
+	side?: number
 };
 
 export type TExtendedCardProps = TCardFace & { font: string };

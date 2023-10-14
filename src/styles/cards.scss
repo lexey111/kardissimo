@@ -143,8 +143,9 @@
 	display: block;
 	position: sticky;
 	z-index: 100;
-	bottom: 2vh;
-	left: 90vw;
+	bottom: 1vh;
+	left: 50%;
+	transform: translateX(-50%);
 	color: rgba(19, 138, 255, 0.76);
 	border-radius: 100%;
 	font-size: 5rem;
@@ -170,7 +171,7 @@
 
 	&:hover {
 		color: #0078e7;
-		transform: translateY(-2px);
+		transform: translateX(-50%) translateY(-5px);
 
 		&:before {
 			box-shadow: 1px 2px 6px rgba(0, 0, 0, .3);
