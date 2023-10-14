@@ -1,0 +1,97 @@
+.card-list.list-style-cards {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: stretch;
+	justify-content: center;
+
+	.card-item {
+		margin-right: 16px;
+		margin-bottom: 16px;
+	}
+
+	.card-number {
+		display: none;
+	}
+
+	.card-sides {
+		display: flex;
+		min-width: 140px;
+		max-width: 140px;
+		width: 140px;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+
+		.card-side-content {
+			border-radius: 8px;
+			max-width: 120px;
+			width: 100%;
+		}
+	}
+
+	.card-actions {
+		div {
+			margin: 4px;
+			width: 32px;
+			height: 32px;
+		}
+	}
+}
+
+.card-list.list-style-cards .card-list-add-cards {
+	display: flex;
+	min-width: 140px;
+	max-width: 140px;
+	min-height: 140px;
+	width: 140px;
+
+	.card-sides {
+		align-items: stretch;
+		align-content: stretch;
+
+		.card-side-content {
+			align-items: stretch;
+			align-content: stretch;
+			flex-grow: 2;
+			height: auto;
+			border-radius: 8px;
+			max-width: 120px;
+			min-width: 120px;
+			min-height: 120px;
+		}
+
+	}
+
+	.card-item-create {
+		margin: 0 0 0 -8px;
+		font-size: 4rem;
+	}
+}
+
+.empty-list .card-list-add-cards {
+	.card-item.add {
+		margin: 32px 0 0 0;
+		display: flex;
+		flex-flow: row nowrap;
+		position: relative;
+		@include center();
+	}
+
+	.card-sides {
+		align-items: stretch;
+		align-content: stretch;
+		margin: 0;
+		width: 150px;
+		height: 200px;
+
+		.card-side-content {
+			align-items: stretch;
+			align-content: stretch;
+			flex-grow: 2;
+			height: auto;
+			width: 150px;
+			border-radius: 8px;
+			max-width: 150px;
+		}
+	}
+}

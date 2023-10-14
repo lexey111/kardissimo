@@ -55,18 +55,8 @@ a:hover, a:focus {
 	min-width: 400px;
 }
 
-.margin-center {
-	margin: 0 auto;
-}
-
 .center {
-	text-align: center;
-	align-content: center;
-	align-items: center;
-	align-self: center;
-	justify-items: center;
-	justify-content: center;
-	justify-self: center;
+	@include center();
 }
 
 .about-page {

@@ -8,6 +8,8 @@ import {CardListAdd} from "./card-list-add.component.tsx";
 import {IoIosAddCircle} from "react-icons/io";
 import {createCard} from "../../store/data/collections-store.actions.ts";
 import {customAlphabet, urlAlphabet} from "nanoid";
+import {CardListHeader} from "./card-list-header.component.tsx";
+import {useSettingsStore} from "../../store/settings/settings-store.ts";
 
 const nanoid = customAlphabet(urlAlphabet, 16);
 
@@ -31,10 +33,10 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 		navigate(`/collections/${collectionId}/cards/${newId}?new`);
 	}, []);
 
-	console.log('[LIST]')
+	const currentStyle = useSettingsStore((state) => state.cardListStyle);
 
 	if (!cardIds || cardIds.length === 0) {
-		return <div className={'margin-center'}>
+		return <div className={'margin-center empty-list'}>
 			<CardListAdd sides={sides} onClick={handleAdd}/>
 			<p className={'center'}>
 				No cards to display, yet. Please, use the button <IoIosAddCircle/> above to create the first one.
@@ -43,23 +45,20 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 	}
 
 	return <div>
-		<div className={'card-list'}>
-			<div className={'card-sides-header'}>
-				{sides?.map((sideName, idx) => {
-					return <div className={'card-side-name'} key={sideName + idx.toString()}>
-						{sideName}
-					</div>
-				})}
-			</div>
+		<CardListHeader sides={sides} listMode={currentStyle === 'list'}/>
 
+		<div className={`card-list list-style-${currentStyle}`}>
 			{cardIds.map((cardId, idx) => {
 				return <div key={cardId} className={'card-item'}>
-					<div className={'card-number'}>{idx + 1}
+					{currentStyle === 'list' && <div className={'card-number'}>{idx + 1}
 						{idx % 2 === 0 && <span>of {cardIds.length}</span>}
-					</div>
+					</div>}
 
 					<div className={'card-sides'}>
 						{sides?.map((_, idx) => {
+							if (currentStyle === 'cards' && idx > 0) {
+								return null
+							}
 							return <CardSide
 								collectionId={collectionId}
 								cardId={cardId}
@@ -74,8 +73,8 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 					</div>
 				</div>;
 			})}
+			{currentStyle === 'cards' && <CardListAdd sides={sides} onClick={handleAdd} showHeader={false}/>}
 		</div>
-		<CardListAdd sides={sides} onClick={handleAdd} showHeader={false}/>
+		{currentStyle === 'list' && <CardListAdd sides={sides} onClick={handleAdd} showHeader={false}/>}
 	</div>;
-
 };

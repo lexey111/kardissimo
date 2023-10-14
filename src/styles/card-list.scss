@@ -1,0 +1,97 @@
+.card-list {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.card-item {
+	position: relative;
+	//transition: all .2s ease;
+
+	&:hover {
+		.card-side-content {
+			transform: translateY(-1px);
+			background: rgba(255, 255, 255, .9);
+			box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+		}
+
+		.card-actions {
+			opacity: 1;
+		}
+	}
+}
+
+.card-item.add {
+	position: relative;
+
+	.card-sides {
+		.card-side-content {
+			padding: 32px 0;
+			height: 64px;
+			font-size: 6rem;
+			background: none;
+			border: 1px dashed rgba(255, 255, 255, .5);
+			box-shadow: none;
+		}
+	}
+
+	.card-item-create {
+		font-size: 6rem;
+		transition: all .2s ease;
+		display: flex;
+		@include absolute-center();
+		cursor: pointer;
+		pointer-events: none;
+
+		svg {
+			box-shadow: inset 1px 1px 4px rgba(0, 0, 0, .1);
+			border-radius: 100%;
+			padding: 0;
+		}
+
+		&:before {
+			content: '';
+			display: block;
+			z-index: -1;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(12, 166, 255, 0.2);
+			border-radius: 100%;
+		}
+
+		border-radius: 100%;
+	}
+
+	&:hover {
+		.card-side-content {
+			color: #0076c2;
+			transform: none;
+			border-style: solid;
+			background: rgba(255, 255, 255, .1);
+		}
+
+		svg {
+			box-shadow: inset 1px 1px 4px rgba(0, 0, 0, .2);
+		}
+	}
+}
+
+.list-style-selector {
+	z-index: 2;
+	font-size: .8rem;
+	color: #fff;
+	display: block;
+	@include absolute-center();
+
+	button {
+		color: #fff;
+	}
+
+	svg:focus, svg:active {
+		outline: none !important;
+	}
+}
+
+@import "card-list-cards";

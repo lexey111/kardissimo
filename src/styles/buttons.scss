@@ -34,7 +34,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 .pure-button-group .pure-button {
 	letter-spacing: normal;
 	word-spacing: normal;
-	vertical-align: top;
+	vertical-align: middle;
 	text-rendering: auto
 }
 
@@ -123,16 +123,25 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 .pure-button-group .pure-button {
 	margin: 0;
 	border-radius: 0;
-	border-right: 1px solid rgba(0, 0, 0, .2)
+	border: 1px solid rgba(255, 255, 255, .4);
+	box-sizing: content-box;
+	background: rgba(255, 255, 255, .1);
+}
+
+.pure-button-group .pure-button.pressed {
+	background: rgba(255, 255, 255, .3);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, .2);
+	pointer-events: none;
 }
 
 .pure-button-group .pure-button:first-child {
-	border-top-left-radius: 2px;
-	border-bottom-left-radius: 2px
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+	border-right: none;
 }
 
 .pure-button-group .pure-button:last-child {
-	border-top-right-radius: 2px;
-	border-bottom-right-radius: 2px;
-	border-right: none
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-left: none;
 }
