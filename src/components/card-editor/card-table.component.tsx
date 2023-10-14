@@ -6,7 +6,8 @@ import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import {useNavigate} from "react-router-dom";
 import {TCardListTableMode, TCardListTableViewMode, useSettingsStore} from "../../store/settings/settings-store.ts";
-import {PreviewCell} from "./card-table-preview.component.tsx"; // Optional theme CSS
+import {PreviewCell} from "./card-table-preview.component.tsx";
+import {RemoveCell} from "./card-table-remove.component.tsx"; // Optional theme CSS
 
 export type TCardTableProps = {
 	collectionId?: string
@@ -15,12 +16,28 @@ export type TCardTableProps = {
 function getTableDefs(collectionId?: string, sides?: [string, string], tableEditMode?: TCardListTableMode, tableViewMode?: TCardListTableViewMode) {
 	let result = [];
 
-	const firstColumn: any = {
+	const previewColumn: any = {
 		field: '_preview',
 		headerName: '',
-		width: 50,
+		width: 60,
+		maxWidth: 60,
+		minWidth: 60,
 		editable: false, sortable: false, resizable: false, filter: '',
 		cellRenderer: PreviewCell,
+		type: 'leftAligned',
+		cellRendererParams: {
+			collectionId: collectionId
+		}
+	};
+
+	const deleteColumn: any = {
+		field: '_delete',
+		headerName: '',
+		width: 60,
+		maxWidth: 60,
+		minWidth: 60,
+		editable: false, sortable: false, resizable: false, filter: '',
+		cellRenderer: RemoveCell,
 		cellRendererParams: {
 			collectionId: collectionId
 		}
@@ -55,7 +72,8 @@ function getTableDefs(collectionId?: string, sides?: [string, string], tableEdit
 			};
 		}));
 
-		result[0].children.splice(0, 0, firstColumn);
+		result[0].children.splice(0, 0, previewColumn);
+		result[sides!.length - 1].children.push(deleteColumn);
 	} else {
 		result.push(...(sides || []).map((side, idx) => {
 			return {
@@ -66,7 +84,8 @@ function getTableDefs(collectionId?: string, sides?: [string, string], tableEdit
 			};
 		}));
 
-		result.splice(0, 0, firstColumn);
+		result.splice(0, 0, previewColumn);
+		result.push(deleteColumn);
 	}
 
 	return result;
@@ -148,9 +167,9 @@ export const CardTable: React.FC<TCardTableProps> = ({
 				rowData={cards}
 				columnDefs={columnDefs as any}
 				defaultColDef={defaultColDef}
-				animateRows={false}
+				animateRows={true}
 				rowSelection={'single'}
-				suppressCellFocus={readonly}
+				//suppressCellFocus={readonly}
 				enableCellEditingOnBackspace={true}
 				onRowDoubleClicked={processDoubleClick}
 				onGridReady={handleReady}

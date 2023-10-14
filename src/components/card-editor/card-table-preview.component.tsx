@@ -9,7 +9,7 @@ export const PreviewCell: React.FC = (props: any) => {
 		navigate(`/collections/${props.collectionId}/cards/${props.data.id}`);
 	}, []);
 
-	return <div className={'table-open-editor'}>
+	return <div className={'table-button-column'}>
 		<span onClick={handleClick}><MdPageview/></span>
 	</div>;
 }
