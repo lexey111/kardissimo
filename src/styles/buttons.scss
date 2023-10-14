@@ -127,6 +127,12 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	box-sizing: content-box;
 	background: rgba(255, 255, 255, .1);
 }
+.pure-button-group .pure-button svg {
+	tab-index: -1;
+}
+.pure-button-group .pure-button:focus-within {
+	box-shadow: 0 0 0 2px #ffbd0e;
+}
 
 .pure-button-group .pure-button.pressed {
 	background: rgba(255, 255, 255, .3);

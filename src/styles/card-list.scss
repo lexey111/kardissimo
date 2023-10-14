@@ -5,11 +5,10 @@
 
 .card-item {
 	position: relative;
-	//transition: all .2s ease;
 
 	&:hover {
 		.card-side-content {
-			transform: translateY(-1px);
+			//transform: translateY(-1px);
 			background: rgba(255, 255, 255, .9);
 			box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
 		}

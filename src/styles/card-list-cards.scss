@@ -10,7 +10,8 @@
 	}
 
 	.card-number {
-		display: none;
+		font-size: 2rem;
+		z-index: -1;
 	}
 
 	.card-sides {
@@ -93,5 +94,9 @@
 			border-radius: 8px;
 			max-width: 150px;
 		}
+	}
+
+	.card-item-create {
+		//margin: 0;
 	}
 }

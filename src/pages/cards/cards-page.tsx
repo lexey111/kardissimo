@@ -7,6 +7,7 @@ import {countCards, getCollection} from "../../store/data/collections-store.sele
 import {CardAddFloating} from "../../components/card-editor/card-add-floating.component.tsx";
 import {CardList} from "../../components/card-editor/card-list.component.tsx";
 import {CollectionScene} from "../../components/scene/collection-scene.component.tsx";
+import {CardListHeader} from "../../components/card-editor/card-list-header.component.tsx";
 
 export const CardsPage: React.FC = () => {
 	const navigate = useNavigate();
@@ -36,6 +37,7 @@ export const CardsPage: React.FC = () => {
 		/>
 
 		<div className={'page'}>
+			<CardListHeader collectionId={collection.id}/>
 			<CardList collectionId={collection.id}/>
 		</div>
 	</AppPage>;

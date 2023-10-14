@@ -17,6 +17,8 @@
     "@react-three/drei": "^9.86.3",
     "@react-three/fiber": "^8.14.4",
     "@types/three": "^0.156.0",
+    "ag-grid-community": "^30.2.0",
+    "ag-grid-react": "^30.2.0",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.4",
     "nanoid": "^5.0.1",

@@ -1,22 +1,36 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {IoIosAddCircle} from "react-icons/io";
-import {CardListHeader} from "./card-list-header.component.tsx";
 import {useSettingsStore} from "../../store/settings/settings-store.ts";
+import {createCard} from "../../store/data/collections-store.actions.ts";
+import {useNavigate} from "react-router-dom";
+import {customAlphabet, urlAlphabet} from "nanoid";
+import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
+import {useShallow} from "zustand/react/shallow";
+
+const nanoid = customAlphabet(urlAlphabet, 16);
 
 export type TCardListAddProps = {
-	sides?: Array<string>
-	onClick: () => void
-	showHeader?: boolean
+	collectionId?: string
 }
 
-export const CardListAdd: React.FC<TCardListAddProps> = ({sides, onClick, showHeader = true}) => {
+export const CardListAdd: React.FC<TCardListAddProps> = ({collectionId}) => {
 	const currentStyle = useSettingsStore((state) => state.cardListStyle);
 
-	return <div className={`card-list-add-${currentStyle}`}>
-		{showHeader && <CardListHeader sides={sides}/>}
+	const navigate = useNavigate();
 
+	const sides = useCollectionStore(useShallow((state: ICollectionState) => state.collections
+		.find(c => c.id === collectionId)?.sides));
+
+	const handleAdd = useCallback(() => {
+		const newId = nanoid();
+
+		createCard(collectionId!, newId);
+		navigate(`/collections/${collectionId}/cards/${newId}?new`);
+	}, []);
+
+	return <div className={`card-list-add-${currentStyle}`}>
 		<div className={'card-item add'}>
-			<div className={'card-sides'} onClick={onClick}>
+			<div className={'card-sides'} onClick={handleAdd}>
 				{sides?.map((_, idx) => {
 					if (currentStyle === 'cards' && idx > 0) {
 						return null
