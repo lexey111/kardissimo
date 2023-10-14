@@ -1,4 +1,4 @@
-import {TCardListStyle, TCardListTableMode, useSettingsStore} from "./settings-store.ts";
+import {TCardListStyle, TCardListTableMode, TCardListTableViewMode, useSettingsStore} from "./settings-store.ts";
 
 export const setCardListStyle = (style: TCardListStyle) => useSettingsStore.setState((state) => {
 	return {...state, cardListStyle: style};
@@ -6,4 +6,8 @@ export const setCardListStyle = (style: TCardListStyle) => useSettingsStore.setS
 
 export const setTableEditMode = (mode: TCardListTableMode) => useSettingsStore.setState((state) => {
 	return {...state, tableEditMode: mode};
+});
+
+export const setTableViewMode = (mode: TCardListTableViewMode) => useSettingsStore.setState((state) => {
+	return {...state, tableViewMode: mode};
 });

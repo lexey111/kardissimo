@@ -5,15 +5,15 @@ import {AgGridReact} from 'ag-grid-react'; // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import {useNavigate} from "react-router-dom";
-import {useSettingsStore} from "../../store/settings/settings-store.ts";
+import {TCardListTableMode, TCardListTableViewMode, useSettingsStore} from "../../store/settings/settings-store.ts";
 import {PreviewCell} from "./card-table-preview.component.tsx"; // Optional theme CSS
 
 export type TCardTableProps = {
 	collectionId?: string
 }
 
-function getTableDefs(collectionId?: string, sides?: [string, string], tableEditMode?: string) {
-	return [
+function getTableDefs(collectionId?: string, sides?: [string, string], tableEditMode?: TCardListTableMode, tableViewMode?: TCardListTableViewMode) {
+	const result: any = [
 		{
 			field: '_preview',
 			headerName: '',
@@ -23,8 +23,10 @@ function getTableDefs(collectionId?: string, sides?: [string, string], tableEdit
 			cellRendererParams: {
 				collectionId: collectionId
 			}
-		},
-		...(sides || []).map((side, idx) => {
+		}];
+
+	if (tableViewMode === 'wide') {
+		result.push(...(sides || []).map((side, idx) => {
 			return {
 				headerName: side,
 				children: [
@@ -32,7 +34,8 @@ function getTableDefs(collectionId?: string, sides?: [string, string], tableEdit
 						field: `sides.${idx}.header`,
 						headerName: 'Header',
 						editable: tableEditMode === 'editable',
-						filter: 'string'
+						filter: 'string',
+						//hide: tableViewMode === 'narrow'
 					},
 					{
 						field: `sides.${idx}.word`,
@@ -44,18 +47,34 @@ function getTableDefs(collectionId?: string, sides?: [string, string], tableEdit
 						field: `sides.${idx}.footer`,
 						headerName: 'Footer',
 						editable: tableEditMode === 'editable',
-						filter: 'string'
-					}
-				]
+						filter: 'string',
+						// hide: tableViewMode === 'narrow'
+					}]
 			};
-		})];
+		}))
+	} else {
+		result.push(...(sides || []).map((side, idx) => {
+			return {
+				field: `sides.${idx}.word`,
+				headerName: side,
+				editable: tableEditMode === 'editable',
+				filter: 'string',
+			};
+		}))
+
+	}
+	return result;
 }
 
 export const CardTable: React.FC<TCardTableProps> = ({
 	                                                     collectionId,
                                                      }) => {
 
+	const navigate = useNavigate();
+
 	const tableEditMode = useSettingsStore((state) => state.tableEditMode);
+	const tableViewMode = useSettingsStore((state) => state.tableViewMode);
+
 	const [readonly, setReadonly] = useState(tableEditMode === 'readonly');
 
 	const gridRef = useRef<any>(); // Optional - for accessing Grid's API
@@ -63,21 +82,32 @@ export const CardTable: React.FC<TCardTableProps> = ({
 	const sides = useCollectionStore(useShallow((state: ICollectionState) => state.collections
 		.find(c => c.id === collectionId)?.sides));
 
-	const navigate = useNavigate();
 
-	const [columnDefs, setColumnDefs] = useState(getTableDefs(collectionId, sides, tableEditMode));
+	const [columnDefs, setColumnDefs] = useState(getTableDefs(collectionId, sides, tableEditMode, tableViewMode));
 
 	useEffect(() => {
 		if (!gridRef.current.api) {
 			return;
 		}
+
 		setReadonly(tableEditMode === 'readonly');
+
 		if (tableEditMode === 'readonly') {
 			gridRef.current.api.stopEditing();
 		}
 
-		setColumnDefs(getTableDefs(collectionId, sides, tableEditMode));
-	}, [gridRef, tableEditMode, sides]);
+		setColumnDefs(getTableDefs(collectionId, sides, tableEditMode, tableViewMode));
+
+		// sides?.forEach((_, idx) => {
+		// 	gridRef.current.columnApi.setColumnVisible(`sides.${idx}.header`, tableViewMode === 'wide');
+		// 	gridRef.current.columnApi.setColumnVisible(`sides.${idx}.footer`, tableViewMode === 'wide');
+		// });
+		//
+		setTimeout(() => {
+			gridRef.current?.api && gridRef.current.api.sizeColumnsToFit();
+		}, 10);
+	}, [gridRef.current, tableEditMode, tableViewMode, sides]);
+
 
 	const defaultColDef = useMemo(() => ({
 		sortable: true,
@@ -85,6 +115,12 @@ export const CardTable: React.FC<TCardTableProps> = ({
 		suppressMovable: true,
 	}), []);
 
+	const handleReady = useCallback(() => {
+		if (!gridRef.current.api) {
+			return;
+		}
+		gridRef.current?.api && gridRef.current.api.sizeColumnsToFit();
+	}, []);
 
 	const cards = useCollectionStore(useShallow((state: ICollectionState) => state.collections
 		.find(c => c.id === collectionId)?.cards //.map(c => ({'_preview': 1, ...c}))
@@ -109,6 +145,7 @@ export const CardTable: React.FC<TCardTableProps> = ({
 				suppressCellFocus={readonly}
 				enableCellEditingOnBackspace={true}
 				onRowDoubleClicked={processDoubleClick}
+				onGridReady={handleReady}
 				enterNavigatesVertically={true}
 				enterNavigatesVerticallyAfterEdit={true}
 			/>
