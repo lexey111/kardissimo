@@ -126,10 +126,23 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	border: 1px solid rgba(255, 255, 255, .4);
 	box-sizing: content-box;
 	background: rgba(255, 255, 255, .1);
+	display: inline-flex;
+	flex-flow: row nowrap;
+	line-height: 1rem;
+	@include center();
 }
+
 .pure-button-group .pure-button svg {
-	tab-index: -1;
+	font-size: 1rem;
+	line-height: 1rem;
+	width: 1rem;
+	height: 1rem;
 }
+
+.pure-button-group .pure-button.with-text svg {
+	margin-right: .4rem;
+}
+
 .pure-button-group .pure-button:focus-within {
 	box-shadow: 0 0 0 2px #ffbd0e;
 }

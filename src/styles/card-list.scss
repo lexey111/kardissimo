@@ -81,8 +81,13 @@
 	z-index: 2;
 	font-size: .8rem;
 	color: #fff;
-	display: block;
+	display: flex;
+	flex-flow: row nowrap;
 	@include absolute-center();
+
+	.table-mode-selector {
+		margin-left: 32px;
+	}
 
 	button {
 		color: #fff;

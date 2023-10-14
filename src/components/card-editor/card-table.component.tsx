@@ -1,17 +1,63 @@
-import React, {useCallback, useMemo, useRef, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {AgGridReact} from 'ag-grid-react'; // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import {useNavigate} from "react-router-dom"; // Optional theme CSS
+import {useNavigate} from "react-router-dom";
+import {useSettingsStore} from "../../store/settings/settings-store.ts";
+import {PreviewCell} from "./card-table-preview.component.tsx"; // Optional theme CSS
+
 export type TCardTableProps = {
 	collectionId?: string
+}
+
+function getTableDefs(collectionId?: string, sides?: [string, string], tableEditMode?: string) {
+	return [
+		{
+			field: '_preview',
+			headerName: '',
+			width: 50,
+			editable: false, sortable: false, resizable: false, filter: '',
+			cellRenderer: PreviewCell,
+			cellRendererParams: {
+				collectionId: collectionId
+			}
+		},
+		...(sides || []).map((side, idx) => {
+			return {
+				headerName: side,
+				children: [
+					{
+						field: `sides.${idx}.header`,
+						headerName: 'Header',
+						editable: tableEditMode === 'editable',
+						filter: 'string'
+					},
+					{
+						field: `sides.${idx}.word`,
+						headerName: 'Word',
+						editable: tableEditMode === 'editable',
+						filter: 'string'
+					},
+					{
+						field: `sides.${idx}.footer`,
+						headerName: 'Footer',
+						editable: tableEditMode === 'editable',
+						filter: 'string'
+					}
+				]
+			};
+		})];
 }
 
 export const CardTable: React.FC<TCardTableProps> = ({
 	                                                     collectionId,
                                                      }) => {
+
+	const tableEditMode = useSettingsStore((state) => state.tableEditMode);
+	const [readonly, setReadonly] = useState(tableEditMode === 'readonly');
+
 	const gridRef = useRef<any>(); // Optional - for accessing Grid's API
 
 	const sides = useCollectionStore(useShallow((state: ICollectionState) => state.collections
@@ -19,28 +65,19 @@ export const CardTable: React.FC<TCardTableProps> = ({
 
 	const navigate = useNavigate();
 
-	const navigateToCard = useCallback(() => {
-		navigate(`/collections/${collectionId}/cards/${cardId}`);
-	}, []);
+	const [columnDefs, setColumnDefs] = useState(getTableDefs(collectionId, sides, tableEditMode));
 
-	const [columnDefs] = useState(
-		[
-			{
-				field: 'test',
-				headerName: '',
-				width: '50px',
-				editable: false, sortable: false, resizable: false, filer: 'none'
-			},
-			...(sides || []).map((side, idx) => {
-				return {
-					headerName: side,
-					children: [
-						{field: `sides.${idx}.header`, headerName: 'Header', editable: true, filter: 'string'},
-						{field: `sides.${idx}.word`, headerName: 'Word', editable: true, filter: 'string'},
-						{field: `sides.${idx}.footer`, headerName: 'Footer', editable: true, filter: 'string'}
-					]
-				};
-			})]);
+	useEffect(() => {
+		if (!gridRef.current.api) {
+			return;
+		}
+		setReadonly(tableEditMode === 'readonly');
+		if (tableEditMode === 'readonly') {
+			gridRef.current.api.stopEditing();
+		}
+
+		setColumnDefs(getTableDefs(collectionId, sides, tableEditMode));
+	}, [gridRef, tableEditMode, sides]);
 
 	const defaultColDef = useMemo(() => ({
 		sortable: true,
@@ -50,24 +87,30 @@ export const CardTable: React.FC<TCardTableProps> = ({
 
 
 	const cards = useCollectionStore(useShallow((state: ICollectionState) => state.collections
-		.find(c => c.id === collectionId)?.cards
+		.find(c => c.id === collectionId)?.cards //.map(c => ({'_preview': 1, ...c}))
 	));
 
-	return <div className={'card-table'}>
+	const processDoubleClick = useCallback((e: any) => {
+		if (readonly) {
+			navigate(`/collections/${collectionId}/cards/${e.data.id}`);
+		}
+	}, [readonly]);
+
+	return <div className={'card-table ' + (readonly ? 'readonly' : 'editable')}>
 		<div className="ag-theme-alpine">
 			<AgGridReact
 				ref={gridRef}
 				domLayout={'autoHeight'}
 				rowData={cards}
-				columnDefs={columnDefs}
+				columnDefs={columnDefs as any}
 				defaultColDef={defaultColDef}
 				animateRows={true}
-				sideBar={'columns'}
 				rowSelection={'single'}
-				// suppressCellFocus={true}
+				suppressCellFocus={readonly}
 				enableCellEditingOnBackspace={true}
-				// enterNavigatesVertically={true}
-				// enterNavigatesVerticallyAfterEdit={true}
+				onRowDoubleClicked={processDoubleClick}
+				enterNavigatesVertically={true}
+				enterNavigatesVerticallyAfterEdit={true}
 			/>
 		</div>
 	</div>;

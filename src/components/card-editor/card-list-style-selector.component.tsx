@@ -1,11 +1,14 @@
 import React from "react";
 import {FaBars} from "react-icons/fa";
 import {FaGrip, FaTable} from "react-icons/fa6";
-import {setCardListStyle} from "../../store/settings/settings-store.actions.ts";
+import {setCardListStyle, setTableEditMode} from "../../store/settings/settings-store.actions.ts";
 import {useSettingsStore} from "../../store/settings/settings-store.ts";
+import {RiEditBoxFill} from "react-icons/ri";
+import {AiFillEye} from "react-icons/ai";
 
 export const CardListStyleSelector: React.FC = () => {
 	const currentStyle = useSettingsStore((state) => state.cardListStyle);
+	const tableEditMode = useSettingsStore((state) => state.tableEditMode);
 
 	return <div className={'list-style-selector'}>
 		<div className={'pure-button-group'}>
@@ -22,5 +25,17 @@ export const CardListStyleSelector: React.FC = () => {
 				<FaTable/>
 			</button>
 		</div>
+		{currentStyle === 'table' && <div className={'table-mode-selector'}>
+			<div className={'pure-button-group'}>
+				<button className={'pure-button with-text' + (tableEditMode === 'readonly' ? ' pressed' : '')}
+				        onClick={() => setTableEditMode('readonly')}>
+					<AiFillEye/> View
+				</button>
+				<button className={'pure-button with-text' + (tableEditMode === 'editable' ? ' pressed' : '')}
+				        onClick={() => setTableEditMode('editable')}>
+					<RiEditBoxFill/> Edit
+				</button>
+			</div>
+		</div>}
 	</div>;
 };
