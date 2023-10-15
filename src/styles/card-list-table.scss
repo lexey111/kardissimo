@@ -8,11 +8,11 @@
 	}
 
 	.ag-center-cols-container {
-		min-height: unset !important;
+		//min-height: unset !important;
 	}
 
 	.ag-center-cols-viewport {
-		min-height: unset !important;
+		//min-height: unset !important;
 	}
 
 	.ag-header {
@@ -25,6 +25,9 @@
 	}
 
 	.ag-theme-alpine {
+		--ag-background-color: #f1f1e9;
+		--ag-odd-row-background-color: #f1f1e9;
+
 		--ag-header-height: 24px;
 		--ag-header-foreground-color: #222;
 		--ag-header-background-color: #f2f2f2;
@@ -60,6 +63,11 @@
 	}
 
 	&.editable {
+		.ag-theme-alpine {
+			--ag-background-color: #f3fcfd;
+			--ag-odd-row-background-color: #f3fcfd;
+		}
+
 		.ag-theme-alpine .ag-header-group-cell {
 			font-weight: normal;
 			justify-content: center;
@@ -89,6 +97,7 @@
 
 		.ag-text-field-input {
 			border: none;
+			background: #fff;
 			outline: none;
 			border-radius: 6px;
 		}

@@ -24,6 +24,12 @@ export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId, is
 	const [text1, setText1] = useState(cardData.sides[0].word);
 	const [text2, setText2] = useState(cardData.sides[1].word);
 
+	const [header1, setHeader1] = useState(cardData.sides[0].header);
+	const [footer1, setFooter1] = useState(cardData.sides[0].footer);
+
+	const [header2, setHeader2] = useState(cardData.sides[1].header);
+	const [footer2, setFooter2] = useState(cardData.sides[1].footer);
+
 	const [side, setSide] = useState(0);
 
 	const navigate = useNavigate();
@@ -46,6 +52,18 @@ export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId, is
 			}
 			if (pair[0] === 'sides[1].word') {
 				setText2(pair[1]);
+			}
+			if (pair[0] === 'sides[0].header') {
+				setHeader1(pair[1]);
+			}
+			if (pair[0] === 'sides[0].footer') {
+				setFooter1(pair[1]);
+			}
+			if (pair[0] === 'sides[1].header') {
+				setHeader2(pair[1]);
+			}
+			if (pair[0] === 'sides[1].footer') {
+				setFooter2(pair[1]);
 			}
 		}
 	}, []);
@@ -93,6 +111,10 @@ export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId, is
 			<CardPreview
 				text1={text1}
 				text2={text2}
+				header1={header1}
+				header2={header2}
+				footer1={footer1}
+				footer2={footer2}
 				side={side}
 			/>
 		</div>

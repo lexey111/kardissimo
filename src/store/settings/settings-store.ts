@@ -8,10 +8,12 @@ export type ISettingsState = {
 	cardListStyle: TCardListStyle,
 	tableEditMode: TCardListTableMode
 	tableViewMode: TCardListTableViewMode
+	selectedSide: string
 }
 
 export const useSettingsStore = create<ISettingsState>(() => ({
 	cardListStyle: 'list',
 	tableEditMode: 'readonly',
-	tableViewMode: 'wide'
+	tableViewMode: 'wide',
+	selectedSide: ''
 }));

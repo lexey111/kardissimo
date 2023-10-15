@@ -11,3 +11,7 @@ export const setTableEditMode = (mode: TCardListTableMode) => useSettingsStore.s
 export const setTableViewMode = (mode: TCardListTableViewMode) => useSettingsStore.setState((state) => {
 	return {...state, tableViewMode: mode};
 });
+
+export const setSelectedSide = (side: string) => useSettingsStore.setState((state) => {
+	return {...state, selectedSide: side};
+});

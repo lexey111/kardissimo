@@ -52,20 +52,20 @@ function getTableDefs(collectionId?: string, sides?: [string, string], tableEdit
 						field: `sides.${idx}.header`,
 						headerName: 'Header',
 						editable: tableEditMode === 'editable',
-						filter: 'string',
+						filter: true,
 						//hide: tableViewMode === 'narrow'
 					},
 					{
 						field: `sides.${idx}.word`,
 						headerName: 'Word',
 						editable: tableEditMode === 'editable',
-						filter: 'string'
+						filter: true,
 					},
 					{
 						field: `sides.${idx}.footer`,
 						headerName: 'Footer',
 						editable: tableEditMode === 'editable',
-						filter: 'string',
+						filter: true,
 						// hide: tableViewMode === 'narrow'
 					}]
 			};
@@ -79,7 +79,7 @@ function getTableDefs(collectionId?: string, sides?: [string, string], tableEdit
 				field: `sides.${idx}.word`,
 				headerName: side,
 				editable: tableEditMode === 'editable',
-				filter: 'string',
+				filter: true,
 			};
 		}));
 

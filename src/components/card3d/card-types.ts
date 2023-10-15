@@ -1,5 +1,7 @@
 export type TCardFace = {
 	text: string
+	header?: string
+	footer?: string
 	fontName: string
 	font: string
 	fontSize: number

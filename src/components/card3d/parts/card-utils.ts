@@ -8,6 +8,8 @@ export const cardThickness = 1;
 
 export const DefaultValues: TCardFace = {
 	text: 'No text',
+	header: '',
+	footer: '',
 	font: Fonts['Philosopher'],
 	fontName: 'Philosopher',
 	fontSize: 10,

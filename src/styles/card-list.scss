@@ -77,7 +77,7 @@
 	}
 }
 
-.list-style-selector {
+.list-mode-selector {
 	z-index: 2;
 	font-size: .8rem;
 	color: #fff;
@@ -85,7 +85,15 @@
 	flex-flow: row nowrap;
 	@include absolute-center();
 
+	.card-side-selector {
+		margin-left: 32px;
+	}
+
 	.table-mode-selector {
+		margin-right: 32px;
+	}
+
+	.table-wide-selector {
 		margin-left: 32px;
 	}
 

@@ -8,9 +8,13 @@ import {Preview3DCard} from "../card3d/preview-3d-card.component.tsx";
 export type TCardPreviewProps = {
 	text1: string
 	text2: string
+	header1: string
+	header2: string
+	footer1: string
+	footer2: string
 	side: number
 }
-export const CardPreview: React.FC<TCardPreviewProps> = ({text1, text2, side}) => {
+export const CardPreview: React.FC<TCardPreviewProps> = ({text1, text2, header1, header2, footer1, footer2, side}) => {
 	return <Canvas
 		style={{
 			position: "absolute", top: 0, left: 0, width: "100%", height: "100%"
@@ -28,9 +32,11 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({text1, text2, side}) =
 				faces={[
 					{
 						text: text1, color: '#FDBA66', textColor: '#4f351a', fontSize: 20,
+						header: header1, footer: footer1
 					},
 					{
-						text: text2, color: '#8899ff', textColor: '#2b3b62', fontSize: 20, lineHeight: 1
+						text: text2, color: '#8899ff', textColor: '#2b3b62', fontSize: 20, lineHeight: 1,
+						header: header2, footer: footer2
 					}]}/>
 		</Stage>
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {CardListStyleSelector} from "./card-list-style-selector.component.tsx";
+import {CardListModeSelector} from "./card-list-mode-selector.component.tsx";
 import {ICollectionState, useCollectionStore} from "../../../store/data/collections-store.ts";
 import {useSettingsStore} from "../../../store/settings/settings-store.ts";
 import {useShallow} from "zustand/react/shallow";
@@ -27,7 +27,7 @@ export const CardListHeader: React.FC<TCardListHeaderProps> = ({collectionId}) =
 				</div>
 			})}
 
-			<CardListStyleSelector/>
+			<CardListModeSelector sides={sides}/>
 		</div>
 	</div>;
 }
