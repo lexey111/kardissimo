@@ -5,8 +5,9 @@
 	justify-content: center;
 
 	.card-item {
-		margin-right: 16px;
-		margin-bottom: 16px;
+		//margin-right: 16px;
+		//margin-bottom: 16px;
+		margin: 8px;
 	}
 
 	.card-number {
@@ -64,7 +65,7 @@
 	}
 
 	.card-item-create {
-		margin: 0 0 0 -8px;
+		margin: 0 0 0 -10px;
 		font-size: 4rem;
 	}
 }
