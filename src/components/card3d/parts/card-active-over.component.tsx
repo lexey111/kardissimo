@@ -19,8 +19,8 @@ const size = 30;
 const halfSize = size / 2;
 const quarterSize = size / 4;
 
-const boxWidth = cardWidth + size;
-const boxHeight = cardHeight + size;
+const boxWidth = cardWidth; //+ size;
+const boxHeight = cardHeight;// + size;
 
 export const CardActiveOver: React.FC<TCardActiveOverProps> = (props: TCardActiveOverProps) => {
 

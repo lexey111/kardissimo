@@ -24,29 +24,26 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 		// @ts-ignore
 		rotation={props.rotation}
 	>
-		{props.face.header && <Text
-			position-z={cardThickness / 2 + 0.5}
-			position-y={120}
-			{...headerProps}
-			color={props.face.textColor}
-			anchorX={props.face.textAlign}
-			anchorY="top"></Text>}
+		{props.face.header && <Text position-z={cardThickness / 2 + 0.5}
+		                            position-y={120}
+		                            {...headerProps}
+		                            color={props.face.textColor}
+		                            anchorX={props.face.textAlign}
+		                            anchorY="top"/>}
 
-		<Text
-			position-z={cardThickness / 2 + 0.5}
-			{...props.face}
-			position-y={5}
-			color={props.face.textColor}
-			anchorX={props.face.textAlign}
-			anchorY="middle"></Text>
+		<Text position-z={cardThickness / 2 + 0.5}
+		      {...props.face}
+		      position-y={5}
+		      color={props.face.textColor}
+		      anchorX={props.face.textAlign}
+		      anchorY="middle"/>
 
-		{props.face.footer && <Text
-			position-z={cardThickness / 2 + 0.5}
-			position-y={-120}
-			{...footerProps}
-			color={props.face.textColor}
-			anchorX={props.face.textAlign}
-			anchorY="bottom"></Text>}
+		{props.face.footer && <Text position-z={cardThickness / 2 + 0.5}
+		                            position-y={-120}
+		                            {...footerProps}
+		                            color={props.face.textColor}
+		                            anchorX={props.face.textAlign}
+		                            anchorY="bottom"/>}
 
 		<CardSurface color={props.face.color} positionZ={0}/>
 	</group>;

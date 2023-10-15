@@ -154,6 +154,10 @@ export const CardTable: React.FC<TCardTableProps> = ({
 
 	const processDoubleClick = useCallback((e: any) => {
 		if (readonly) {
+			const scrollContainer: any = document.querySelector('#root');
+			if (scrollContainer && scrollContainer.scrollTop > 0) {
+				localStorage.setItem('_list_scroll_position', scrollContainer.scrollTop);
+			}
 			navigate(`/collections/${collectionId}/cards/${e.data.id}`);
 		}
 	}, [readonly]);

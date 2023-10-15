@@ -7,9 +7,9 @@ export type TCardActiveClickProps = {
 	onClickRight: () => void
 }
 
-const size = 30;
-const boxWidth = cardWidth + size;
-const boxHeight = cardHeight + size;
+// const size = 30;
+const boxWidth = cardWidth; // + size;
+const boxHeight = cardHeight; // + size;
 
 export const CardActiveClick: React.FC<TCardActiveClickProps> = (props: TCardActiveClickProps) => {
 	return <mesh visible={false}>

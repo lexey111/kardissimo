@@ -6,6 +6,11 @@ export const PreviewCell: React.FC = (props: any) => {
 	const navigate = useNavigate();
 
 	const handleClick = useCallback(() => {
+		const scrollContainer: any = document.querySelector('#root');
+		if (scrollContainer && scrollContainer.scrollTop > 0) {
+			localStorage.setItem('_list_scroll_position', scrollContainer.scrollTop);
+		}
+
 		navigate(`/collections/${props.collectionId}/cards/${props.data.id}`);
 	}, []);
 

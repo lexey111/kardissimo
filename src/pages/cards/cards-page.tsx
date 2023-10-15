@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect, useRef} from "react";
 import {AppPage} from "../../components/app-page.component.tsx";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {AppSecondaryPageHeader} from "../../components/app-secondary-page-header.component.tsx";
@@ -14,9 +14,36 @@ export const CardsPage: React.FC = () => {
 	const params = useParams()
 	const collection = getCollection(params.id);
 	const count = countCards(params.id);
+	const destroying = useRef(false);
+
+	useEffect(() => {
+		return () => {
+			destroying.current = true;
+		}
+	}, []);
 
 	const handleBack = useCallback(() => {
 		navigate('/collections');
+	}, []);
+
+	useEffect(() => {
+		const restoredPosition = Number(localStorage.getItem('_list_scroll_position'));
+		if (isNaN(restoredPosition)) {
+			return;
+		}
+
+		localStorage.removeItem('_list_scroll_position');
+
+		setTimeout(() => {
+			if (destroying.current) {
+				return;
+			}
+			const scrollContainer: any = document.querySelector('#root');
+
+			if (scrollContainer) {
+				scrollContainer.scrollTop = restoredPosition;
+			}
+		}, 20);
 	}, []);
 
 	if (!collection || !collection.sides) {
