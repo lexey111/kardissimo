@@ -29,11 +29,10 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 		// table style uses separate component
 		return <>
 			<CardTable collectionId={collectionId}/>
-			{cardIds.length < 7 && <CardListAdd collectionId={collectionId}/>}
+			<CardListAdd collectionId={collectionId}/>
 		</>;
 	}
 
-	const threshold = currentStyle === 'list' ? 3: 18;
 	// list and card styles are serviced by CSS
 	return <div className={`card-list list-style-${currentStyle}`}>
 		{cardIds.map((cardId, idx) => {
@@ -46,6 +45,6 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 			                     count={cardIds.length}
 			/>
 		})}
-		{cardIds.length < threshold && <CardListAdd collectionId={collectionId}/>}
+		<CardListAdd collectionId={collectionId}/>
 	</div>;
 };

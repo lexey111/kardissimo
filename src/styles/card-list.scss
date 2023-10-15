@@ -100,3 +100,36 @@
 
 @import "card-list-cards";
 @import "card-list-table";
+
+
+body.deep-scroll-size {
+	.card-list-add-cards, .card-list-add-list, .card-list-add-table {
+		//display: none;
+		//visibility: collapse;
+		transform-origin: top left;
+		animation-name: hide-under-add;
+		animation-timing-function: ease;
+		animation-duration: .5s;
+		animation-play-state: running;
+		animation-iteration-count: 1;
+		animation-fill-mode: forwards;
+	}
+}
+
+
+@keyframes hide-under-add {
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	90% {
+		opacity: 0;
+		transform: translateY(-40px);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-40px);
+		display: none;
+		visibility: collapse;
+	}
+}
