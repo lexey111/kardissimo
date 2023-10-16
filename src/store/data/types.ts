@@ -10,6 +10,7 @@ export type TCollectionStat = {
 }
 
 export type TCollectionAppearance = {
+	fontName: string
 	background: TBackgroundAppearance
 }
 

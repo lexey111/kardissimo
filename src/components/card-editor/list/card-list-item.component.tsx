@@ -1,6 +1,6 @@
 import React from "react";
 import {CardSide} from "../card-side.component.tsx";
-import {CardRemove} from "../card-remove.component.tsx";
+import {CardRemoveButton} from "../card-remove.component.tsx";
 import {TCardListStyle, useSettingsStore} from "../../../store/settings/settings-store.ts";
 
 export type TCardListItemProps = {
@@ -49,7 +49,7 @@ export const CardListItem: React.FC<TCardListItemProps> = ({
 		</div>
 
 		<div className={'card-actions'}>
-			<CardRemove collectionId={collectionId} cardId={cardId}/>
+			<CardRemoveButton collectionId={collectionId} cardId={cardId}/>
 		</div>
 	</div>;
 };

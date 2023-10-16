@@ -18,6 +18,7 @@ export const CollectionsPage: React.FC = () => {
 		/>
 		<div className={'page'}>
 			<CollectionList/>
+
 			<AddNewCollection/>
 		</div>
 	</AppPage>;

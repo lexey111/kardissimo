@@ -97,7 +97,7 @@
 				}
 			}
 
-			input[type=text] {
+			input[type=text], select {
 				background-color: #fff0f6;
 				border-bottom-color: #ff005b;
 				color: #ff005b;
@@ -146,7 +146,7 @@
 		margin: 0;
 	}
 
-	input[type=text], textarea {
+	input[type=text], textarea, select {
 		display: inline-flex;
 		margin: 0;
 		flex-grow: 2;

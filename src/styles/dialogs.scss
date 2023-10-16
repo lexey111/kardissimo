@@ -1,0 +1,54 @@
+.dialog-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, .2);
+	backdrop-filter: blur(8px);
+	z-index: 1000;
+}
+
+.dialog-fullscreen {
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	right: 20px;
+	bottom: 20px;
+	background: #fff;
+	border-radius: 18px;
+	color: #333;
+	display: flex;
+	box-shadow: 2px 8px 28px rgba(255, 0, 91, 0.55);
+	@include center();
+	z-index: 1001;
+}
+
+.dialog-content {
+	max-width: 500px;
+	padding: 0 32px;
+	text-align: left;
+}
+
+.dialog-description {
+	margin-bottom: 32px;
+}
+
+.dialog-body {
+
+}
+
+.dialog-actions {
+	text-align: right;
+	margin-top: 32px;
+	padding-top: 16px;
+	border-top: 1px solid #eee;
+
+	button {
+		margin-left: 16px;
+	}
+}
+
+.title-danger {
+	color: #ff005b;
+}

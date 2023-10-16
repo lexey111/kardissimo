@@ -131,7 +131,7 @@
 	.table-button-column {
 		opacity: 0;
 
-		span {
+		span, div {
 			background-color: #0075ce;
 			color: #fff;
 			border-radius: 100%;
@@ -158,7 +158,7 @@
 		}
 
 		&.danger {
-			span {
+			span, div {
 				background: rgba(255, 2, 144, 0.94);
 			}
 		}

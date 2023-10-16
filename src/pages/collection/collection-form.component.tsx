@@ -3,6 +3,7 @@ import {Field, Form,} from 'formik';
 import {Tooltip} from 'react-tooltip';
 import {NavLink} from "react-router-dom";
 import {AppPageError} from "../../components/app-page-error.component.tsx";
+import {Fonts} from "../../resources/fonts.ts";
 
 function validateRequired(value: string) {
 	let error;
@@ -66,7 +67,7 @@ export const CollectionForm: React.FC = ({
 			</div>
 		</fieldset>
 
-		<h3>Side Names</h3>
+		<h3>Sides</h3>
 		{values.sides?.map((_: string, idx: number) => {
 			const name = 'sides[' + idx + ']';
 			const sideClass = touched.sides?.[idx]
@@ -93,6 +94,20 @@ export const CollectionForm: React.FC = ({
 				</div>
 			</fieldset>
 		})}
+		<h3>Appearance</h3>
+		<fieldset>
+			<label htmlFor={'appearance.fontName'}>Font</label>
+			<div className={'field-set'}>
+				<Field id={'appearance.fontName'}
+				       name={'appearance.fontName'}
+				       placeholder="Font"
+				       as={'select'}>
+					{Object.keys(Fonts).map(key => {
+						return <option value={key} key={key}>{key}</option>;
+					})}
+				</Field>
+			</div>
+		</fieldset>
 
 		<fieldset className={'actions'}>
 			<button type="button" className={'pure-button'}
