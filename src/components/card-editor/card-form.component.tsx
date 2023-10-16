@@ -72,7 +72,7 @@ export const CardForm: React.FC<TCardFormProps> = ({
 		})}
 		<fieldset className={'actions'}>
 			<button type="button" className={'pure-button'}
-			        onClick={handleReset}>&larr; Cancel
+			        onClick={handleReset}>&larr; Cancel (Esc)
 			</button>
 			&nbsp;
 			<button type="submit"

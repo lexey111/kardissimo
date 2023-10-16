@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {getCard, getCollection} from "../../store/data/collections-store.selectors.ts";
 import {useNavigate} from "react-router-dom";
 import {TCard} from "../../store/data/types.ts";
@@ -41,6 +41,20 @@ export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId, is
 		}
 
 		navigate(`/collections/${collectionId}/cards`);
+	}, []);
+
+	const handleEsc = useCallback((e: any) => {
+		if (e.key !== 'Escape') {
+			return;
+		}
+		handleBack();
+	}, []);
+
+	useEffect(() => {
+		window.addEventListener('keydown', handleEsc);
+		return () => {
+			window.removeEventListener('keydown', handleEsc);
+		}
 	}, []);
 
 	const handleChange = useCallback((e: any) => {
