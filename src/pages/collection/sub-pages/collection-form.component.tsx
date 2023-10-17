@@ -1,9 +1,8 @@
 import React from "react";
 import {Field, Form,} from 'formik';
 import {Tooltip} from 'react-tooltip';
-import {NavLink} from "react-router-dom";
-import {AppPageError} from "../../components/app-page-error.component.tsx";
-import {Fonts} from "../../resources/fonts.ts";
+import {useSearchParams} from "react-router-dom";
+import {Fonts} from "../../../resources/fonts.ts";
 
 function validateRequired(value: string) {
 	let error;
@@ -24,11 +23,8 @@ export const CollectionForm: React.FC = ({
 	                                         touched,
                                          }: any) => {
 
-	if (!values || !values.sides) {
-		return <AppPageError title={'Error: Not found'}
-		                     subtitle={'Sorry for that.'}
-		                     back={<NavLink to={'/collections'}>Back to collections</NavLink>}/>;
-	}
+	const [searchParams] = useSearchParams();
+	const isNew = searchParams.get('new') !== null;
 
 	const titleError = touched.title && errors.title;
 	const titleClass = touched.title
@@ -111,13 +107,14 @@ export const CollectionForm: React.FC = ({
 
 		<fieldset className={'actions'}>
 			<button type="button" className={'pure-button'}
-			        onClick={handleReset}>&larr; Cancel
+			        disabled={Object.keys(touched).length === 0}
+			        onClick={handleReset}>{isNew ? 'Cancel' : 'Reset'}
 			</button>
 			&nbsp;
 			<button type="button"
 			        onClick={handleSubmit}
-			        disabled={hasErrors}
-			        className={'pure-button pure-button-primary'}>Save
+			        disabled={hasErrors || (!isNew && Object.keys(touched).length === 0)}
+			        className={'pure-button pure-button-primary'}>{isNew ? 'Create' : 'Save'}
 			</button>
 		</fieldset>
 	</Form>

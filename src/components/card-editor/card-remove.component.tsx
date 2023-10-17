@@ -30,7 +30,7 @@ export const CardRemoveButton: React.FC<TCardRemoveProps> = ({collectionId, card
 					Cancel (Esc)
 				</button>
 				<button className={'pure-button pure-button-danger'} onClick={handleRemove}>
-					Remove
+					<FaTrashCan/> Remove
 				</button>
 			</>}
 		/>

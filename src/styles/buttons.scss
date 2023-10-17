@@ -54,6 +54,15 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	opacity: 1;
 	text-underline-offset: 10px;
 	text-decoration-thickness: 1px;
+
+	display: inline-flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
+
+.pure-button svg {
+	margin-right: .5rem;
+	font-size: 0.9em;
 }
 
 .pure-button-hover, .pure-button:focus, .pure-button:hover {
@@ -135,6 +144,10 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	@include center();
 }
 
+.pure-button-group .pure-button svg {
+	margin-right: 0;
+}
+
 .pure-button-group.primary .pure-button {
 	border: none; //1px solid transparent;
 	background: #0078e7;
@@ -142,7 +155,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 }
 
 .pure-button-group.secondary .pure-button {
-	border: none;//1px solid transparent;
+	border: none; //1px solid transparent;
 	background: #ffbd0e;
 	margin-right: 1px;
 }

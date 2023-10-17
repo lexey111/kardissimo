@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import {Field, Form,} from 'formik';
 import {TCard, TCardSide} from "../../store/data/types.ts";
+import {useSearchParams} from "react-router-dom";
 
 export type TCardFormProps = {
 	handleReset: any
@@ -14,6 +15,9 @@ export const CardForm: React.FC<TCardFormProps> = ({
 	                                                   handleSideFocus,
 	                                                   values,
                                                    }: any) => {
+
+	const [searchParams] = useSearchParams();
+	const isNew = searchParams.get('new') !== null;
 
 	const destroying = useRef(false);
 	useEffect(() => {
@@ -77,7 +81,7 @@ export const CardForm: React.FC<TCardFormProps> = ({
 			&nbsp;
 			<button type="submit"
 				//onClick={handleSubmit}
-				    className={'pure-button pure-button-primary'}>Save
+				    className={'pure-button pure-button-primary'}>{isNew ? 'Create' : 'Save'}
 			</button>
 		</fieldset>
 	</Form>

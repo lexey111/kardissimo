@@ -1,5 +1,6 @@
 .card-list {
-	max-width: 1200px;
+	max-width: 960px;
+	padding: 0 16px;
 	margin: 0 auto;
 }
 
@@ -21,6 +22,7 @@
 
 .card-item.add {
 	position: relative;
+	margin: 0 auto;
 
 	.card-sides {
 		.card-side-content {

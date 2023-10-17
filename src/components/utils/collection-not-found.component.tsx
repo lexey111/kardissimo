@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 import React from "react";
 
 export const CollectionNotFound: React.FC = () => {
-	return <AppPageError title={'Collection Not Found'}
+	return <AppPageError title={'Page Not Found'}
 	                     subtitle={'Sorry for that.'}
 	                     back={<NavLink to={'/collections'}>
 		                     &larr; Back to collections

@@ -15,12 +15,16 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 
 	const cardCount = countCards(id);
 
-	const editCollection = useCallback((id: string) => {
-		navigate('/collections/' + id);
+	const goEdit = useCallback((id: string) => {
+		navigate(`/collections/${id}/details`);
+	}, []);
+
+	const goOverview = useCallback((id: string) => {
+		navigate(`/collections/${id}/overview`);
 	}, []);
 
 	const goCards = useCallback((id: string) => {
-		navigate('/collections/' + id + '/cards');
+		navigate(`/collections/${id}/cards`);
 	}, []);
 
 	const deleteCollection = useCallback(() => {
@@ -52,7 +56,8 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 		/>
 
 		<div className={'collection-item-actions'}>
-			<button onClick={() => editCollection(id!)} className={'pure-button pure-button-secondary'}>Edit</button>
+			<button onClick={() => goOverview(id!)} className={'pure-button pure-button-secondary'}>Overview</button>
+			<button onClick={() => goEdit(id!)} className={'pure-button pure-button-secondary'}>Edit</button>
 			<button onClick={() => goCards(id!)} className={'pure-button pure-button-primary'}>Cards ({cardCount})
 			</button>
 			<button onClick={() => setIsOpen(true)} className={'pure-button pure-button-danger'}>Remove</button>

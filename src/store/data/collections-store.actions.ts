@@ -97,6 +97,7 @@ export const removeCard = (collectionId?: string, cardId?: string) => useCollect
 createCollection({
 	id: '1234', //nanoid(),
 	title: 'First Test collection',
+	author: '',
 	isLocal: true,
 	sides: ['English', 'Español']
 });

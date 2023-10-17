@@ -13,6 +13,7 @@ export const CollectionList: React.FC = () => {
 		{collectionIds.map(collectionId => {
 			return <div key={collectionId} className={'collection-item'}>
 				<CollectionItem id={collectionId!}/>
+
 				<CollectionActions id={collectionId!}/>
 			</div>;
 		})}

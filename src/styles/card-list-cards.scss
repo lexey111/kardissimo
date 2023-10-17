@@ -3,6 +3,7 @@
 	flex-flow: row wrap;
 	align-items: stretch;
 	justify-content: center;
+	max-width: unset;
 
 	.card-item {
 		//margin-right: 16px;
@@ -67,6 +68,12 @@
 	.card-item-create {
 		margin: 0 0 0 -10px;
 		font-size: 4rem;
+	}
+}
+
+.empty-list .card-list-add-list {
+	.card-sides {
+		margin: 0 auto;
 	}
 }
 

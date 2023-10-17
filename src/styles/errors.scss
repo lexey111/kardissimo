@@ -1,11 +1,24 @@
 .big-error {
 	width: 100%;
+	flex-grow: 2;
+	z-index: 12;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: stretch;
 	text-align: center;
+	align-content: stretch;
+	justify-content: center;
+	flex-direction: row;
+	background: linear-gradient(150deg, #ff005b 10.21%, #c00245 84.57%);
 
 	.big-error-title {
-		background: linear-gradient(150deg, #ff005b 10.21%, #d9004c 84.57%);
 		color: #fff;
-		margin: 0;
+		@include center();
+		transform: translateY(-2rem);
 		padding: 32px;
 	}
 

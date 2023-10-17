@@ -6,6 +6,7 @@
 	grid-template-columns: 1fr 1fr;
 	grid-column-gap: 1px;
 	position: relative;
+	max-width: 960px;
 }
 
 .card-sides-header {
@@ -146,7 +147,7 @@
 	bottom: 1vh;
 	margin-bottom: 16px;
 	left: 50%;
-	transform: translateX(-50%);
+	//transform: translateX(-50%);
 	color: rgba(19, 138, 255, 0.76);
 	border-radius: 100%;
 	font-size: 5rem;

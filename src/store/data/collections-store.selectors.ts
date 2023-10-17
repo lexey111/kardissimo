@@ -6,7 +6,7 @@ export const getCollection = (collectionId?: string) => useCollectionStore(state
 
 export const getCollectionSides = (collectionId?: string) => useCollectionStore.getState().collections?.find(c => c.id === collectionId)?.sides;
 
-export const countCollections = () => useCollectionStore.getState().collections?.length;
+export const countCollections = () => useCollectionStore(state => state.collections?.length || 0);
 
 
 export const getCards = (collectionId: string) => useCollectionStore.getState().collections?.find(c => c.id === collectionId)?.cards;

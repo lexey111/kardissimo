@@ -3,7 +3,7 @@
 	flex-flow: row nowrap;
 	width: 100%;
 	flex-grow: 0;
-	margin: -8px 0 16px 0;
+	margin: 32px 0 16px 0;
 	justify-content: flex-start;
 	position: relative;
 	//color: rgba(255, 255, 255, .8);
@@ -16,7 +16,7 @@
 		flex-shrink: 0;
 		position: absolute;
 		right: 24px;
-		top: -50px;
+		top: -100px;
 		padding: 0;
 		border: 2px solid rgba(255, 255, 255, .4);
 		border-bottom: none;

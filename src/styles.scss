@@ -6,6 +6,7 @@
 @import "styles/menu";
 @import "styles/page";
 @import "styles/collections";
+@import "styles/side-menu";
 @import "styles/forms";
 @import "styles/header";
 @import "styles/secondary-header";
@@ -36,7 +37,6 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
 
-	background: linear-gradient(150deg, #569AFF 10.21%, #88DFAB 84.57%);
 	width: 100vw;
 	height: 100vh;
 	margin: 0;
@@ -44,6 +44,16 @@ body {
 	position: relative;
 }
 
+#bg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
+	background: linear-gradient(150deg, #569AFF 10.21%, #88DFAB 84.57%);
+}
+
 h1, h2, h3 {
-	font-weight: normal;
+	font-weight: 200;
 }

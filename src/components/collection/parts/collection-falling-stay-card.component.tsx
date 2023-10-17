@@ -48,7 +48,7 @@ export const CollectionFallingStayCard: React.FC = () => {
 	                      position-y={positionY}
 	                      rotation-x={rotationX}
 	                      rotation-y={rotationY}>
-		<FlatCard active={false} faces={[
+		<FlatCard active={'active'} faces={[
 			{
 				text: 'Hello, world!', color: '#FDBA66', textColor: '#4f351a', fontSize: 48, lineHeight: 1
 			},
