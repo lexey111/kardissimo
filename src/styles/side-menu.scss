@@ -89,6 +89,42 @@
 	}
 }
 
+.collection-menu.locked {
+	opacity: .7;
+	pointer-events: none;
+	user-select: none;
+	user-input: none;
+	user-focus: none;
+	background-color: rgba(0, 0, 0, 0.1);
+
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, .4);
+		z-index: 13;
+		backdrop-filter: blur(4px);
+	}
+
+	a {
+		opacity: .5;
+		color: #aaa !important;
+	}
+
+	a.active {
+		background-color: rgba(0, 0, 0, 0.1) !important;
+		color: #ccc !important;
+	}
+
+	svg {
+		color: #aaa !important;
+	}
+}
+
 .go-back {
 	display: inline-flex;
 	flex-grow: 0;

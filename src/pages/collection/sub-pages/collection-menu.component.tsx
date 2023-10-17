@@ -7,7 +7,11 @@ import {FiMaximize} from "react-icons/fi";
 import {IoBarChart} from "react-icons/io5";
 import {MdDesignServices} from "react-icons/md";
 
-export const CollectionMenu: React.FC = () => {
+export type TCollectionMenuProps = {
+	exclusiveLock: boolean
+}
+
+export const CollectionMenu: React.FC<TCollectionMenuProps> = ({exclusiveLock}) => {
 	const params = useParams();
 	const collection = getCollection(params.id);
 	const count = countCards(params.id);
@@ -16,8 +20,7 @@ export const CollectionMenu: React.FC = () => {
 		return null;
 	}
 
-
-	return <div className={'collection-menu'}>
+	return <div className={'collection-menu' + (exclusiveLock ? ' locked' : '')}>
 		<div className={'menu-content'}>
 			<div className={'menu-title'}><GoBackButton/></div>
 
