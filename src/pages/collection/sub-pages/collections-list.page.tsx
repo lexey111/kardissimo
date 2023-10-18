@@ -3,14 +3,14 @@ import {CollectionList} from "../../../components/collection/collection-list.com
 import {AddNewCollection} from "../../../components/collection/collection-add.component.tsx";
 import {CollectionScene} from "../../../components/scene/collection-scene.component.tsx";
 import {countCollections} from "../../../store/data/collections-store.selectors.ts";
-import {AppSecondaryPageHeader} from "../../../components/app-secondary-page-header.component.tsx";
 import {AppPage} from "../../../components/app-page.component.tsx";
+import {Header} from "../../../components/header.component.tsx";
 
 export const CollectionsListPage: React.FC = () => {
 	const count = countCollections();
 
 	return <AppPage title={'Collections page'}>
-		<AppSecondaryPageHeader
+		<Header
 			title={<>Collections <span className={'badge badge-white'}>{count > 0 ? count.toFixed() : ''}</span></>}
 			image={<CollectionScene/>}
 		/>

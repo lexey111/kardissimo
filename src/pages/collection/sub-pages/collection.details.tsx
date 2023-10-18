@@ -3,7 +3,7 @@ import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
 import {Formik,} from 'formik';
 import {CollectionForm} from "./collection-form.component.tsx";
 import {TCollection} from "../../../store/data/types.ts";
-import {CollectionNotFound} from "../../../components/utils/collection-not-found.component.tsx";
+import {PageNotFound} from "../../../components/utils/page-not-found.component.tsx";
 import {removeCollection, updateCollection} from "../../../store/data/collections-store.actions.ts";
 import {getCollection} from "../../../store/data/collections-store.selectors.ts";
 import {AppSubPage} from "../../../components/app-subpage.component.tsx";
@@ -40,7 +40,7 @@ export const CollectionDetails: React.FC = () => {
 	}, []);
 
 	if (!collection || !collection.sides) {
-		return <CollectionNotFound/>;
+		return <PageNotFound/>;
 	}
 
 	return <AppSubPage>

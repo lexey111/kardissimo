@@ -14,7 +14,7 @@ export const AppMenu: React.FC = () => {
 				<NavLink to="/about">About</NavLink>
 			</li>
 			<li>
-				<NavLink to="/scene">App</NavLink>
+				<NavLink to="/scene">Scene</NavLink>
 			</li>
 		</ul>
 	</nav>;

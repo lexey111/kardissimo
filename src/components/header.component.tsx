@@ -1,11 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
+import {GoBackButton} from "../pages/collection/sub-pages/go-back.component.tsx";
 
 export type TAppPageHeaderProps = {
 	title: string | JSX.Element
+	subtitle?: string | JSX.Element
 	image?: JSX.Element
-	onBack?: () => void
+	hasBack?: boolean
 }
-export const AppSecondaryPageHeader: React.FC<TAppPageHeaderProps> = ({title, image, onBack}) => {
+export const Header: React.FC<TAppPageHeaderProps> = ({title, subtitle, image, hasBack = false}) => {
 	const [show, setShow] = useState(false);
 
 	const destroying = useRef(false);
@@ -25,11 +27,13 @@ export const AppSecondaryPageHeader: React.FC<TAppPageHeaderProps> = ({title, im
 	}, [setShow]);
 
 
-	return <div className={'app-secondary-page-header'
-		+ (onBack ? ' with-back' : ' no-back')}>
+	return <div className={'app-page-header' + (hasBack ? ' with-back' : '') + (!!subtitle ? ' with-subtitle' : '')}>
 		<div className={'app-ph-title'}>
-			{onBack && <span className={'app-ph-back'} onClick={onBack}>&larr;</span>}
-			{title}
+			<div className={'app-ph-caption'}>
+				{hasBack && <GoBackButton/>}
+				{title}
+			</div>
+			{subtitle && <div className={'app-ph-subtitle'}>{subtitle}</div>}
 		</div>
 
 		{show && <div className={'app-ph-image'}>

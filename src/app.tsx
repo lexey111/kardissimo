@@ -3,9 +3,8 @@ import React from "react";
 import {AboutPage} from "./pages/about-page.tsx";
 import {HomePage} from "./pages/home-page.tsx";
 import {ScenePage} from "./pages/scene-page.tsx";
-import {Route, Routes} from "react-router";
-import {BrowserRouter} from "react-router-dom";
-import {AnimationLayout} from "./components/animation-layout.component.tsx";
+import {useRoutes} from "react-router";
+import {useLocation} from "react-router-dom";
 import {CollectionCards} from "./pages/collection/sub-pages/cards/collection-cards.tsx";
 import {CollectionCardEdit} from "./pages/collection/sub-pages/cards/collection-card.edit.tsx";
 import {CollectionsListPage} from "./pages/collection/sub-pages/collections-list.page.tsx";
@@ -14,33 +13,65 @@ import {CollectionOverview} from "./pages/collection/sub-pages/collection.overvi
 import {CollectionPage} from "./pages/collection/collection.page.tsx";
 import {CollectionStat} from "./pages/collection/sub-pages/collection.stat.tsx";
 import {CollectionAppearance} from "./pages/collection/sub-pages/collection.appearance.tsx";
+import {AnimatePresence} from "framer-motion";
 
 export const App: React.FC = () => {
-	return <BrowserRouter>
-		<div className={'app-page'}>
-			<Routes>
-				<Route element={<AnimationLayout/>}>
-					<Route path="/" element={<HomePage/>}/>
+	const element = useRoutes([
+		{
+			path: '/',
+			element: <HomePage/>
+		},
+		{
+			path: '/about',
+			element: <AboutPage/>
+		},
+		{
+			path: '/scene',
+			element: <ScenePage/>
+		},
+		{
+			path: '/collections',
+			element: <CollectionsListPage/>,
+		},
+		{
+			path: '/collections',
+			element: <CollectionPage/>,
+			children: [
+				{
+					path: ':id/overview',
+					//name: 'overview',
+					element: <CollectionOverview/>
+				},
+				{
+					path: ':id/details',
+					element: <CollectionDetails/>
+				},
+				{
+					path: ':id/appearance',
+					element: <CollectionAppearance/>
+				},
+				{
+					path: ':id/stat',
+					element: <CollectionStat/>
+				},
+				{
+					path: ':id/cards',
+					element: <CollectionCards/>
+				},
+				{
+					path: ':id/cards/:cardId',
+					element: <CollectionCardEdit/>
+				},
+			]
+		},
+	]);
 
-					<Route path="collections" element={<CollectionsListPage/>}/>
-				</Route>
+	const location = useLocation();
+	if (!element) return null;
 
-				<Route path="collections" element={<CollectionPage/>}>
-					<Route element={<AnimationLayout/>}>
-						<Route path=":id/overview" element={<CollectionOverview/>}/>
-						<Route path=":id/details" element={<CollectionDetails/>}/>
-						<Route path=":id/appearance" element={<CollectionAppearance/>}/>
-						<Route path=":id/stat" element={<CollectionStat/>}/>
-						<Route path=":id/cards" element={<CollectionCards/>}/>
-						<Route path=":id/cards/:cardId" element={<CollectionCardEdit/>}/>
-					</Route>
-				</Route>
-
-				<Route element={<AnimationLayout/>}>
-					<Route path="/about" element={<AboutPage/>}/>
-					<Route path="/scene" element={<ScenePage/>}/>
-				</Route>
-			</Routes>
-		</div>
-	</BrowserRouter>;
+	return (
+		<AnimatePresence mode='wait' initial={false}>
+			{React.cloneElement(element, {key: location.pathname})}
+		</AnimatePresence>
+	);
 };

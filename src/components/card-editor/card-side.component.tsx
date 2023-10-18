@@ -13,8 +13,8 @@ export const CardSide: React.FC<TCardAddProps> = ({collectionId, cardId, sideIdx
 	const navigate = useNavigate();
 
 	const navigateToCard = useCallback(() => {
-		const scrollContainer: any = document.querySelector('#root');
-		if (scrollContainer && scrollContainer.scrollTop > 0) {
+		const scrollContainer: any = window.document.scrollingElement;
+		if (scrollContainer && scrollContainer?.scrollTop > 0) {
 			localStorage.setItem('_list_scroll_position', scrollContainer.scrollTop);
 		}
 		navigate(`/collections/${collectionId}/cards/${cardId}`);

@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {removeCollection} from "../../store/data/collections-store.actions.ts";
 import {countCards, getCollection} from "../../store/data/collections-store.selectors.ts";
 import {Modal} from "../modal-component.tsx";
+import {FaTrashCan} from "react-icons/fa6";
 
 export type TCollectionActionsProps = {
 	id: string;
@@ -50,7 +51,7 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 					Cancel (Esc)
 				</button>
 				<button className={'pure-button pure-button-danger'} onClick={deleteCollection}>
-					Remove
+					<FaTrashCan/> Remove
 				</button>
 			</>}
 		/>

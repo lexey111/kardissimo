@@ -1,23 +1,78 @@
 import React from "react";
 import {AppFooter} from "./app-footer.component.tsx";
+import {motion} from "framer-motion";
 import {AppMenu} from "./app-menu.component.tsx";
+
+const topAnimationParams = {
+	initial: {
+		opacity: 0,
+		transform: 'translateY(-20px)'
+	},
+	in: {
+		opacity: 1,
+		transform: 'translateY(0)'
+	},
+	exit: {
+		opacity: 0,
+		transform: 'translateY(20px)'
+	}
+};
+
+const sideAnimationParams = {
+	initial: {
+		opacity: 0,
+		transform: 'translateX(-40px)'
+	},
+	in: {
+		opacity: 1,
+		transform: 'translateX(0)'
+	},
+	exit: {
+		opacity: 0,
+		transform: 'translateX(40px)',
+	}
+};
+
+const pageTransition = {
+	type: 'tween',
+	ease: 'circIn',
+	duration: 0.1
+};
 
 export type TAppPageProps = {
 	title?: string
 	children: any
+	header?: JSX.Element
 	float?: JSX.Element
-	showMenu?: boolean
+	sideTransition?: boolean
 }
-export const AppPage: React.FC<TAppPageProps> = ({title, children, float, showMenu = true}) => {
-	console.log(title);
-	return <div className={'app-page'}>
-		{showMenu && <AppMenu/>}
-		<div className='app-page-wrapper'>
-			<div className={'app-page-content'}>
-				{children}
+
+export const AppPage: React.FC<TAppPageProps> = ({title, children, header, float, sideTransition = false}) => {
+	if (title) {
+		window.document.title = title;
+	} else {
+		window.document.title = 'My Cool App';
+	}
+
+	return <div id={'app_main_container'} className={(sideTransition ? ' side-card' : '')}>
+		{sideTransition ? null : <AppMenu/>}
+		{!!header && header}
+		<motion.main
+			className="app-page"
+			initial={'initial'}
+			exit={'exit'}
+			animate={'in'}
+			variants={sideTransition ? sideAnimationParams : topAnimationParams}
+			transition={pageTransition}
+			style={{display: 'flex', width: '100%', height: '100%'}}
+		>
+			<div className='app-page-wrapper'>
+				<div className={'app-page-content'}>
+					{children}
+				</div>
+				{float && float}
 			</div>
-			{float && float}
-			<AppFooter/>
-		</div>
+		</motion.main>
+		<AppFooter/>
 	</div>;
 };

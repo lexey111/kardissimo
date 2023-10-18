@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import {useParams} from "react-router-dom";
-import {CollectionNotFound} from "../../../../components/utils/collection-not-found.component.tsx";
+import {PageNotFound} from "../../../../components/utils/page-not-found.component.tsx";
 import {getCollection} from "../../../../store/data/collections-store.selectors.ts";
 import {CardAddFloating} from "../../../../components/card-editor/card-add-floating.component.tsx";
 import {CardList} from "../../../../components/card-editor/list/card-list.component.tsx";
@@ -30,8 +30,7 @@ export const CollectionCards: React.FC = () => {
 			if (destroying.current) {
 				return;
 			}
-			const scrollContainer: any = document.querySelector('#root');
-
+			const scrollContainer: any = window.document.scrollingElement;
 			if (scrollContainer) {
 				scrollContainer.scrollTop = restoredPosition;
 			}
@@ -39,7 +38,7 @@ export const CollectionCards: React.FC = () => {
 	}, []);
 
 	if (!collection || !collection.sides) {
-		return <CollectionNotFound/>;
+		return <PageNotFound/>;
 	}
 
 	return <AppSubPage float={<CardAddFloating collectionId={collection.id}/>}>
