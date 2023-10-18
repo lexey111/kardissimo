@@ -27,7 +27,7 @@ export const CollectionPage: React.FC = () => {
 		}
 	}
 
-	return <AppPage title={'Collection - '}
+	return <AppPage title={'Collection'}
 	                header={<Header
 		                hasBack={true}
 		                title={collection.title!}

@@ -2,6 +2,9 @@ import React from "react";
 import {AppFooter} from "./app-footer.component.tsx";
 import {motion} from "framer-motion";
 import {AppMenu} from "./app-menu.component.tsx";
+import {matchRoutes} from "react-router";
+import {AppRoutes} from "../routes.tsx";
+import {useLocation} from "react-router-dom";
 
 const topAnimationParams = {
 	initial: {
@@ -48,8 +51,11 @@ export type TAppPageProps = {
 }
 
 export const AppPage: React.FC<TAppPageProps> = ({title, children, header, float, sideTransition = false}) => {
+	const location = useLocation();
+	const currentRouteTitle = (matchRoutes(AppRoutes, location)?.pop() as any)?.route?.['handle'];
+
 	if (title) {
-		window.document.title = title;
+		window.document.title = title + (currentRouteTitle ? ' | ' + currentRouteTitle : '');
 	} else {
 		window.document.title = 'My Cool App';
 	}
