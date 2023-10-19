@@ -16,8 +16,10 @@ export const useCardNavigateHook = (collectionId?: string, cardId?: string) => {
 	}, []);
 
 	const key = '_pos_cards_' + collectionId;
-	const goCard = () => {
+	const goCard = (_cardId?: string) => {
 		const position = window.document.scrollingElement?.scrollTop;
+
+		let targetId = cardId || _cardId;
 
 		if (position) {
 			console.log('STORE', key, position.toFixed())
@@ -31,7 +33,7 @@ export const useCardNavigateHook = (collectionId?: string, cardId?: string) => {
 			return;
 		}
 
-		navigate(`/collections/${collectionId}/cards/${cardId}`, {preventScrollReset: true});
+		navigate(`/collections/${collectionId}/cards/${targetId}`, {preventScrollReset: true});
 	};
 
 	const resetPosition = () => {

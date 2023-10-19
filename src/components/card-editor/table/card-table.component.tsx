@@ -4,10 +4,10 @@ import {useShallow} from "zustand/react/shallow";
 import {AgGridReact} from 'ag-grid-react'; // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import {useNavigate} from "react-router-dom";
 import {TCardListTableMode, TCardListTableViewMode, useSettingsStore} from "../../../store/settings/settings-store.ts";
 import {PreviewCell} from "./card-table-preview.component.tsx";
-import {RemoveCell} from "./card-table-remove.component.tsx"; // Optional theme CSS
+import {RemoveCell} from "./card-table-remove.component.tsx";
+import {useCardNavigateHook} from "../../utils/useCardNavigate.hook.tsx"; // Optional theme CSS
 
 export type TCardTableProps = {
 	collectionId?: string
@@ -94,7 +94,7 @@ export const CardTable: React.FC<TCardTableProps> = ({
 	                                                     collectionId,
                                                      }) => {
 
-	const navigate = useNavigate();
+	const {goCard} = useCardNavigateHook(collectionId!, '');
 
 	const tableEditMode = useSettingsStore((state) => state.tableEditMode);
 	const tableViewMode = useSettingsStore((state) => state.tableViewMode);
@@ -156,11 +156,7 @@ export const CardTable: React.FC<TCardTableProps> = ({
 
 	const processDoubleClick = useCallback((e: any) => {
 		if (readonly) {
-			const scrollContainer: any = window.document.scrollingElement;
-			if (scrollContainer && scrollContainer?.scrollTop > 0) {
-				localStorage.setItem('_list_scroll_position', scrollContainer.scrollTop);
-			}
-			navigate(`/collections/${collectionId}/cards/${e.data.id}`, {preventScrollReset: true});
+			goCard(e.data.id);
 		}
 	}, [readonly]);
 

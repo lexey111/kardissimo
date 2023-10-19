@@ -2,16 +2,18 @@
 	background: rgba(255, 255, 255, .4);
 	box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
 	color: rgba(0, 0, 0, 0.7);
-	width: 50%;
+	max-width: 726px;
 	padding: 16px;
 	border-radius: 8px;
 	@include center();
 	margin: 2rem auto;
 	display: flex;
+	flex-flow: row wrap;
 	position: relative;
+	line-height: 1;
 
 	svg {
-		margin: 0 .5rem;
+		margin: .5rem;
 		font-size: 1.5rem;
 		color: #045aa9;
 	}

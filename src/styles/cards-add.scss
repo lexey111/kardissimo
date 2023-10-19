@@ -61,6 +61,14 @@
 	}
 }
 
+.empty-list {
+	max-width: 960px;
+	margin: 0 auto 2rem;
+}
+
+.empty-list .card-list-add-list {
+}
+
 .empty-list .card-list-add-cards {
 	height: 200px;
 
@@ -98,7 +106,15 @@
 	}
 }
 
+.empty-list .card-list-add-table {
+	max-width: 760px;
+}
+
 .card-list-add-table {
+	display: flex;
+	max-width: 100%;
+	margin: 0 auto 2rem;
+
 	.card-sides {
 		.card-side-content {
 			&:before {

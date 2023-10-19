@@ -1,18 +1,12 @@
 import React, {useCallback} from "react";
 import {MdPageview} from "react-icons/md";
-import {useNavigate} from "react-router-dom";
+import {useCardNavigateHook} from "../../utils/useCardNavigate.hook.tsx";
 
 export const PreviewCell: React.FC = (props: any) => {
-	const navigate = useNavigate();
+	const {goCard} = useCardNavigateHook(props.collectionId!, props.data.id!);
 
 	const handleClick = useCallback(() => {
-		const scrollContainer: any = window.document.scrollingElement;
-		if (scrollContainer && scrollContainer?.scrollTop > 0) {
-			localStorage.setItem('_list_scroll_position', scrollContainer.scrollTop);
-			console.log('store', scrollContainer.scrollTop)
-		}
-
-		navigate(`/collections/${props.collectionId}/cards/${props.data.id}`, {preventScrollReset: true});
+		goCard();
 	}, []);
 
 	return <div className={'table-button-column'}>
