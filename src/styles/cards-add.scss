@@ -1,0 +1,129 @@
+.card-item.add {
+	width: 100%;
+	position: relative;
+	margin: 0 auto 2rem;
+
+	.card-sides {
+		width: 100%;
+		margin: 0 auto;
+
+		.card-side-content {
+			padding: 32px 0;
+			height: 64px;
+			font-size: 6rem;
+			background: none;
+			border: 1px dashed rgba(255, 255, 255, .5);
+			box-shadow: none;
+		}
+	}
+
+	.card-item-create {
+		font-size: 6rem;
+		transition: all .2s ease;
+		display: flex;
+		@include absolute-center();
+		cursor: pointer;
+		pointer-events: none;
+
+		svg {
+			box-shadow: inset 1px 1px 4px rgba(0, 0, 0, .1);
+			border-radius: 100%;
+			padding: 0;
+		}
+
+		&:before {
+			content: '';
+			display: block;
+			z-index: -1;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(12, 166, 255, 0.2);
+			border-radius: 100%;
+		}
+
+		border-radius: 100%;
+	}
+
+	&:hover {
+		.card-side-content {
+			color: #0076c2;
+			transform: none;
+			border-style: solid;
+			background: rgba(255, 255, 255, .1);
+		}
+
+		svg {
+			box-shadow: inset 1px 1px 4px rgba(0, 0, 0, .2);
+		}
+	}
+}
+
+.empty-list .card-list-add-cards {
+	height: 200px;
+
+	.card-sides {
+		align-items: stretch;
+		align-content: stretch;
+		margin: 0 auto;
+		width: 150px;
+		height: 200px;
+	}
+}
+
+.card-list-add-cards {
+	padding: 0 0 16px 0;
+	min-height: 160px;
+
+	.card-item.add {
+		height: 100%;
+
+		.card-sides {
+			align-items: stretch;
+			align-content: stretch;
+			height: 100%;
+
+			.card-side-content {
+				align-items: stretch;
+				align-content: stretch;
+				flex-grow: 2;
+				height: auto;
+				width: 150px;
+				border-radius: 8px;
+				max-width: 150px;
+			}
+		}
+	}
+}
+
+.card-list-add-table {
+	.card-sides {
+		.card-side-content {
+			&:before {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: 0;
+				right: 0;
+				transform: translateY(-50%);
+				height: 40%;
+				border: 1px solid rgba(255, 255, 255, .2);
+				background: rgba(255, 255, 255, .1);
+				border-left: none;
+				border-right: none;
+			}
+		}
+
+		.card-side-content:first-child {
+			border-right: none;
+			margin-right: 0;
+		}
+
+		.card-side-content:last-child {
+			border-left: none;
+			margin-left: 0;
+		}
+	}
+}

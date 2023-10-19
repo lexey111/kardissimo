@@ -23,9 +23,9 @@ export const CardListItem: React.FC<TCardListItemProps> = ({
 	const selectedSide = useSettingsStore((state) => state.selectedSide);
 
 	return <div className={'card-item'}>
-		<div className={'card-number'}>{number}
+		{number > 0 && <div className={'card-number'}>{number}
 			{number % 2 === 0 && <span>of {count}</span>}
-		</div>
+		</div>}
 
 		<div className={'card-sides'}>
 			{sides?.map((side, idx) => {
@@ -46,10 +46,10 @@ export const CardListItem: React.FC<TCardListItemProps> = ({
 					sideIdx={idx}
 					key={cardId + idx.toString()}/>
 			})}
+			<div className={'card-actions'}>
+				<CardRemoveButton collectionId={collectionId} cardId={cardId}/>
+			</div>
 		</div>
 
-		<div className={'card-actions'}>
-			<CardRemoveButton collectionId={collectionId} cardId={cardId}/>
-		</div>
 	</div>;
 };

@@ -47,7 +47,7 @@ const topAnimationParams = {
 const pageTransition = {
 	type: 'tween',
 	ease: 'circIn',
-	duration: .2
+	duration: 0.2
 };
 
 export const App: React.FC = () => {

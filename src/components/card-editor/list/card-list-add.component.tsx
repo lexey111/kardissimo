@@ -22,6 +22,7 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({collectionId}) => {
 	}, []);
 
 	return <div className={`card-list-add-${currentStyle}`}>
+		<span></span>
 		<div className={'card-item add'}>
 			<div className={'card-sides'} onClick={handleAdd}>
 				{sides?.map((_, idx) => {
@@ -36,5 +37,6 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({collectionId}) => {
 				<IoIosAddCircle/>
 			</div>
 		</div>
+		<span></span>
 	</div>;
 };

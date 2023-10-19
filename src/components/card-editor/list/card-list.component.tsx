@@ -48,7 +48,7 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 			                     collectionId={collectionId}
 			                     cardId={cardId}
 			                     sides={sides}
-			                     number={idx + 1}
+			                     number={currentStyle === 'cards' ? -1 : idx + 1}
 			                     currentStyle={currentStyle}
 			                     count={cardIds.length}
 			/>

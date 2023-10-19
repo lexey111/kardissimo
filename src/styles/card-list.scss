@@ -20,64 +20,6 @@
 	}
 }
 
-.card-item.add {
-	position: relative;
-	margin: 0 auto;
-
-	.card-sides {
-		.card-side-content {
-			padding: 32px 0;
-			height: 64px;
-			font-size: 6rem;
-			background: none;
-			border: 1px dashed rgba(255, 255, 255, .5);
-			box-shadow: none;
-		}
-	}
-
-	.card-item-create {
-		font-size: 6rem;
-		transition: all .2s ease;
-		display: flex;
-		@include absolute-center();
-		cursor: pointer;
-		pointer-events: none;
-
-		svg {
-			box-shadow: inset 1px 1px 4px rgba(0, 0, 0, .1);
-			border-radius: 100%;
-			padding: 0;
-		}
-
-		&:before {
-			content: '';
-			display: block;
-			z-index: -1;
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background: rgba(12, 166, 255, 0.2);
-			border-radius: 100%;
-		}
-
-		border-radius: 100%;
-	}
-
-	&:hover {
-		.card-side-content {
-			color: #0076c2;
-			transform: none;
-			border-style: solid;
-			background: rgba(255, 255, 255, .1);
-		}
-
-		svg {
-			box-shadow: inset 1px 1px 4px rgba(0, 0, 0, .2);
-		}
-	}
-}
 
 .list-mode-selector {
 	z-index: 2;
@@ -108,10 +50,6 @@
 	}
 }
 
-@import "card-list-cards";
-@import "card-list-table";
-
-
 body.deep-scroll-size {
 	.card-list-add-cards, .card-list-add-list, .card-list-add-table {
 		//display: none;
@@ -125,7 +63,6 @@ body.deep-scroll-size {
 		animation-fill-mode: forwards;
 	}
 }
-
 
 @keyframes hide-under-add {
 	0% {
@@ -143,3 +80,9 @@ body.deep-scroll-size {
 		visibility: collapse;
 	}
 }
+
+@import "cards-card-view";
+@import "cards-table-view";
+@import "cards-list-view";
+@import "cards-no-data";
+@import "cards-add";

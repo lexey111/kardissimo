@@ -1,0 +1,40 @@
+.card-list.list-style-cards {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: stretch;
+	justify-content: center;
+	max-width: unset;
+
+	.card-item {
+		margin: 8px;
+	}
+
+	.card-number {
+		font-size: 2rem;
+		z-index: -1;
+	}
+
+	.card-sides {
+		display: flex;
+		min-width: 140px;
+		max-width: 140px;
+		width: 140px;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+
+		.card-side-content {
+			border-radius: 8px;
+			max-width: 120px;
+			width: 100%;
+		}
+	}
+
+	.card-actions {
+		div {
+			margin: 4px;
+			width: 32px;
+			height: 32px;
+		}
+	}
+}
