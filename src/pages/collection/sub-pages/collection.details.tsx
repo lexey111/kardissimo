@@ -7,11 +7,15 @@ import {PageNotFound} from "../../../components/utils/page-not-found.component.t
 import {removeCollection, updateCollection} from "../../../store/data/collections-store.actions.ts";
 import {getCollection} from "../../../store/data/collections-store.selectors.ts";
 import {AppSubPage} from "../../../components/app-subpage.component.tsx";
+import {useCardNavigateHook} from "../../../components/utils/useCardNavigate.hook.tsx";
 
 export const CollectionDetails: React.FC = () => {
 	const navigate = useNavigate();
 	const params = useParams();
 	const collection = getCollection(params.id);
+
+	const {resetPosition} = useCardNavigateHook(params.id, '');
+	resetPosition();
 
 	const [searchParams] = useSearchParams();
 	const isNew = searchParams.get('new') !== null;

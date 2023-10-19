@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {ICollectionState, useCollectionStore} from "../../../store/data/collections-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {CardListAdd} from "./card-list-add.component.tsx";
@@ -6,12 +6,19 @@ import {useSettingsStore} from "../../../store/settings/settings-store.ts";
 import {CardListNoData} from "./card-list-no-data.component.tsx";
 import {CardListItem} from "./card-list-item.component.tsx";
 import {CardTable} from "../table/card-table.component.tsx";
+import {useCardNavigateHook} from "../../utils/useCardNavigate.hook.tsx";
 
 export type TCardListProps = {
 	collectionId?: string
 }
 
 export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
+
+	const {restorePosition} = useCardNavigateHook(collectionId!, '');
+
+	useEffect(() => {
+		restorePosition();
+	}, []);
 
 	const cardIds = useCollectionStore(useShallow((state: ICollectionState) => state.collections
 		.find(c => c.id === collectionId)?.cards?.map(card => card.id)));
@@ -20,6 +27,7 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 		.find(c => c.id === collectionId)?.sides));
 
 	const currentStyle = useSettingsStore((state) => state.cardListStyle);
+
 
 	if (!cardIds || cardIds.length === 0) {
 		return <CardListNoData collectionId={collectionId}/>;

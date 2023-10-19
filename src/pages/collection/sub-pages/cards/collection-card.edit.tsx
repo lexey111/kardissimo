@@ -4,7 +4,8 @@ import {CardEditor} from "../../../../components/card-editor/card-editor.compone
 import {AppSubPage} from "../../../../components/app-subpage.component.tsx";
 
 export const CollectionCardEdit: React.FC = () => {
-	const params = useParams()
+	const params = useParams();
+
 	return <AppSubPage>
 		<div className={'page'}>
 			<CardEditor collectionId={params.id} cardId={params.cardId}/>

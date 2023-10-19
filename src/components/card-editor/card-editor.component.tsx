@@ -39,9 +39,11 @@ export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId}) =
 		if (isNew) {
 			// delete the card first
 			removeCard(collectionId, cardId);
+			navigate(`/collections/${collectionId}/cards?from-new`);
+			return;
 		}
 
-		navigate(`/collections/${collectionId}/cards?from-new`, {preventScrollReset: true});
+		navigate(`/collections/${collectionId}/cards`);
 	}, []);
 
 	const handleEsc = useCallback((e: any) => {
@@ -92,7 +94,7 @@ export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId}) =
 
 		//actions.resetForm();
 
-		navigate(`/collections/${collectionId}/cards`, {preventScrollReset: true});
+		navigate(`/collections/${collectionId}/cards`);
 	}, []);
 
 	const handleSideFocus = useCallback((e: any) => {

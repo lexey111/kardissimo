@@ -5,9 +5,8 @@ import {CollectionsListPage} from "./pages/collection/sub-pages/collections-list
 import {CollectionPage} from "./pages/collection/collection.page.tsx";
 import {CollectionOverview} from "./pages/collection/sub-pages/collection.overview.tsx";
 import {CollectionDetails} from "./pages/collection/sub-pages/collection.details.tsx";
-import {CollectionAppearance} from "./pages/collection/sub-pages/collection.appearance.tsx";
 import {CollectionStat} from "./pages/collection/sub-pages/collection.stat.tsx";
-import {CollectionCards} from "./pages/collection/sub-pages/cards/collection-cards.tsx";
+import {CollectionCards} from "./pages/collection/sub-pages/collection.cards.tsx";
 import {CollectionCardEdit} from "./pages/collection/sub-pages/cards/collection-card.edit.tsx";
 import {App} from "./app.tsx";
 import {useRouteError} from "react-router";
@@ -60,11 +59,6 @@ export const AppRoutes = [
 						path: ':id/details',
 						handle: 'Details',
 						element: <CollectionDetails/>
-					},
-					{
-						path: ':id/appearance',
-						handle: 'Appearance',
-						element: <CollectionAppearance/>
 					},
 					{
 						path: ':id/stat',

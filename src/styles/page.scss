@@ -1,6 +1,7 @@
 #root {
 	display: flex;
 	flex-flow: row nowrap;
+	min-height: 100vh;
 }
 
 #app_main_container {
@@ -9,6 +10,12 @@
 	height: 100%;
 	min-height: 100vh;
 	flex-flow: column nowrap;
+}
+
+body.with-side-menu {
+	#app_main_container {
+		margin-left: 120px;
+	}
 }
 
 a {

@@ -1,13 +1,9 @@
 import React, {useCallback} from "react";
 import {IoIosAddCircle} from "react-icons/io";
 import {useSettingsStore} from "../../../store/settings/settings-store.ts";
-import {createCard} from "../../../store/data/collections-store.actions.ts";
-import {useNavigate} from "react-router-dom";
-import {customAlphabet, urlAlphabet} from "nanoid";
 import {ICollectionState, useCollectionStore} from "../../../store/data/collections-store.ts";
 import {useShallow} from "zustand/react/shallow";
-
-const nanoid = customAlphabet(urlAlphabet, 16);
+import {useCardNavigateHook} from "../../utils/useCardNavigate.hook.tsx";
 
 export type TCardListAddProps = {
 	collectionId?: string
@@ -16,16 +12,13 @@ export type TCardListAddProps = {
 export const CardListAdd: React.FC<TCardListAddProps> = ({collectionId}) => {
 	const currentStyle = useSettingsStore((state) => state.cardListStyle);
 
-	const navigate = useNavigate();
+	const {goCard} = useCardNavigateHook(collectionId!, 'new');
 
 	const sides = useCollectionStore(useShallow((state: ICollectionState) => state.collections
 		.find(c => c.id === collectionId)?.sides));
 
 	const handleAdd = useCallback(() => {
-		const newId = nanoid();
-
-		createCard(collectionId!, newId); // <- make route loader
-		navigate(`/collections/${collectionId}/cards/${newId}?new`, {preventScrollReset: true});
+		goCard();
 	}, []);
 
 	return <div className={`card-list-add-${currentStyle}`}>

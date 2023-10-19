@@ -107,7 +107,6 @@ export const CollectionForm: React.FC = ({
 
 		<fieldset className={'actions'}>
 			<button type="button" className={'pure-button'}
-			        disabled={Object.keys(touched).length === 0}
 			        onClick={handleReset}>{isNew ? 'Cancel' : 'Reset'}
 			</button>
 			&nbsp;

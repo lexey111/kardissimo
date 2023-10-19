@@ -15,8 +15,10 @@ export const CollectionMenu: React.FC = () => {
 	const exclusiveLock = searchParams.get('new') !== null;
 
 	if (!collection) {
+		document.body.classList.remove('with-side-menu');
 		return null;
 	}
+	document.body.classList.add('with-side-menu');
 
 	return <div className={'side-menu' + (exclusiveLock ? ' locked' : '')}>
 		<div className={'menu-content'}>

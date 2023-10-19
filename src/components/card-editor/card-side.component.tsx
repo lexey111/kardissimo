@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import {getCard} from "../../store/data/collections-store.selectors.ts";
-import {useNavigate} from "react-router-dom";
+import {useCardNavigateHook} from "../utils/useCardNavigate.hook.tsx";
 
 export type TCardAddProps = {
 	collectionId?: string
@@ -10,10 +10,10 @@ export type TCardAddProps = {
 
 export const CardSide: React.FC<TCardAddProps> = ({collectionId, cardId, sideIdx = 0}) => {
 	const cardData = getCard(collectionId, cardId);
-	const navigate = useNavigate();
+	const {goCard} = useCardNavigateHook(collectionId!, cardId!);
 
 	const navigateToCard = useCallback(() => {
-		navigate(`/collections/${collectionId}/cards/${cardId}`, {preventScrollReset: true});
+		goCard();
 	}, []);
 
 	if (!cardData || !cardData.sides || cardData.sides.length < sideIdx - 1) {
