@@ -10,11 +10,24 @@ import {CollectionStat} from "./pages/collection/sub-pages/collection.stat.tsx";
 import {CollectionCards} from "./pages/collection/sub-pages/cards/collection-cards.tsx";
 import {CollectionCardEdit} from "./pages/collection/sub-pages/cards/collection-card.edit.tsx";
 import {App} from "./app.tsx";
+import {useRouteError} from "react-router";
+import {PageNotFound} from "./components/utils/page-not-found.component.tsx";
+import React from "react";
+
+const ErrorBoundary: React.FC = () => {
+	const error = useRouteError();
+	console.log('ERROR');
+	console.error(error);
+
+	return <PageNotFound/>;
+}
 
 export const AppRoutes = [
+
 	{
 		path: '/',
 		element: <App/>,
+		errorElement: <ErrorBoundary/>,
 		children: [
 			{
 				path: 'home',
@@ -35,7 +48,7 @@ export const AppRoutes = [
 				element: <CollectionsListPage/>,
 			},
 			{
-				path: '/collections',
+				path: '/collections/*',
 				element: <CollectionPage/>,
 				children: [
 					{

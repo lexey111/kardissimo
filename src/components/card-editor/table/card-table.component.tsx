@@ -154,12 +154,15 @@ export const CardTable: React.FC<TCardTableProps> = ({
 			return;
 		}
 		gridRef.current?.api && gridRef.current.api.sizeColumnsToFit();
+
+	}, []);
+
+	useEffect(() => {
 		const restoredPosition = Number(localStorage.getItem('_list_scroll_position'));
+		console.log('reaed....')
 		if (isNaN(restoredPosition)) {
 			return;
 		}
-
-		localStorage.removeItem('_list_scroll_position');
 
 		setTimeout(() => {
 			if (destroying.current) {
@@ -167,10 +170,11 @@ export const CardTable: React.FC<TCardTableProps> = ({
 			}
 			const scrollContainer: any = window.document.scrollingElement;
 			if (scrollContainer) {
+				console.log('restored', restoredPosition)
 				scrollContainer.scrollTop = restoredPosition;
+				localStorage.removeItem('_list_scroll_position');
 			}
 		}, 20);
-
 	}, []);
 
 	const cards = useCollectionStore(useShallow((state: ICollectionState) => state.collections
@@ -183,7 +187,7 @@ export const CardTable: React.FC<TCardTableProps> = ({
 			if (scrollContainer && scrollContainer?.scrollTop > 0) {
 				localStorage.setItem('_list_scroll_position', scrollContainer.scrollTop);
 			}
-			navigate(`/collections/${collectionId}/cards/${e.data.id}`);
+			navigate(`/collections/${collectionId}/cards/${e.data.id}`, {preventScrollReset: true});
 		}
 	}, [readonly]);
 

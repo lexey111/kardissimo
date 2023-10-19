@@ -13,7 +13,7 @@ export const CardSide: React.FC<TCardAddProps> = ({collectionId, cardId, sideIdx
 	const navigate = useNavigate();
 
 	const navigateToCard = useCallback(() => {
-		navigate(`/collections/${collectionId}/cards/${cardId}`);
+		navigate(`/collections/${collectionId}/cards/${cardId}`, {preventScrollReset: true});
 	}, []);
 
 	if (!cardData || !cardData.sides || cardData.sides.length < sideIdx - 1) {

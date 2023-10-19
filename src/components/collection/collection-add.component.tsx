@@ -17,7 +17,7 @@ export const AddNewCollection: React.FC = () => {
 			isLocal: true,
 			sides: ['English', 'Español']
 		});
-		navigate(`/collections/${id}/details?new`);
+		navigate(`/collections/${id}/details?new`, {preventScrollReset: true});
 	}, []);
 
 	return <button onClick={addCollection}

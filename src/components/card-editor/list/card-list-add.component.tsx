@@ -25,7 +25,7 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({collectionId}) => {
 		const newId = nanoid();
 
 		createCard(collectionId!, newId); // <- make route loader
-		navigate(`/collections/${collectionId}/cards/${newId}?new`);
+		navigate(`/collections/${collectionId}/cards/${newId}?new`, {preventScrollReset: true});
 	}, []);
 
 	return <div className={`card-list-add-${currentStyle}`}>

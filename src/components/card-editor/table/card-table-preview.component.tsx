@@ -9,9 +9,10 @@ export const PreviewCell: React.FC = (props: any) => {
 		const scrollContainer: any = window.document.scrollingElement;
 		if (scrollContainer && scrollContainer?.scrollTop > 0) {
 			localStorage.setItem('_list_scroll_position', scrollContainer.scrollTop);
+			console.log('store', scrollContainer.scrollTop)
 		}
 
-		navigate(`/collections/${props.collectionId}/cards/${props.data.id}`);
+		navigate(`/collections/${props.collectionId}/cards/${props.data.id}`, {preventScrollReset: true});
 	}, []);
 
 	return <div className={'table-button-column'}>

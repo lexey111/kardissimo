@@ -5,6 +5,7 @@ import {AnimatePresence, motion} from "framer-motion";
 import {CollectionMenu} from "./pages/collection/sub-pages/collection-menu.component.tsx";
 import {AppMenu} from "./components/app-menu.component.tsx";
 import {AppFooter} from "./components/app-footer.component.tsx";
+import {AppHeader} from "./components/app-header.component.tsx";
 
 
 const AnimatedOutlet: React.FC = () => {
@@ -57,6 +58,7 @@ export const App: React.FC = () => {
 
 		<div id={'app_main_container'}>
 			<AppMenu/>
+			<AppHeader/>
 			<AnimatePresence mode="popLayout">
 				<motion.main
 					key={location.pathname}

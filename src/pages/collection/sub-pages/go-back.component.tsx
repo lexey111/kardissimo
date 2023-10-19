@@ -6,7 +6,7 @@ export const GoBackButton: React.FC = () => {
 	const navigate = useNavigate();
 
 	const handleBack = useCallback(() => {
-		navigate(`/collections`);
+		navigate(`/collections`, {preventScrollReset: true});
 	}, []);
 
 

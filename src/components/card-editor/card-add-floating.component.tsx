@@ -20,7 +20,7 @@ export const CardAddFloating: React.FC<TCardAddProps> = ({collectionId}) => {
 	const handleAdd = useCallback(() => {
 		const newId = nanoid();
 		createCard(collectionId!, newId);
-		navigate(`/collections/${collectionId}/cards/${newId}?new`);
+		navigate(`/collections/${collectionId}/cards/${newId}?new`, {preventScrollReset: true});
 	}, []);
 
 	if (!needToShowScroll) {
