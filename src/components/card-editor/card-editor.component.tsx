@@ -37,11 +37,11 @@ export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId}) =
 
 	const handleBack = useCallback(() => {
 		if (isNew) {
-			// delete card first
+			// delete the card first
 			removeCard(collectionId, cardId);
 		}
 
-		navigate(`/collections/${collectionId}/cards`);
+		navigate(`/collections/${collectionId}/cards?from-new`);
 	}, []);
 
 	const handleEsc = useCallback((e: any) => {
@@ -114,6 +114,7 @@ export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId}) =
 		<div className={'form-editor'}>
 			<Formik initialValues={cardData!}
 			        onReset={handleBack}
+			        validateOnMount={true}
 			        onSubmit={handleSubmit}>
 				<CardForm values={cardData!}
 				          handleSideFocus={handleSideFocus}

@@ -3,7 +3,7 @@
 	flex-flow: column wrap;
 	align-content: center;
 
-	input::placeholder {
+	input::placeholder, textarea::placeholder, select::placeholder {
 		color: #9ac1d9;
 	}
 

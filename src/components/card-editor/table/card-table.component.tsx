@@ -109,6 +109,14 @@ export const CardTable: React.FC<TCardTableProps> = ({
 
 	const [columnDefs, setColumnDefs] = useState(getTableDefs(collectionId, sides, tableEditMode, tableViewMode));
 
+	const destroying = useRef(false);
+
+	useEffect(() => {
+		return () => {
+			destroying.current = true;
+		}
+	}, []);
+
 	useEffect(() => {
 		if (!gridRef.current.api) {
 			return;
@@ -146,6 +154,23 @@ export const CardTable: React.FC<TCardTableProps> = ({
 			return;
 		}
 		gridRef.current?.api && gridRef.current.api.sizeColumnsToFit();
+		const restoredPosition = Number(localStorage.getItem('_list_scroll_position'));
+		if (isNaN(restoredPosition)) {
+			return;
+		}
+
+		localStorage.removeItem('_list_scroll_position');
+
+		setTimeout(() => {
+			if (destroying.current) {
+				return;
+			}
+			const scrollContainer: any = window.document.scrollingElement;
+			if (scrollContainer) {
+				scrollContainer.scrollTop = restoredPosition;
+			}
+		}, 20);
+
 	}, []);
 
 	const cards = useCollectionStore(useShallow((state: ICollectionState) => state.collections

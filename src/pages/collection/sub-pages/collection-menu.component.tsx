@@ -1,5 +1,5 @@
 import React from "react";
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink, useParams, useSearchParams} from "react-router-dom";
 import {countCards, getCollection} from "../../../store/data/collections-store.selectors.ts";
 import {FaGrip} from "react-icons/fa6";
 import {FiMaximize} from "react-icons/fi";
@@ -7,14 +7,12 @@ import {IoBarChart} from "react-icons/io5";
 import {MdDesignServices} from "react-icons/md";
 import {GoBackButton} from "./go-back.component.tsx";
 
-export type TCollectionMenuProps = {
-	exclusiveLock: boolean
-}
-
-export const CollectionMenu: React.FC<TCollectionMenuProps> = ({exclusiveLock}) => {
+export const CollectionMenu: React.FC = () => {
 	const params = useParams();
 	const collection = getCollection(params.id);
 	const count = countCards(params.id);
+	const [searchParams] = useSearchParams();
+	const exclusiveLock = searchParams.get('new') !== null;
 
 	if (!collection) {
 		return null;

@@ -80,8 +80,7 @@ export const CardForm: React.FC<TCardFormProps> = ({
 			</button>
 			&nbsp;
 			<button type="submit"
-				//onClick={handleSubmit}
-				    className={'pure-button pure-button-primary'}>{isNew ? 'Create' : 'Save'}
+			        className={'pure-button pure-button-primary'}>{isNew ? 'Create' : 'Save'}
 			</button>
 		</fieldset>
 	</Form>

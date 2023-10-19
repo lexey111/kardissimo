@@ -24,7 +24,7 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({collectionId}) => {
 	const handleAdd = useCallback(() => {
 		const newId = nanoid();
 
-		createCard(collectionId!, newId);
+		createCard(collectionId!, newId); // <- make route loader
 		navigate(`/collections/${collectionId}/cards/${newId}?new`);
 	}, []);
 

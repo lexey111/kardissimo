@@ -9,60 +9,67 @@ import {CollectionAppearance} from "./pages/collection/sub-pages/collection.appe
 import {CollectionStat} from "./pages/collection/sub-pages/collection.stat.tsx";
 import {CollectionCards} from "./pages/collection/sub-pages/cards/collection-cards.tsx";
 import {CollectionCardEdit} from "./pages/collection/sub-pages/cards/collection-card.edit.tsx";
+import {App} from "./app.tsx";
 
 export const AppRoutes = [
 	{
 		path: '/',
-		index: true,
-		element: <HomePage/>
-	},
-	{
-		path: '/about',
-		element: <AboutPage/>
-	},
-	{
-		path: '/scene',
-		element: <ScenePage/>
-	},
-	{
-		path: '/collections',
-		handle: 'List',
-		element: <CollectionsListPage/>,
-	},
-	{
-		path: '/collections',
-		element: <CollectionPage/>,
+		element: <App/>,
 		children: [
 			{
-				path: ':id/overview',
-				handle: 'Overview',
-				element: <CollectionOverview/>
+				path: 'home',
+				index: true,
+				element: <HomePage/>
 			},
 			{
-				path: ':id/details',
-				handle: 'Details',
-				element: <CollectionDetails/>
+				path: 'about',
+				element: <AboutPage/>
 			},
 			{
-				path: ':id/appearance',
-				handle: 'Appearance',
-				element: <CollectionAppearance/>
+				path: '/scene',
+				element: <ScenePage/>
 			},
 			{
-				path: ':id/stat',
-				handle: 'Stats',
-				element: <CollectionStat/>
+				path: '/collections',
+				handle: 'List',
+				element: <CollectionsListPage/>,
 			},
 			{
-				path: ':id/cards',
-				handle: 'Cards',
-				element: <CollectionCards/>
-			},
-			{
-				path: ':id/cards/:cardId',
-				handle: 'Card',
-				element: <CollectionCardEdit/>
-			},
+				path: '/collections',
+				element: <CollectionPage/>,
+				children: [
+					{
+						path: ':id/overview',
+						handle: 'Overview',
+						element: <CollectionOverview/>
+					},
+					{
+						path: ':id/details',
+						handle: 'Details',
+						element: <CollectionDetails/>
+					},
+					{
+						path: ':id/appearance',
+						handle: 'Appearance',
+						element: <CollectionAppearance/>
+					},
+					{
+						path: ':id/stat',
+						handle: 'Stats',
+						element: <CollectionStat/>
+					},
+					{
+						path: ':id/cards',
+						handle: 'Cards',
+						element: <CollectionCards/>
+					},
+					{
+						path: ':id/cards/:cardId',
+						handle: 'Card',
+						element: <CollectionCardEdit/>
+					},
+				]
+			}
 		]
-	},
+	}
 ];

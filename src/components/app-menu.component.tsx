@@ -1,11 +1,16 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 
 export const AppMenu: React.FC = () => {
+	const params = useParams();
+	if (params.id) {
+		return null; // in collection
+	}
+
 	return <nav id='app-menu'>
 		<ul>
 			<li>
-				<NavLink to="/">Home</NavLink>
+				<NavLink to="/home">Home</NavLink>
 			</li>
 			<li>
 				<NavLink to="/collections">Collections</NavLink>
