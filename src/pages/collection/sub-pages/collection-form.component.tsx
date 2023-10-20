@@ -67,7 +67,7 @@ export const CollectionForm: React.FC = ({
 		{values.sides?.map((_: TCollectionSide, idx: number) => {
 			const name = 'sides[' + idx + '].name';
 			const fontName = 'sides[' + idx + '].fontName';
-			// const fontSize = 'sides[' + idx + '].fontSize';
+			const fontSize = 'sides[' + idx + '].fontSize';
 			// const color = 'sides[' + idx + '].color';
 
 			const sideClass = touched.sides?.[idx]
@@ -96,19 +96,34 @@ export const CollectionForm: React.FC = ({
 					</div>
 				</fieldset>
 
-				<fieldset>
-					<label htmlFor={fontName}>Font</label>
-					<div className={'field-set'}>
-						<Field id={fontName}
-						       name={fontName}
-						       placeholder="Font"
-						       as={'select'}>
-							{Object.keys(Fonts).map(key => {
-								return <option value={key} key={key}>{key}</option>;
-							})}
-						</Field>
-					</div>
-				</fieldset>
+				<div className={'field-row-set'}>
+					<fieldset>
+						<label htmlFor={fontName}>Font</label>
+						<div className={'field-set'}>
+							<Field id={fontName}
+							       name={fontName}
+							       placeholder="Font"
+							       as={'select'}>
+								{Object.keys(Fonts).map(key => {
+									return <option value={key} key={key}>{key}</option>;
+								})}
+							</Field>
+							<div className={'font-size'}>
+								<Field id={fontSize}
+								       name={fontSize}
+								       placeholder="Font size"
+								       as={'select'}>
+									<option value={'XS'} key={'XS'}>XS</option>
+									<option value={'S'} key={'S'}>S</option>
+									<option value={'M'} key={'M'}>M</option>
+									<option value={'L'} key={'L'}>L</option>
+									<option value={'XL'} key={'XL'}>XL</option>
+								</Field>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+
 			</div>
 		})}
 
