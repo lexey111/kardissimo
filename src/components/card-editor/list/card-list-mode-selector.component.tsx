@@ -11,9 +11,10 @@ import {useSettingsStore} from "../../../store/settings/settings-store.ts";
 import {RiEditBoxFill} from "react-icons/ri";
 import {AiFillEye} from "react-icons/ai";
 import {TbViewportNarrow, TbViewportWide} from "react-icons/tb";
+import {TCollectionSide} from "../../../store/data/types.ts";
 
 export type TCardListModeSelectorProps = {
-	sides?: [string, string]
+	sides?: [TCollectionSide, TCollectionSide]
 }
 export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({sides}) => {
 	const currentStyle = useSettingsStore((state) => state.cardListStyle);
@@ -22,8 +23,8 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 	const selectedSide = useSettingsStore((state) => state.selectedSide);
 
 	if (sides && sides.length > 0) {
-		if (selectedSide === '' || !sides?.includes(selectedSide)) {
-			setSelectedSide(sides[0]);
+		if (typeof selectedSide === 'undefined' || sides.length < selectedSide) {
+			setSelectedSide(0);
 		}
 	}
 
@@ -60,10 +61,10 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 		{currentStyle === 'cards' && <div className={'card-side-selector'}>
 			<div className={'pure-button-group primary'}>
 				{sides?.map((side, idx) => {
-					return <button key={side + idx.toString()}
-					               className={'pure-button with-text' + (selectedSide === side ? ' pressed' : '')}
-					               onClick={() => setSelectedSide(side)}>
-						{side}
+					return <button key={side.name + idx.toString()}
+					               className={'pure-button with-text' + (selectedSide === idx ? ' pressed' : '')}
+					               onClick={() => setSelectedSide(idx)}>
+						{side.name}
 					</button>
 				})}
 			</div>

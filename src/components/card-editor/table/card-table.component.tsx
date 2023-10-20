@@ -7,13 +7,14 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import {TCardListTableMode, TCardListTableViewMode, useSettingsStore} from "../../../store/settings/settings-store.ts";
 import {PreviewCell} from "./card-table-preview.component.tsx";
 import {RemoveCell} from "./card-table-remove.component.tsx";
-import {useCardNavigateHook} from "../../utils/useCardNavigate.hook.tsx"; // Optional theme CSS
+import {useCardNavigateHook} from "../../utils/useCardNavigate.hook.tsx";
+import {TCollectionSide} from "../../../store/data/types.ts"; // Optional theme CSS
 
 export type TCardTableProps = {
 	collectionId?: string
 }
 
-function getTableDefs(collectionId?: string, sides?: [string, string], tableEditMode?: TCardListTableMode, tableViewMode?: TCardListTableViewMode) {
+function getTableDefs(collectionId?: string, sides?: [TCollectionSide, TCollectionSide], tableEditMode?: TCardListTableMode, tableViewMode?: TCardListTableViewMode) {
 	let result = [];
 
 	const previewColumn: any = {
@@ -45,7 +46,7 @@ function getTableDefs(collectionId?: string, sides?: [string, string], tableEdit
 	if (tableViewMode === 'wide') {
 		result.push(...(sides || []).map((side, idx) => {
 			return {
-				headerName: side,
+				headerName: side.name,
 				editable: false, sortable: false, resizable: false, filter: '',
 				children: [
 					{

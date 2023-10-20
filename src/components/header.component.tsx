@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {GoBackButton} from "../pages/collection/sub-pages/go-back.component.tsx";
+import {GoBackButton} from "./collection/go-back.component.tsx";
 
 export type TAppPageHeaderProps = {
 	title: string | JSX.Element

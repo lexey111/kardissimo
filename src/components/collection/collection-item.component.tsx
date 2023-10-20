@@ -15,6 +15,6 @@ export const CollectionItem: React.FC<TCollectionItemProps> = React.memo(({id}) 
 		<div className={'collection-title'}>{collection.title}</div>
 		<div className={'collection-author'}>by {collection.author}</div>
 		<div className={'collection-is-local'}>{collection.isLocal ? 'Local' : 'Cloud'}</div>
-		<div className={'collection-sides'}>Content: {collection.sides?.join(', ')}</div>
+		<div className={'collection-sides'}>Content: {collection.sides?.map(s => s.name).join(', ')}</div>
 	</div>;
 }, () => true);

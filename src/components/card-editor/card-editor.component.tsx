@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {getCard, getCollection} from "../../store/data/collections-store.selectors.ts";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {TCard} from "../../store/data/types.ts";
 import {Formik} from "formik";
 import {CardForm} from "./card-form.component.tsx";
@@ -10,17 +10,16 @@ import {CardPreview} from "./card-preview-component.tsx";
 export type TCardEditorProps = {
 	collectionId?: string
 	cardId?: string
+	isNew: boolean
 }
 
 const targetMatcher = new RegExp(/sides\[(\d+)]/);
 
-export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId}) => {
-	const [searchParams] = useSearchParams();
-	const isNew = searchParams.get('new') !== null;
-
+export const CardEditor: React.FC<TCardEditorProps> = ({collectionId, cardId, isNew = false}) => {
 	const collection = getCollection(collectionId);
+
 	const cardData: any = getCard(collectionId, cardId)!;
-	cardData['names'] = collection?.sides;
+	cardData['names'] = collection?.sides?.map(s => s.name);
 
 	const [text1, setText1] = useState(cardData.sides[0].word);
 	const [text2, setText2] = useState(cardData.sides[1].word);

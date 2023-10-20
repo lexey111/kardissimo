@@ -28,6 +28,7 @@ export const CollectionFallingStayCard: React.FC = () => {
 	});
 
 	const destroying = useRef(false);
+
 	useEffect(() => {
 		return () => {
 			destroying.current = true;

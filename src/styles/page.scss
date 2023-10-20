@@ -8,6 +8,7 @@
 	order: 2;
 	display: flex;
 	height: 100%;
+	width: 100%;
 	min-height: 100vh;
 	flex-flow: column nowrap;
 }
@@ -15,6 +16,10 @@
 body.with-side-menu {
 	#app_main_container {
 		margin-left: 120px;
+	}
+
+	#app-footer {
+		display: none;
 	}
 }
 

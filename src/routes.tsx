@@ -7,7 +7,7 @@ import {CollectionOverview} from "./pages/collection/sub-pages/collection.overvi
 import {CollectionDetails} from "./pages/collection/sub-pages/collection.details.tsx";
 import {CollectionStat} from "./pages/collection/sub-pages/collection.stat.tsx";
 import {CollectionCards} from "./pages/collection/sub-pages/collection.cards.tsx";
-import {CollectionCardEdit} from "./pages/collection/sub-pages/cards/collection-card.edit.tsx";
+import {CollectionCardEdit} from "./pages/collection/sub-pages/collection-card.edit.tsx";
 import {App} from "./app.tsx";
 import {useRouteError} from "react-router";
 import {PageNotFound} from "./components/utils/page-not-found.component.tsx";

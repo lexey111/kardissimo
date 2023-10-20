@@ -17,6 +17,7 @@ export const AboutPage: React.FC = () => {
 				<li>Tooltip</li>
 				<li>React</li>
 				<li>Vite</li>
+				<li>Framer motion</li>
 				<li>Typescript</li>
 			</ul>
 			<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda commodi consequatur dolor

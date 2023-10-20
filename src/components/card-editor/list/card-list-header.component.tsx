@@ -21,9 +21,9 @@ export const CardListHeader: React.FC<TCardListHeaderProps> = ({collectionId}) =
 
 	return <div className={'card-list'}>
 		<div className={'card-sides-header'}>
-			{showSideNames && sides?.map((sideName, idx) => {
-				return <div className={'card-side-name'} key={sideName + idx.toString()}>
-					{sideName}
+			{showSideNames && sides?.map((side, idx) => {
+				return <div className={'card-side-name'} key={side.name + idx.toString()}>
+					{side.name}
 				</div>
 			})}
 

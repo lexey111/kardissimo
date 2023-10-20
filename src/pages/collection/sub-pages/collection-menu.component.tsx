@@ -5,7 +5,6 @@ import {FaGrip} from "react-icons/fa6";
 import {FiMaximize} from "react-icons/fi";
 import {IoBarChart} from "react-icons/io5";
 import {MdDesignServices} from "react-icons/md";
-import {GoBackButton} from "./go-back.component.tsx";
 
 export const CollectionMenu: React.FC = () => {
 	const params = useParams();
@@ -22,7 +21,7 @@ export const CollectionMenu: React.FC = () => {
 
 	return <div className={'side-menu' + (exclusiveLock ? ' locked' : '')}>
 		<div className={'menu-content'}>
-			<div className={'menu-title'}><GoBackButton/></div>
+			{/*<div className={'menu-title'}><GoBackButton/></div>*/}
 
 			<div className={'menu-links'}>
 				<NavLink to={'/collections/' + collection.id + '/overview'}>

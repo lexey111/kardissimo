@@ -2,10 +2,11 @@ import React from "react";
 import {CardSide} from "../card-side.component.tsx";
 import {CardRemoveButton} from "../card-remove.component.tsx";
 import {TCardListStyle, useSettingsStore} from "../../../store/settings/settings-store.ts";
+import {TCollectionSide} from "../../../store/data/types.ts";
 
 export type TCardListItemProps = {
 	collectionId?: string
-	sides?: [string, string]
+	sides?: [TCollectionSide, TCollectionSide]
 	currentStyle: TCardListStyle
 	cardId: string
 	number: number
@@ -20,6 +21,7 @@ export const CardListItem: React.FC<TCardListItemProps> = ({
 	                                                           count,
 	                                                           currentStyle
                                                            }) => {
+
 	const selectedSide = useSettingsStore((state) => state.selectedSide);
 
 	return <div className={'card-item'}>
@@ -28,11 +30,11 @@ export const CardListItem: React.FC<TCardListItemProps> = ({
 		</div>}
 
 		<div className={'card-sides'}>
-			{sides?.map((side, idx) => {
+			{sides?.map((_, idx) => {
 				let needRender = true;
 				if (currentStyle === 'cards') {
 					if (selectedSide) {
-						needRender = selectedSide === side;
+						needRender = selectedSide === idx;
 					} else {
 						needRender = idx === 0;
 					}

@@ -15,6 +15,20 @@ export const createCollection = (newCollection: TCollection) => useCollectionSto
 	return {collections: [...state.collections, _collection]};
 });
 
+export const createDefaultCollection = (): string => {
+	const id = nanoid();
+
+	createCollection({
+		id,
+		title: 'New collection',
+		author: '',
+		isLocal: true,
+		sides: [{name: 'English'}, {name: 'Español'}]
+	});
+
+	return id;
+}
+
 export const removeCollection = (id: string) => useCollectionStore.setState((state) => {
 	return {
 		collections: state.collections.filter(c => c.id !== id)
@@ -99,7 +113,7 @@ createCollection({
 	title: 'First Test collection',
 	author: '',
 	isLocal: true,
-	sides: ['English', 'Español']
+	sides: [{name: 'English'}, {name: 'Español'}]
 });
 
 createCollection({
@@ -107,7 +121,7 @@ createCollection({
 	title: 'Second collection',
 	author: 'John Doe',
 	isLocal: true,
-	sides: ['English', 'Español']
+	sides: [{name: 'Françes'}, {name: 'Español'}]
 });
 
 createCollection({
@@ -115,7 +129,7 @@ createCollection({
 	title: 'Dynamic collection',
 	author: 'John Doe',
 	isLocal: true,
-	sides: ['English', 'Español']
+	sides: [{name: 'Ukrainian'}, {name: 'English'}]
 });
 
 for (let i = 0; i < 100; i++) {
