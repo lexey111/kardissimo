@@ -21,6 +21,8 @@ export const CollectionDetails: React.FC = () => {
 	const isNew = searchParams.get('new') !== null;
 
 	const [initState] = useState<TCollection>(collection!);
+	console.log('state')
+	console.log(initState);
 
 	const handleBack = useCallback(() => {
 		//setInitState(getCollection(params.id)!);

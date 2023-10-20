@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {Field, Form,} from 'formik';
 import {Tooltip} from 'react-tooltip';
 import {useSearchParams} from "react-router-dom";
 import {Fonts} from "../../../resources/fonts.ts";
 import {TCollectionSide} from "../../../store/data/types.ts";
+import {ColorPicker} from "./color-picker.component.tsx";
 
 function validateRequired(value: string) {
 	if (!value || !value.trim()) {
@@ -19,6 +20,7 @@ function validateRequired(value: string) {
 export const CollectionForm: React.FC = ({
 	                                         handleSubmit,
 	                                         handleReset,
+	                                         setFieldValue,
 	                                         values,
 	                                         errors,
 	                                         touched,
@@ -31,6 +33,14 @@ export const CollectionForm: React.FC = ({
 	const titleClass = touched.title
 		? errors.title ? ' invalid' : ' valid'
 		: '';
+
+	const handleColorComplete = useCallback((idx: number, c: any) => {
+		setFieldValue(`sides[${idx}].color`, c.hex);
+	}, []);
+
+	const handleTextColorComplete = useCallback((idx: number, c: any) => {
+		setFieldValue(`sides[${idx}].fontColor`, c.hex);
+	}, []);
 
 	const hasErrors = Object.keys(errors).length > 0;
 
@@ -64,11 +74,12 @@ export const CollectionForm: React.FC = ({
 			</div>
 		</fieldset>
 
-		{values.sides?.map((_: TCollectionSide, idx: number) => {
+		{values.sides?.map((_side: TCollectionSide, idx: number) => {
 			const name = 'sides[' + idx + '].name';
 			const fontName = 'sides[' + idx + '].fontName';
 			const fontSize = 'sides[' + idx + '].fontSize';
-			// const color = 'sides[' + idx + '].color';
+			const color = 'sides[' + idx + '].color';
+			const fontColor = 'sides[' + idx + '].fontColor';
 
 			const sideClass = touched.sides?.[idx]
 				? errors.sides?.[idx] ? ' invalid' : ' valid' : '';
@@ -77,6 +88,7 @@ export const CollectionForm: React.FC = ({
 
 			return <div key={name}>
 				<h3>Side {idx + 1}</h3>
+
 				<fieldset className={'required' + sideClass}>
 					<label htmlFor={'sides[' + idx + ']'}>Name</label>
 					<div className={'field-set'}>
@@ -123,6 +135,15 @@ export const CollectionForm: React.FC = ({
 						</div>
 					</fieldset>
 				</div>
+
+				<fieldset>
+					<label htmlFor={color}>Background</label>
+					<div className={'field-set'}>
+						<ColorPicker color={_side.color} onComplete={(col) => handleColorComplete(idx, col)}/>
+					<label htmlFor={fontColor} className={'secondary-label'}>Text</label>
+						<ColorPicker color={_side.fontColor} onComplete={(col) => handleTextColorComplete(idx, col)}/>
+					</div>
+				</fieldset>
 
 			</div>
 		})}

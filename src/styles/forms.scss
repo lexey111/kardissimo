@@ -140,6 +140,11 @@
 		margin: 0;
 	}
 
+	.secondary-label {
+		width: auto;
+		margin-left: 2rem;
+	}
+
 	input[type=text], textarea, select {
 		display: inline-flex;
 		margin: 0;
@@ -187,5 +192,34 @@
 				text-align-last: center;
 			}
 		}
+	}
+}
+
+
+.color-picker-popover {
+	position: relative;
+
+	button {
+		border: 2px solid rgba(255, 255, 255, .9);
+		display: flex;
+		width: 40px;
+		height: 40px;
+		border-radius: 100%;
+		transition: all .2s ease;
+		box-shadow: inset 1px 2px 4px rgba(0, 0, 0, .2);
+
+		&:focus {
+			outline: none;
+			border: 2px solid #EFBA00FF;
+		}
+	}
+
+	.color-picker-panel {
+		position: absolute;
+		z-index: 15;
+		//margin-left: 20px;
+		margin-top: 8px;
+		//transform: translateX(-50%);
+		box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
 	}
 }

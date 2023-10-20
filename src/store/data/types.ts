@@ -27,9 +27,10 @@ export type TCard = {
 
 export type TCollectionSide = {
 	name: string
+	color?: string
 	fontName?: string
 	fontSize?: 'XS' | 'S' | 'M' | 'L' | 'XL'
-	color?: string
+	fontColor?: string
 }
 
 export type TCollection = {
