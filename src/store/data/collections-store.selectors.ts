@@ -1,5 +1,5 @@
 import {useCollectionStore} from "./collections-store.ts";
-import {TCollectionSide} from "./types.ts";
+import {TCardEnriched, TCollectionSide} from "./types.ts";
 import {Fonts} from "../../resources/fonts.ts";
 
 
@@ -32,12 +32,23 @@ export const countCollections = () => useCollectionStore(state => state.collecti
 
 export const getCards = (collectionId: string) => useCollectionStore.getState().collections?.find(c => c.id === collectionId)?.cards;
 
-export const getCard = (collectionId?: string, cardId?: string) => useCollectionStore(state => {
-	const result = state.collections
-		?.find(c => c.id === collectionId)?.cards
-		?.find(c => c.id === cardId);
+export const getCard = (collectionId?: string, cardId?: string): TCardEnriched | null => useCollectionStore(state => {
+	const collection = state.collections?.find(c => c.id === collectionId);
 
-	return result;
+	if (!collection || !collection.cards) {
+		return null;
+	}
+
+	const card = collection.cards?.find(c => c.id === cardId);
+	if (!card) {
+		return null;
+	}
+
+	return {
+		id: card.id,
+		sides: card.sides?.map(side => ({header: '', footer: '', ...side})), // enrich with ''
+		collectionSides: collection.sides
+	};
 });
 
 export const countCards = (collectionId?: string) => useCollectionStore(state => state.collections?.find(c => c.id === collectionId)?.cards?.length || 0)

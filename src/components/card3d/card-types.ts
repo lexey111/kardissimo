@@ -4,7 +4,7 @@ export type TCardFace = {
 	footer?: string
 	fontName: string
 	font: string
-	fontSize: number
+	fontSize: string
 	color: string
 	textColor: string
 	textAlign: 'center' | 'left' | 'right'

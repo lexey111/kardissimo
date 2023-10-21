@@ -15,5 +15,5 @@ export const useSettingsStore = create<ISettingsState>(() => ({
 	cardListStyle: 'list',
 	tableEditMode: 'readonly',
 	tableViewMode: 'wide',
-	selectedSide: 0
+	selectedSide: 0,
 }));

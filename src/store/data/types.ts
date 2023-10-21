@@ -9,11 +9,6 @@ export type TCollectionStat = {
 	changed_at: Date
 }
 
-export type TCollectionAppearance = {
-	fontName: string
-	background: TBackgroundAppearance
-}
-
 export type TCardSide = {
 	header?: string
 	word: string
@@ -22,16 +17,19 @@ export type TCardSide = {
 
 export type TCard = {
 	id: string
-	sides?: [TCardSide, TCardSide]  // 2, TBD
+	sides?: Array<TCardSide>  // 2, TBD
 };
 
-export type TCollectionSide = {
-	name: string
+export type TCardAppearance = {
 	color?: string
 	fontName?: string
 	fontSize?: 'XS' | 'S' | 'M' | 'L' | 'XL'
 	fontColor?: string
 }
+
+export type TCardEnriched = TCard & { collectionSides?: Array<TCollectionSide> };
+
+export type TCollectionSide = { name: string } & TCardAppearance;
 
 export type TCollection = {
 	id?: string
@@ -39,6 +37,6 @@ export type TCollection = {
 	isLocal?: boolean
 	author?: string
 	stat?: TCollectionStat
-	sides?: [TCollectionSide, TCollectionSide] // 2, TBD
+	sides?: Array<TCollectionSide> // 2, TBD
 	cards?: Array<TCard>
 }

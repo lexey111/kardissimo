@@ -11,7 +11,6 @@ export const AboutPage: React.FC = () => {
 		<div className={'about-page'}>
 			<ul>
 				<li>Zustand</li>
-				<li>Formik</li>
 				<li>ThreeJS</li>
 				<li>drei, troika text</li>
 				<li>Tooltip</li>

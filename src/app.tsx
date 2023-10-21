@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useOutlet} from "react-router";
 import {ScrollRestoration, useLocation} from "react-router-dom";
 import {AnimatePresence, motion} from "framer-motion";
-import {CollectionMenu} from "./pages/collection/sub-pages/collection-menu.component.tsx";
+import {CollectionMenu} from "./components/collection/collection-menu.component.tsx";
 import {AppMenu} from "./components/app-menu.component.tsx";
 import {AppFooter} from "./components/app-footer.component.tsx";
 import {AppHeader} from "./components/app-header.component.tsx";

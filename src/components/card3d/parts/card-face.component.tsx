@@ -11,22 +11,38 @@ export type TCardFaceProps = {
 	rotation: any
 }
 export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
+	let fontSize = 22;
+
+	if (props.face.fontSize === 'XS') {
+		fontSize = 14;
+	}
+	if (props.face.fontSize === 'S') {
+		fontSize = 18;
+	}
+	if (props.face.fontSize === 'L') {
+		fontSize = 24;
+	}
+	if (props.face.fontSize === 'XL') {
+		fontSize = 30;
+	}
+
 	const headerProps = {...props.face};
+
+
 	headerProps.text = props.face.header || '';
-	headerProps.fontSize = props.face.fontSize * .7;
+	const headerFontSize = fontSize * .7;
 
 	const footerProps = {...props.face};
 	footerProps.text = props.face.footer || '';
-	footerProps.fontSize = props.face.fontSize * .7;
 
 	return <group
 		position-z={props.positionZ}
-		// @ts-ignore
 		rotation={props.rotation}
 	>
 		{props.face.header && <Text position-z={cardThickness / 2 + 0.5}
 		                            position-y={120}
 		                            {...headerProps}
+									fontSize={headerFontSize}
 		                            color={props.face.textColor}
 		                            anchorX={props.face.textAlign}
 		                            anchorY="top"> </Text>}
@@ -34,6 +50,7 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 		<Text position-z={cardThickness / 2 + 0.5}
 		      {...props.face}
 		      position-y={5}
+		      fontSize={fontSize}
 		      color={props.face.textColor}
 		      anchorX={props.face.textAlign}
 		      anchorY="middle"> </Text>
@@ -41,6 +58,7 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 		{props.face.footer && <Text position-z={cardThickness / 2 + 0.5}
 		                            position-y={-120}
 		                            {...footerProps}
+		                            fontSize={headerFontSize}
 		                            color={props.face.textColor}
 		                            anchorX={props.face.textAlign}
 		                            anchorY="bottom"> </Text>}

@@ -1,6 +1,6 @@
 import React from "react";
 import {NavLink, useParams, useSearchParams} from "react-router-dom";
-import {countCards, getCollection} from "../../../store/data/collections-store.selectors.ts";
+import {countCards, getCollection} from "../../store/data/collections-store.selectors.ts";
 import {FaGrip} from "react-icons/fa6";
 import {FiMaximize} from "react-icons/fi";
 import {IoBarChart} from "react-icons/io5";
