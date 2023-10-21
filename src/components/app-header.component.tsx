@@ -6,14 +6,17 @@ import {getCollection} from "../store/data/collections-store.selectors.ts";
 
 export const AppHeader: React.FC = () => {
 	const params = useParams();
-	const collection = getCollection(params.id);
-	if (!params.id || !collection) {
+	const collectionId = params.id;
+	const isNew = collectionId === 'new';
+	const collection = isNew ? null : getCollection(collectionId);
+
+	if (!isNew && !collection) {
 		return null;
 	}
 
 	return <Header
 		hasBack={true}
-		title={collection.title!}
+		title={collection?.title || 'New collection'}
 		image={<CollectionScene/>}
 	/>
 }

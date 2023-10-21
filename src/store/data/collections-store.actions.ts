@@ -1,6 +1,7 @@
 import {customAlphabet, urlAlphabet} from 'nanoid';
 import {TCard, TCollection} from "./types.ts";
 import {useCollectionStore} from "./collections-store.ts";
+import {defaultSide} from "./collections-store.selectors.ts";
 
 const nanoid = customAlphabet(urlAlphabet, 16);
 
@@ -15,6 +16,25 @@ export const createCollection = (newCollection: TCollection) => useCollectionSto
 	return {collections: [...state.collections, _collection]};
 });
 
+export const getDefaultCollection = (): TCollection => {
+	const id = nanoid();
+
+	return {
+		id,
+		title: 'New collection',
+		author: '',
+		isLocal: true,
+		sides: [
+			{
+				...defaultSide,
+				name: 'English',
+			},
+			{
+				...defaultSide,
+				name: 'Español'
+			}]
+	};
+}
 export const createDefaultCollection = (): string => {
 	const id = nanoid();
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {NavLink, useParams, useSearchParams} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import {countCards, getCollection} from "../../store/data/collections-store.selectors.ts";
 import {FaGrip} from "react-icons/fa6";
 import {FiMaximize} from "react-icons/fi";
@@ -8,38 +8,38 @@ import {MdDesignServices} from "react-icons/md";
 
 export const CollectionMenu: React.FC = () => {
 	const params = useParams();
-	const collection = getCollection(params.id);
-	const count = countCards(params.id);
-	const [searchParams] = useSearchParams();
-	const exclusiveLock = searchParams.get('new') !== null;
+	const collectionId = params.id;
+	const isNew = collectionId === 'new';
+	const collection = isNew ? null : getCollection(collectionId);
+	const count = isNew ? 0 : countCards(collectionId);
 
-	if (!collection) {
+	if (!isNew && !collection) {
 		document.body.classList.remove('with-side-menu');
 		return null;
 	}
 	document.body.classList.add('with-side-menu');
 
-	return <div className={'side-menu' + (exclusiveLock ? ' locked' : '')}>
+	return <div className={'side-menu' + (isNew ? ' locked' : '')}>
 		<div className={'menu-content'}>
 			{/*<div className={'menu-title'}><GoBackButton/></div>*/}
 
 			<div className={'menu-links'}>
-				<NavLink to={'/collections/' + collection.id + '/overview'}>
+				<NavLink to={'/collections/' + collectionId + '/overview'}>
 					<FiMaximize/>
 					Overview
 				</NavLink>
 
-				<NavLink to={'/collections/' + collection.id + '/details'}>
+				<NavLink to={'/collections/' + collectionId + '/details'}>
 					<MdDesignServices/>
 					Change
 				</NavLink>
 
-				<NavLink to={'/collections/' + collection.id + '/cards'}>
+				<NavLink to={'/collections/' + collectionId + '/cards'}>
 					<FaGrip/>
 					Cards <span className={'badge badge-white'}>{count}</span>
 				</NavLink>
 
-				<NavLink to={'/collections/' + collection.id + '/stat'}>
+				<NavLink to={'/collections/' + collectionId + '/stat'}>
 					<IoBarChart/>
 					Statistics
 				</NavLink>
