@@ -1,7 +1,7 @@
 import {customAlphabet, urlAlphabet} from 'nanoid';
-import {TCard, TCollection} from "./types.ts";
+import {TCard, TCardEnriched, TCollection} from "./types.ts";
 import {useCollectionStore} from "./collections-store.ts";
-import {defaultSide} from "./collections-store.selectors.ts";
+import {defaultSide, getCollection} from "./collections-store.selectors.ts";
 
 const nanoid = customAlphabet(urlAlphabet, 16);
 
@@ -35,6 +35,24 @@ export const getDefaultCollection = (): TCollection => {
 			}]
 	};
 }
+
+export const getDefaultCard = (collectionId?: string): TCardEnriched | undefined => {
+	const collection = getCollection(collectionId);
+
+	if (!collection) {
+		return undefined;
+	}
+
+	const id = nanoid();
+
+	return {
+		id,
+		sides: collection.sides?.map(() => ({header: '', word: '', footer: ''})),
+		collectionSides: collection.sides
+	};
+}
+
+
 export const createDefaultCollection = (): string => {
 	const id = nanoid();
 
@@ -67,7 +85,10 @@ export const updateCollection = (data: TCollection) => useCollectionStore.setSta
 	};
 });
 
-export const createCard = (collectionId: string, newId: string) => useCollectionStore.setState((state) => {
+export const createCard = (collectionId?: string, data?: TCard) => useCollectionStore.setState((state) => {
+	if (!collectionId || !data) {
+		return {...state.collections};
+	}
 	const collection = state.collections.find(c => c.id === collectionId);
 
 	if (!collection) {
@@ -78,15 +99,7 @@ export const createCard = (collectionId: string, newId: string) => useCollection
 		collection.cards = [];
 	}
 
-
-	collection.cards.push({
-			id: newId,
-			sides: [
-				{word: 'The word'},
-				{word: 'La palabra'}
-			]
-		}
-	);
+	collection.cards.push(data);
 
 	return {
 		collections: state.collections
@@ -153,5 +166,10 @@ createCollection({
 });
 
 for (let i = 0; i < 100; i++) {
-	createCard('6789', nanoid());
+	const id = nanoid();
+
+	createCard('6789', {
+		id,
+		sides: [{header: '', word: 'Hello, world!', footer: ''}, {header: '', word: '¡Hola, Mundo!', footer: ''}],
+	});
 }

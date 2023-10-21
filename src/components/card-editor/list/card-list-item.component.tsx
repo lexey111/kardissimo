@@ -6,7 +6,7 @@ import {TCollectionSide} from "../../../store/data/types.ts";
 
 export type TCardListItemProps = {
 	collectionId?: string
-	sides?: [TCollectionSide, TCollectionSide]
+	sides?: Array<TCollectionSide>
 	currentStyle: TCardListStyle
 	cardId: string
 	number: number

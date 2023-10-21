@@ -1,9 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import {customAlphabet, urlAlphabet} from "nanoid";
-import {createCard} from "../../store/data/collections-store.actions.ts";
 import {useEffect, useRef} from "react";
-
-const nanoid = customAlphabet(urlAlphabet, 16);
 
 export const useCardNavigateHook = (collectionId?: string, cardId?: string) => {
 	const navigate = useNavigate();
@@ -22,14 +18,11 @@ export const useCardNavigateHook = (collectionId?: string, cardId?: string) => {
 		let targetId = cardId || _cardId;
 
 		if (position) {
-			console.log('STORE', key, position.toFixed())
 			localStorage.setItem(key, position.toFixed());
 		}
 
 		if (cardId === 'new') {
-			const newId = nanoid();
-			createCard(collectionId!, newId); // <- make route loader
-			navigate(`/collections/${collectionId}/cards/${newId}?new`, {preventScrollReset: true});
+			navigate(`/collections/${collectionId}/cards/new`, {preventScrollReset: true});
 			return;
 		}
 

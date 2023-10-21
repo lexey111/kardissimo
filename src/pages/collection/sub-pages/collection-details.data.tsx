@@ -16,10 +16,7 @@ export const CollectionDetailsData: React.FC = () => {
 	let collectionId = params.id;
 	const isNew = params.id === 'new';
 
-	let state = getCollection(collectionId)!;
-	if (isNew) {
-		state = getDefaultCollection();
-	}
+	const state: TCollection = isNew ? getDefaultCollection() : getCollection(collectionId)!;
 
 	const {resetPosition} = useCardNavigateHook(collectionId, '');
 	resetPosition();

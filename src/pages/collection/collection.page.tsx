@@ -14,7 +14,7 @@ export const CollectionPage: React.FC = () => {
 		throw new Error('Collection not found');
 	}
 
-	if (params.cardId) {
+	if (params.cardId && params.cardId !== 'new') {
 		const card = collection!.cards?.find(c => c.id === params.cardId);
 
 		if (!card || !card.sides) {
