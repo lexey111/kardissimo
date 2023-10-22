@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import {Canvas} from "@react-three/fiber";
 
 import {Stage} from "@react-three/drei";
@@ -34,32 +34,39 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({
 			color: card.collectionSides?.[idx].color || '#FDBA66',
 			textColor: card.collectionSides?.[idx].fontColor || '#2b3b62',
 			fontSize: card.collectionSides?.[idx].fontSize || 'M',
-			fontName:  card.collectionSides?.[idx].fontName || Object.keys(Fonts)[0],
+			fontName: card.collectionSides?.[idx].fontName || Object.keys(Fonts)[0],
 		}
 	});
 
-	return <Canvas
-		style={{
-			position: "absolute", top: 0, left: 0, width: "100%", height: "100%"
-		}}
-		camera={{fov: 75, near: 0.1, far: 1000, position: [0, 0, 300]}}
-	>
+	const [fullScreen, setFullScreen] = useState(false);
 
-		<Stage adjustCamera={.9} intensity={6} preset="rembrandt"
-		       shadows={{type: 'contact', color: 'skyblue', colorBlend: 2, opacity: 1}}
-		       environment="city"
+	const toggleMode = useCallback(() => {
+		setFullScreen(v => !v);
+	}, [fullScreen]);
+
+	return <div className={'card-preview-container' + (fullScreen ? ' card-preview-fullscreen' : ' card-preview')}
+	            title={fullScreen ? '' : 'Click to preview'}
+	            onClick={toggleMode}>
+		<Canvas
+			camera={{fov: 75, near: 0.1, far: 1000, position: [0, 0, 300]}}
 		>
-			<Preview3DCard
-				side={side}
-				faces={faces}/>
-		</Stage>
 
-		<pointLight position={[-80, 80, 120]}
-		            color={'#aaa'}
-		            intensity={100000}/>
+			<Stage adjustCamera={.9} intensity={6} preset="rembrandt"
+			       shadows={{type: 'contact', color: 'skyblue', colorBlend: 2, opacity: 1}}
+			       environment="city"
+			>
+				<Preview3DCard
+					side={side}
+					faces={faces}/>
+			</Stage>
 
-		<pointLight position={[80, -80, 200]}
-		            color={'#000'}
-		            intensity={100000}/>
-	</Canvas>;
+			<pointLight position={[-80, 80, 120]}
+			            color={'#aaa'}
+			            intensity={100000}/>
+
+			<pointLight position={[80, -80, 200]}
+			            color={'#000'}
+			            intensity={100000}/>
+		</Canvas>
+	</div>;
 };

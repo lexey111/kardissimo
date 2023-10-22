@@ -91,19 +91,3 @@ a:hover, a:focus {
 		line-height: 1.4;
 	}
 }
-
-.scenes {
-	display: grid;
-	height: 100%;
-	grid-template-columns: 1fr 1.2fr 1fr;
-	grid-column-gap: 8px;
-
-	div {
-		position: relative;
-		border-right: 1px dotted rgba(255, 255, 255, .5);
-
-		&:last-child {
-			border-right: none;
-		}
-	}
-}

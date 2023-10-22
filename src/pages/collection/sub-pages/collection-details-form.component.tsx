@@ -220,7 +220,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 											<option value={'M'} key={'M'}>M</option>
 											<option value={'L'} key={'L'}>L</option>
 											<option value={'XL'} key={'XL'}>XL</option>
-											<option value={'XXL'} key={'XL'}>XXL</option>
+											<option value={'XXL'} key={'XXL'}>XXL</option>
 										</select>
 									</div>
 								</div>
