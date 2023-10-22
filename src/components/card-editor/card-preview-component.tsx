@@ -16,12 +16,12 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({
                                                          }) => {
 
 	if (!card || !card.sides || card.sides.length !== 2) {
-		console.log('Invalid sides array!');
+		console.error('Invalid sides array!');
 		return null;
 	}
 
 	if (!card.collectionSides || card.sides.length !== card.collectionSides.length) {
-		console.log('Invalid sides/collectionSides arrays!');
+		console.error('Invalid sides/collectionSides arrays!');
 		return null;
 	}
 

@@ -9,6 +9,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	line-height: normal;
 	white-space: nowrap;
 	vertical-align: middle;
+	line-height: 1;
 	text-align: center;
 	cursor: pointer;
 	-webkit-user-drag: none;
@@ -62,7 +63,17 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 
 .pure-button svg {
 	margin-right: .5rem;
-	font-size: 0.9em;
+	font-size: 1em;
+	transition: all .2s ease;
+}
+
+.pure-button-secondary svg {
+	opacity: .4;
+}
+
+.pure-button-secondary:hover svg, .pure-button-secondary:focus svg {
+	opacity: 1;
+	transform: scale(1.2);
 }
 
 .pure-button-hover, .pure-button:focus, .pure-button:hover {

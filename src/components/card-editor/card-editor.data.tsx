@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from "react";
-import {getCard} from "../../store/data/collections-store.selectors.ts";
+import {getCard, getCollection} from "../../store/data/collections-store.selectors.ts";
 import {useNavigate} from "react-router-dom";
 import {TCard} from "../../store/data/types.ts";
 import {CardEditorForm} from "./card-editor-form.component.tsx";
@@ -14,6 +14,7 @@ export type TCardEditorProps = {
 export const CardEditorData: React.FC<TCardEditorProps> = ({collectionId, cardId, isNew = false}) => {
 	const navigate = useNavigate();
 	const cardData = isNew ? getDefaultCard(collectionId) : getCard(collectionId, cardId);
+	const collection = getCollection(collectionId);
 
 	const handleBack = useCallback(() => {
 		if (isNew) {
@@ -61,8 +62,10 @@ export const CardEditorData: React.FC<TCardEditorProps> = ({collectionId, cardId
 		return null;
 	}
 
-	return <CardEditorForm initialState={cardData!}
-	                       onCancel={handleBack}
-	                       isNew={isNew}
-	                       onSubmit={handleSubmit}/>
+	return <CardEditorForm
+		collection={collection}
+		initialState={cardData!}
+		onCancel={handleBack}
+		isNew={isNew}
+		onSubmit={handleSubmit}/>
 };

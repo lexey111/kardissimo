@@ -3,7 +3,7 @@ import {NavLink, useParams} from "react-router-dom";
 
 export const AppMenu: React.FC = () => {
 	const params = useParams();
-	if (params.id) {
+	if (params.collectionId) {
 		return null; // in collection
 	}
 

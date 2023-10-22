@@ -4,6 +4,7 @@ import {TCollection, TCollectionSide} from "../../../store/data/types.ts";
 import {Fonts} from "../../../resources/fonts.ts";
 import {ColorPicker} from "./color-picker.component.tsx";
 import {CardPreview} from "../../../components/card-editor/card-preview-component.tsx";
+import {FaCircleArrowRight} from "react-icons/fa6";
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -20,10 +21,17 @@ export type TCollectionDetailsFormProps = {
 	initialState: TCollection
 	onSubmit: (data: any) => void
 	onCancel: () => void
+	goCards: () => void
 	isNew: boolean
 }
 
-export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({initialState, onSubmit, onCancel, isNew}) => {
+export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
+	                                                                             initialState,
+	                                                                             onSubmit,
+	                                                                             onCancel,
+	                                                                             goCards,
+	                                                                             isNew
+                                                                             }) => {
 	const [state, setState] = useState(initialState);
 	const initialHash = useMemo(() => JSON.stringify(initialState), [initialState]);
 
@@ -219,6 +227,13 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({in
 				})}
 
 				<fieldset className={'actions'}>
+					{!isNew && <>
+						&nbsp;
+						<button type="button"
+						        onClick={goCards}
+						        className={'pure-button pure-button-secondary align-left'}> <FaCircleArrowRight/> Cards
+						</button>
+					</>}
 					<button type="button" className={'pure-button'}
 					        onClick={onCancel}>{isNew ? 'Cancel' : 'Reset'}
 					</button>

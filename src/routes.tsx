@@ -51,27 +51,27 @@ export const AppRoutes = [
 				element: <CollectionPage/>,
 				children: [
 					{
-						path: ':id/overview',
+						path: ':collectionId/overview',
 						handle: 'Overview',
 						element: <CollectionOverview/>
 					},
 					{
-						path: ':id/details',
+						path: ':collectionId/details',
 						handle: 'Details',
 						element: <CollectionDetails/>
 					},
 					{
-						path: ':id/stat',
+						path: ':collectionId/stat',
 						handle: 'Stats',
 						element: <CollectionStat/>
 					},
 					{
-						path: ':id/cards',
+						path: ':collectionId/cards',
 						handle: 'Cards',
 						element: <CollectionCards/>
 					},
 					{
-						path: ':id/cards/:cardId',
+						path: ':collectionId/cards/:cardId',
 						handle: 'Card',
 						element: <CollectionCardEdit/>
 					},

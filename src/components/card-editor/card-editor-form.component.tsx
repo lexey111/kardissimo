@@ -1,8 +1,11 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {TCard, TCardEnriched, TCardSide} from "../../store/data/types.ts";
+import {TCard, TCardEnriched, TCardSide, TCollection} from "../../store/data/types.ts";
 import {CardPreview} from "./card-preview-component.tsx";
+import {NavLink} from "react-router-dom";
+import {FaCircleArrowRight} from "react-icons/fa6";
 
 export type TCardEditorFormProps = {
+	collection?: TCollection
 	initialState: TCardEnriched
 	onSubmit: (data: any) => void
 	onCancel: () => void
@@ -10,6 +13,7 @@ export type TCardEditorFormProps = {
 }
 
 export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
+	                                                               collection,
 	                                                               initialState,
 	                                                               onSubmit,
 	                                                               onCancel,
@@ -68,6 +72,8 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 	return <div className={'card-side-editor'}>
 		<div className={'form-editor'}>
 			<form>
+				{collection && <h2><NavLink to={`/collections/${collection.id}/details`}>{collection.title}  <FaCircleArrowRight/></NavLink></h2>}
+
 				{state.sides?.map((side: TCardSide, idx: number) => {
 					return <div key={idx.toString()}>
 						<h3 className={idx === 0 ? 'title' : ''}>Side {idx + 1}: <b>{state.collectionSides?.[idx].name}</b>

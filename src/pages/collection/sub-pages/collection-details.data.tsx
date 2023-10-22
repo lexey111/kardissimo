@@ -13,15 +13,15 @@ import {
 export const CollectionDetailsData: React.FC = () => {
 	const navigate = useNavigate();
 	const params = useParams();
-	let collectionId = params.id;
-	const isNew = params.id === 'new';
+	let collectionId = params.collectionId;
+	const isNew = params.collectionId === 'new';
 
 	const state: TCollection = isNew ? getDefaultCollection() : getCollection(collectionId)!;
 
 	const {resetPosition} = useCardNavigateHook(collectionId, '');
 	resetPosition();
 
-	// const [initState, setInitState] = useState<TCollection>(getCollection(params.id)!);
+	// const [initState, setInitState] = useState<TCollection>(getCollection(params.collectionId)!);
 
 	const handleBack = useCallback(() => {
 		if (isNew) {
@@ -40,9 +40,14 @@ export const CollectionDetailsData: React.FC = () => {
 		updateCollection(values);
 	}, []);
 
+	const handleGoCards = useCallback(() => {
+		navigate(`/collections/${collectionId}/cards`);
+	}, []);
+
 	return <CollectionDetailsForm
 		initialState={state}
 		onSubmit={handleSubmit}
 		onCancel={handleBack}
+		goCards={handleGoCards}
 		isNew={isNew}/>;
 };

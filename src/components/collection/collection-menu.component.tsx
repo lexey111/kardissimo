@@ -8,7 +8,7 @@ import {MdDesignServices} from "react-icons/md";
 
 export const CollectionMenu: React.FC = () => {
 	const params = useParams();
-	const collectionId = params.id;
+	const collectionId = params.collectionId;
 	const isNew = collectionId === 'new';
 	const collection = isNew ? null : getCollection(collectionId);
 	const count = isNew ? 0 : countCards(collectionId);

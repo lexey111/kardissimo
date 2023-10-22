@@ -9,7 +9,7 @@ import {AppSubPage} from "../../../components/app-subpage.component.tsx";
 
 export const CollectionCards: React.FC = () => {
 	const params = useParams();
-	const collection = getCollection(params.id);
+	const collection = getCollection(params.collectionId);
 
 	if (!collection || !collection.sides) {
 		return <PageNotFound/>;

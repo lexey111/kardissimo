@@ -5,7 +5,7 @@ import {useCardNavigateHook} from "../../../components/utils/useCardNavigate.hoo
 
 export const CollectionStat: React.FC = () => {
 	const params = useParams();
-	const {resetPosition} = useCardNavigateHook(params.id, '');
+	const {resetPosition} = useCardNavigateHook(params.collectionId, '');
 	resetPosition();
 
 	return <AppSubPage>

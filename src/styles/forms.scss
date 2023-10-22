@@ -20,6 +20,28 @@
 
 	}
 
+	h2 {
+		font-size: 1.2rem;
+		font-weight: 400;
+		background-color: rgba(255, 255, 255, .4);
+		text-align: center;
+		border-radius: 8px 8px 0 0;
+		padding: 6px 0;
+		margin: -32px 0 0 0;
+		overflow: hidden;
+
+		a {
+			color: #0f384f;
+			// text-decoration: none;
+			text-underline-offset: 20px;
+
+			&:hover, &:focus {
+				text-decoration: underline;
+				text-underline-offset: 4px;
+			}
+		}
+	}
+
 	h3 {
 		font-size: 1rem;
 		font-weight: 300;
@@ -29,9 +51,8 @@
 		color: #0f384f;
 
 		&.title {
-			border-radius: 8px 8px 0 0;
-			padding: 0;
-			margin: -32px 0 16px 0;
+			margin: 0 0 16px 0;
+			padding: 6px;
 		}
 	}
 
@@ -47,8 +68,13 @@
 		transition: all .2s ease;
 
 		&.actions {
-			margin: 32px 0 16px 0;
+			margin: 48px 0 16px 0;
 			justify-content: flex-end;
+
+			.align-left {
+				margin-right: auto;
+			}
+
 		}
 
 		&:focus-within {

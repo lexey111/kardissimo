@@ -6,7 +6,7 @@ import {getCollection} from "../store/data/collections-store.selectors.ts";
 
 export const AppHeader: React.FC = () => {
 	const params = useParams();
-	const collectionId = params.id;
+	const collectionId = params.collectionId;
 	const isNew = collectionId === 'new';
 	const collection = isNew ? null : getCollection(collectionId);
 

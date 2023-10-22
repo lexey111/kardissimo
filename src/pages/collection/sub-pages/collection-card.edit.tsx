@@ -8,7 +8,7 @@ export const CollectionCardEdit: React.FC = () => {
 	const isNew = params.cardId === 'new';
 
 	return <AppSubPage>
-		<CardEditorData collectionId={params.id}
+		<CardEditorData collectionId={params.collectionId}
 		                isNew={isNew}
 		                cardId={params.cardId}/>
 	</AppSubPage>;

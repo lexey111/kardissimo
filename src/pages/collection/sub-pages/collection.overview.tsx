@@ -5,7 +5,7 @@ import {useParams} from "react-router-dom";
 
 export const CollectionOverview: React.FC = () => {
 	const params = useParams();
-	const {resetPosition} = useCardNavigateHook(params.id, '');
+	const {resetPosition} = useCardNavigateHook(params.collectionId, '');
 	resetPosition();
 
 	return <AppSubPage>
