@@ -8,28 +8,17 @@ export const AddNewCollection: React.FC = () => {
 	const count = countCollections();
 
 	const addCollection = useCallback(() => {
-		// const id = createDefaultCollection();
-
 		navigate('/collections/new/details', {preventScrollReset: true});
 	}, []);
 
-	return <div className={'add-new-collection' + (count === 0 ? ' empty-collection-list' : '')}>
-		{count > 0 && <button onClick={addCollection}
-		                      className={'pure-button pure-button-primary'}>
+	if (count === 0) {
+		return null;
+	}
+
+	return <div className={'add-new-collection'}>
+		<button onClick={addCollection}
+		        className={'pure-button pure-button-primary'}>
 			<IoIosAddCircle/> New collection...
-		</button>}
-
-		{count === 0 && <div>
-			<div className={'add-card-floating'}
-			     onClick={addCollection}>
-				<IoIosAddCircle/>
-			</div>
-
-			<div className={'empty-message'}>
-				<p>
-					There are no collections here yet. Just create the first one!
-				</p>
-			</div>
-		</div>}
+		</button>
 	</div>;
 };

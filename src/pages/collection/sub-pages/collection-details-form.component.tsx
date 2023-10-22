@@ -21,7 +21,7 @@ export type TCollectionDetailsFormProps = {
 	initialState: TCollection
 	onSubmit: (data: any) => void
 	onCancel: () => void
-	goCards: () => void
+	goCards: (data: any) => void
 	isNew: boolean
 }
 
@@ -246,7 +246,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 				<fieldset className={'actions'}>
 					{!isNew && <>
 						<button type="button"
-						        onClick={goCards}
+						        onClick={() => goCards(state)}
 						        className={'pure-button pure-button-secondary align-left'}><FaCircleArrowRight/> Cards
 						</button>
 					</>}

@@ -27,6 +27,7 @@ export const CollectionListItem: React.FC<TCollectionItemProps> = React.memo(({i
 
 	return <div className={'collection-item-content'}>
 		<div className={'collection-card-info'}>
+			<div className={'shadow'}></div>
 			<div className={'collection-pseudo-card'}
 			     style={{
 				     background: collection?.sides?.[0].color || '#eee',
@@ -39,9 +40,13 @@ export const CollectionListItem: React.FC<TCollectionItemProps> = React.memo(({i
 					{collection.cards?.length || 0}
 				</span>
 			</div>
+			{collection.cards?.length && <div className={'extra-cards'} style={{
+				background: collection?.sides?.[0].color || '#eee',
+			}}></div>}
 		</div>
 		<div className={'collection-wrapper'}>
-			<div className={'collection-title'}>{collection.title} <span className={'badge badge-white'}>{collection.cards?.length || 0}</span></div>
+			<div className={'collection-title'}>{collection.title} <span
+				className={'badge badge-white'}>{collection.cards?.length || 0}</span></div>
 			<div className={'collection-author'}><b>by</b> {collection.author || 'Unknown'}</div>
 			<div className={'collection-sides'}><b>Sides:</b> {collection.sides?.map(s => s.name).join(', ')}</div>
 

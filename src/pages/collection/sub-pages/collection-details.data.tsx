@@ -21,23 +21,25 @@ export const CollectionDetailsData: React.FC = () => {
 	const {resetPosition} = useCardNavigateHook(collectionId, '');
 	resetPosition();
 
-	// const [initState, setInitState] = useState<TCollection>(getCollection(params.collectionId)!);
-
 	const handleBack = useCallback(() => {
-			navigate('/collections');
+		navigate('/collections');
 	}, []);
 
 	const handleSubmit = useCallback((values: TCollection) => {
 		if (isNew) {
 			createCollection(values);
-			navigate(`/collections`);
-			return;
+		} else {
+			updateCollection(values);
 		}
-		updateCollection(values);
 		navigate('/collections');
 	}, []);
 
-	const handleGoCards = useCallback(() => {
+	const handleGoCards = useCallback((values: TCollection) => {
+		if (isNew) {
+			createCollection(values);
+		} else {
+			updateCollection(values);
+		}
 		navigate(`/collections/${collectionId}/cards`);
 	}, []);
 

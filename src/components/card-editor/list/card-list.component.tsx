@@ -3,7 +3,7 @@ import {ICollectionState, useCollectionStore} from "../../../store/data/collecti
 import {useShallow} from "zustand/react/shallow";
 import {CardListAdd} from "./card-list-add.component.tsx";
 import {useSettingsStore} from "../../../store/settings/settings-store.ts";
-import {CardListNoData} from "./card-list-no-data.component.tsx";
+import {ListNoData} from "../../utils/card-list-no-data.component.tsx";
 import {CardListItem} from "./card-list-item.component.tsx";
 import {CardTable} from "../table/card-table.component.tsx";
 import {useCardNavigateHook} from "../../utils/useCardNavigate.hook.tsx";
@@ -30,7 +30,8 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 
 
 	if (!cardIds || cardIds.length === 0) {
-		return <CardListNoData collectionId={collectionId}/>;
+		return <ListNoData caption={'No cards to display, yet.'}
+		                   addButton={<CardListAdd collectionId={collectionId}/>}/>;
 	}
 
 	if (currentStyle === 'table') {
