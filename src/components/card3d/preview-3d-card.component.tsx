@@ -58,11 +58,10 @@ export const Preview3DCard: React.FC<TPreview3DCardProps> = ({faces, side}) => {
 			return;
 		}
 
-		const targetAngle = side * Math.PI;
 		ref.current.rotation.y = 0;
 
 		api.update({
-			to: {'rotation-y': targetAngle},
+			to: {'rotation-y': side * Math.PI},
 		});
 		api.start();
 	}, [side]);
@@ -137,7 +136,6 @@ export const Preview3DCard: React.FC<TPreview3DCardProps> = ({faces, side}) => {
 		setActiveSubRotateBottom(false);
 		setActiveSubRotateLeft(false);
 	}, []);
-
 
 	// Input parameters
 	const face1 = getFaceParameters(faces[0]);

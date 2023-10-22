@@ -30,6 +30,7 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 		setSide(idx);
 	}, []);
 
+
 	const onChangeSideInput = useCallback((name: string, index: number, e: any) => {
 		const value = e.target ? e.target.value : e;
 
@@ -64,7 +65,12 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 	useEffect(() => {
 		setTimeout(() => {
 			if (!destroying.current) {
-				document.getElementById('sides[0].header')?.focus();
+				const el = document.getElementById('sides[0].word') as HTMLTextAreaElement;
+				if (el) {
+					el.focus();
+					el.selectionStart = 0;
+					el.selectionEnd = el.value.length;
+				}
 			}
 		}, 200);
 	}, []);
@@ -72,7 +78,8 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 	return <div className={'card-side-editor'}>
 		<div className={'form-editor'}>
 			<form>
-				{collection && <h2><NavLink to={`/collections/${collection.id}/details`}>{collection.title}  <FaCircleArrowRight/></NavLink></h2>}
+				{collection && <h2><NavLink to={`/collections/${collection.id}/details`}>{collection.title}
+					<FaCircleArrowRight/></NavLink></h2>}
 
 				{state.sides?.map((side: TCardSide, idx: number) => {
 					return <div key={idx.toString()}>

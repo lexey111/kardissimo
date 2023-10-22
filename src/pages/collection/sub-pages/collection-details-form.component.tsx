@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {Tooltip} from 'react-tooltip';
 import {TCollection, TCollectionSide} from "../../../store/data/types.ts";
 import {Fonts} from "../../../resources/fonts.ts";
@@ -37,7 +37,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 
 	const [touched, setTouched] = useState(false);
 	const [errors, setErrors] = useState<Record<string, string> | null>(null);
-	const [side, setSide] = useState(-1);
+	const [side, setSide] = useState(0);
 
 	const handleColorComplete = useCallback((idx: number, c: any) => {
 		onChangeSideInput('color', idx, c.hex);
@@ -49,7 +49,22 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 
 	const hasErrors = errors && Object.keys(errors).length > 0;
 
+	const rotateTimer = useRef<any>();
+	useEffect(() => {
+		return () => {
+			clearTimeout(rotateTimer.current);
+		}
+	}, []);
+
 	const handleFocus = useCallback((idx: number) => {
+		if (idx === -1) {
+			clearTimeout(rotateTimer.current);
+			rotateTimer.current = setTimeout(() => {
+				setSide(-1)
+			}, 2000);
+			return;
+		}
+		clearTimeout(rotateTimer.current);
 		setSide(idx);
 	}, []);
 
@@ -199,11 +214,13 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 										        onChange={(e) => onChangeSideInput('fontSize', idx, e)}
 										        onFocus={() => handleFocus(idx)}
 										        placeholder="Font size">
+											<option value={'XXS'} key={'XXS'}>XXS</option>
 											<option value={'XS'} key={'XS'}>XS</option>
 											<option value={'S'} key={'S'}>S</option>
 											<option value={'M'} key={'M'}>M</option>
 											<option value={'L'} key={'L'}>L</option>
 											<option value={'XL'} key={'XL'}>XL</option>
+											<option value={'XXL'} key={'XL'}>XXL</option>
 										</select>
 									</div>
 								</div>
@@ -228,16 +245,15 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 
 				<fieldset className={'actions'}>
 					{!isNew && <>
-						&nbsp;
 						<button type="button"
 						        onClick={goCards}
-						        className={'pure-button pure-button-secondary align-left'}> <FaCircleArrowRight/> Cards
+						        className={'pure-button pure-button-secondary align-left'}><FaCircleArrowRight/> Cards
 						</button>
 					</>}
 					<button type="button" className={'pure-button'}
-					        onClick={onCancel}>{isNew ? 'Cancel' : 'Reset'}
+					        onClick={onCancel}>Cancel
 					</button>
-					&nbsp;
+
 					<button type="button"
 					        onClick={() => onSubmit(state)}
 					        disabled={hasErrors || (!isNew && !touched)}

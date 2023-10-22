@@ -14,7 +14,7 @@ export type TCardTableProps = {
 	collectionId?: string
 }
 
-function getTableDefs(collectionId?: string, sides?: [TCollectionSide, TCollectionSide], tableEditMode?: TCardListTableMode, tableViewMode?: TCardListTableViewMode) {
+function getTableDefs(collectionId?: string, sides?: Array<TCollectionSide>, tableEditMode?: TCardListTableMode, tableViewMode?: TCardListTableViewMode) {
 	let result = [];
 
 	const previewColumn: any = {

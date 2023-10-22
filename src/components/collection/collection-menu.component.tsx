@@ -17,6 +17,7 @@ export const CollectionMenu: React.FC = () => {
 		document.body.classList.remove('with-side-menu');
 		return null;
 	}
+
 	document.body.classList.add('with-side-menu');
 
 	return <div className={'side-menu' + (isNew ? ' locked' : '')}>

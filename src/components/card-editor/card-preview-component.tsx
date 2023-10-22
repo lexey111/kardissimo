@@ -4,6 +4,7 @@ import {Canvas} from "@react-three/fiber";
 import {Stage} from "@react-three/drei";
 import {Preview3DCard} from "../card3d/preview-3d-card.component.tsx";
 import {TCardEnriched} from "../../store/data/types.ts";
+import {Fonts} from "../../resources/fonts.ts";
 
 export type TCardPreviewProps = {
 	card: TCardEnriched
@@ -33,6 +34,7 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({
 			color: card.collectionSides?.[idx].color || '#FDBA66',
 			textColor: card.collectionSides?.[idx].fontColor || '#2b3b62',
 			fontSize: card.collectionSides?.[idx].fontSize || 'M',
+			fontName:  card.collectionSides?.[idx].fontName || Object.keys(Fonts)[0],
 		}
 	});
 
@@ -53,11 +55,11 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({
 		</Stage>
 
 		<pointLight position={[-80, 80, 120]}
-		            color={'#0692ff'}
+		            color={'#aaa'}
 		            intensity={100000}/>
 
 		<pointLight position={[80, -80, 200]}
-		            color={'#b5ff00'}
+		            color={'#000'}
 		            intensity={100000}/>
 	</Canvas>;
 };

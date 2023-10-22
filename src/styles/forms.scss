@@ -25,6 +25,7 @@
 		font-weight: 400;
 		background-color: rgba(255, 255, 255, .4);
 		text-align: center;
+		line-height: 1;
 		border-radius: 8px 8px 0 0;
 		padding: 6px 0;
 		margin: -32px 0 0 0;
@@ -32,8 +33,17 @@
 
 		a {
 			color: #0f384f;
-			// text-decoration: none;
+			display: flex;
+			flex-flow: row nowrap;
+			align-content: center;
+			justify-content: center;
+			justify-items: center;
+			align-items: center;
 			text-underline-offset: 20px;
+
+			svg {
+				margin-left: 1rem;
+			}
 
 			&:hover, &:focus {
 				text-decoration: underline;
@@ -75,6 +85,13 @@
 				margin-right: auto;
 			}
 
+			button {
+				margin-right: 1rem;
+
+				&:last-child {
+					margin-right: 0;
+				}
+			}
 		}
 
 		&:focus-within {
@@ -244,9 +261,28 @@
 	.color-picker-panel {
 		position: absolute;
 		z-index: 15;
-		//margin-left: 20px;
 		margin-top: 8px;
-		//transform: translateX(-50%);
+		transform: translateY(-100px) translateX(60px);
 		box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+		border-radius: 12px !important;
+
+		.swatches-picker {
+			div {
+				border-radius: 12px !important;
+			}
+		}
+
+		.triangle {
+			position: absolute;
+			top: 62px;
+			left: -10px;
+			width: 0;
+			height: 0;
+			border-top: 10px solid transparent;
+			border-bottom: 10px solid transparent;
+
+			border-right: 10px solid #fff;
+			z-index: 16;
+		}
 	}
 }

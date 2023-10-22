@@ -11,8 +11,11 @@ export type TCardFaceProps = {
 	rotation: any
 }
 export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
-	let fontSize = 22;
+	let fontSize = 21; // M
 
+	if (props.face.fontSize === 'XXS') {
+		fontSize = 10;
+	}
 	if (props.face.fontSize === 'XS') {
 		fontSize = 14;
 	}
@@ -25,6 +28,9 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 	if (props.face.fontSize === 'XL') {
 		fontSize = 30;
 	}
+	if (props.face.fontSize === 'XXL') {
+		fontSize = 36;
+	}
 
 	const headerProps = {...props.face};
 
@@ -34,7 +40,6 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 
 	const footerProps = {...props.face};
 	footerProps.text = props.face.footer || '';
-
 	return <group
 		position-z={props.positionZ}
 		rotation={props.rotation}

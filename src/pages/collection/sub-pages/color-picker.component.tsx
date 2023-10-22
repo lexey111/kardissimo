@@ -1,5 +1,5 @@
 import React from "react";
-import {TwitterPicker} from 'react-color';
+import {SwatchesPicker} from 'react-color';
 import {Popover} from '@headlessui/react';
 
 
@@ -14,7 +14,9 @@ export const ColorPicker: React.FC<TColorPickerProps> = ({color, onComplete, onF
 			<Popover.Button style={{backgroundColor: color}} onFocus={onFocus}></Popover.Button>
 			<Popover.Panel className="color-picker-panel">
 				<Popover.Button as={'div'}>
-					<TwitterPicker
+					<div className={'triangle'}></div>
+					<SwatchesPicker
+						width={500}
 						color={color}
 						onChangeComplete={onComplete}
 					/>

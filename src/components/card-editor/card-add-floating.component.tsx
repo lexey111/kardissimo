@@ -8,7 +8,6 @@ export type TCardAddProps = {
 	collectionId?: string
 }
 
-
 export const CardAddFloating: React.FC<TCardAddProps> = ({collectionId}) => {
 	const {goCard} = useCardNavigateHook(collectionId!, 'new');
 	const {needToShowScroll} = useHeight(50);
