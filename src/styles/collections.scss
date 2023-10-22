@@ -69,7 +69,7 @@
 }
 
 .collection-card-info {
-	width: 160px;
+	width: 180px;
 	display: flex;
 	position: relative;
 	flex-flow: column nowrap;
@@ -79,7 +79,11 @@
 
 		.collection-pseudo-card {
 			transform: translateY(-2px) scale(1.02);
-			box-shadow: 0 4px 8px rgba(0, 0, 0, .2), 0 0 0 4px rgba(255, 204, 0, 0.96);
+			box-shadow: 0 4px 18px rgba(0, 0, 0, .2), 0 0 0 4px rgba(255, 204, 0, 0.96);
+
+			&.single {
+				box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.96);
+			}
 
 			span {
 				background: rgba(255, 255, 255, .4);
@@ -101,9 +105,9 @@
 		display: block;
 		position: absolute;
 		height: 20px;
-		left: -16px;
-		width: 154px;
-		bottom: -10px;
+		left: -8px;
+		width: 164px;
+		bottom: -12px;
 		background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4), transparent 70%);
 		transition: all .2s ease;
 		z-index: -1;
@@ -119,12 +123,15 @@
 	display: flex;
 	position: relative;
 	@include content-center();
+	border: 2px solid rgba(255, 255, 255, .8);
+	box-sizing: border-box;
 	cursor: pointer;
 	z-index: 2;
 
 	transition: all .2s ease;
-	box-shadow: 1px 2px 8px rgba(0, 0, 0, .4);
+	box-shadow: 2px 2px 8px rgba(0, 0, 0, .2);
 
+	transform: rotate3d(0, 1, 1, -4deg);
 	outline: none;
 
 	span {
@@ -140,6 +147,13 @@
 		justify-content: center;
 		transition: all .2s ease;
 	}
+
+	&.single {
+		box-shadow: none;
+		background: none !important;
+		transform: none;
+		border-style: dashed;
+	}
 }
 
 .extra-cards {
@@ -154,7 +168,28 @@
 	z-index: 1;
 
 	transition: all .2s ease;
-	transform: scale(.95) translateX(12px) translateY(4px);
+	transform: rotate3d(0, 1, 1, 2deg) scale(.95) translateX(14px) translateY(1px);
+	box-shadow: 2px 2px 8px rgba(0, 0, 0, .2);
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.2);
+		border-radius: 12px;
+	}
+
+	&.second {
+		transform: rotate3d(0, 1, 1, 6deg) scale(.92) translateX(26px) translateY(1px);
+		z-index: 0;
+
+		&:before {
+			background: rgba(0, 0, 0, 0.3);
+		}
+	}
 }
 
 .collection-wrapper {

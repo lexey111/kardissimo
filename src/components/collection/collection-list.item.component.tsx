@@ -25,10 +25,12 @@ export const CollectionListItem: React.FC<TCollectionItemProps> = React.memo(({i
 		return null;
 	}
 
+	const hasCards = collection.cards?.length && collection.cards.length > 0;
+
 	return <div className={'collection-item-content'}>
 		<div className={'collection-card-info'}>
-			<div className={'shadow'}></div>
-			<div className={'collection-pseudo-card'}
+			{hasCards && <div className={'shadow'}></div>}
+			<div className={'collection-pseudo-card' + (!hasCards ? ' single' : '')}
 			     style={{
 				     background: collection?.sides?.[0].color || '#eee',
 				     color: collection?.sides?.[0].fontColor || '#222',
@@ -40,9 +42,14 @@ export const CollectionListItem: React.FC<TCollectionItemProps> = React.memo(({i
 					{collection.cards?.length || 0}
 				</span>
 			</div>
-			{collection.cards?.length && <div className={'extra-cards'} style={{
-				background: collection?.sides?.[0].color || '#eee',
-			}}></div>}
+			{hasCards && <>
+				<div className={'extra-cards'} style={{
+					background: collection?.sides?.[0].color || '#eee',
+				}}></div>
+				<div className={'extra-cards second'} style={{
+					background: collection?.sides?.[0].color || '#eee',
+				}}></div>
+			</>}
 		</div>
 		<div className={'collection-wrapper'}>
 			<div className={'collection-title'}>{collection.title} <span
