@@ -3,9 +3,7 @@ import {AboutPage} from "./pages/about-page.tsx";
 import {ScenePage} from "./pages/scene-page.tsx";
 import {CollectionsListPage} from "./pages/collections-list.page.tsx";
 import {CollectionPage} from "./pages/collection/collection.page.tsx";
-import {CollectionOverview} from "./pages/collection/sub-pages/collection.overview.tsx";
 import {CollectionDetails} from "./pages/collection/sub-pages/collection.details.tsx";
-import {CollectionStat} from "./pages/collection/sub-pages/collection.stat.tsx";
 import {CollectionCards} from "./pages/collection/sub-pages/collection.cards.tsx";
 import {CollectionCardEdit} from "./pages/collection/sub-pages/collection-card.edit.tsx";
 import {App} from "./app.tsx";
@@ -51,19 +49,9 @@ export const AppRoutes = [
 				element: <CollectionPage/>,
 				children: [
 					{
-						path: ':collectionId/overview',
-						handle: 'Overview',
-						element: <CollectionOverview/>
-					},
-					{
 						path: ':collectionId/details',
 						handle: 'Details',
 						element: <CollectionDetails/>
-					},
-					{
-						path: ':collectionId/stat',
-						handle: 'Stats',
-						element: <CollectionStat/>
 					},
 					{
 						path: ':collectionId/cards',

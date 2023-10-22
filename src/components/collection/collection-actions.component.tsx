@@ -1,9 +1,10 @@
 import React, {useCallback, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {removeCollection} from "../../store/data/collections-store.actions.ts";
-import {countCards, getCollection} from "../../store/data/collections-store.selectors.ts";
+import {getCollection} from "../../store/data/collections-store.selectors.ts";
 import {Modal} from "../modal-component.tsx";
-import {FaTrashCan} from "react-icons/fa6";
+import {FaGrip, FaTrashCan} from "react-icons/fa6";
+import {MdDesignServices} from "react-icons/md";
 
 export type TCollectionActionsProps = {
 	id: string;
@@ -14,14 +15,9 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 
 	const [isOpen, setIsOpen] = useState(false);
 
-	const cardCount = countCards(id);
 
 	const goEdit = useCallback((id: string) => {
 		navigate(`/collections/${id}/details`);
-	}, []);
-
-	const goOverview = useCallback((id: string) => {
-		navigate(`/collections/${id}/overview`);
 	}, []);
 
 	const goCards = useCallback((id: string) => {
@@ -57,11 +53,20 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 		/>
 
 		<div className={'collection-item-actions'}>
-			<button onClick={() => goOverview(id!)} className={'pure-button pure-button-secondary'}>Overview</button>
-			<button onClick={() => goEdit(id!)} className={'pure-button pure-button-secondary'}>Edit</button>
-			<button onClick={() => goCards(id!)} className={'pure-button pure-button-primary'}>Cards ({cardCount})
+
+			<button onClick={() => goEdit(id!)} className={'pure-button pure-button-primary'}>
+				<MdDesignServices/>
+				Change
 			</button>
-			<button onClick={() => setIsOpen(true)} className={'pure-button pure-button-danger'}>Remove</button>
+
+			<button onClick={() => goCards(id!)} className={'pure-button pure-button-primary'}>
+				<FaGrip/>
+				Cards
+			</button>
+
+			<button onClick={() => setIsOpen(true)} className={'pure-button pure-button-secondary pure-button-round'}>
+				<FaTrashCan/>
+			</button>
 		</div>
 	</>;
 };

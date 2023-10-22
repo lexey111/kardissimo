@@ -2,6 +2,7 @@ import React from "react";
 import {AppPage} from "../../components/app-page.component.tsx";
 import {Outlet, useParams} from "react-router-dom";
 import {getCollection} from "../../store/data/collections-store.selectors.ts";
+import {useExclusiveHook} from "../../components/utils/useExclusive.hook.tsx";
 
 export const CollectionPage: React.FC = () => {
 	const params = useParams();
@@ -9,6 +10,8 @@ export const CollectionPage: React.FC = () => {
 	const isNew = collectionId === 'new';
 
 	const collection = isNew ? null : getCollection(params.collectionId);
+
+	useExclusiveHook();
 
 	if (!isNew && !collection) {
 		throw new Error('Collection not found');
@@ -25,6 +28,7 @@ export const CollectionPage: React.FC = () => {
 			throw new Error('Card not found');
 		}
 	}
+
 	// mostly - guard
 	return <AppPage title={'Collection'}>
 		<div className={'sub-page'}>

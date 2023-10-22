@@ -6,7 +6,6 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 */
 .pure-button {
 	display: inline-block;
-	line-height: normal;
 	white-space: nowrap;
 	vertical-align: middle;
 	line-height: 1;
@@ -15,7 +14,8 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	-webkit-user-drag: none;
 	-webkit-user-select: none;
 	user-select: none;
-	box-sizing: border-box
+	box-sizing: border-box;
+	height: 36px;
 }
 
 .pure-button::-moz-focus-inner {
@@ -68,7 +68,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 }
 
 .pure-button-secondary svg {
-	opacity: .4;
+	opacity: .8;
 }
 
 .pure-button-secondary:hover svg, .pure-button-secondary:focus svg {
@@ -94,8 +94,9 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 
 .pure-button-disabled, .pure-button-disabled:active, .pure-button-disabled:focus, .pure-button-disabled:hover, .pure-button[disabled] {
 	border: none;
-	background-image: none;
-	opacity: .4;
+	// background-image: none;
+	background: rgba(0, 0, 0, .2);
+	opacity: .6;
 	cursor: not-allowed;
 	box-shadow: none;
 	pointer-events: none
@@ -105,8 +106,19 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	display: none
 }
 
+.pure-button {
+	&:hover, &:focus {
+		&.pure-button-primary, &.pure-button-danger {
+			box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.96);
+			//box-shadow: -1px -1px 0 1px rgba(255, 255, 255, .2), 1px 1px 0 1px rgba(0, 0, 0, .3);
+		}
+	}
+
+}
+
 .pure-button-primary, .pure-button-selected, a.pure-button-primary, a.pure-button-selected {
 	background-color: #0078e7;
+	//background: linear-gradient(180deg, #0078e7, #0073de);
 	color: #fff;
 	opacity: 1;
 }
@@ -143,9 +155,41 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	opacity: 1;
 }
 
+.pure-button-round {
+	&:hover, &:focus {
+		border: 2px solid rgba(255, 204, 0, 0.96);
+		box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.96);
+		//background-color: #ff005b;
+		//box-shadow: 1px 2px 4px rgba(0, 0, 0, .4);
+	}
+}
+
+.pure-button-round {
+	border-radius: 100%;
+	height: 36px;
+	width: 36px;
+	padding: 0;
+	align-items: center;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	border: 2px solid rgba(255, 255, 255, .4);
+	background: transparent;
+
+	svg {
+		padding: 0;
+		margin: 0;
+		font-size: .9rem;
+	}
+}
+
+
 .pure-button-group .pure-button {
 	margin: 0;
 	border-radius: 0;
+	height: unset;
 	border: 1px solid rgba(255, 255, 255, .4);
 	box-sizing: content-box;
 	background: rgba(255, 255, 255, .1);

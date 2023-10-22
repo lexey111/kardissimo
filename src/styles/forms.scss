@@ -321,12 +321,11 @@
 .card-preview-fullscreen {
 	position: fixed !important;
 	top: -40px;
-	left: -40px;
-	width: calc(100% - 40px);
+	left: 40px;
+	width: calc(100% - 80px);
 	height: calc(100% - 40px);
 	background: linear-gradient(150deg, #569AFF 10.21%, #88DFAB 84.57%);
 	border: 4px solid #fff;
-	overflow: hidden;
 	box-sizing: border-box;
 	backdrop-filter: blur(10px);
 	border-radius: 18px;

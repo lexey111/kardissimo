@@ -1,48 +1,183 @@
+.collection-list {
+	margin: 64px 0;
+}
+
 .collection-item {
 	display: flex;
 	flex-flow: row nowrap;
-	background: rgba(255, 255, 255, .4);
-	border-radius: 18px;
-	margin: 0 0 32px 0;
-	padding: 16px;
+	margin: 0 0 64px 0;
+	//padding: 16px;
 	align-items: center;
-}
-
-.collection-item-actions {
-	display: flex;
-	flex-flow: row wrap;
-	margin-left: auto;
-	background: rgba(255, 255, 255, .4);
-	border-radius: 12px;
-	padding: 16px;
-
-	button {
-		margin-left: 1rem;
-
-		&:first-of-type {
-			margin-left: 0;
-		}
-	}
+	min-width: 300px;
+	width: 100%;
 }
 
 .collection-item-content {
 	display: flex;
-	flex-flow: column wrap;
+	flex-flow: row nowrap;
+	flex-grow: 2;
+	margin: 0;
+	//width: 100%;
 }
 
-// temp
-.collection-count {
-	background: rgba(255, 255, 255, 0.4);
-	display: inline-flex;
-	aspect-ratio: 1/1;
-	line-height: 1;
-	vertical-align: middle;
+.collection-card-info {
+	width: 160px;
+	display: flex;
+	position: relative;
+	flex-flow: column nowrap;
+}
+
+.collection-pseudo-card {
+	width: 120px;
+	aspect-ratio: 2/3;
+	background: rgba(255, 255, 255, .4);
 	border-radius: 12px;
-	margin: 0;
-	padding: 16px;
-	font-size: 1.4rem;
-	align-content: center;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: nowrap;
+	display: flex;
+	position: relative;
+	@include content-center();
+	cursor: pointer;
+
+	transition: all .2s ease;
+
+	&:hover, &:focus {
+		transform: translateY(-2px);
+
+		span {
+			background: rgba(255, 255, 255, .4);
+			border-style: solid;
+		}
+
+		&:before {
+			transform: translateY(2px);
+			opacity: .3;
+		}
+	}
+
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		height: 20px;
+		left: -16px;
+		right: -16px;
+		bottom: -16px;
+		background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4), transparent 70%);
+		transition: all .2s ease;
+		z-index: -1;
+		opacity: .7;
+	}
+
+	span {
+		display: flex;
+		line-height: 1;
+		font-size: 1.5rem;
+		font-weight: 200;
+		width: 64px;
+		height: 64px;
+		background: rgba(255, 255, 255, .2);
+		border: 1px dashed rgba(255, 255, 255, .8);
+		border-radius: 100%;
+		align-items: center;
+		justify-content: center;
+		transition: all .2s ease;
+	}
+}
+
+.collection-wrapper {
+	display: flex;
+	flex-flow: column nowrap;
+	font-size: .9rem;
+	flex-grow: 2;
+}
+
+
+.collection-title {
+	font-size: 2rem;
+	font-weight: 200;
+	margin: 0 0 12px 0;
+	padding: 0 0 6px 0;
+	line-height: 1;
+	border-bottom: 1px solid rgba(255, 255, 255, .6);
+	display: flex;
+
+	.badge {
+		margin-left: 1rem;
+	}
+}
+
+.collection-item-actions {
+	display: flex;
+	color: #fff;
+	flex-flow: row wrap;
+	margin-top: 16px;
+	padding-top: 16px;
+
+	button {
+		margin-right: .5rem;
+		color: #fff;
+
+		&:last-of-type {
+			color: #fff;
+			margin-right: 0;
+			margin-left: auto;
+		}
+	}
+}
+
+.add-new-collection {
+	margin: 32px 0;
+	display: flex;
+	flex-flow: column wrap;
+
+	button {
+		height: 64px;
+		width: 100%;
+		display: flex;
+		margin: 0;
+		padding: 0;
+		@include center();
+		border-radius: 8px;
+
+		svg {
+			font-size: 2rem;
+		}
+	}
+
+	&.empty-collection-list {
+		@include center();
+		margin-top: 6rem;
+
+		.empty-message {
+			margin: 64px 0;
+			background: rgba(255, 255, 255, .2);
+			box-shadow: 1px 6px 8px rgba(0, 0, 0, .2);
+			border-radius: 16px;
+			padding: 8px 32px;
+			max-width: 500px;
+			position: relative;
+
+			&:before {
+				content: '';
+				position: absolute;
+				width: 0;
+				height: 0;
+				top: -20px;
+				transform: translateX(-20px);
+				border-left: 20px solid transparent;
+				border-right: 20px solid transparent;
+				border-bottom: 20px solid rgba(255, 255, 255, .2);
+			}
+
+		}
+
+		.add-card-floating {
+			margin: 0;
+			transform: translateX(-50%) scale(1.5);
+		}
+
+		button {
+			//background: #b8ff05;
+			//color: #092f04;
+		}
+	}
 }

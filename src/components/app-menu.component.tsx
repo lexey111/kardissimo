@@ -1,10 +1,13 @@
 import React from "react";
 import {NavLink, useParams} from "react-router-dom";
+import {countCollections} from "../store/data/collections-store.selectors.ts";
 
 export const AppMenu: React.FC = () => {
 	const params = useParams();
+	const count = countCollections();
+
 	if (params.collectionId) {
-		return null; // in collection
+		return null; // in collection, exclusive mode
 	}
 
 	return <nav id='app-menu'>
@@ -13,7 +16,8 @@ export const AppMenu: React.FC = () => {
 				<NavLink to="/home">Home</NavLink>
 			</li>
 			<li>
-				<NavLink to="/collections">Collections</NavLink>
+				<NavLink to="/collections">Collections {count > 0 &&
+					<span className={'badge badge-white'}>{count}</span>}</NavLink>
 			</li>
 			<li>
 				<NavLink to="/about">About</NavLink>

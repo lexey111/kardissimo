@@ -12,6 +12,14 @@
 	justify-self: center;
 }
 
+@mixin content-center {
+	text-align: center;
+	align-content: center;
+	align-items: center;
+	justify-items: center;
+	justify-content: center;
+}
+
 @mixin absolute-center {
 	position: absolute;
 	left: 50%;

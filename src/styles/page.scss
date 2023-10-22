@@ -13,9 +13,9 @@
 	flex-flow: column nowrap;
 }
 
-body.with-side-menu {
+body.exclusive-lock {
 	#app_main_container {
-		margin-left: 120px;
+		//margin-left: 120px;
 	}
 
 	#app-footer {
@@ -69,6 +69,12 @@ a:hover, a:focus {
 
 .page {
 	max-width: 100%;
+	min-width: 400px;
+}
+
+.page-1200 {
+	max-width: 1200px;
+	width: 80%;
 	min-width: 400px;
 }
 

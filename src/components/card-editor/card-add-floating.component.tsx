@@ -20,7 +20,8 @@ export const CardAddFloating: React.FC<TCardAddProps> = ({collectionId}) => {
 		return null;
 	}
 
-	return <div className={'add-card-floating'} onClick={handleAdd}>
+	return <div className={'add-card-floating'}
+	            onClick={handleAdd}>
 		<IoIosAddCircle/>
 	</div>;
 

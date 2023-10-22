@@ -5,6 +5,7 @@ export type TAppSubPageProps = {
 	float?: JSX.Element
 }
 export const AppSubPage: React.FC<TAppSubPageProps> = (props) => {
+
 	return <div className={'app-page-content no-padding'}>
 		{props.children}
 		{props.float && props.float}

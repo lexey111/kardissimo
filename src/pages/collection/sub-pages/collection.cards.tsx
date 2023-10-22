@@ -16,7 +16,6 @@ export const CollectionCards: React.FC = () => {
 	}
 
 	return <AppSubPage float={<CardAddFloating collectionId={collection.id}/>}>
-
 		<div className={'page'}>
 			<CardListHeader collectionId={collection.id}/>
 			<CardList collectionId={collection.id}/>

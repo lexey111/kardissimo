@@ -24,20 +24,17 @@ export const CollectionDetailsData: React.FC = () => {
 	// const [initState, setInitState] = useState<TCollection>(getCollection(params.collectionId)!);
 
 	const handleBack = useCallback(() => {
-		if (isNew) {
 			navigate('/collections');
-			return;
-		}
-		updateCollection(state); // renew
 	}, []);
 
 	const handleSubmit = useCallback((values: TCollection) => {
 		if (isNew) {
 			createCollection(values);
-			navigate(`/collections/${values.id}/details`);
+			navigate(`/collections`);
 			return;
 		}
 		updateCollection(values);
+		navigate('/collections');
 	}, []);
 
 	const handleGoCards = useCallback(() => {
