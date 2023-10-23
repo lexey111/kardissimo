@@ -6,6 +6,7 @@ import {ColorPicker} from "./color-picker.component.tsx";
 import {CardPreview} from "../../../components/card-editor/card-preview-component.tsx";
 import {FaGrip} from "react-icons/fa6";
 import {Button} from "../../../components/utils/button.component.tsx";
+import {IoCheckmarkCircle} from "react-icons/io5";
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -254,6 +255,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 					</Button>
 
 					<Button onClick={() => onSubmit(state)}
+					        icon={<IoCheckmarkCircle/>}
 					        disabled={hasErrors || (!isNew && !touched)}>
 						{isNew ? 'Create' : 'Save'}
 					</Button>

@@ -1,14 +1,9 @@
 import React from "react";
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {countCollections} from "../store/data/collections-store.selectors.ts";
 
 export const AppMenu: React.FC = () => {
-	const params = useParams();
 	const count = countCollections();
-
-	if (params.collectionId) {
-		return null; // in collection, exclusive mode
-	}
 
 	return <nav id='app-menu'>
 		<ul>

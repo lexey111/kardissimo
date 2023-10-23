@@ -17,8 +17,8 @@ export const useCardNavigateHook = (collectionId?: string, cardId?: string) => {
 
 		let targetId = cardId || _cardId;
 
-		if (position) {
-			localStorage.setItem(key, position.toFixed());
+		if (typeof position !== undefined && !isNaN(position!)) {
+			localStorage.setItem(key, position!.toFixed());
 		}
 
 		if (cardId === 'new') {

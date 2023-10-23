@@ -47,8 +47,8 @@ export const useHeight = (addHeight: number) => {
 		}
 
 		if (!container.current) {
-			container.current = document.querySelector('#app_main_container'); // first
-			createObservers()
+			container.current = document.querySelector('#root'); // first
+			createObservers();
 		}
 
 		if (!container.current) {

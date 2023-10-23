@@ -38,32 +38,28 @@ export const App: React.FC = () => {
 	const location = useLocation();
 
 	return <>
-		{/*<CollectionMenu/>*/}
+		<AppMenu/>
+		<AppHeader/>
+		<AnimatePresence mode="popLayout">
+			<motion.main
+				key={location.pathname}
+				className="app-page"
+				initial={'initial'}
+				exit={'exit'}
+				animate={'in'}
+				variants={topAnimationParams}
+				transition={pageTransition}
+				style={{display: 'flex', width: '100%', height: '100%'}}
+			>
+				<AnimatedOutlet/>
+			</motion.main>
+		</AnimatePresence>
 
-		<div id={'app_main_container'}>
-			<AppMenu/>
-			<AppHeader/>
-			<AnimatePresence mode="popLayout">
-				<motion.main
-					key={location.pathname}
-					className="app-page"
-					initial={'initial'}
-					exit={'exit'}
-					animate={'in'}
-					variants={topAnimationParams}
-					transition={pageTransition}
-					style={{display: 'flex', width: '100%', height: '100%'}}
-				>
-					<AnimatedOutlet/>
-				</motion.main>
-			</AnimatePresence>
-
-			<ScrollRestoration
-				getKey={(location) => {
-					return location.pathname;
-				}}
-			/>
-			<AppFooter/>
-		</div>
+		<ScrollRestoration
+			getKey={(location) => {
+				return location.pathname;
+			}}
+		/>
+		<AppFooter/>
 	</>;
 };

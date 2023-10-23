@@ -4,8 +4,8 @@ import {removeCollection} from "../../store/data/collections-store.actions.ts";
 import {getCollection} from "../../store/data/collections-store.selectors.ts";
 import {Modal} from "../modal-component.tsx";
 import {FaGrip, FaTrashCan} from "react-icons/fa6";
-import {MdDesignServices} from "react-icons/md";
 import {Button} from "../utils/button.component.tsx";
+import {FaCog} from "react-icons/fa";
 
 export type TCollectionActionsProps = {
 	id: string;
@@ -53,7 +53,7 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 		/>
 
 		<div className={'collection-item-actions'}>
-			<Button onClick={() => goEdit(id!)} icon={<MdDesignServices/>}>
+			<Button onClick={() => goEdit(id!)} icon={<FaCog/>}>
 				Change
 			</Button>
 

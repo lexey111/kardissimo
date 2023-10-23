@@ -2,6 +2,8 @@ import React, {useCallback} from "react";
 import {useCollectionStore} from "../../store/data/collections-store.ts";
 import {useNavigate} from "react-router-dom";
 import {CollectionActions} from "./collection-actions.component.tsx";
+import {Button} from "../utils/button.component.tsx";
+import {FaCog} from "react-icons/fa";
 
 export type TCollectionItemProps = {
 	id: string
@@ -13,6 +15,10 @@ export const CollectionListItem: React.FC<TCollectionItemProps> = React.memo(({i
 
 	const goCards = useCallback(() => {
 		navigate(`/collections/${id}/cards`);
+	}, []);
+
+	const goDetails = useCallback(() => {
+		navigate(`/collections/${id}/details`);
 	}, []);
 
 	const handleEnter = useCallback((e: any) => {
@@ -52,8 +58,11 @@ export const CollectionListItem: React.FC<TCollectionItemProps> = React.memo(({i
 			</>}
 		</div>
 		<div className={'collection-wrapper'}>
-			<div className={'collection-title'}>{collection.title} <span
-				className={'badge badge-white'}>{collection.cards?.length || 0}</span></div>
+			<div className={'collection-title'}>
+				<Button type={'round'} icon={<FaCog/>} onClick={goDetails} size={'sm'} variant={'margin-right'}/>
+				{collection.title}
+				<span className={'badge badge-white'}>{collection.cards?.length || 0}</span>
+			</div>
 			<div className={'collection-author'}><b>by</b> {collection.author || 'Unknown'}</div>
 			<div className={'collection-sides'}><b>Sides:</b> {collection.sides?.map(s => s.name).join(', ')}</div>
 

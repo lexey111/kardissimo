@@ -1,9 +1,6 @@
 #app-menu {
 	background: rgba(0, 0, 0, .4);
-	backdrop-filter: blur(4px);
 	display: flex;
-	//position: sticky;
-	//top: 0;
 	order: 0;
 	z-index: 10;
 	flex-flow: row wrap;
@@ -13,6 +10,8 @@
 	margin: 0;
 	flex-grow: 0;
 	flex-shrink: 0;
+	max-height: 2000px;
+	transition: all .4s ease;
 
 	ul {
 		display: flex;
@@ -54,6 +53,7 @@
 }
 
 #app-footer {
+	max-height: 2000px;
 	order: 100;
 	display: flex;
 	margin-top: auto;
@@ -63,6 +63,7 @@
 	flex-flow: row wrap;
 	justify-content: center;
 	border-top: 1px solid rgba(0, 0, 0, .4);
+	transition: all .2s ease;
 
 	#app-footer-content {
 		display: flex;

@@ -3,6 +3,7 @@ import {TCard, TCardEnriched, TCardSide, TCollection} from "../../store/data/typ
 import {CardPreview} from "./card-preview-component.tsx";
 import {NavLink} from "react-router-dom";
 import {Button} from "../utils/button.component.tsx";
+import {IoCheckmarkCircle} from "react-icons/io5";
 
 export type TCardEditorFormProps = {
 	collection?: TCollection
@@ -129,6 +130,7 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 				<fieldset className={'actions'}>
 					<Button onClick={onCancel} type={'secondary'}>&larr; Cancel (Esc)</Button>
 					<Button onClick={() => onSubmit(state)}
+					        icon={<IoCheckmarkCircle/>}
 					        disabled={!touched}>
 						{isNew ? 'Create' : 'Save'}
 					</Button>
