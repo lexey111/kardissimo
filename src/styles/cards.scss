@@ -1,3 +1,5 @@
+@use 'mixins';
+
 .card-sides, .card-sides-header {
 	width: auto;
 	flex-flow: row wrap;
@@ -14,7 +16,7 @@
 	margin-bottom: 16px;
 
 	.card-side-name {
-		color: rgba(255, 255, 255, 0.9);
+		color: mixins.whiteTrans( 0.9);
 		text-align: center;
 		font-weight: 200;
 		font-size: 1.2rem;
@@ -32,7 +34,7 @@
 }
 
 .card-number {
-	color: rgba(255, 255, 255, 0.5);
+	color: mixins.whiteTrans( 0.5);
 	font-size: 3rem;
 	font-weight: 200;
 	text-align: right;
@@ -46,7 +48,7 @@
 	span {
 		font-size: 1.5rem;
 		opacity: .8;
-		border-top: 1px solid rgba(255, 255, 255, .4);
+		border-top: 1px solid mixins.whiteTrans( .4);
 	}
 }
 
@@ -75,7 +77,7 @@
 		&:hover {
 			background: rgba(215, 1, 120, 0.94);
 			transform: translateY(-2px);
-			box-shadow: 1px 2px 2px rgba(0, 0, 0, .4);
+			box-shadow: 1px 2px 2px mixins.blackTrans( .4);
 		}
 	}
 }
@@ -87,7 +89,7 @@
 	margin: 0;
 	padding: 16px;
 	align-items: center;
-	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+	box-shadow: 1px 1px 2px mixins.blackTrans( 0.2);
 	cursor: pointer;
 	transition: background-color .2s ease, box-shadow .5s ease;
 
@@ -103,7 +105,7 @@
 
 	.card-header, .card-word, .card-footer {
 		display: flex;
-		border: 1px dashed rgba(0, 0, 0, .12);
+		border: 1px dashed mixins.blackTrans( .12);
 		width: 100%;
 		min-height: 2rem;
 		border-radius: 6px;
@@ -163,10 +165,10 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: rgba(255, 255, 255, .5);
+		background: mixins.whiteTrans( .5);
 		z-index: -1;
 		border-radius: 100%;
-		box-shadow: 1px 2px 4px rgba(0, 0, 0, .2);
+		box-shadow: 1px 2px 4px mixins.blackTrans( .2);
 	}
 
 	&:hover {
@@ -174,7 +176,7 @@
 		transform: translateY(-5px);
 
 		&:before {
-			box-shadow: 1px 2px 6px rgba(0, 0, 0, .3);
+			box-shadow: 1px 2px 6px mixins.blackTrans( .3);
 		}
 	}
 }

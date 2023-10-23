@@ -1,3 +1,5 @@
+@use 'mixins';
+
 .badge {
 	padding: 2px 8px;
 	border-radius: 16px;
@@ -11,6 +13,6 @@
 }
 
 .badge-white {
-	background-color: rgba(255, 255, 255, .2);
-	border: 1px solid rgba(255, 255, 255, .5);
+	background-color: mixins.whiteTrans(.2);
+	border: 1px solid mixins.whiteTrans(.5);
 }

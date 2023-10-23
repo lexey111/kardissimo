@@ -58,7 +58,7 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 			</Button>
 
 			<Button onClick={() => goCards(id!)} icon={<FaGrip/>}>
-				Cards
+				Cards...
 			</Button>
 
 			<Button onClick={() => setIsOpen(true)} icon={<FaTrashCan/>} type={'round'}/>

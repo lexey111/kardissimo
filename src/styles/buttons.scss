@@ -8,7 +8,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 
 $focusRing: rgba(255, 204, 0, 0.96);
 
-$primaryBg: #0069e3;
+$primaryBg: #146ef5;
 $dangerBg: #ff005b;
 $secondaryGroupBg: #ffbd0e;
 $textColor: #fff;
@@ -74,7 +74,7 @@ $textColor: #fff;
 	}
 
 	&.pressed {
-		box-shadow: inset 1px 2px 2px rgba(0, 0, 0, .4);
+		box-shadow: inset 1px 2px 2px mixins.blackTrans( .4);
 	}
 
 	&:focus, &:hover {
@@ -255,6 +255,7 @@ $textColor: #fff;
 	&:after {
 		border-radius: 100%;
 		border-width: 4px;
+		transform: scale(.2);
 	}
 
 	svg {
@@ -313,7 +314,7 @@ $textColor: #fff;
 
 		&:focus, &:hover {
 			&.pressed {
-				box-shadow: inset 1px 2px 4px rgba(0, 0, 0, .4);
+				box-shadow: inset 1px 2px 4px mixins.blackTrans( .4);
 			}
 		}
 
@@ -328,13 +329,13 @@ $textColor: #fff;
 			&:focus, &:hover {
 
 				&.pressed {
-					box-shadow: inset 1px 2px 4px rgba(0, 0, 0, .4);
+					box-shadow: inset 1px 2px 4px mixins.blackTrans( .4);
 				}
 			}
 
 			&.pressed {
 				background: darken($secondaryGroupBg, 5%);
-				box-shadow: inset 1px 2px 4px rgba(0, 0, 0, .4);
+				box-shadow: inset 1px 2px 4px mixins.blackTrans( .4);
 			}
 		}
 	}

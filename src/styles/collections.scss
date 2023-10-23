@@ -1,3 +1,5 @@
+@use 'mixins';
+
 .collection-list {
 	margin: 64px 0;
 
@@ -22,7 +24,7 @@
 	position: relative;
 
 	svg {
-		box-shadow: inset 1px 1px 4px rgba(0, 0, 0, .1);
+		box-shadow: inset 1px 1px 4px mixins.blackTrans( .1);
 		border-radius: 100%;
 		transition: all .2s ease;
 		padding: 0;
@@ -79,14 +81,14 @@
 
 		.collection-pseudo-card {
 			transform: translateY(-2px) scale(1.02);
-			box-shadow: 0 4px 18px rgba(0, 0, 0, .2), 0 0 0 4px rgba(255, 204, 0, 0.96);
+			box-shadow: 0 4px 18px mixins.blackTrans( .2), 0 0 0 4px rgba(255, 204, 0, 0.96);
 
 			&.single {
 				box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.96);
 			}
 
 			span {
-				background: rgba(255, 255, 255, .4);
+				background: mixins.whiteTrans( .4);
 			}
 		}
 
@@ -108,7 +110,7 @@
 		left: -8px;
 		width: 164px;
 		bottom: -12px;
-		background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4), transparent 70%);
+		background: radial-gradient(ellipse at center, mixins.blackTrans( 0.4), transparent 70%);
 		transition: all .2s ease;
 		z-index: -1;
 		opacity: .9;
@@ -118,18 +120,18 @@
 .collection-pseudo-card {
 	width: 120px;
 	aspect-ratio: 2/3;
-	background: rgba(255, 255, 255, .4);
+	background: mixins.whiteTrans( .4);
 	border-radius: 12px;
 	display: flex;
 	position: relative;
 	@include content-center();
-	border: 2px solid rgba(255, 255, 255, .8);
+	border: 2px solid mixins.whiteTrans( .8);
 	box-sizing: border-box;
 	cursor: pointer;
 	z-index: 2;
 
 	transition: all .2s ease;
-	box-shadow: 2px 2px 8px rgba(0, 0, 0, .2);
+	box-shadow: 2px 2px 8px mixins.blackTrans( .2);
 
 	transform: rotate3d(0, 1, 1, -4deg);
 	outline: none;
@@ -141,7 +143,7 @@
 		font-weight: 200;
 		width: 64px;
 		height: 64px;
-		background: rgba(255, 255, 255, .2);
+		background: mixins.whiteTrans( .2);
 		border-radius: 100%;
 		align-items: center;
 		justify-content: center;
@@ -163,14 +165,14 @@
 	left: 0;
 	width: 120px;
 	aspect-ratio: 2/3;
-	background: rgba(255, 255, 255, .4);
+	background: mixins.whiteTrans( .4);
 	border-radius: 12px;
 	display: flex;
 	z-index: 1;
 
 	transition: all .2s ease;
 	transform: rotate3d(0, 1, 1, 2deg) scale(.95) translateX(14px) translateY(1px);
-	box-shadow: 2px 2px 8px rgba(0, 0, 0, .2);
+	box-shadow: 2px 2px 8px mixins.blackTrans( .2);
 
 	&:before {
 		content: '';
@@ -179,7 +181,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: rgba(0, 0, 0, 0.2);
+		background: mixins.blackTrans( 0.2);
 		border-radius: 12px;
 	}
 
@@ -188,7 +190,7 @@
 		z-index: 0;
 
 		&:before {
-			background: rgba(0, 0, 0, 0.3);
+			background: mixins.blackTrans( 0.3);
 		}
 	}
 }
@@ -207,7 +209,7 @@
 	margin: 0 0 12px 0;
 	padding: 0 0 6px 0;
 	line-height: 1;
-	border-bottom: 1px solid rgba(255, 255, 255, .6);
+	border-bottom: 1px solid mixins.whiteTrans( .6);
 	display: flex;
 	color: #fff;
 

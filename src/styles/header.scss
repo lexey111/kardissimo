@@ -1,3 +1,5 @@
+@use 'mixins';
+
 .app-page-header {
 	display: flex;
 	flex-flow: row nowrap;
@@ -43,7 +45,7 @@
 			bottom: 1rem;
 			right: -5rem;
 			left: 3rem;
-			background: rgba(255, 255, 255, .2);
+			background: mixins.whiteTrans( .2);
 			border-radius: 8px;
 			z-index: -1;
 		}
@@ -75,7 +77,7 @@
 			bottom: 0;
 			left: 8px;
 			right: 8px;
-			background: rgba(0, 0, 0, 0.4);
+			background: mixins.blackTrans( 0.4);
 			border-radius: 12px;
 			z-index: -1;
 			transform-origin: top center;
@@ -92,7 +94,7 @@
 		font-size: 1.2rem;
 		font-weight: 200;
 		font-variant: small-caps;
-		color: rgba(0, 0, 0, 0.9);
+		color: mixins.blackTrans( 0.9);
 		opacity: .8;
 		position: relative;
 		display: flex;

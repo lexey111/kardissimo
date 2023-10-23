@@ -1,3 +1,5 @@
+@use 'mixins';
+
 .card-list {
 	max-width: 960px;
 	padding: 0;
@@ -10,8 +12,8 @@
 	&:hover {
 		.card-side-content {
 			//transform: translateY(-1px);
-			background: rgba(255, 255, 255, .9);
-			box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+			background: mixins.whiteTrans( .9);
+			box-shadow: 2px 4px 6px mixins.blackTrans( 0.3);
 		}
 
 		.card-actions {

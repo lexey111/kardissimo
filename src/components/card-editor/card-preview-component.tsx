@@ -1,10 +1,11 @@
 import React, {useCallback, useState} from "react";
 import {Canvas} from "@react-three/fiber";
 
-import {Stage} from "@react-three/drei";
+import {OrbitControls, Stage} from "@react-three/drei";
 import {Preview3DCard} from "../card3d/preview-3d-card.component.tsx";
 import {TCardEnriched} from "../../store/data/types.ts";
 import {Fonts} from "../../resources/fonts.ts";
+import {createPortal} from "react-dom";
 
 export type TCardPreviewProps = {
 	card: TCardEnriched
@@ -44,29 +45,42 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({
 		setFullScreen(v => !v);
 	}, [fullScreen]);
 
-	return <div className={'card-preview-container' + (fullScreen ? ' card-preview-fullscreen' : ' card-preview')}
-	            title={fullScreen ? '' : 'Click to preview'}
-	            onClick={toggleMode}>
-		<Canvas
-			camera={{fov: 75, near: 0.1, far: 1000, position: [0, 0, 300]}}
-		>
+	const content = <div
+		className={'card-preview-container' + (fullScreen ? ' card-preview-fullscreen' : ' card-preview')}
+		title={fullScreen ? '' : 'Click to preview'}
+		onClick={toggleMode}>
 
-			<Stage adjustCamera={.9} intensity={6} preset="rembrandt"
-			       shadows={{type: 'contact', color: 'skyblue', colorBlend: 2, opacity: 1}}
-			       environment="city"
+		<div className={'preview-backdrop'}></div>
+
+		<div className={'canvas-wrapper'}>
+			<Canvas
+				camera={{fov: 75, near: 0.1, far: 1000, position: [0, 0, 300]}}
 			>
-				<Preview3DCard
-					side={side}
-					faces={faces}/>
-			</Stage>
 
-			<pointLight position={[-80, 80, 120]}
-			            color={'#aaa'}
-			            intensity={100000}/>
+				<Stage adjustCamera={.9} intensity={6} preset="rembrandt"
+				       shadows={{type: 'contact', color: 'skyblue', colorBlend: 2, opacity: 1}}
+				       environment="city"
+				>
+					{fullScreen && <OrbitControls/>}
 
-			<pointLight position={[80, -80, 200]}
-			            color={'#000'}
-			            intensity={100000}/>
-		</Canvas>
+					<Preview3DCard
+						side={side}
+						faces={faces}/>
+				</Stage>
+
+				<pointLight position={[-80, 80, 120]}
+				            color={'#aaa'}
+				            intensity={100000}/>
+
+				<pointLight position={[80, -80, 200]}
+				            color={'#000'}
+				            intensity={100000}/>
+			</Canvas>
+		</div>
 	</div>;
+
+	if (fullScreen) {
+		return createPortal(content, document.getElementById('root')!);
+	}
+	return content;
 };
