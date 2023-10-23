@@ -26,3 +26,11 @@
 	top: 50%;
 	transform: translateX(-50%) translateY(-50%);
 }
+
+@function blackTrans($opacity: .2) {
+	@return rgba(0, 0, 0, $opacity);
+}
+
+@function whiteTrans($opacity: .4) {
+	@return rgba(255, 255, 255, $opacity);
+}

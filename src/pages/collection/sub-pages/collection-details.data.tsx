@@ -21,9 +21,10 @@ export const CollectionDetailsData: React.FC = () => {
 	const {resetPosition} = useCardNavigateHook(collectionId, '');
 	resetPosition();
 
-	const handleBack = useCallback(() => {
+	const handleBack = () => {
+		console.log('back')
 		navigate('/collections');
-	}, []);
+	}
 
 	const handleSubmit = useCallback((values: TCollection) => {
 		if (isNew) {

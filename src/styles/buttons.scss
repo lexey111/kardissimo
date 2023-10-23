@@ -4,8 +4,17 @@ Copyright 2013 Yahoo!
 Licensed under the BSD License.
 https://github.com/pure-css/pure/blob/master/LICENSE
 */
+@use 'mixins';
+
+$focusRing: rgba(255, 204, 0, 0.96);
+$secondaryFocusRing: rgba(255, 255, 255, 0.96);
+
+$primaryBg: #0069e3;
+$dangerBg: #ff005b;
+$secondaryGroupBg: #ffbd0e;
+$textColor: #fff;
+
 .pure-button {
-	display: inline-block;
 	white-space: nowrap;
 	vertical-align: middle;
 	line-height: 1;
@@ -16,6 +25,76 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	user-select: none;
 	box-sizing: border-box;
 	height: 36px;
+	font-family: inherit;
+	font-size: 100%;
+	padding: .5rem 1rem;
+	color: mixins.blackTrans(.8);
+	border: none transparent;
+	background-color: transparent;
+	text-decoration: none;
+	border-radius: 4px;
+	transition: all 0.2s ease-in;
+	opacity: 1;
+	text-underline-offset: 10px;
+	text-decoration-thickness: 1px;
+
+	display: inline-flex;
+	flex-flow: row nowrap;
+	align-items: center;
+
+	&.disabled, &.disabled:active, &.disabled:focus, &.disabled:hover, .pure-button[disabled] {
+		box-shadow: inset 0 0 0 2px mixins.blackTrans(.1);
+		background: mixins.blackTrans(.1);
+
+		.button-text {
+			opacity: .5;
+		}
+
+		cursor: not-allowed;
+		pointer-events: none
+	}
+
+	&.pressed {
+		box-shadow: inset 1px 2px 2px rgba(0, 0, 0, .4);
+	}
+
+	&:focus, &:hover {
+		text-underline-offset: 4px;
+		outline: 0;
+		opacity: 1;
+
+		box-shadow: 0 0 0 4px $focusRing;
+		text-decoration: none;
+	}
+
+	svg {
+		margin-right: .5rem;
+		font-size: 1em;
+		transition: all .2s ease;
+	}
+
+	&.button-sm {
+		font-size: .9rem;
+	}
+
+	&.button-xl {
+		font-size: 2rem;
+		font-weight: 200;
+		height: 4rem;
+		border-radius: 8px;
+		padding: 0 2rem;
+		text-decoration-thickness: 1px;
+
+		@include mixins.center();
+
+		svg {
+			font-size: 3rem;
+		}
+
+		&.full-width {
+			width: 100%;
+		}
+	}
 }
 
 .pure-button::-moz-focus-inner {
@@ -29,98 +108,39 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	white-space: nowrap;
 	flex-grow: 0;
 	flex-shrink: 0;
+
+	.pure-button {
+		letter-spacing: normal;
+		word-spacing: normal;
+		vertical-align: middle;
+		text-rendering: auto
+	}
 }
 
-.opera-only :-o-prefocus, .pure-button-group {
-	word-spacing: -0.43em
-}
+.pure-button-secondary {
+	box-shadow: inset 0 0 0 1px mixins.blackTrans(.05);
+	background: mixins.whiteTrans(.1);
 
-.pure-button-group .pure-button {
-	letter-spacing: normal;
-	word-spacing: normal;
-	vertical-align: middle;
-	text-rendering: auto
-}
-
-.pure-button {
-	font-family: inherit;
-	font-size: 100%;
-	padding: .5rem 1rem;
-	color: rgba(0, 0, 0, .8);
-	border: none transparent;
-	background-color: transparent;
-	text-decoration: none;
-	border-radius: 4px;
-	transition: all .2s ease;
-	opacity: 1;
-	text-underline-offset: 10px;
-	text-decoration-thickness: 1px;
-
-	display: inline-flex;
-	flex-flow: row nowrap;
-	align-items: center;
-}
-
-.pure-button svg {
-	margin-right: .5rem;
-	font-size: 1em;
-	transition: all .2s ease;
-}
-
-.pure-button-secondary svg {
-	opacity: .8;
-}
-
-.pure-button-secondary:hover svg, .pure-button-secondary:focus svg {
-	opacity: 1;
-	transform: scale(1.2);
-}
-
-.pure-button-hover, .pure-button:focus, .pure-button:hover {
-	//box-shadow: 0 0 2px 4px rgba(239, 186, 0, 0.9);
-	text-underline-offset: 4px;
-	text-decoration: underline;
-	opacity: 1;
-}
-
-.pure-button:focus {
-	outline: 0
-}
-
-.pure-button-active, .pure-button:active {
-	box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 0 6px rgba(0, 0, 0, .2) inset;
-	//border-color: #000
-}
-
-.pure-button-disabled, .pure-button-disabled:active, .pure-button-disabled:focus, .pure-button-disabled:hover, .pure-button[disabled] {
-	border: none;
-	// background-image: none;
-	background: rgba(0, 0, 0, .2);
-	opacity: .6;
-	cursor: not-allowed;
-	box-shadow: none;
-	pointer-events: none
-}
-
-.pure-button-hidden {
-	display: none
-}
-
-.pure-button {
-	&:hover, &:focus {
-		&.pure-button-primary, &.pure-button-danger {
-			box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.96);
-			//box-shadow: -1px -1px 0 1px rgba(255, 255, 255, .2), 1px 1px 0 1px rgba(0, 0, 0, .3);
-		}
+	svg {
+		opacity: .8;
 	}
 
+	&:hover, &:focus {
+		svg {
+			opacity: 1;
+			transform: scale(1.2);
+		}
+	}
 }
 
-.pure-button-primary, .pure-button-selected, a.pure-button-primary, a.pure-button-selected {
-	background-color: #0078e7;
-	//background: linear-gradient(180deg, #0078e7, #0073de);
-	color: #fff;
-	opacity: 1;
+.pure-button-primary {
+	background-color: $primaryBg;
+	color: $textColor;
+}
+
+.pure-button-danger {
+	background-color: $dangerBg;
+	color: $textColor;
 }
 
 .pure-button-floating {
@@ -135,32 +155,17 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	width: 56px;
 	height: 56px;
 	margin: 0;
-	box-shadow: 2px 4px 8px rgba(0, 0, 0, .4);
-	border: 2px solid rgba(255, 255, 255, .7);
+	box-shadow: 2px 4px 8px mixins.blackTrans(.4);
+	border: 2px solid mixins.whiteTrans(.7);
 	box-sizing: content-box;
-}
 
-.pure-button-floating:focus, .pure-button-floating:hover {
-	text-decoration: none;
-}
+	&:focus, &:hover {
+		text-decoration: none;
+	}
 
-.pure-button-floating:hover {
-	box-shadow: 2px 4px 12px rgba(0, 0, 0, .6);
-	border-color: rgba(255, 255, 255, .9);
-}
-
-.pure-button-danger, .pure-button-selected, a.pure-button-danger, a.pure-button-selected {
-	background-color: #ff005b;
-	color: #fff;
-	opacity: 1;
-}
-
-.pure-button-round {
-	&:hover, &:focus {
-		border: 2px solid rgba(255, 204, 0, 0.96);
-		box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.96);
-		//background-color: #ff005b;
-		//box-shadow: 1px 2px 4px rgba(0, 0, 0, .4);
+	&:hover {
+		box-shadow: 2px 4px 12px mixins.blackTrans(.6);
+		border-color: mixins.whiteTrans(.9);
 	}
 }
 
@@ -175,7 +180,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	justify-content: center;
 	flex-direction: row;
 	flex-wrap: nowrap;
-	border: 2px solid rgba(255, 255, 255, .4);
+	border: 2px solid mixins.whiteTrans(.4);
 	background: transparent;
 
 	svg {
@@ -183,78 +188,84 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 		margin: 0;
 		font-size: .9rem;
 	}
+
+	&:hover, &:focus {
+		border: 2px solid $focusRing;
+		box-shadow: 0 0 0 2px $focusRing;
+	}
 }
 
+.pure-button-group {
+	border-radius: 6px;
 
-.pure-button-group .pure-button {
-	margin: 0;
-	border-radius: 0;
-	height: unset;
-	border: 1px solid rgba(255, 255, 255, .4);
-	box-sizing: content-box;
-	background: rgba(255, 255, 255, .1);
-	display: inline-flex;
-	flex-flow: row nowrap;
-	line-height: 1rem;
-	@include center();
+	.pure-button {
+		margin: 0 1px 0 0;
+		border-radius: 0;
+		height: unset;
+
+		@include mixins.center();
+
+		svg {
+			margin-right: 0;
+		}
+
+		&.text-icon {
+			svg {
+				margin-right: .4em;
+			}
+		}
+
+		&:first-child {
+			border-top-left-radius: 6px;
+			border-bottom-left-radius: 6px;
+		}
+
+		&:last-child {
+			border-top-right-radius: 6px;
+			border-bottom-right-radius: 6px;
+			margin-right: 0;
+		}
+
+		&:focus, &:hover {
+			box-shadow: 0 0 0 2px $focusRing;
+
+			&.pressed {
+				box-shadow: 0 0 0 2px $focusRing, inset 1px 2px 4px rgba(0, 0, 0, .4);
+			}
+		}
+
+		&.pure-button-primary.pressed {
+			background: darken($primaryBg, 10%);
+		}
+
+		&.pure-button-secondary {
+			background: $secondaryGroupBg;
+			box-shadow: none;
+
+			&:focus, &:hover {
+				box-shadow: 0 0 0 2px $secondaryFocusRing;
+
+				&.pressed {
+					box-shadow: 0 0 0 2px $secondaryFocusRing, inset 1px 2px 4px rgba(0, 0, 0, .4);
+				}
+			}
+
+			&.pressed {
+				background: darken($secondaryGroupBg, 5%);
+				box-shadow: inset 1px 2px 4px rgba(0, 0, 0, .4);
+			}
+		}
+	}
 }
 
-.pure-button-group .pure-button svg {
-	margin-right: 0;
-}
+@media screen and (max-width: 550px) {
+	button.text-icon {
+		span.button-text {
+			display: none;
+		}
 
-.pure-button-group.primary .pure-button {
-	border: none; //1px solid transparent;
-	background: #0078e7;
-	margin-right: 1px;
-}
-
-.pure-button-group.secondary .pure-button {
-	border: none; //1px solid transparent;
-	background: #ffbd0e;
-	margin-right: 1px;
-}
-
-.pure-button-group.primary .pure-button.pressed {
-	background: #045aa9;
-	box-shadow: inset 0 1px 2px rgba(0, 0, 0, .4);
-}
-
-.pure-button-group.secondary .pure-button.pressed {
-	background: #daa10c;
-	box-shadow: inset 0 1px 2px rgba(0, 0, 0, .2);
-}
-
-.pure-button-group .pure-button svg {
-	font-size: 1rem;
-	line-height: 1rem;
-	width: 1rem;
-	height: 1rem;
-}
-
-.pure-button-group .pure-button.with-text svg {
-	margin-right: .4rem;
-}
-
-.pure-button-group .pure-button:focus-within {
-	box-shadow: 0 0 0 2px #ffbd0e;
-}
-
-.pure-button-group .pure-button.pressed {
-	background: rgba(255, 255, 255, .3);
-	box-shadow: inset 0 1px 3px rgba(0, 0, 0, .3);
-	pointer-events: none;
-}
-
-.pure-button-group .pure-button:first-child {
-	border-top-left-radius: 6px;
-	border-bottom-left-radius: 6px;
-	border-right: none;
-}
-
-.pure-button-group .pure-button:last-child {
-	border-top-right-radius: 6px;
-	border-bottom-right-radius: 6px;
-	border-left: none;
-	margin-right: 0;
+		svg {
+			margin: 0 !important;
+		}
+	}
 }

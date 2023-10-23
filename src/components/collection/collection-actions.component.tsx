@@ -5,16 +5,17 @@ import {getCollection} from "../../store/data/collections-store.selectors.ts";
 import {Modal} from "../modal-component.tsx";
 import {FaGrip, FaTrashCan} from "react-icons/fa6";
 import {MdDesignServices} from "react-icons/md";
+import {Button} from "../utils/button.component.tsx";
 
 export type TCollectionActionsProps = {
 	id: string;
 }
+
 export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 	const navigate = useNavigate();
 	const collection = getCollection(id);
 
 	const [isOpen, setIsOpen] = useState(false);
-
 
 	const goEdit = useCallback((id: string) => {
 		navigate(`/collections/${id}/details`);
@@ -42,31 +43,25 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 				will be permanently removed. This action cannot be undone.
 			</p>}
 			actions={<>
-				<button className={'pure-button pure-button-secondary'}
-				        onClick={() => setIsOpen(false)}>
+				<Button type={'secondary'} onClick={() => setIsOpen(false)}>
 					Cancel (Esc)
-				</button>
-				<button className={'pure-button pure-button-danger'} onClick={deleteCollection}>
-					<FaTrashCan/> Remove
-				</button>
+				</Button>
+				<Button type={'danger'} onClick={deleteCollection} icon={<FaTrashCan/>}>
+					Remove
+				</Button>
 			</>}
 		/>
 
 		<div className={'collection-item-actions'}>
-
-			<button onClick={() => goEdit(id!)} className={'pure-button pure-button-primary'}>
-				<MdDesignServices/>
+			<Button onClick={() => goEdit(id!)} icon={<MdDesignServices/>}>
 				Change
-			</button>
+			</Button>
 
-			<button onClick={() => goCards(id!)} className={'pure-button pure-button-primary'}>
-				<FaGrip/>
+			<Button onClick={() => goCards(id!)} icon={<FaGrip/>}>
 				Cards
-			</button>
+			</Button>
 
-			<button onClick={() => setIsOpen(true)} className={'pure-button pure-button-secondary pure-button-round'}>
-				<FaTrashCan/>
-			</button>
+			<Button onClick={() => setIsOpen(true)} icon={<FaTrashCan/>} type={'round'}/>
 		</div>
 	</>;
 };

@@ -27,6 +27,11 @@ export const AppRoutes = [
 		errorElement: <ErrorBoundary/>,
 		children: [
 			{
+				path: '',
+				index: true,
+				element: <HomePage/>
+			},
+			{
 				path: 'home',
 				index: true,
 				element: <HomePage/>

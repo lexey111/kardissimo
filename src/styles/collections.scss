@@ -153,6 +153,7 @@
 		background: none !important;
 		transform: none;
 		border-style: dashed;
+		margin-left: 6px;
 	}
 }
 
@@ -238,17 +239,17 @@
 	display: flex;
 	flex-flow: column wrap;
 
-	button {
-		height: 64px;
-		width: 100%;
-		display: flex;
-		margin: 0;
-		padding: 0;
-		@include center();
-		border-radius: 8px;
-
-		svg {
-			font-size: 2rem;
-		}
-	}
+	//button {
+	//	height: 64px;
+	//	width: 100%;
+	//	display: flex;
+	//	margin: 0;
+	//	padding: 0;
+	//	@include center();
+	//	border-radius: 8px;
+	//
+	//	svg {
+	//		font-size: 2rem;
+	//	}
+	//}
 }

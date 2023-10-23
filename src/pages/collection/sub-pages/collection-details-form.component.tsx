@@ -4,7 +4,8 @@ import {TCollection, TCollectionSide} from "../../../store/data/types.ts";
 import {Fonts} from "../../../resources/fonts.ts";
 import {ColorPicker} from "./color-picker.component.tsx";
 import {CardPreview} from "../../../components/card-editor/card-preview-component.tsx";
-import {FaCircleArrowRight} from "react-icons/fa6";
+import {FaGrip} from "react-icons/fa6";
+import {Button} from "../../../components/utils/button.component.tsx";
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -125,7 +126,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 
 	return <div className={'card-side-editor'}>
 		<div className={'form-editor'}>
-			<form>
+			<form onSubmit={e => e.preventDefault()}>
 				<fieldset className={'required' + titleClass}>
 					<label htmlFor="title">Title</label>
 					<div className={'field-set'}>
@@ -244,21 +245,18 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 				})}
 
 				<fieldset className={'actions'}>
-					{!isNew && <>
-						<button type="button"
-						        onClick={() => goCards(state)}
-						        className={'pure-button pure-button-secondary align-left'}><FaCircleArrowRight/> Cards
-						</button>
-					</>}
-					<button type="button" className={'pure-button'}
-					        onClick={onCancel}>Cancel
-					</button>
+					{!isNew && <Button type={'secondary'}
+					                   icon={<FaGrip/>}
+					                   onClick={() => goCards(state)}>Cards...</Button>}
 
-					<button type="button"
-					        onClick={() => onSubmit(state)}
-					        disabled={hasErrors || (!isNew && !touched)}
-					        className={'pure-button pure-button-primary'}>{isNew ? 'Create' : 'Save'}
-					</button>
+					<Button onClick={onCancel} type={'secondary'}>
+						&larr; Cancel
+					</Button>
+
+					<Button onClick={() => onSubmit(state)}
+					        disabled={hasErrors || (!isNew && !touched)}>
+						{isNew ? 'Create' : 'Save'}
+					</Button>
 				</fieldset>
 			</form>
 		</div>

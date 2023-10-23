@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {TCard, TCardEnriched, TCardSide, TCollection} from "../../store/data/types.ts";
 import {CardPreview} from "./card-preview-component.tsx";
 import {NavLink} from "react-router-dom";
+import {Button} from "../utils/button.component.tsx";
 
 export type TCardEditorFormProps = {
 	collection?: TCollection
@@ -76,7 +77,7 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 
 	return <div className={'card-side-editor'}>
 		<div className={'form-editor'}>
-			<form>
+			<form onSubmit={e => e.preventDefault()}>
 				{collection &&
 					<h2><NavLink to={`/collections/${collection.id}/details`}>{collection.title}</NavLink></h2>}
 
@@ -126,15 +127,11 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 					</div>;
 				})}
 				<fieldset className={'actions'}>
-					<button type="button" className={'pure-button'}
-					        onClick={onCancel}>&larr; Cancel (Esc)
-					</button>
-					&nbsp;
-					<button type="button"
-					        onClick={() => onSubmit(state)}
-					        disabled={!touched}
-					        className={'pure-button pure-button-primary'}>{isNew ? 'Create' : 'Save'}
-					</button>
+					<Button onClick={onCancel} type={'secondary'}>&larr; Cancel (Esc)</Button>
+					<Button onClick={() => onSubmit(state)}
+					        disabled={!touched}>
+						{isNew ? 'Create' : 'Save'}
+					</Button>
 				</fieldset>
 			</form>
 		</div>

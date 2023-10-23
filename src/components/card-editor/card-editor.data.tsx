@@ -20,7 +20,7 @@ export const CardEditorData: React.FC<TCardEditorProps> = ({collectionId, cardId
 		if (isNew) {
 			// delete the card first
 			removeCard(collectionId, cardId);
-			navigate(`/collections/${collectionId}/cards?from-new`);
+			navigate(`/collections/${collectionId}/cards`);
 			return;
 		}
 

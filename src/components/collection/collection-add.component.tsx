@@ -2,6 +2,7 @@ import React, {useCallback} from "react";
 import {useNavigate} from "react-router-dom";
 import {countCollections} from "../../store/data/collections-store.selectors.ts";
 import {IoIosAddCircle} from "react-icons/io";
+import {Button} from "../utils/button.component.tsx";
 
 export const AddNewCollection: React.FC = () => {
 	const navigate = useNavigate();
@@ -16,9 +17,8 @@ export const AddNewCollection: React.FC = () => {
 	}
 
 	return <div className={'add-new-collection'}>
-		<button onClick={addCollection}
-		        className={'pure-button pure-button-primary'}>
-			<IoIosAddCircle/> New collection...
-		</button>
+		<Button onClick={addCollection} icon={<IoIosAddCircle/>} size={'xl'} variant={'full-width'}>
+			New collection...
+		</Button>
 	</div>;
 };
