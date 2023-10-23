@@ -25,6 +25,7 @@ export type TCardAppearance = {
 	fontName?: string
 	fontSize?: 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL'
 	fontColor?: string
+	colorSchemeName?: string
 }
 
 export type TCardEnriched = TCard & { collectionSides?: Array<TCollectionSide> };

@@ -1,14 +1,16 @@
 import {useCollectionStore} from "./collections-store.ts";
 import {TCardEnriched, TCollectionSide} from "./types.ts";
 import {Fonts} from "../../resources/fonts.ts";
+import {ColorSchemes} from "../../resources/colors.ts";
 
 
 export const defaultSide: TCollectionSide = {
 	name: 'Side',
-	color: '#fd2234',
+	color: ColorSchemes[Object.keys(ColorSchemes)[0]].background,
 	fontName: Object.keys(Fonts)[0],
+	colorSchemeName: Object.keys(ColorSchemes)[0],
 	fontSize: 'M',
-	fontColor: '#062b46'
+	fontColor: ColorSchemes[Object.keys(ColorSchemes)[0]].text
 };
 
 export const getCollections = () => useCollectionStore.getState().collections;

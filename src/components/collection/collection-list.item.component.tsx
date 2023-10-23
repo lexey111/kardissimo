@@ -53,7 +53,7 @@ export const CollectionListItem: React.FC<TCollectionItemProps> = React.memo(({i
 					background: collection?.sides?.[0].color || '#eee',
 				}}></div>
 				<div className={'extra-cards second'} style={{
-					background: collection?.sides?.[0].color || '#eee',
+					background: collection?.sides?.[1].color || '#eee',
 				}}></div>
 			</>}
 		</div>

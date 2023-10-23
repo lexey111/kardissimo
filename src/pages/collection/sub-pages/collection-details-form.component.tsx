@@ -2,11 +2,11 @@ import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {Tooltip} from 'react-tooltip';
 import {TCollection, TCollectionSide} from "../../../store/data/types.ts";
 import {Fonts} from "../../../resources/fonts.ts";
-import {ColorPicker} from "./color-picker.component.tsx";
 import {CardPreview} from "../../../components/card-editor/card-preview-component.tsx";
 import {FaGrip} from "react-icons/fa6";
 import {Button} from "../../../components/utils/button.component.tsx";
 import {IoCheckmarkCircle} from "react-icons/io5";
+import {ColorSchemes} from "../../../resources/colors.ts";
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -41,13 +41,13 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 	const [errors, setErrors] = useState<Record<string, string> | null>(null);
 	const [side, setSide] = useState(0);
 
-	const handleColorComplete = useCallback((idx: number, c: any) => {
-		onChangeSideInput('color', idx, c.hex);
-	}, []);
-
-	const handleTextColorComplete = useCallback((idx: number, c: any) => {
-		onChangeSideInput('fontColor', idx, c.hex);
-	}, []);
+	// const handleColorComplete = useCallback((idx: number, c: any) => {
+	// 	onChangeSideInput('color', idx, c.hex);
+	// }, []);
+	//
+	// const handleTextColorComplete = useCallback((idx: number, c: any) => {
+	// 	onChangeSideInput('fontColor', idx, c.hex);
+	// }, []);
 
 	const hasErrors = errors && Object.keys(errors).length > 0;
 
@@ -73,6 +73,30 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 	const onChangeInput = useCallback((name: string, e: any) => {
 		const value = e.target.value;
 		setState(state => ({...state, [name]: value}));
+	}, []);
+
+	const onChangeColorScheme = useCallback((index: number, e: any) => {
+		const schemeName = e.target.value;
+		const scheme = ColorSchemes[schemeName];
+		if (!scheme) {
+			return;
+		}
+
+		setState(state => {
+			const updatedSides = state.sides?.map((side, idx) => {
+				if (idx !== index) {
+					return side;
+				}
+				return {
+					...side,
+					colorSchemeName: schemeName,
+					color: scheme.background,
+					fontColor: scheme.text
+				}
+			});
+
+			return {...state, sides: updatedSides};
+		});
 	}, []);
 
 	const onChangeSideInput = useCallback((name: string, index: number, e: any) => {
@@ -230,17 +254,33 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 						</div>
 
 						<fieldset>
-							<span className={'pseudo-label'}>Background</span>
+							<label htmlFor={'colorScheme' + idx}>Colors</label>
 							<div className={'field-set'}>
-								<ColorPicker
-									onFocus={() => handleFocus(idx)}
-									color={_side.color} onComplete={(col) => handleColorComplete(idx, col)}/>
-								<span className={'pseudo-label secondary-label'}>Text</span>
-								<ColorPicker
-									onFocus={() => handleFocus(idx)}
-									color={_side.fontColor} onComplete={(col) => handleTextColorComplete(idx, col)}/>
+								<select id={'colorScheme' + idx}
+								        name={'colorScheme' + idx}
+								        value={_side.colorSchemeName}
+								        onChange={(e) => onChangeColorScheme(idx, e)}
+								        onFocus={() => handleFocus(idx)}
+								        placeholder="Color scheme">
+									{Object.keys(ColorSchemes).map(key => {
+										return <option value={key} key={key}>{key}</option>;
+									})}
+								</select>
 							</div>
 						</fieldset>
+
+						{/*<fieldset>*/}
+						{/*	<span className={'pseudo-label'}>Background</span>*/}
+						{/*	<div className={'field-set'}>*/}
+						{/*		<ColorPicker*/}
+						{/*			onFocus={() => handleFocus(idx)}*/}
+						{/*			color={_side.color} onComplete={(col) => handleColorComplete(idx, col)}/>*/}
+						{/*		<span className={'pseudo-label secondary-label'}>Text</span>*/}
+						{/*		<ColorPicker*/}
+						{/*			onFocus={() => handleFocus(idx)}*/}
+						{/*			color={_side.fontColor} onComplete={(col) => handleTextColorComplete(idx, col)}/>*/}
+						{/*	</div>*/}
+						{/*</fieldset>*/}
 
 					</div>
 				})}

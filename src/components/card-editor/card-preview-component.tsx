@@ -64,7 +64,7 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({
 					{fullScreen && <OrbitControls/>}
 
 					<Preview3DCard
-						side={side}
+						side={fullScreen ? -1 : side}
 						faces={faces}/>
 				</Stage>
 
