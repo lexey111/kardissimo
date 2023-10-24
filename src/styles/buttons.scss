@@ -110,6 +110,30 @@ $textColor: var(--app-text);
 		}
 	}
 
+	&.button-lg {
+		font-size: 1.2rem;
+		font-weight: 200;
+		border-radius: 6px;
+		padding: 0 1.5rem;
+		height: 48px;
+		text-decoration-thickness: 1px;
+
+		@include mixins.center();
+
+		&:after {
+			border-radius: 12px;
+		}
+
+		svg {
+			font-size: 1.4rem;
+		}
+
+		&.full-width {
+			width: 100%;
+		}
+
+	}
+
 	&.button-xl {
 		font-size: 2rem;
 		font-weight: 200;

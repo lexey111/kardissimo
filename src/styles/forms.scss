@@ -16,6 +16,11 @@
 		color: var(--app-placeholder-color)
 	}
 
+	h1, h2, h3 {
+		@include mixins.center();
+		width: 100%;
+	}
+
 	h2 {
 		font-size: 1.2rem;
 		font-weight: 400;
@@ -53,12 +58,11 @@
 		font-weight: 300;
 		background-color: mixins.whiteTrans(.4);
 		text-align: center;
-		padding: 0 6px;
+		padding: 0;
 		color: var(--app-section-headers-color);
 
 		&.title {
 			margin: 0 0 16px 0;
-			padding: 6px;
 		}
 	}
 
@@ -138,8 +142,8 @@
 					top: 50%;
 					margin-top: -10px;
 					left: 0;
-					height: 21px;
-					width: 21px;
+					height: 17px;
+					width: 17px;
 					border-radius: 4px;
 					background-color: var(--app-input-background);
 					transition: all .2s ease;
@@ -161,12 +165,12 @@
 				}
 
 				.checkmark:after {
-					left: 7px;
-					top: 3px;
+					left: 5px;
+					top: 1px;
 					width: 5px;
 					height: 10px;
 					border: solid var(--app-text);
-					border-width: 0 3px 3px 0;
+					border-width: 0 2px 2px 0;
 					transform: rotate(45deg);
 				}
 			}

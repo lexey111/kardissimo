@@ -21,9 +21,16 @@
 	border-radius: 18px;
 	color: #333;
 	display: flex;
-	box-shadow: 2px 8px 28px var(--app-danger-background);
 	@include center();
 	z-index: 1001;
+
+	&.modal-danger {
+		box-shadow: 2px 8px 28px var(--app-danger-background);
+	}
+
+	&.modal-normal {
+		box-shadow: 2px 8px 28px var(--app-success-background);
+	}
 }
 
 .dialog-content {

@@ -14,7 +14,9 @@
 @import "styles/cards";
 @import "styles/badge";
 @import "styles/card-list";
-@import "styles/dialogs.scss";
+@import "styles/dialogs";
+@import "styles/run";
+@import "styles/radio";
 
 html {
 	font-family: sans-serif;
@@ -54,4 +56,6 @@ body {
 
 h1, h2, h3 {
 	font-weight: 200;
+	display: flex;
+	align-content: center;
 }

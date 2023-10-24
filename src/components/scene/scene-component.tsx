@@ -26,7 +26,7 @@ export const Scene: React.FC = () => {
 					text: text, color: '#FDBA66', textColor: '#4f351a'
 				},
 				{
-					text: text2, color: '#8899ff', textColor: '#2b3b62', fontSize: 48, lineHeight: 1
+					text: text2, color: '#8899ff', textColor: '#2b3b62', fontSize: 'M', lineHeight: 1
 				}]}/>
 		</Center>
 

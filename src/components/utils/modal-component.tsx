@@ -4,6 +4,7 @@ import {Dialog} from "@headlessui/react";
 
 export type TModalProps = {
 	open: boolean
+	type: 'normal' | 'danger'
 	onClose: () => void
 	title?: string | JSX.Element
 	description?: string | JSX.Element
@@ -41,7 +42,7 @@ export const Modal: React.FC<TModalProps> = (props) => {
 				></motion.div>
 
 
-				<motion.div className="dialog-fullscreen"
+				<motion.div className={'dialog-fullscreen' + (' modal-' + props.type)}
 				            initial={{
 					            opacity: 0,
 					            scale: 0.75,

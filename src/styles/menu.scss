@@ -28,6 +28,7 @@
 			margin: 0 8px 0 0;
 			padding: 0;
 			display: flex;
+			@include mixins.center();
 
 			&:last-child {
 				margin-right: 0;
@@ -40,6 +41,8 @@
 				border-radius: 6px;
 				transition: all .4s ease;
 				outline: none;
+				display: flex;
+				@include mixins.center();
 
 				&:hover, &.active {
 					background: mixins.blackTrans( .4);
@@ -49,6 +52,9 @@
 				&:focus {
 					text-decoration: underline;
 				}
+			}
+			svg {
+				margin-right: .4rem;
 			}
 		}
 	}

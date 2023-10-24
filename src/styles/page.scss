@@ -26,6 +26,7 @@ a {
 	text-underline-offset: 10px;
 	text-decoration-thickness: 1px;
 	transition: all .2s ease;
+	color: var(--app-link-color);
 }
 
 a:hover, a:focus {

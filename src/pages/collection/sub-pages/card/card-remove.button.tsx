@@ -20,6 +20,7 @@ export const CardRemoveButton: React.FC<TCardRemoveProps> = ({collectionId, card
 	return <>
 		<Modal
 			open={isOpen}
+			type={'danger'}
 			onClose={() => setIsOpen(false)}
 			title={<span className={'title-danger'}>Remove card</span>}
 			body={<p>

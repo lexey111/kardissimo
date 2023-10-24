@@ -4,7 +4,7 @@ export type TButtonProps = {
 	type?: 'primary' | 'secondary' | 'round' | 'danger' | 'round-danger' | 'round-primary'
 	disabled?: boolean
 	pressed?: boolean
-	size?: 'sm' | 'md' | 'xl'
+	size?: 'sm' | 'md' | 'lg' | 'xl'
 	variant?: 'full-width' | 'margin-right'
 	icon?: JSX.Element
 	onClick: () => void
@@ -52,6 +52,9 @@ export const Button: React.FC<TButtonProps> = ({
 			break;
 		case 'md':
 			classNames.push('button-md');
+			break;
+		case 'lg':
+			classNames.push('button-lg');
 			break;
 		case 'xl':
 			classNames.push('button-xl');

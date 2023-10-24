@@ -1,0 +1,111 @@
+@use "mixins";
+
+.run-list {
+	margin: 16px 0 64px 0;
+
+	position: relative;
+	z-index: 1;
+}
+
+.run-collections {
+	display: flex;
+	flex-flow: column wrap;
+	width: 100%;
+
+	.run-card-wrapper {
+		display: flex;
+		width: 100%;
+		flex-flow: row nowrap;
+		background: mixins.whiteTrans(.2);
+		border-radius: 12px;
+		padding: 16px 32px;
+		margin-bottom: 16px;
+		font-weight: 200;
+		box-shadow: 1px 2px 8px mixins.blackTrans(.2);
+	}
+
+	.run-card-scene {
+		width: 150px;
+		flex-grow: 0;
+		flex-shrink: 0;
+		position: relative;
+		display: flex;
+	}
+
+	.run-card {
+		flex-grow: 2;
+		display: flex;
+		flex-flow: column wrap;
+
+		.run-card-subtitle {
+			display: flex;
+			flex-flow: row wrap;
+		}
+
+		h1, h2, h3 {
+			margin: 0;
+			padding: 0;
+			font-weight: 200;
+		}
+
+		h2 {
+			font-size: 1.2rem;
+		}
+
+		.run-card-parameters {
+			margin: 32px 64px 32px -40px;
+			display: flex;
+			flex-flow: row nowrap;
+			align-items: center;
+			position: relative;
+
+			&:before {
+				content: '';
+				position: absolute;
+				background: mixins.blackTrans();
+				top: 4px;
+				left: 0;
+				bottom: 4px;
+				right: -96px;
+				opacity: .4;
+				z-index: -1;
+			}
+
+			background: var(--app-accent-background);
+			border-radius: 0 8px 8px 0;
+			box-shadow: 1px 2px 4px mixins.blackTrans(.2);
+
+		}
+
+		.run-card-button {
+			display: flex;
+			height: 100%;
+			padding-left: 32px;
+			border-left: 4px dotted mixins.whiteTrans(.4);
+			@include mixins.center();
+		}
+
+		.run-card-count {
+			font-weight: 200;
+			font-size: 3rem;
+			text-align: center;
+			width: 150px;
+			position: relative;
+			text-shadow: 0 1px 0 mixins.blackTrans();
+
+			&:after {
+				content: '';
+				position: absolute;
+				bottom: -8px;
+				left: 0;
+				width: 0;
+				height: 0;
+				border-top: 8px solid transparent;
+				border-bottom: 8px solid transparent;
+
+				border-right: 8px solid var(--app-accent-background-darken);
+				z-index: -1;
+			}
+		}
+	}
+}

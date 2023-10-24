@@ -1,6 +1,7 @@
+import React from "react";
+
 import {HomePage} from "./pages/home-page.tsx";
 import {AboutPage} from "./pages/about-page.tsx";
-import {ScenePage} from "./pages/scene-page.tsx";
 import {CollectionsListPage} from "./pages/collections-list.page.tsx";
 import {CollectionPage} from "./pages/collection/collection.page.tsx";
 import {CollectionDetails} from "./pages/collection/sub-pages/collection/collection.details.tsx";
@@ -9,14 +10,18 @@ import {CollectionCardEdit} from "./pages/collection/sub-pages/cards/collection-
 import {App} from "./app.tsx";
 import {useRouteError} from "react-router";
 import {PageNotFound} from "./components/utils/page-not-found.component.tsx";
-import React from "react";
+import {RunPage} from "./pages/run.page.tsx";
 
 const ErrorBoundary: React.FC = () => {
-	const error = useRouteError();
+	const error: any = useRouteError();
 	console.log('ERROR');
 	console.error(error);
 
-	return <PageNotFound/>;
+	if (error?.header) {
+		console.log('HAS HEADER', error.header);
+	}
+
+	return <PageNotFound message={error.message} header={error.header}/>;
 }
 
 export const AppRoutes = [
@@ -41,8 +46,9 @@ export const AppRoutes = [
 				element: <AboutPage/>
 			},
 			{
-				path: '/scene',
-				element: <ScenePage/>
+				path: '/run',
+				handle: 'Run',
+				element: <RunPage/>,
 			},
 			{
 				path: '/collections',

@@ -33,6 +33,7 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 	return <>
 		<Modal
 			open={isOpen}
+			type={'danger'}
 			onClose={() => setIsOpen(false)}
 			title={<span className={'title-danger'}>Remove collection</span>}
 			description={<>This will permanently delete the collection <b>"{collection?.title}"</b> which

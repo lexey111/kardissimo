@@ -1,0 +1,64 @@
+@use "mixins";
+
+.run-radiogroup {
+	display: flex;
+	flex-flow: column wrap;
+	margin: 8px 0;
+	font-size: .9rem;
+	width: 180px;
+
+	& > div {
+		display: flex;
+		cursor: pointer;
+
+		&:focus {
+			span {
+				box-shadow: 0 0 0 4px var(--app-accent-background);
+			}
+		}
+
+		span {
+			color: var(--app-background-color);
+			width: 100%;
+			border-radius: 4px;
+			padding: 4px 8px 4px 40px;
+			display: flex;
+			flex-flow: row nowrap;
+			align-items: center;
+			transition: all .2s ease;
+			position: relative;
+
+			&:hover {
+				text-decoration: underline;
+			}
+
+			svg {
+				position: absolute;
+				left: 12px;
+				font-size: 1rem;
+			}
+		}
+	}
+
+	.radio-checked {
+		background: var(--app-background-color);
+		color: var(--app-text);
+
+		&:hover {
+			box-shadow: 0 0 0 2px var(--app-accent-background);
+		}
+	}
+
+	&.radiogroup-row {
+		flex-flow: row wrap;
+		width: 100%;
+
+		& > div {
+			min-width: 64px;
+			width: 14%;
+			flex-shrink: 0;
+			flex-grow: 0;
+			margin: 4px;
+		}
+	}
+}
