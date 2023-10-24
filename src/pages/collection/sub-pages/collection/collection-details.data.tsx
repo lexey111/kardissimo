@@ -21,8 +21,7 @@ export const CollectionDetailsData: React.FC = () => {
 	const {resetPosition} = useCardNavigateHook(collectionId, '');
 	resetPosition();
 
-	const handleBack = () => {
-		console.log('back')
+	const goCollections = () => {
 		navigate('/collections');
 	}
 
@@ -47,7 +46,7 @@ export const CollectionDetailsData: React.FC = () => {
 	return <CollectionDetailsForm
 		initialState={state}
 		onSubmit={handleSubmit}
-		onCancel={handleBack}
+		onCancel={goCollections}
 		goCards={handleGoCards}
 		isNew={isNew}/>;
 };

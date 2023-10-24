@@ -78,30 +78,29 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 
 	return <div className={'card-side-editor'}>
 		<div className={'form-editor'}>
-			<form onSubmit={e => e.preventDefault()}>
-				{collection &&
-					<h2><NavLink to={`/collections/${collection.id}/details`}>{collection.title}</NavLink></h2>}
+			{collection &&
+				<h2><NavLink to={`/collections/${collection.id}/details`}>{collection.title}</NavLink></h2>}
 
-				{state.sides?.map((side: TCardSide, idx: number) => {
-					return <div key={idx.toString()}>
-						<h3 className={idx === 0 ? 'title' : ''}>Side {idx + 1}: <b>{state.collectionSides?.[idx].name}</b>
-						</h3>
+			{state.sides?.map((side: TCardSide, idx: number) => {
+				return <div key={idx.toString()}>
+					<h3 className={idx === 0 ? 'title' : ''}>Side {idx + 1}: <b>{state.collectionSides?.[idx].name}</b>
+					</h3>
 
-						<fieldset>
-							<div className={'field-set'}>
-								<input id={`sides[${idx}].header`} name={`sides[${idx}].header`}
-								       autoComplete="off"
-								       maxLength={128} size={30}
-								       onFocus={() => handleFocus(idx)}
-								       value={side.header}
-								       onChange={(e) => onChangeSideInput('header', idx, e)}
-								       placeholder="Top text"
-								       type={'text'}/>
-							</div>
-						</fieldset>
+					<fieldset>
+						<div className={'field-set'}>
+							<input id={`sides[${idx}].header`} name={`sides[${idx}].header`}
+							       autoComplete="off"
+							       maxLength={128} size={30}
+							       onFocus={() => handleFocus(idx)}
+							       value={side.header}
+							       onChange={(e) => onChangeSideInput('header', idx, e)}
+							       placeholder="Top text"
+							       type={'text'}/>
+						</div>
+					</fieldset>
 
-						<fieldset>
-							<div className={'field-set'}>
+					<fieldset>
+						<div className={'field-set'}>
 								<textarea id={`sides[${idx}].word`} name={`sides[${idx}].word`}
 								          autoComplete="off"
 								          value={side.word}
@@ -109,33 +108,32 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 								          onChange={(e) => onChangeSideInput('word', idx, e)}
 								          maxLength={256}
 								          placeholder="Main text"/>
-							</div>
-						</fieldset>
+						</div>
+					</fieldset>
 
-						<fieldset>
-							<div className={'field-set'}>
-								<input id={`sides[${idx}].footer`} name={`sides[${idx}].footer`}
-								       autoComplete="off"
-								       value={side.footer}
-								       onFocus={() => handleFocus(idx)}
-								       onChange={(e) => onChangeSideInput('footer', idx, e)}
-								       maxLength={128} size={30}
-								       placeholder="Bottom text"
-								       type={'text'}/>
-							</div>
-						</fieldset>
+					<fieldset>
+						<div className={'field-set'}>
+							<input id={`sides[${idx}].footer`} name={`sides[${idx}].footer`}
+							       autoComplete="off"
+							       value={side.footer}
+							       onFocus={() => handleFocus(idx)}
+							       onChange={(e) => onChangeSideInput('footer', idx, e)}
+							       maxLength={128} size={30}
+							       placeholder="Bottom text"
+							       type={'text'}/>
+						</div>
+					</fieldset>
 
-					</div>;
-				})}
-				<fieldset className={'actions'}>
-					<Button onClick={onCancel} type={'secondary'}>&larr; Cancel (Esc)</Button>
-					<Button onClick={() => onSubmit(state)}
-					        icon={<IoCheckmarkCircle/>}
-					        disabled={!touched}>
-						{isNew ? 'Create' : 'Save'}
-					</Button>
-				</fieldset>
-			</form>
+				</div>;
+			})}
+			<fieldset className={'actions'}>
+				<Button onClick={onCancel} type={'secondary'}>&larr; Cancel (Esc)</Button>
+				<Button onClick={() => onSubmit(state)}
+				        icon={<IoCheckmarkCircle/>}
+				        disabled={!touched}>
+					{isNew ? 'Create' : 'Save'}
+				</Button>
+			</fieldset>
 		</div>
 
 		<div className={'card-form-preview'}>

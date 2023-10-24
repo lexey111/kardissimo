@@ -40,6 +40,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 	const [touched, setTouched] = useState(false);
 	const [errors, setErrors] = useState<Record<string, string> | null>(null);
 	const [side, setSide] = useState(0);
+	const [useFirst, setUseFirst] = useState(false);
 
 	// const handleColorComplete = useCallback((idx: number, c: any) => {
 	// 	onChangeSideInput('color', idx, c.hex);
@@ -114,6 +115,11 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 		});
 	}, []);
 
+	const handleUseFirst = useCallback((e: any) => {
+		const value = e?.target ? e?.target?.checked : false;
+		setUseFirst(value);
+	}, [useFirst]);
+
 	useEffect(() => {
 		setState(() => initialState);
 	}, [initialState]);
@@ -149,177 +155,206 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 		? errors?.title ? ' invalid' : ' valid'
 		: '';
 
+	let facesData = {
+		id: 'none', sides: [
+			{
+				header: 'Header',
+				word: 'Hello world!',
+				footer: 'Footer'
+			},
+			{
+				header: 'Encabezado',
+				word: '¡Hola Mundo!',
+				footer: 'Pie de página'
+			},
+		],
+		collectionSides: state.sides
+	};
+
+	if (useFirst && state.cards && state.cards.length > 0) {
+		facesData = {
+			id: 'none', sides: [
+				{
+					header: state.cards?.[0].sides?.[0]?.header || '',
+					word: state.cards?.[0].sides?.[0]?.word || '',
+					footer: state.cards?.[0].sides?.[0]?.footer || '',
+				},
+				{
+					header: state.cards?.[0].sides?.[1]?.header || '',
+					word: state.cards?.[0].sides?.[1]?.word || '',
+					footer: state.cards?.[0].sides?.[1]?.footer || '',
+				},
+			],
+			collectionSides: state.sides
+		};
+	}
+
 	return <div className={'card-side-editor'}>
 		<div className={'form-editor'}>
-			<form onSubmit={e => e.preventDefault()}>
-				<fieldset className={'required' + titleClass}>
-					<label htmlFor="title">Title</label>
-					<div className={'field-set'}>
-						<input id="title" name="title" type={'text'}
-						       autoFocus={true}
-						       autoComplete="off"
-						       onFocus={() => handleFocus(-1)}
-						       maxLength={64} size={30}
-						       value={state.title}
-						       onChange={(e) => onChangeInput('title', e)}
-						       placeholder="My first collection" required/>
-						{titleError && <div>
-							<a data-tooltip-id="title-tooltip" className={'tooltip-error'}>⚠</a>
-							<Tooltip id="title-tooltip" place={'right'}
-							         style={{backgroundColor: "#ff005b", color: "#fff"}}>
-								{errors.title}
-							</Tooltip>
-						</div>}
-					</div>
-				</fieldset>
+			<fieldset className={'required' + titleClass}>
+				<label htmlFor="title">Title</label>
+				<div className={'field-set'}>
+					<input id="title" name="title" type={'text'}
+					       autoFocus={true}
+					       autoComplete="off"
+					       onFocus={() => handleFocus(-1)}
+					       maxLength={64} size={30}
+					       value={state.title}
+					       onChange={(e) => onChangeInput('title', e)}
+					       placeholder="My first collection" required/>
+					{titleError && <div>
+						<a data-tooltip-id="title-tooltip" className={'tooltip-error'}>⚠</a>
+						<Tooltip id="title-tooltip" place={'right'}
+						         style={{backgroundColor: "#ff005b", color: "#fff"}}>
+							{errors.title}
+						</Tooltip>
+					</div>}
+				</div>
+			</fieldset>
 
-				<fieldset>
-					<label htmlFor="author">Author</label>
-					<div className={'field-set'}>
-						<input id="author" name="author"
-						       autoComplete="off"
-						       onFocus={() => handleFocus(-1)}
-						       value={state.author}
-						       onChange={(e) => onChangeInput('author', e)}
-						       maxLength={50} size={30}
-						       placeholder="John Doe" type={'text'}/>
-					</div>
-				</fieldset>
+			<fieldset>
+				<label htmlFor="author">Author</label>
+				<div className={'field-set'}>
+					<input id="author" name="author"
+					       autoComplete="off"
+					       onFocus={() => handleFocus(-1)}
+					       value={state.author}
+					       onChange={(e) => onChangeInput('author', e)}
+					       maxLength={50} size={30}
+					       placeholder="John Doe" type={'text'}/>
+				</div>
+			</fieldset>
 
-				{state.sides?.map((_side: TCollectionSide, idx: number) => {
-					const name = 'sides[' + idx + '].name';
-					const fontName = 'sides[' + idx + '].fontName';
-					const fontSize = 'sides[' + idx + '].fontSize';
+			{state.sides?.map((_side: TCollectionSide, idx: number) => {
+				const name = 'sides[' + idx + '].name';
+				const fontName = 'sides[' + idx + '].fontName';
+				const fontSize = 'sides[' + idx + '].fontSize';
 
-					const sideClass = touched && errors?.['name' + idx] ? ' invalid' : ' valid';
+				const sideClass = touched && errors?.['name' + idx] ? ' invalid' : ' valid';
 
-					const sideError = touched && errors?.['name' + idx];
+				const sideError = touched && errors?.['name' + idx];
 
-					return <div key={name} data-side-idx={idx} className={'side-controls'}>
-						<h3>Side {idx + 1}</h3>
+				return <div key={name} data-side-idx={idx} className={'side-controls'}>
+					<h3>Side {idx + 1}</h3>
 
-						<fieldset className={'required' + sideClass}>
-							<label htmlFor={name}>Name</label>
-							<div className={'field-set'}>
-								<input id={name} name={name}
-								       onFocus={() => handleFocus(idx)}
-								       value={_side.name}
-								       onChange={(e) => onChangeSideInput('name', idx, e)}
-								       autoComplete="off"
-								       maxLength={64} size={30}
-								       placeholder="English" type={'text'}/>
+					<fieldset className={'required' + sideClass}>
+						<label htmlFor={name}>Name</label>
+						<div className={'field-set'}>
+							<input id={name} name={name}
+							       onFocus={() => handleFocus(idx)}
+							       value={_side.name}
+							       onChange={(e) => onChangeSideInput('name', idx, e)}
+							       autoComplete="off"
+							       maxLength={64} size={30}
+							       placeholder="English" type={'text'}/>
 
-								{sideError && <div>
-									<a data-tooltip-id={"title-tooltip-" + idx} className={'tooltip-error'}>⚠</a>
-									<Tooltip id={"title-tooltip-" + idx} place={'right'}
-									         style={{backgroundColor: "#ff005b", color: "#fff"}}>
-										{errors?.['name' + idx]}
-									</Tooltip>
-								</div>}
-							</div>
-						</fieldset>
-
-						<div className={'field-row-set'}>
-							<fieldset>
-								<label htmlFor={fontName}>Font</label>
-								<div className={'field-set'}>
-									<select id={fontName}
-									        name={fontName}
-									        value={_side.fontName}
-									        onChange={(e) => onChangeSideInput('fontName', idx, e)}
-									        onFocus={() => handleFocus(idx)}
-									        placeholder="Font">
-										{Object.keys(Fonts).map(key => {
-											return <option value={key} key={key}>{key}</option>;
-										})}
-									</select>
-									<div className={'font-size'}>
-										<select id={fontSize}
-										        name={fontSize}
-										        value={_side.fontSize}
-										        onChange={(e) => onChangeSideInput('fontSize', idx, e)}
-										        onFocus={() => handleFocus(idx)}
-										        placeholder="Font size">
-											<option value={'XXS'} key={'XXS'}>XXS</option>
-											<option value={'XS'} key={'XS'}>XS</option>
-											<option value={'S'} key={'S'}>S</option>
-											<option value={'M'} key={'M'}>M</option>
-											<option value={'L'} key={'L'}>L</option>
-											<option value={'XL'} key={'XL'}>XL</option>
-											<option value={'XXL'} key={'XXL'}>XXL</option>
-										</select>
-									</div>
-								</div>
-							</fieldset>
+							{sideError && <div>
+								<a data-tooltip-id={"title-tooltip-" + idx} className={'tooltip-error'}>⚠</a>
+								<Tooltip id={"title-tooltip-" + idx} place={'right'}
+								         style={{backgroundColor: "#ff005b", color: "#fff"}}>
+									{errors?.['name' + idx]}
+								</Tooltip>
+							</div>}
 						</div>
+					</fieldset>
 
+					<div className={'field-row-set'}>
 						<fieldset>
-							<label htmlFor={'colorScheme' + idx}>Colors</label>
+							<label htmlFor={fontName}>Font</label>
 							<div className={'field-set'}>
-								<select id={'colorScheme' + idx}
-								        name={'colorScheme' + idx}
-								        value={_side.colorSchemeName}
-								        onChange={(e) => onChangeColorScheme(idx, e)}
+								<select id={fontName}
+								        name={fontName}
+								        value={_side.fontName}
+								        onChange={(e) => onChangeSideInput('fontName', idx, e)}
 								        onFocus={() => handleFocus(idx)}
-								        placeholder="Color scheme">
-									{Object.keys(ColorSchemes).map(key => {
+								        placeholder="Font">
+									{Object.keys(Fonts).map(key => {
 										return <option value={key} key={key}>{key}</option>;
 									})}
 								</select>
+								<div className={'font-size'}>
+									<select id={fontSize}
+									        name={fontSize}
+									        value={_side.fontSize}
+									        onChange={(e) => onChangeSideInput('fontSize', idx, e)}
+									        onFocus={() => handleFocus(idx)}
+									        placeholder="Font size">
+										<option value={'XXS'} key={'XXS'}>XXS</option>
+										<option value={'XS'} key={'XS'}>XS</option>
+										<option value={'S'} key={'S'}>S</option>
+										<option value={'M'} key={'M'}>M</option>
+										<option value={'L'} key={'L'}>L</option>
+										<option value={'XL'} key={'XL'}>XL</option>
+										<option value={'XXL'} key={'XXL'}>XXL</option>
+									</select>
+								</div>
 							</div>
 						</fieldset>
-
-						{/*<fieldset>*/}
-						{/*	<span className={'pseudo-label'}>Background</span>*/}
-						{/*	<div className={'field-set'}>*/}
-						{/*		<ColorPicker*/}
-						{/*			onFocus={() => handleFocus(idx)}*/}
-						{/*			color={_side.color} onComplete={(col) => handleColorComplete(idx, col)}/>*/}
-						{/*		<span className={'pseudo-label secondary-label'}>Text</span>*/}
-						{/*		<ColorPicker*/}
-						{/*			onFocus={() => handleFocus(idx)}*/}
-						{/*			color={_side.fontColor} onComplete={(col) => handleTextColorComplete(idx, col)}/>*/}
-						{/*	</div>*/}
-						{/*</fieldset>*/}
-
 					</div>
-				})}
 
-				<fieldset className={'actions'}>
-					{!isNew && <Button type={'secondary'}
-					                   icon={<FaGrip/>}
-					                   onClick={() => goCards(state)}>Cards...</Button>}
+					<fieldset>
+						<label htmlFor={'colorScheme' + idx}>Colors</label>
+						<div className={'field-set'}>
+							<select id={'colorScheme' + idx}
+							        name={'colorScheme' + idx}
+							        value={_side.colorSchemeName}
+							        onChange={(e) => onChangeColorScheme(idx, e)}
+							        onFocus={() => handleFocus(idx)}
+							        placeholder="Color scheme">
+								{Object.keys(ColorSchemes).map(key => {
+									return <option value={key} key={key}>{key}</option>;
+								})}
+							</select>
+						</div>
+					</fieldset>
 
-					<Button onClick={onCancel} type={'secondary'}>
-						&larr; Cancel
-					</Button>
+					{/*<fieldset>*/}
+					{/*	<span className={'pseudo-label'}>Background</span>*/}
+					{/*	<div className={'field-set'}>*/}
+					{/*		<ColorPicker*/}
+					{/*			onFocus={() => handleFocus(idx)}*/}
+					{/*			color={_side.color} onComplete={(col) => handleColorComplete(idx, col)}/>*/}
+					{/*		<span className={'pseudo-label secondary-label'}>Text</span>*/}
+					{/*		<ColorPicker*/}
+					{/*			onFocus={() => handleFocus(idx)}*/}
+					{/*			color={_side.fontColor} onComplete={(col) => handleTextColorComplete(idx, col)}/>*/}
+					{/*	</div>*/}
+					{/*</fieldset>*/}
 
-					<Button onClick={() => onSubmit(state)}
-					        icon={<IoCheckmarkCircle/>}
-					        disabled={hasErrors || (!isNew && !touched)}>
-						{isNew ? 'Create' : 'Save'}
-					</Button>
-				</fieldset>
-			</form>
+				</div>
+			})}
+
+			{(state?.cards?.length || 0) > 0 && <fieldset className={'checkbox-field'}>
+				<span className={'pseudo-label'}></span>
+				<label htmlFor={'useFirstCard'} className={'checkbox-label'}>
+					<input type={'checkbox'}
+					       onChange={handleUseFirst}
+					       name={'useFirstCard'} id={'useFirstCard'}/>
+					Use first card to preview
+					<span className="checkmark"></span>
+				</label>
+			</fieldset>}
+
+			<fieldset className={'actions'}>
+				{!isNew && <Button type={'secondary'}
+				                   icon={<FaGrip/>}
+				                   onClick={() => goCards(state)}>Cards...</Button>}
+
+				<Button onClick={onCancel} type={'secondary'}>
+					&larr; Cancel
+				</Button>
+
+				<Button onClick={() => onSubmit(state)}
+				        icon={<IoCheckmarkCircle/>}
+				        disabled={hasErrors || (!isNew && !touched)}>
+					{isNew ? 'Create' : 'Save'}
+				</Button>
+			</fieldset>
 		</div>
 
 		<div className={'card-form-preview'}>
 			<CardPreview
-				card={{
-					id: 'none', sides: [
-						{
-							header: 'Header',
-							word: 'Hello world!',
-							footer: 'Footer'
-						},
-						{
-							header: 'Encabezado',
-							word: '¡Hola Mundo!',
-							footer: 'Pie de página'
-						},
-					],
-					collectionSides: state.sides
-				}}
+				card={facesData}
 				side={side}
 			/>
 		</div>
