@@ -1,5 +1,5 @@
 import {CollectionScene} from "./scene/collection-scene.component.tsx";
-import {Header} from "./header.component.tsx";
+import {Header} from "./utils/header.component.tsx";
 import React from "react";
 import {useParams} from "react-router-dom";
 import {getCollection} from "../store/data/collections-store.selectors.ts";

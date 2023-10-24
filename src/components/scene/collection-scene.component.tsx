@@ -1,6 +1,6 @@
 import React from "react";
 import {Canvas} from "@react-three/fiber";
-import {CollectionObject} from "../collection/parts/collection-object.component.tsx";
+import {CollectionObject} from "../3d/collection/collection-object.component.tsx";
 
 // https://docs.pmnd.rs/react-three-fiber/api/canvas
 

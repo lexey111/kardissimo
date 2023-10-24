@@ -74,7 +74,7 @@ $textColor: #fff;
 	}
 
 	&.pressed {
-		box-shadow: inset 1px 2px 2px mixins.blackTrans( .4);
+		box-shadow: inset 1px 2px 2px mixins.blackTrans(.4);
 	}
 
 	&:focus, &:hover {
@@ -237,6 +237,8 @@ $textColor: #fff;
 	flex-wrap: nowrap;
 	border: 2px solid mixins.whiteTrans(.4);
 	background: transparent;
+	flex-grow: 0;
+	flex-shrink: 0;
 
 	&.button-sm {
 		height: 26px;
@@ -283,7 +285,7 @@ $textColor: #fff;
 			top: -2px;
 			left: 6px;
 			right: 6px;
-			bottom: -5px;
+			bottom: -8px;
 			border-top: none;
 			border-left: none;
 			border-right: none;
@@ -314,7 +316,7 @@ $textColor: #fff;
 
 		&:focus, &:hover {
 			&.pressed {
-				box-shadow: inset 1px 2px 4px mixins.blackTrans( .4);
+				box-shadow: inset 1px 2px 2px mixins.blackTrans(.4);
 			}
 		}
 
@@ -327,21 +329,20 @@ $textColor: #fff;
 			box-shadow: none;
 
 			&:focus, &:hover {
-
 				&.pressed {
-					box-shadow: inset 1px 2px 4px mixins.blackTrans( .4);
+					box-shadow: inset 1px 2px 2px mixins.blackTrans(.4);
 				}
 			}
 
 			&.pressed {
 				background: darken($secondaryGroupBg, 5%);
-				box-shadow: inset 1px 2px 4px mixins.blackTrans( .4);
+				box-shadow: inset 1px 2px 2px mixins.blackTrans(.4);
 			}
 		}
 	}
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 600px) {
 	button.text-icon {
 		span.button-text {
 			display: none;

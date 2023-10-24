@@ -1,6 +1,6 @@
 import React from "react";
-import {CollectionList} from "../components/collection/collection-list.component.tsx";
-import {AddNewCollection} from "../components/collection/collection-add.component.tsx";
+import {CollectionList} from "./collection/sub-pages/list/collection-list.component.tsx";
+import {AddNewCollection} from "./collection/sub-pages/list/collection-add.component.tsx";
 import {AppPage} from "../components/app-page.component.tsx";
 
 export const CollectionsListPage: React.FC = () => {
