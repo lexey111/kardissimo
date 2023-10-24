@@ -5,7 +5,7 @@
 	flex-grow: 0;
 	flex-shrink: 0;
 
-	border: 1px solid mixins.whiteTrans( .7);
+	border: 1px solid mixins.whiteTrans(.7);
 	width: 1em;
 	height: 1em;
 	line-height: 1;
@@ -32,12 +32,12 @@
 		outline: none;
 
 		&:before {
-			background: mixins.whiteTrans( .7);
+			background: mixins.whiteTrans(.7);
 			transform: scale(1.05);
 		}
 
-		color: rgba(3, 62, 126, 0.9);
+		color: var(--app-primary-background);
 		transform: scale(1.05) translateY(-1px);
-		box-shadow: 1px 1px 2px mixins.blackTrans( 0.1);
+		box-shadow: 1px 1px 2px mixins.blackTrans(0.1);
 	}
 }

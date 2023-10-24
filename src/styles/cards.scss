@@ -16,7 +16,7 @@
 	margin-bottom: 16px;
 
 	.card-side-name {
-		color: mixins.whiteTrans( 0.9);
+		color: mixins.whiteTrans(0.9);
 		text-align: center;
 		font-weight: 200;
 		font-size: 1.2rem;
@@ -34,21 +34,19 @@
 }
 
 .card-number {
-	color: mixins.whiteTrans( 0.5);
+	color: mixins.whiteTrans(0.5);
 	font-size: 3rem;
 	font-weight: 200;
 	text-align: right;
-	//position: absolute;
 	line-height: 1;
 	padding-right: 16px;
-	//transform: translateX(-100%);
 	display: flex;
 	flex-flow: column nowrap;
 
 	span {
 		font-size: 1.5rem;
 		opacity: .8;
-		border-top: 1px solid mixins.whiteTrans( .4);
+		border-top: 1px solid mixins.whiteTrans(.4);
 	}
 }
 
@@ -62,24 +60,14 @@
 	flex-flow: column nowrap;
 	transition: opacity .5s ease;
 
-	div {
-		margin: 8px;
-		width: 42px;
-		height: 42px;
-		display: flex;
-		@include center();
-		border-radius: 100%;
-		background: rgba(255, 2, 144, 0.94);
-		color: #fff;
-		transition: all .2s ease;
-		cursor: pointer;
+	margin: 0;
+	width: 42px;
+	height: 42px;
+	border-radius: 100%;
 
-		&:hover {
-			background: rgba(215, 1, 120, 0.94);
-			transform: translateY(-2px);
-			box-shadow: 1px 2px 2px mixins.blackTrans( .4);
-		}
-	}
+	background: mixins.whiteTrans(.9);
+
+	@include mixins.center();
 }
 
 .card-side-content {
@@ -89,7 +77,7 @@
 	margin: 0;
 	padding: 16px;
 	align-items: center;
-	box-shadow: 1px 1px 2px mixins.blackTrans( 0.2);
+	box-shadow: 1px 1px 2px mixins.blackTrans(0.2);
 	cursor: pointer;
 	transition: background-color .2s ease, box-shadow .5s ease;
 
@@ -105,7 +93,7 @@
 
 	.card-header, .card-word, .card-footer {
 		display: flex;
-		border: 1px dashed mixins.blackTrans( .12);
+		border: 1px dashed mixins.blackTrans(.12);
 		width: 100%;
 		min-height: 2rem;
 		border-radius: 6px;
@@ -165,10 +153,10 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: mixins.whiteTrans( .5);
+		background: mixins.whiteTrans(.5);
 		z-index: -1;
 		border-radius: 100%;
-		box-shadow: 1px 2px 4px mixins.blackTrans( .2);
+		box-shadow: 1px 2px 4px mixins.blackTrans(.2);
 	}
 
 	&:hover {
@@ -176,7 +164,7 @@
 		transform: translateY(-5px);
 
 		&:before {
-			box-shadow: 1px 2px 6px mixins.blackTrans( .3);
+			box-shadow: 1px 2px 6px mixins.blackTrans(.3);
 		}
 	}
 }

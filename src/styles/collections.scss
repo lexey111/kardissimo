@@ -48,7 +48,7 @@
 	&:hover, &:focus-within, &:focus {
 		//transform: scale(1.1);
 		svg {
-			box-shadow: inset 0 0 0 4px rgba(255, 204, 0, 0.96);
+			box-shadow: inset 0 0 0 4px var(--app-accent-background);
 		}
 	}
 }
@@ -82,10 +82,10 @@
 
 		.collection-pseudo-card {
 			transform: translateY(-2px) scale(1.02);
-			box-shadow: 0 4px 18px mixins.blackTrans(.2), 0 0 0 4px rgba(255, 204, 0, 0.96);
+			box-shadow: 0 4px 18px mixins.blackTrans(.2), 0 0 0 4px var(--app-accent-background);
 
 			&.single {
-				box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.96);
+				box-shadow: 0 0 0 4px var(--app-accent-background);
 			}
 
 			span {
@@ -151,8 +151,8 @@
 	display: block;
 	position: absolute;
 	height: 20px;
-	left: -8px;
-	right: -16px;
+	left: -4px;
+	right: -20px;
 	bottom: -16px;
 	background: radial-gradient(ellipse at center, mixins.blackTrans(0.4), transparent 70%);
 	transition: all .2s ease;
@@ -201,7 +201,7 @@
 	flex-flow: column nowrap;
 	font-size: .9rem;
 	flex-grow: 2;
-	color: #fff;
+	color: var(--app-text);
 	font-weight: 200;
 	margin-left: 48px;
 }
@@ -218,17 +218,17 @@
 
 .collection-item-actions {
 	display: flex;
-	color: #fff;
+	color: var(--app-text);
 	flex-flow: row wrap;
 	margin-top: 16px;
 	padding-top: 16px;
 
 	button {
 		margin-right: .5rem;
-		color: #fff;
+		color: var(--app-text);
 
 		&:last-of-type {
-			color: #fff;
+			color: var(--app-text);
 			margin-right: 0;
 			margin-left: auto;
 		}

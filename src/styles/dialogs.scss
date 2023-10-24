@@ -6,7 +6,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: mixins.blackTrans( .2);
+	background: mixins.blackTrans(.2);
 	backdrop-filter: blur(8px);
 	z-index: 1000;
 }
@@ -17,11 +17,11 @@
 	left: 20px;
 	right: 20px;
 	bottom: 20px;
-	background: #fff;
+	background: var(--app-modal-background);
 	border-radius: 18px;
 	color: #333;
 	display: flex;
-	box-shadow: 2px 8px 28px rgba(255, 0, 91, 0.55);
+	box-shadow: 2px 8px 28px var(--app-danger-background);
 	@include center();
 	z-index: 1001;
 }
@@ -42,9 +42,7 @@
 
 .dialog-actions {
 	text-align: right;
-	margin-top: 32px;
-	padding-top: 16px;
-	border-top: 1px solid #eee;
+	margin-top: 64px;
 
 	button {
 		margin-left: 16px;
@@ -52,5 +50,5 @@
 }
 
 .title-danger {
-	color: #ff005b;
+	color: var(--app-danger-background);
 }

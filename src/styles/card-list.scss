@@ -12,8 +12,8 @@
 	&:hover {
 		.card-side-content {
 			//transform: translateY(-1px);
-			background: mixins.whiteTrans( .9);
-			box-shadow: 2px 4px 6px mixins.blackTrans( 0.3);
+			background: mixins.whiteTrans(.9);
+			box-shadow: 2px 4px 6px mixins.blackTrans(0.3);
 		}
 
 		.card-actions {
@@ -26,10 +26,11 @@
 .list-mode-selector {
 	z-index: 2;
 	font-size: .8rem;
-	color: #fff;
+	color: var(--app-text);
 	display: flex;
 	flex-flow: row nowrap;
-	@include absolute-center();
+
+	@include mixins.absolute-center();
 
 	.card-side-selector {
 		margin-left: 32px;
@@ -42,20 +43,10 @@
 	.table-wide-selector {
 		margin-left: 32px;
 	}
-
-	button {
-		color: #fff;
-	}
-
-	svg:focus, svg:active {
-		outline: none !important;
-	}
 }
 
 body.deep-scroll-size {
 	.card-list-add-cards, .card-list-add-list, .card-list-add-table {
-		//display: none;
-		//visibility: collapse;
 		transform-origin: top left;
 		animation-name: hide-under-add;
 		animation-timing-function: ease;

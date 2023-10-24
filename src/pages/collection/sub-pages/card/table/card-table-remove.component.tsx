@@ -1,5 +1,5 @@
 import React from "react";
-import {CardRemoveButton} from "../card-remove.component.tsx";
+import {CardRemoveButton} from "../card-remove.button.tsx";
 
 
 export type TCardRemoveCellProps = {

@@ -10,10 +10,10 @@
 	border-radius: 8px;
 	padding: 32px 0 0;
 	max-width: 600px;
-	color: #333;
+	color: var(--app-modal-text);
 
 	input::placeholder, textarea::placeholder, select::placeholder {
-		color: #9ac1d9;
+		color: var(--app-placeholder-color)
 	}
 
 	h2 {
@@ -28,7 +28,7 @@
 		overflow: hidden;
 
 		a {
-			color: #0f384f;
+			color: var(--app-primary-background);
 			display: flex;
 			flex-flow: row nowrap;
 			align-content: center;
@@ -54,7 +54,7 @@
 		background-color: mixins.whiteTrans(.4);
 		text-align: center;
 		padding: 0 6px;
-		color: #0f384f;
+		color: var(--app-section-headers-color);
 
 		&.title {
 			margin: 0 0 16px 0;
@@ -106,7 +106,7 @@
 			&:before {
 				content: '';
 				position: absolute;
-				background: #EFBA00FF;
+				background: var(--app-accent-background);
 				display: inline-flex;
 				border-radius: 100%;
 				width: 6px;
@@ -141,12 +141,12 @@
 					height: 21px;
 					width: 21px;
 					border-radius: 4px;
-					background-color: #fff;
+					background-color: var(--app-input-background);
 					transition: all .2s ease;
 				}
 
 				input:checked ~ .checkmark {
-					background-color: #00698f;
+					background-color: var(--app-primary-background);
 				}
 
 				.checkmark:after {
@@ -165,7 +165,7 @@
 					top: 3px;
 					width: 5px;
 					height: 10px;
-					border: solid white;
+					border: solid var(--app-text);
 					border-width: 0 3px 3px 0;
 					transform: rotate(45deg);
 				}
@@ -175,24 +175,24 @@
 
 		&.valid label {
 			&:before {
-				background: #00698f;
+				background: var(--app-primary-background);
 			}
 		}
 
 		&.invalid {
 			label {
 				&:before {
-					background: #ff005b;
+					background: var(--app-danger-background);
 				}
 			}
 
 			input[type=text], select {
-				background-color: #fff0f6;
-				border-bottom-color: #ff005b;
-				color: #ff005b;
+				background-color: var(--app-input-background);
+				border-bottom-color: var(--app-danger-background);
+				color: var(--app-danger-background);
 
 				&::placeholder {
-					color: #ffa9c4;
+					color: var(--app-placeholder-error-color);
 				}
 			}
 		}
@@ -217,8 +217,8 @@
 		right: -36px;
 		top: 50%;
 		margin-top: -14px;
-		background: #ff005b;
-		color: #fff;
+		background: var(--app-danger-background);
+		color: var(--app-danger-text);
 		border-radius: 100%;
 		width: 20px;
 		height: 20px;
@@ -255,7 +255,7 @@
 		&:focus {
 			box-shadow: 2px 2px 12px mixins.blackTrans(.2);
 			border: none;
-			border-bottom: 4px solid #EFBA00FF;
+			border-bottom: 4px solid var(--app-accent-background);
 			outline: none;
 		}
 	}
@@ -306,37 +306,37 @@
 
 		&:focus {
 			outline: none;
-			border: 2px solid #EFBA00FF;
+			border: 2px solid var(--app-accent-background);
 		}
 	}
 
-	.color-picker-panel {
-		position: absolute;
-		z-index: 15;
-		margin-top: 8px;
-		transform: translateY(-100px) translateX(60px);
-		box-shadow: 2px 4px 8px mixins.blackTrans(0.2);
-		border-radius: 12px !important;
-
-		.swatches-picker {
-			div {
-				border-radius: 12px !important;
-			}
-		}
-
-		.triangle {
-			position: absolute;
-			top: 62px;
-			left: -10px;
-			width: 0;
-			height: 0;
-			border-top: 10px solid transparent;
-			border-bottom: 10px solid transparent;
-
-			border-right: 10px solid #fff;
-			z-index: 16;
-		}
-	}
+	//.color-picker-panel {
+	//	position: absolute;
+	//	z-index: 15;
+	//	margin-top: 8px;
+	//	transform: translateY(-100px) translateX(60px);
+	//	box-shadow: 2px 4px 8px mixins.blackTrans(0.2);
+	//	border-radius: 12px !important;
+	//
+	//	.swatches-picker {
+	//		div {
+	//			border-radius: 12px !important;
+	//		}
+	//	}
+	//
+	//	.triangle {
+	//		position: absolute;
+	//		top: 62px;
+	//		left: -10px;
+	//		width: 0;
+	//		height: 0;
+	//		border-top: 10px solid transparent;
+	//		border-bottom: 10px solid transparent;
+	//
+	//		border-right: 10px solid #fff;
+	//		z-index: 16;
+	//	}
+	//}
 }
 
 .card-preview-container {
@@ -384,7 +384,6 @@
 	bottom: 10px;
 	right: 10px;
 	border-radius: 18px;
-	color: #333;
 	z-index: 2;
 
 	@include center();
@@ -410,7 +409,7 @@
 		justify-items: center;
 		justify-content: center;
 		box-shadow: 2px 8px 28px mixins.blackTrans(0.55);
-		background: linear-gradient(150deg, #569AFF 10.21%, #88DFAB 84.57%);
+		background: var(--app-background);
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -420,8 +419,9 @@
 		border-radius: 20px;
 
 		&:after {
-			content: 'Click to close preview';
+			content: 'Click anywhere to close the preview';
 			display: block;
+			color: var(--app-text);
 		}
 
 

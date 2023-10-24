@@ -30,6 +30,6 @@ export const CardRemoveButton: React.FC<TCardRemoveProps> = ({collectionId, card
 				<Button type={'danger'} icon={<FaTrashCan/>} onClick={handleRemove}>Remove</Button>
 			</>}
 		/>
-		<div onClick={() => setIsOpen(true)}><FaTrashCan/></div>
+		<Button type={'round-danger'} onClick={() => setIsOpen(true)} icon={<FaTrashCan/>} size={'sm'}/>
 	</>;
 };

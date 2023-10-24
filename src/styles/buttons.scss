@@ -6,12 +6,12 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 */
 @use 'mixins';
 
-$focusRing: rgba(255, 204, 0, 0.96);
+$focusRing: var(--app-accent-background);
 
-$primaryBg: #146ef5;
-$dangerBg: #ff005b;
-$secondaryGroupBg: #ffbd0e;
-$textColor: #fff;
+$primaryBg: var(--app-primary-background);
+$dangerBg: var(--app-danger-background);
+$secondaryGroupBg: var(--app-accent-background);
+$textColor: var(--app-text);
 
 .pure-button {
 	white-space: nowrap;
@@ -228,17 +228,33 @@ $textColor: #fff;
 	height: 36px;
 	width: 36px;
 	padding: 0;
-	align-items: center;
 	display: flex;
-	align-content: center;
-	justify-content: center;
 	flex-direction: row;
-	@include center();
+	@include mixins.center();
 	flex-wrap: nowrap;
 	border: 2px solid mixins.whiteTrans(.4);
 	background: transparent;
 	flex-grow: 0;
 	flex-shrink: 0;
+
+	&.round-danger, &.round-primary {
+		color: var(--app-text);
+
+		&.button-sm {
+			svg {
+				font-size: .7rem;
+				margin: 0;
+			}
+		}
+	}
+
+	&.round-danger, &.round-primary {
+		background: var(--app-danger-background);
+	}
+
+	&.round-primary {
+		background: var(--app-primary-background);
+	}
 
 	&.button-sm {
 		height: 26px;
@@ -251,6 +267,7 @@ $textColor: #fff;
 
 		svg {
 			font-size: .8rem;
+			margin: 0;
 		}
 	}
 
@@ -258,6 +275,10 @@ $textColor: #fff;
 		border-radius: 100%;
 		border-width: 4px;
 		transform: scale(.2);
+	}
+
+	.button-text {
+		display: none !important;
 	}
 
 	svg {
@@ -278,6 +299,11 @@ $textColor: #fff;
 		margin: 0 1px 0 0;
 		border-radius: 0;
 		height: unset;
+		font-size: .8rem;
+
+		svg {
+			font-size: .8rem;
+		}
 
 		&:after {
 			border-radius: 0;
@@ -321,11 +347,11 @@ $textColor: #fff;
 		}
 
 		&.pure-button-primary.pressed {
-			background: darken($primaryBg, 10%);
+			background: var(--app-primary-background-darken);
 		}
 
 		&.pure-button-secondary {
-			background: $secondaryGroupBg;
+			background: var(--app-accent-background);
 			box-shadow: none;
 
 			&:focus, &:hover {
@@ -335,7 +361,7 @@ $textColor: #fff;
 			}
 
 			&.pressed {
-				background: darken($secondaryGroupBg, 5%);
+				background: var(--app-accent-background-darken);
 				box-shadow: inset 1px 2px 2px mixins.blackTrans(.4);
 			}
 		}

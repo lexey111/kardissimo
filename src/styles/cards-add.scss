@@ -43,7 +43,7 @@
 			left: 0;
 			right: 0;
 			bottom: 0;
-			background: rgba(12, 166, 255, 0.2);
+			background: mixins.blackTrans(.2);
 			border-radius: 100%;
 		}
 
@@ -52,14 +52,13 @@
 
 	&:hover {
 		.card-side-content {
-			color: #0076c2;
 			transform: none;
 			border-style: solid;
 			background: mixins.whiteTrans( .1);
 		}
 
 		svg {
-			box-shadow: inset 0 0 0 4px rgba(255, 204, 0, 0.96);
+			box-shadow: inset 0 0 0 4px var(--app-accent-background);
 		}
 	}
 }

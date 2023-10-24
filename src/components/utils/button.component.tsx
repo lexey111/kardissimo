@@ -1,7 +1,7 @@
 import React from "react";
 
 export type TButtonProps = {
-	type?: 'primary' | 'secondary' | 'round' | 'danger'
+	type?: 'primary' | 'secondary' | 'round' | 'danger' | 'round-danger' | 'round-primary'
 	disabled?: boolean
 	pressed?: boolean
 	size?: 'sm' | 'md' | 'xl'
@@ -35,6 +35,14 @@ export const Button: React.FC<TButtonProps> = ({
 			break;
 		case 'round' :
 			classNames.push('pure-button-round');
+			break;
+		case 'round-danger' :
+			classNames.push('pure-button-round');
+			classNames.push('round-danger');
+			break;
+		case 'round-primary' :
+			classNames.push('pure-button-round');
+			classNames.push('round-primary');
 			break;
 	}
 
