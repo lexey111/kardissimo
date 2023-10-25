@@ -270,7 +270,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 							<label htmlFor={fontName}>Font</label>
 							<div className={'field-set'}>
 
-								<Select id={fontName}
+								<Select inputId={fontName}
 								        name={fontName}
 								        options={FontNameOptions}
 								        className="react-select-container"
@@ -300,9 +300,8 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 					<fieldset>
 						<label htmlFor={'colorScheme' + idx}>Colors</label>
 						<div className={'field-set'}>
-
-							<Select id={'colorScheme' + idx}
-							        name={'colorScheme' + idx}
+							<Select name={'colorScheme' + idx}
+							        inputId={'colorScheme' + idx}
 							        options={ColorSchemeOptions}
 							        className="react-select-container"
 							        classNamePrefix="react-select"

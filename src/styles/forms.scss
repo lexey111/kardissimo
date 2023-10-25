@@ -127,6 +127,11 @@
 				max-width: unset;
 				padding-left: 26px;
 				position: relative;
+				font-weight: normal;
+				-webkit-user-drag: none;
+				-webkit-user-select: none;
+				user-select: none;
+
 
 				input {
 					position: absolute;
@@ -146,6 +151,10 @@
 					border-radius: 4px;
 					background-color: var(--app-input-background);
 					transition: all .2s ease;
+				}
+
+				&:has(input:checked) {
+					font-weight: normal;
 				}
 
 				input:checked ~ .checkmark {
