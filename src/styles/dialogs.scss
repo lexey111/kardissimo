@@ -21,11 +21,20 @@
 	border-radius: 18px;
 	color: #333;
 	display: flex;
+	flex-flow: column nowrap;
 	@include center();
 	z-index: 1001;
 
 	&.modal-danger {
 		box-shadow: 2px 8px 28px var(--app-danger-background);
+
+		.dialog-title {
+			color: var(--app-danger-background);
+		}
+
+		.dialog-description {
+			color: var(--app-danger-background);
+		}
 	}
 
 	&.modal-normal {
@@ -33,29 +42,81 @@
 	}
 }
 
-.dialog-content {
-	max-width: 500px;
-	padding: 0 32px;
-	text-align: left;
-}
+.close-cross {
+	position: absolute;
+	right: 20px;
+	top: 8px;
+	font-size: 1.5rem;
+	font-weight: 200;
+	cursor: pointer;
+	opacity: .5;
+	transition: all .2s ease;
 
-.dialog-description {
-	margin-bottom: 32px;
-}
-
-.dialog-body {
-
-}
-
-.dialog-actions {
-	text-align: right;
-	margin-top: 64px;
-
-	button {
-		margin-left: 16px;
+	&:hover {
+		opacity: 1;
 	}
 }
 
-.title-danger {
-	color: var(--app-danger-background);
+.dialog-content-wrapper {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-content: center;
+	justify-content: center;
+	align-items: center;
+	justify-items: center;
+
+	.dialog-title, .dialog-description, .dialog-actions, .dialog-content {
+		flex-shrink: 0;
+		flex-grow: 0;
+		width: 100%;
+		max-width: 500px;
+		margin: 0 auto;
+	}
+
+	.dialog-title {
+		font-size: 2rem;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		font-weight: 200;
+
+		svg {
+			margin-right: .5rem;
+		}
+	}
+
+
+	.dialog-description {
+		//margin-bottom: 16px;
+		text-align: left;
+		opacity: .7;
+		font-style: italic;
+	}
+
+	.dialog-content {
+		flex-shrink: 2;
+		max-width: unset;
+		overflow: auto;
+
+		.dialog-body {
+			max-width: 500px;
+			margin: 0 auto;
+			text-align: left;
+		}
+	}
+
+
+	.dialog-actions {
+		padding: 8px 0;
+		text-align: right;
+		margin-top: 8px;
+
+		button {
+			margin-left: 16px;
+		}
+	}
 }

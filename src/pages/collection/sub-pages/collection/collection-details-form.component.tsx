@@ -7,6 +7,7 @@ import {FaGrip} from "react-icons/fa6";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {IoCheckmarkCircle} from "react-icons/io5";
 import {ColorSchemes} from "../../../../resources/colors.ts";
+import {defaultCollection} from "../../../../store/data/collections-store.selectors.ts";
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -155,21 +156,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 		? errors?.title ? ' invalid' : ' valid'
 		: '';
 
-	let facesData = {
-		id: 'none', sides: [
-			{
-				header: 'Header',
-				word: 'Hello world!',
-				footer: 'Footer'
-			},
-			{
-				header: 'Encabezado',
-				word: '¡Hola Mundo!',
-				footer: 'Pie de página'
-			},
-		],
-		collectionSides: state.sides
-	};
+	let facesData = {...defaultCollection, collectionSides: state.sides}
 
 	if (useFirst && state.cards && state.cards.length > 0) {
 		facesData = {

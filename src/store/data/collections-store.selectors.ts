@@ -13,6 +13,30 @@ export const defaultSide: TCollectionSide = {
 	fontColor: ColorSchemes[Object.keys(ColorSchemes)[0]].text
 };
 
+export const defaultCollection = {
+	id: 'none', sides: [
+		{
+			header: 'Header',
+			word: 'Hello world!',
+			footer: 'Footer'
+		},
+		{
+			header: 'Encabezado',
+			word: '¡Hola Mundo!',
+			footer: 'Pie de página'
+		},
+	],
+	collectionSides: [
+		{
+			...defaultSide,
+			name: 'English',
+		},
+		{
+			...defaultSide,
+			name: 'Español'
+		}]
+};
+
 export const getCollections = () => useCollectionStore.getState().collections;
 
 export const getCollection = (collectionId?: string) => useCollectionStore(state => {

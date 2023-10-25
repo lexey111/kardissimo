@@ -18,14 +18,18 @@ export const RunCollectionCard: React.FC<TRunCollectionCardProps> = ({collection
 			</div>
 
 			<div className={'run-card-parameters'}>
-				<div className={'run-card-count'}>
-					{collection.cards!.length}
-				</div>
-				<div className={'run-card-button'}>
-					<Button
-						onClick={() => onRun(collection.id!)}
-						size={'lg'}
-						icon={<FaPlay/>}>Start</Button>
+				<div className={'run-card-controls'}>
+					<div className={'run-card-button'}>
+						<Button
+							onClick={() => onRun(collection.id!)}
+							size={'xl'}
+							variant={'white-ring'}
+							type={'round-success'}
+							icon={<FaPlay/>}>Start</Button>
+					</div>
+					<div className={'run-card-count'}>
+						{collection.cards!.length}
+					</div>
 				</div>
 			</div>
 		</div>

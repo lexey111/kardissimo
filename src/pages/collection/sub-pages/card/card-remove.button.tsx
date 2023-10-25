@@ -22,7 +22,7 @@ export const CardRemoveButton: React.FC<TCardRemoveProps> = ({collectionId, card
 			open={isOpen}
 			type={'danger'}
 			onClose={() => setIsOpen(false)}
-			title={<span className={'title-danger'}>Remove card</span>}
+			title={'Remove card'}
 			body={<p>
 				Are you sure you want to remove card? This action cannot be undone.
 			</p>}

@@ -1,11 +1,11 @@
 import React from "react";
 
 export type TButtonProps = {
-	type?: 'primary' | 'secondary' | 'round' | 'danger' | 'round-danger' | 'round-primary'
+	type?: 'primary' | 'success' | 'secondary' | 'round' | 'danger' | 'round-danger' | 'round-primary' | 'round-success'
 	disabled?: boolean
 	pressed?: boolean
 	size?: 'sm' | 'md' | 'lg' | 'xl'
-	variant?: 'full-width' | 'margin-right'
+	variant?: 'full-width' | 'margin-right' | 'white-ring'
 	icon?: JSX.Element
 	onClick: () => void
 	children?: any
@@ -30,6 +30,9 @@ export const Button: React.FC<TButtonProps> = ({
 		case 'secondary' :
 			classNames.push('pure-button-secondary');
 			break;
+		case 'success' :
+			classNames.push('pure-button-success');
+			break;
 		case 'danger' :
 			classNames.push('pure-button-danger');
 			break;
@@ -43,6 +46,10 @@ export const Button: React.FC<TButtonProps> = ({
 		case 'round-primary' :
 			classNames.push('pure-button-round');
 			classNames.push('round-primary');
+			break;
+		case 'round-success' :
+			classNames.push('pure-button-round');
+			classNames.push('round-success');
 			break;
 	}
 
@@ -69,6 +76,10 @@ export const Button: React.FC<TButtonProps> = ({
 		classNames.push('margin-right');
 	}
 
+	if (variant === 'white-ring') {
+		classNames.push('white-ring');
+	}
+
 	if (disabled) {
 		classNames.push('disabled');
 	}
@@ -77,7 +88,7 @@ export const Button: React.FC<TButtonProps> = ({
 		classNames.push('pressed');
 	}
 
-	if (icon && children) {
+	if (icon && children && type.indexOf('round') === -1) {
 		classNames.push('text-icon');
 	}
 

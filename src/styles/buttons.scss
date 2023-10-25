@@ -57,6 +57,12 @@ $textColor: var(--app-text);
 		transform: scale(.5);
 	}
 
+	&.white-ring {
+		&:after {
+			border-color: white !important;
+		}
+	}
+
 	&.disabled, &.disabled:active, &.disabled:focus, &.disabled:hover, .pure-button[disabled] {
 		box-shadow: inset 0 0 0 2px mixins.blackTrans(.1);
 		background: mixins.blackTrans(.1);
@@ -161,6 +167,16 @@ $textColor: var(--app-text);
 	&.margin-right {
 		margin-right: .4rem;
 	}
+
+	&.pure-button-danger {
+		background: var(--app-danger-background);
+		color: var(--app-danger-text)
+	}
+
+	&.pure-button-success {
+		background: var(--app-success-background);
+		color: var(--app-success-text);
+	}
 }
 
 .pure-button::-moz-focus-inner {
@@ -248,7 +264,7 @@ $textColor: var(--app-text);
 }
 
 .pure-button-round {
-	border-radius: 100%;
+	border-radius: 100% !important;
 	height: 36px;
 	width: 36px;
 	padding: 0;
@@ -267,17 +283,25 @@ $textColor: var(--app-text);
 		&.button-sm {
 			svg {
 				font-size: .7rem;
+				width: .7rem;
+				height: .7rem;
+				padding: 0;
 				margin: 0;
 			}
 		}
+
 	}
 
-	&.round-danger, &.round-primary {
+	&.round-danger {
 		background: var(--app-danger-background);
 	}
 
 	&.round-primary {
 		background: var(--app-primary-background);
+	}
+
+	&.round-success {
+		background: var(--app-success-background);
 	}
 
 	&.button-sm {
@@ -295,8 +319,38 @@ $textColor: var(--app-text);
 		}
 	}
 
+	&.button-lg {
+		svg {
+			font-size: 1rem;
+			width: 1rem;
+			height: 1rem;
+			padding: 0;
+			margin: 0;
+		}
+	}
+
+	&.button-xl {
+		width: 62px !important;
+		height: 62px !important;
+		padding: 0 !important;
+		svg {
+			font-size: 1.5rem;
+			width: 1.5rem;
+			height: 1.5rem;
+			padding: 0;
+			margin: 0 0 0 2px;
+		}
+		&:after {
+			border-width: 6px;
+			top: -6px;
+			left: -6px;
+			bottom: -6px;
+			right: -6px;
+		}
+	}
+
 	&:after {
-		border-radius: 100%;
+		border-radius: 100% !important;
 		border-width: 4px;
 		transform: scale(.2);
 	}
@@ -309,10 +363,15 @@ $textColor: var(--app-text);
 		padding: 0;
 		margin: 0;
 		stroke: currentColor;
+		flex-shrink: 0;
 	}
 
 	&:hover, &:focus {
 		border: 2px solid $focusRing;
+	}
+
+	&.white-ring {
+		border: 2px solid mixins.whiteTrans(.7);
 	}
 }
 

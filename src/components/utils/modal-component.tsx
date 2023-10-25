@@ -8,6 +8,7 @@ export type TModalProps = {
 	onClose: () => void
 	title?: string | JSX.Element
 	description?: string | JSX.Element
+	sideElement?: any
 	body?: string | JSX.Element
 	actions?: string | JSX.Element
 
@@ -64,21 +65,27 @@ export const Modal: React.FC<TModalProps> = (props) => {
 					            },
 				            }}
 				>
-					<Dialog.Panel className="dialog-content">
-						{!!props.title && <Dialog.Title>{props.title}</Dialog.Title>}
+					<div className={'close-cross'} onClick={props.onClose}>&times;</div>
 
-						{!!props.description && <Dialog.Description className={'dialog-description'}>
+					<div className={'dialog-content-wrapper'}>
+						{!!props.title && <div className={'dialog-title'}>{props.title}</div>}
+
+						{!!props.description && <div className={'dialog-description'}>
 							{props.description}
-						</Dialog.Description>}
-
-						{!!props.body && <div className={'dialog-body'}>
-							{props.body}
 						</div>}
+
+						{!!props.sideElement && props.sideElement}
+
+						<div className="dialog-content">
+							{!!props.body && <div className={'dialog-body'}>
+								{props.body}
+							</div>}
+						</div>
 
 						{!!props.actions && <div className={'dialog-actions'}>
 							{props.actions}
 						</div>}
-					</Dialog.Panel>
+					</div>
 				</motion.div>
 			</Dialog>)}
 	</AnimatePresence>;

@@ -10,7 +10,7 @@
 .run-collections {
 	display: flex;
 	flex-flow: column wrap;
-	width: 100%;
+	//width: 100%;
 
 	.run-card-wrapper {
 		display: flex;
@@ -18,8 +18,8 @@
 		flex-flow: row nowrap;
 		background: mixins.whiteTrans(.2);
 		border-radius: 12px;
-		padding: 16px 32px;
-		margin-bottom: 16px;
+		padding: 16px 0;
+		margin: 0 0 16px 0;
 		font-weight: 200;
 		box-shadow: 1px 2px 8px mixins.blackTrans(.2);
 	}
@@ -36,6 +36,7 @@
 		flex-grow: 2;
 		display: flex;
 		flex-flow: column wrap;
+		padding: 0 32px;
 
 		.run-card-subtitle {
 			display: flex;
@@ -53,47 +54,47 @@
 		}
 
 		.run-card-parameters {
-			margin: 32px 64px 32px -40px;
+			margin: 32px 0;
 			display: flex;
 			flex-flow: row nowrap;
 			align-items: center;
 			position: relative;
+			height: 80px;
 
 			&:before {
 				content: '';
 				position: absolute;
 				background: mixins.blackTrans();
 				top: 4px;
-				left: 0;
+				left: -40px;
+				right: -32px;
 				bottom: 4px;
-				right: -96px;
-				opacity: .4;
-				z-index: -1;
+				opacity: 0.4;
+				z-index: -2;
 			}
-
-			background: var(--app-accent-background);
-			border-radius: 0 8px 8px 0;
-			box-shadow: 1px 2px 4px mixins.blackTrans(.2);
-
 		}
 
 		.run-card-button {
 			display: flex;
 			height: 100%;
 			padding-left: 32px;
-			border-left: 4px dotted mixins.whiteTrans(.4);
+			border-left: 2px dashed mixins.blackTrans(.1);
 			@include mixins.center();
+			position: relative;
+
 		}
 
-		.run-card-count {
-			font-weight: 200;
-			font-size: 3rem;
-			text-align: center;
-			width: 150px;
+		.run-card-controls {
+			display: flex;
+			flex-flow: row nowrap;
+			margin-left: -40px;
+			height: 100%;
+			background: var(--app-accent-background);
+			border-radius: 0 22px 22px 0;
+			box-shadow: 1px 2px 4px mixins.blackTrans(.2);
 			position: relative;
-			text-shadow: 0 1px 0 mixins.blackTrans();
 
-			&:after {
+			&:before {
 				content: '';
 				position: absolute;
 				bottom: -8px;
@@ -102,10 +103,32 @@
 				height: 0;
 				border-top: 8px solid transparent;
 				border-bottom: 8px solid transparent;
-
 				border-right: 8px solid var(--app-accent-background-darken);
-				z-index: -1;
+				z-index: -3;
 			}
 		}
+
+		.run-card-count {
+			height: 100%;
+			font-weight: 200;
+			font-size: 3rem;
+			text-align: center;
+			width: 150px;
+			text-shadow: 0 1px 0 mixins.blackTrans();
+		}
 	}
+}
+
+.run-dialog-content {
+	position: relative;
+}
+
+.run-dialog-scene {
+	position: absolute;
+	aspect-ratio: 2/3;
+	max-width: 350px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: calc((100vw - 500px) / 2);
+	left: 0;
 }

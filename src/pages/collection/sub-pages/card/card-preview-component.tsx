@@ -10,11 +10,13 @@ import {createPortal} from "react-dom";
 export type TCardPreviewProps = {
 	card: TCardEnriched
 	side: number
+	disablePreview: boolean
 }
 
 export const CardPreview: React.FC<TCardPreviewProps> = ({
 	                                                         card,
-	                                                         side
+	                                                         side,
+	                                                         disablePreview = false
                                                          }) => {
 
 	if (!card || !card.sides || card.sides.length !== 2) {
@@ -42,12 +44,15 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({
 	const [fullScreen, setFullScreen] = useState(false);
 
 	const toggleMode = useCallback(() => {
+		if (disablePreview) {
+			return;
+		}
 		setFullScreen(v => !v);
 	}, [fullScreen]);
 
 	const content = <div
 		className={'card-preview-container' + (fullScreen ? ' card-preview-fullscreen' : ' card-preview')}
-		title={fullScreen ? '' : 'Click to preview'}
+		title={fullScreen || disablePreview ? '' : 'Click to preview'}
 		onClick={toggleMode}>
 
 		<div className={'preview-backdrop'}></div>

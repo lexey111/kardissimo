@@ -1,7 +1,8 @@
 :root {
 	--app-background: linear-gradient(150deg, #569AFF 10.21%, #88DFAB 84.57%);
 	--app-background-color: #0075ce;
-	--app-success-background: #34ce00;
+	--app-success-background: #01a628;
+	--app-success-text: #fff;
 
 	--app-primary-background: #0075ce;
 	--app-primary-background-darken: #005fa9;
