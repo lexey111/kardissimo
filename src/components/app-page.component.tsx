@@ -6,7 +6,6 @@ import {useLocation} from "react-router-dom";
 export type TAppPageProps = {
 	title?: string
 	children: any
-	header?: JSX.Element
 }
 
 export const AppPage: React.FC<TAppPageProps> = ({title, children}) => {

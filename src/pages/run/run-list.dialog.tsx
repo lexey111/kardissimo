@@ -26,7 +26,7 @@ const Amounts = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
 export type TRunListDialogProps = {
 	currentCollection: TCollection
 	isOpen: boolean
-	handleRun: () => void
+	handleRun: (order: string, side: number, num: number) => void
 	handleClose: () => void
 }
 
@@ -60,6 +60,10 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 			}
 		}
 	}, [currentCollection, numOfCards]);
+
+	const onRun = () => {
+		handleRun(order, side, numOfCards);
+	}
 
 	if (!currentCollection) {
 		return null;
@@ -163,7 +167,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 		</div>}
 		actions={<>
 			<Button type={'secondary'} onClick={handleClose}>Cancel (Esc)</Button>
-			<Button type={'success'} icon={<FaPlayCircle/>} onClick={handleRun}>Go!</Button>
+			<Button type={'success'} icon={<FaPlayCircle/>} onClick={onRun}>Go!</Button>
 		</>}
 	/>;
 };

@@ -1,8 +1,9 @@
 import React from "react";
-import {AppPage} from "../../components/app-page.component.tsx";
+import {AppPage} from "../components/app-page.component.tsx";
 import {Outlet, useParams} from "react-router-dom";
-import {getCollection} from "../../store/data/collections-store.selectors.ts";
-import {useExclusiveHook} from "../../components/utils/useExclusive.hook.tsx";
+import {getCollection} from "../store/data/collections-store.selectors.ts";
+import {useExclusiveHook} from "../components/utils/useExclusive.hook.tsx";
+import {AppHeader} from "../components/app-header.component.tsx";
 
 export const CollectionPage: React.FC = () => {
 	const params = useParams();
@@ -30,9 +31,12 @@ export const CollectionPage: React.FC = () => {
 	}
 
 	// mostly - guard
-	return <AppPage title={'Collection'}>
-		<div className={'sub-page'}>
-			<Outlet/>
-		</div>
-	</AppPage>;
+	return <>
+		<AppHeader/>
+		<AppPage title={'Collection'}>
+			<div className={'sub-page'}>
+				<Outlet/>
+			</div>
+		</AppPage>
+	</>;
 };

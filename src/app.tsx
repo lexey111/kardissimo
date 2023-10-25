@@ -4,7 +4,6 @@ import {ScrollRestoration, useLocation} from "react-router-dom";
 import {AnimatePresence, motion} from "framer-motion";
 import {AppMenu} from "./components/app-menu.component.tsx";
 import {AppFooter} from "./components/app-footer.component.tsx";
-import {AppHeader} from "./components/app-header.component.tsx";
 
 
 const AnimatedOutlet: React.FC = () => {
@@ -39,7 +38,6 @@ export const App: React.FC = () => {
 
 	return <>
 		<AppMenu/>
-		<AppHeader/>
 		<AnimatePresence mode="popLayout">
 			<motion.main
 				key={location.pathname}

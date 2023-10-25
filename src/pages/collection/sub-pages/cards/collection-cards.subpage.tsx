@@ -7,7 +7,7 @@ import {CardList} from "../card/list/card-list.component.tsx";
 import {CardListHeader} from "../card/list/card-list-header.component.tsx";
 import {AppSubPage} from "../../../../components/app-subpage.component.tsx";
 
-export const CollectionCards: React.FC = () => {
+export const CollectionCardsSubpage: React.FC = () => {
 	const params = useParams();
 	const collection = getCollection(params.collectionId);
 

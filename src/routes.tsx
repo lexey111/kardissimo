@@ -2,14 +2,16 @@ import React from "react";
 
 import {HomePage} from "./pages/home-page.tsx";
 import {AboutPage} from "./pages/about-page.tsx";
-import {CollectionsListPage} from "./pages/collections-list.page.tsx";
-import {CollectionPage} from "./pages/collection/collection.page.tsx";
-import {CollectionDetails} from "./pages/collection/sub-pages/collection/collection.details.tsx";
-import {CollectionCards} from "./pages/collection/sub-pages/cards/collection.cards.tsx";
-import {CollectionCardEdit} from "./pages/collection/sub-pages/cards/collection-card.edit.tsx";
+import {CollectionsListSubpage} from "./pages/collection/sub-pages/list/collections-list.subpage.tsx";
+import {CollectionPage} from "./pages/collection.page.tsx";
+import {CollectionDetailsSubpage} from "./pages/collection/sub-pages/collection/collection-details.subpage.tsx";
+import {CollectionCardsSubpage} from "./pages/collection/sub-pages/cards/collection-cards.subpage.tsx";
+import {CollectionCardSubpage} from "./pages/collection/sub-pages/cards/collection-card.subpage.tsx";
 import {App} from "./app.tsx";
 import {useRouteError} from "react-router";
 import {PageNotFound} from "./components/utils/page-not-found.component.tsx";
+import {RunListSubpage} from "./pages/run/run-list.subpage.tsx";
+import {RunEngineSubpage} from "./pages/run/run-engine.subpage.tsx";
 import {RunPage} from "./pages/run.page.tsx";
 
 const ErrorBoundary: React.FC = () => {
@@ -46,14 +48,26 @@ export const AppRoutes = [
 				element: <AboutPage/>
 			},
 			{
-				path: '/run',
+				path: '/run/*',
 				handle: 'Run',
 				element: <RunPage/>,
+				children: [
+					{
+						path: '',
+						handle: 'Session',
+						element: <RunListSubpage/>,
+					},
+					{
+						path: ':collectionId/engine',
+						handle: 'Session',
+						element: <RunEngineSubpage/>,
+					},
+				]
 			},
 			{
 				path: '/collections',
 				handle: 'List',
-				element: <CollectionsListPage/>,
+				element: <CollectionsListSubpage/>,
 			},
 			{
 				path: '/collections/*',
@@ -62,17 +76,17 @@ export const AppRoutes = [
 					{
 						path: ':collectionId/details',
 						handle: 'Details',
-						element: <CollectionDetails/>
+						element: <CollectionDetailsSubpage/>
 					},
 					{
 						path: ':collectionId/cards',
 						handle: 'Cards',
-						element: <CollectionCards/>
+						element: <CollectionCardsSubpage/>
 					},
 					{
 						path: ':collectionId/cards/:cardId',
 						handle: 'Card',
-						element: <CollectionCardEdit/>
+						element: <CollectionCardSubpage/>
 					},
 				]
 			}

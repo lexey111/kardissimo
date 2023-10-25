@@ -7,29 +7,24 @@ import {TCollection} from "../../store/data/types.ts";
 import {CollectionScene} from "../../components/scene/collection-scene.component.tsx";
 import {Header} from "../../components/utils/header.component.tsx";
 import {RunListDialog} from "./run-list.dialog.tsx";
+import {useNavigate} from "react-router-dom";
 
 const selector = (state: ICollectionState) => state.collections.filter(c => c.cards && c.cards?.length > 0);
 
 export const RunList: React.FC = () => {
+	const navigate = useNavigate();
 	const collections = useCollectionStore(useShallow(selector));
 	const [open, setOpen] = useState(false);
 
-	const [numOfCards, setNumOfCards] = useState(10);
-
 	const currentCollection = useRef<TCollection>();
 
-	const handleRun = useCallback(() => {
+	const handleRun = useCallback((order: string, side: number, num: number) => {
 		setOpen(false);
-		console.log('redirect to run!')
+		navigate(`/run/${currentCollection.current?.id}/engine?order=${order}&side=${side}&num=${num}`);
 	}, [open]);
 
 	const handleOpen = useCallback((id: string) => {
 		currentCollection.current = collections.find(c => c.id === id);
-		if (currentCollection.current && currentCollection.current?.cards) {
-			if (currentCollection.current.cards.length < numOfCards) {
-				setNumOfCards(() => (currentCollection.current?.cards && currentCollection.current?.cards?.length >= 5 ? 5 : -1));
-			}
-		}
 		setOpen(true);
 	}, [open]);
 
