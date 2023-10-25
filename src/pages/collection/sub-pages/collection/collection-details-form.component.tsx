@@ -8,6 +8,7 @@ import {Button} from "../../../../components/utils/button.component.tsx";
 import {IoCheckmarkCircle} from "react-icons/io5";
 import {ColorSchemes} from "../../../../resources/colors.ts";
 import {defaultCollection} from "../../../../store/data/collections-store.selectors.ts";
+import Select from 'react-select'
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -27,6 +28,24 @@ export type TCollectionDetailsFormProps = {
 	goCards: (data: any) => void
 	isNew: boolean
 }
+
+const FontSizeOptions: any = [
+	{value: 'XXS', label: 'XXS'},
+	{value: 'XS', label: 'XS'},
+	{value: 'S', label: 'S'},
+	{value: 'M', label: 'M'},
+	{value: 'L', label: 'L'},
+	{value: 'XL', label: 'XL'},
+	{value: 'XXL', label: 'XXL'},
+];
+
+const FontNameOptions = Object.keys(Fonts).map(key => {
+	return {value: key, label: key};
+});
+
+const ColorSchemeOptions = Object.keys(ColorSchemes).map(key => {
+	return {value: key, label: key};
+})
 
 export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 	                                                                             initialState,
@@ -78,7 +97,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 	}, []);
 
 	const onChangeColorScheme = useCallback((index: number, e: any) => {
-		const schemeName = e.target.value;
+		const schemeName = e.value;
 		const scheme = ColorSchemes[schemeName];
 		if (!scheme) {
 			return;
@@ -102,7 +121,9 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 	}, []);
 
 	const onChangeSideInput = useCallback((name: string, index: number, e: any) => {
-		const value = e.target ? e.target.value : e;
+		const value = e.target
+			? e.target.value
+			: e.value ? e.value : e;
 
 		setState(state => {
 			const updatedSides = state.sides?.map((side, idx) => {
@@ -215,7 +236,6 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 			{state.sides?.map((_side: TCollectionSide, idx: number) => {
 				const name = 'sides[' + idx + '].name';
 				const fontName = 'sides[' + idx + '].fontName';
-				const fontSize = 'sides[' + idx + '].fontSize';
 
 				const sideClass = touched && errors?.['name' + idx] ? ' invalid' : ' valid';
 
@@ -249,31 +269,29 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 						<fieldset>
 							<label htmlFor={fontName}>Font</label>
 							<div className={'field-set'}>
-								<select id={fontName}
+
+								<Select id={fontName}
 								        name={fontName}
-								        value={_side.fontName}
-								        onChange={(e) => onChangeSideInput('fontName', idx, e)}
+								        options={FontNameOptions}
+								        className="react-select-container"
+								        classNamePrefix="react-select"
 								        onFocus={() => handleFocus(idx)}
-								        placeholder="Font">
-									{Object.keys(Fonts).map(key => {
-										return <option value={key} key={key}>{key}</option>;
-									})}
-								</select>
+								        isSearchable={false}
+								        placeholder={'Font'}
+								        onChange={(e) => onChangeSideInput('fontName', idx, e)}
+								        value={FontNameOptions.filter((option: any) => option.value === _side.fontName)}
+								/>
+
 								<div className={'font-size'}>
-									<select id={fontSize}
-									        name={fontSize}
-									        value={_side.fontSize}
-									        onChange={(e) => onChangeSideInput('fontSize', idx, e)}
+									<Select options={FontSizeOptions}
+									        className="react-select-container"
+									        classNamePrefix="react-select"
 									        onFocus={() => handleFocus(idx)}
-									        placeholder="Font size">
-										<option value={'XXS'} key={'XXS'}>XXS</option>
-										<option value={'XS'} key={'XS'}>XS</option>
-										<option value={'S'} key={'S'}>S</option>
-										<option value={'M'} key={'M'}>M</option>
-										<option value={'L'} key={'L'}>L</option>
-										<option value={'XL'} key={'XL'}>XL</option>
-										<option value={'XXL'} key={'XXL'}>XXL</option>
-									</select>
+									        isSearchable={false}
+									        placeholder={'Size'}
+									        onChange={(e) => onChangeSideInput('fontSize', idx, e)}
+									        value={FontSizeOptions.filter((option: any) => option.value === _side.fontSize)}
+									/>
 								</div>
 							</div>
 						</fieldset>
@@ -282,16 +300,18 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 					<fieldset>
 						<label htmlFor={'colorScheme' + idx}>Colors</label>
 						<div className={'field-set'}>
-							<select id={'colorScheme' + idx}
+
+							<Select id={'colorScheme' + idx}
 							        name={'colorScheme' + idx}
-							        value={_side.colorSchemeName}
-							        onChange={(e) => onChangeColorScheme(idx, e)}
+							        options={ColorSchemeOptions}
+							        className="react-select-container"
+							        classNamePrefix="react-select"
 							        onFocus={() => handleFocus(idx)}
-							        placeholder="Color scheme">
-								{Object.keys(ColorSchemes).map(key => {
-									return <option value={key} key={key}>{key}</option>;
-								})}
-							</select>
+							        isSearchable={true}
+							        placeholder={'Color scheme'}
+							        onChange={(e) => onChangeColorScheme(idx, e)}
+							        value={ColorSchemeOptions.filter((option: any) => option.value === _side.colorSchemeName)}
+							/>
 						</div>
 					</fieldset>
 

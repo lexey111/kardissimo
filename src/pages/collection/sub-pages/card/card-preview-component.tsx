@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {Canvas} from "@react-three/fiber";
 
 import {OrbitControls, Stage} from "@react-three/drei";
@@ -10,14 +10,36 @@ import {createPortal} from "react-dom";
 export type TCardPreviewProps = {
 	card: TCardEnriched
 	side: number
-	disablePreview: boolean
+	delay?: number
+	disablePreview?: boolean
 }
 
 export const CardPreview: React.FC<TCardPreviewProps> = ({
 	                                                         card,
 	                                                         side,
-	                                                         disablePreview = false
+	                                                         disablePreview = false,
+	                                                         delay = 0
                                                          }) => {
+
+	const [showDelayed, setShowDelayed] = useState(delay > 0 ? false : true);
+	const destroying = useRef(false);
+
+	useEffect(() => {
+		return () => {
+			destroying.current = true;
+		}
+	}, []);
+
+	useEffect(() => {
+		if (delay === 0) {
+			return
+		}
+		setTimeout(() => {
+			if (!destroying.current) {
+				setShowDelayed(true);
+			}
+		}, delay);
+	}, [delay]);
 
 	if (!card || !card.sides || card.sides.length !== 2) {
 		console.error('Invalid sides array!');
@@ -50,8 +72,12 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({
 		setFullScreen(v => !v);
 	}, [fullScreen]);
 
+	if (!showDelayed) {
+		return null;
+	}
+
 	const content = <div
-		className={'card-preview-container' + (fullScreen ? ' card-preview-fullscreen' : ' card-preview')}
+		className={'card-preview-container' + (fullScreen ? ' card-preview-fullscreen' : ' card-preview') + (delay > 0 ? ' with-delay' : '')}
 		title={fullScreen || disablePreview ? '' : 'Click to preview'}
 		onClick={toggleMode}>
 

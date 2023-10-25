@@ -80,6 +80,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 			<CardPreview
 				card={facesData}
 				disablePreview={true}
+				delay={1000}
 				side={-1}
 			/>
 		</div>}

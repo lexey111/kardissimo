@@ -4,7 +4,6 @@
 	display: flex;
 	flex-flow: column wrap;
 	align-content: center;
-	z-index: 20;
 	background-color: mixins.whiteTrans(0.4);
 	box-shadow: 4px 4px 18px mixins.blackTrans(.2);
 	border-radius: 8px;
@@ -126,7 +125,7 @@
 			label.checkbox-label {
 				width: auto;
 				max-width: unset;
-				text-indent: 20px;
+				padding-left: 26px;
 				position: relative;
 
 				input {
@@ -140,7 +139,7 @@
 				.checkmark {
 					position: absolute;
 					top: 50%;
-					margin-top: -10px;
+					margin-top: -8px;
 					left: 0;
 					height: 17px;
 					width: 17px;
@@ -272,7 +271,7 @@
 
 	.field-row-set {
 		fieldset {
-			overflow: hidden;
+			//overflow: hidden;
 		}
 
 		select {
@@ -284,15 +283,52 @@
 			display: flex;
 			flex-shrink: 0;
 			flex-grow: 0;
-			width: 90px;
+			width: 100px;
 			margin-left: 16px;
-
-			select {
-				text-align: center;
-				text-align-last: center;
-			}
+			position: relative;
 		}
 	}
+}
+
+.react-select-container {
+	display: flex;
+	//height: 46px;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	box-shadow: none;
+
+	.react-select__control {
+		width: 100%;
+		display: flex;
+		border: none;
+		border-bottom: 4px solid rgba(119, 119, 119, 0.1);
+		outline: none;
+		border-radius: 4px;
+		margin: 0;
+		padding: 3px;
+		box-shadow: none;
+
+		//.react-select__input {
+		//	width: 40px !important;
+		//	color: red;
+		//	border: 1px solid red;
+		//	display: block;
+		//}
+
+		&:focus, &:hover, &:focus-within {
+			box-shadow: 2px 2px 12px mixins.blackTrans(.2);
+			border: none;
+			border-bottom: 4px solid var(--app-accent-background);
+			outline: none;
+			transition: all 0.4s ease;
+			transform: none;
+		}
+	}
+}
+
+.react-select__menu {
+	margin: 2px 0 !important;
 }
 
 
@@ -351,6 +387,15 @@
 	justify-items: center;
 	justify-content: center;
 
+	&.with-delay {
+		transform-origin: top center;
+		animation-name: preview-appear;
+		animation-timing-function: ease-in;
+		animation-duration: 2s;
+		animation-play-state: revert;
+		animation-fill-mode: backwards;
+	}
+
 	div {
 		width: 100%;
 		height: 100%;
@@ -374,6 +419,7 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
+	z-index: -1;
 
 	.preview-backdrop {
 		display: none;
@@ -438,4 +484,16 @@
 		}
 	}
 
+}
+
+@keyframes preview-appear {
+	0% {
+		opacity: 0;
+	}
+	80% {
+		opacity: 0.4;
+	}
+	100% {
+		opacity: 1;
+	}
 }
