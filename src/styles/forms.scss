@@ -380,7 +380,7 @@ textarea {
 	}
 
 	.rc-slider-rail {
-		background: var(--app-primary-background);
+		//background: var(--app-primary-background);
 	}
 
 	.rc-slider-track {
@@ -426,6 +426,10 @@ textarea {
 			.badge {
 				margin-left: auto;
 			}
+		}
+		label.secondary-label {
+			padding-top: 16px;
+			margin-left: 0;
 		}
 
 		.pure-button-group {

@@ -143,7 +143,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 
 	const showChunkSizeSelector = !advanced && cardCount > 10;
 	const showChunkSizeSelectorAdv = advanced && cardCount >= 20;
-	const showChunkTypeSelector = cardCount > chunkSize;
+	const showChunkTypeSelector = cardCount >= chunkSize;
 	const showChunkSelector = !advanced && pieceType === 'exact' && cardCount > chunkSize;
 	const showOrderSelector = ((pieceType === 'exact' || advanced) && cardCount > 2) || (cardCount <= 10);
 	const showAdvanced = cardCount >= 20;
@@ -197,7 +197,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 					        step={10}/>
 
 					{showChunkTypeSelector && <>
-						<label>As –</label>
+						<label className={'secondary-label'}>And display –</label>
 
 						<RadioGroup value={pieceType} onChange={setPieceType}
 						            className={'run-radiogroup radiogroup-row'}>
