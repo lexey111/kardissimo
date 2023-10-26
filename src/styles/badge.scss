@@ -16,3 +16,10 @@
 	background-color: mixins.whiteTrans(.2);
 	border: 1px solid mixins.whiteTrans(.5);
 }
+
+.badge-blue {
+	background-color: var(--app-primary-background);
+	border: 1px solid var(--app-primary-background);
+	color: var(--app-text);
+	opacity: .7;
+}

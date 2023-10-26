@@ -336,7 +336,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 					<input type={'checkbox'}
 					       onChange={handleUseFirst}
 					       name={'useFirstCard'} id={'useFirstCard'}/>
-					Use first card to preview
+					Use card #1 to preview
 					<span className="checkmark"></span>
 				</label>
 			</fieldset>}

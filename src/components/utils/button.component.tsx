@@ -5,7 +5,7 @@ export type TButtonProps = {
 	disabled?: boolean
 	pressed?: boolean
 	size?: 'sm' | 'md' | 'lg' | 'xl'
-	variant?: 'full-width' | 'margin-right' | 'white-ring'
+	variant?: 'full-width' | 'margin-right' | 'white-ring' | 'align-left'
 	icon?: JSX.Element
 	onClick: () => void
 	children?: any
@@ -74,6 +74,10 @@ export const Button: React.FC<TButtonProps> = ({
 
 	if (variant === 'margin-right') {
 		classNames.push('margin-right');
+	}
+
+	if (variant === 'align-left') {
+		classNames.push('align-left');
 	}
 
 	if (variant === 'white-ring') {

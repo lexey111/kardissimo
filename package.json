@@ -10,7 +10,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
-  "author": "",
+  "author": "Oleksii Koshkin",
   "license": "ISC",
   "dependencies": {
     "@headlessui/react": "^1.7.17",
@@ -22,6 +22,7 @@
     "ag-grid-react": "^30.2.0",
     "framer-motion": "^10.16.4",
     "nanoid": "^5.0.1",
+    "rc-slider": "^10.3.1",
     "react": "^18.2.0",
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",

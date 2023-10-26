@@ -3,6 +3,7 @@ import {removeCard} from "../../../../store/data/collections-store.actions.ts";
 import {FaTrashCan} from "react-icons/fa6";
 import {Modal} from "../../../../components/utils/modal-component.tsx";
 import {Button} from "../../../../components/utils/button.component.tsx";
+import {FaArrowLeft} from "react-icons/fa";
 
 export type TCardRemoveProps = {
 	collectionId?: string
@@ -27,7 +28,7 @@ export const CardRemoveButton: React.FC<TCardRemoveProps> = ({collectionId, card
 				Are you sure you want to remove card? This action cannot be undone.
 			</p>}
 			actions={<>
-				<Button type={'secondary'} onClick={() => setIsOpen(false)}>Cancel (Esc)</Button>
+				<Button type={'secondary'} onClick={() => setIsOpen(false)} icon={<FaArrowLeft/>}>Cancel (Esc)</Button>
 				<Button type={'danger'} icon={<FaTrashCan/>} onClick={handleRemove}>Remove</Button>
 			</>}
 		/>

@@ -2,7 +2,7 @@ import React, {useCallback, useRef, useState} from "react";
 import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {PageError} from "../../types.ts";
-import {RunCollectionCard} from "./run-collection-card.tsx";
+import {RunCollectionCard} from "./run-collection.card.tsx";
 import {TCollection} from "../../store/data/types.ts";
 import {CollectionScene} from "../../components/scene/collection-scene.component.tsx";
 import {Header} from "../../components/utils/header.component.tsx";
@@ -28,6 +28,10 @@ export const RunList: React.FC = () => {
 		setOpen(true);
 	}, [open]);
 
+	const handleClose = useCallback(() => {
+		setOpen(false);
+	}, [open]);
+
 
 	if (!collections || collections.length === 0) {
 		throw new PageError('Unfortunately, there are no collections ready for launch. Please go to the Collections page and fill out at least one.', 'Oops');
@@ -50,7 +54,7 @@ export const RunList: React.FC = () => {
 		{currentCollection.current && <RunListDialog
 			isOpen={open}
 			handleRun={handleRun}
-			handleClose={() => setOpen(false)}
+			handleClose={handleClose}
 			currentCollection={currentCollection.current}/>}
 	</div>;
 };

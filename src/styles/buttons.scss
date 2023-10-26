@@ -82,6 +82,9 @@ $textColor: var(--app-text);
 	&.pressed {
 		box-shadow: inset 1px 2px 2px mixins.blackTrans(.4);
 	}
+	&.pressed.pure-button-secondary {
+		background: #fff;
+	}
 
 	&:focus, &:hover {
 		text-underline-offset: 4px;
@@ -166,6 +169,11 @@ $textColor: var(--app-text);
 
 	&.margin-right {
 		margin-right: .4rem;
+	}
+
+	&.align-left {
+		margin-right: auto;
+		margin-left: 0 !important;
 	}
 
 	&.pure-button-danger {
@@ -333,6 +341,7 @@ $textColor: var(--app-text);
 		width: 62px !important;
 		height: 62px !important;
 		padding: 0 !important;
+
 		svg {
 			font-size: 1.5rem;
 			width: 1.5rem;
@@ -340,6 +349,7 @@ $textColor: var(--app-text);
 			padding: 0;
 			margin: 0 0 0 2px;
 		}
+
 		&:after {
 			border-width: 6px;
 			top: -6px;

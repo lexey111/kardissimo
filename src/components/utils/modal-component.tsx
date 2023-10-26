@@ -42,7 +42,6 @@ export const Modal: React.FC<TModalProps> = (props) => {
 				            }}
 				></motion.div>
 
-
 				<motion.div className={'dialog-fullscreen' + (' modal-' + props.type)}
 				            initial={{
 					            opacity: 0,
@@ -68,6 +67,7 @@ export const Modal: React.FC<TModalProps> = (props) => {
 					<div className={'close-cross'} onClick={props.onClose}>&times;</div>
 
 					<div className={'dialog-content-wrapper'}>
+						<Dialog.Title></Dialog.Title>
 						{!!props.title && <div className={'dialog-title'}>{props.title}</div>}
 
 						{!!props.description && <div className={'dialog-description'}>

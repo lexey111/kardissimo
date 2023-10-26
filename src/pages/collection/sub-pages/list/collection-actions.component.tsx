@@ -5,7 +5,7 @@ import {getCollection} from "../../../../store/data/collections-store.selectors.
 import {Modal} from "../../../../components/utils/modal-component.tsx";
 import {FaGrip, FaTrashCan} from "react-icons/fa6";
 import {Button} from "../../../../components/utils/button.component.tsx";
-import {FaCog} from "react-icons/fa";
+import {FaArrowLeft, FaCog} from "react-icons/fa";
 
 export type TCollectionActionsProps = {
 	id: string;
@@ -44,7 +44,7 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 				will be permanently removed. This action cannot be undone.
 			</p>}
 			actions={<>
-				<Button type={'secondary'} onClick={() => setIsOpen(false)}>
+				<Button type={'secondary'} icon={<FaArrowLeft/>} onClick={() => setIsOpen(false)}>
 					Cancel (Esc)
 				</Button>
 				<Button type={'danger'} onClick={deleteCollection} icon={<FaTrashCan/>}>

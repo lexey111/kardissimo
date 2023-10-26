@@ -3,8 +3,8 @@
 .run-radiogroup {
 	display: flex;
 	flex-flow: column wrap;
-	margin: 8px 0;
-	font-size: .9rem;
+	margin: 16px 0 0 0;
+	font-size: .8rem;
 	width: 180px;
 
 	& > div {
@@ -21,13 +21,13 @@
 			color: var(--app-background-color);
 			width: 100%;
 			border-radius: 4px;
-			padding: 6px 8px 6px 40px;
-			margin: 2px 0;
+			padding: 8px 8px 8px 30px;
 			display: flex;
 			flex-flow: row nowrap;
 			align-items: center;
 			transition: all .2s ease;
 			position: relative;
+			background: mixins.blackTrans(.05);
 
 			&:hover {
 				text-decoration: underline;
@@ -35,8 +35,19 @@
 
 			svg {
 				position: absolute;
-				left: 12px;
+				left: 10px;
 				font-size: 1rem;
+			}
+		}
+
+		b {
+			display: inline-flex;
+			font-weight: normal;
+			align-items: center;
+
+			svg {
+				position: relative;
+				margin-right: 1rem;
 			}
 		}
 	}
@@ -51,15 +62,16 @@
 	}
 
 	&.radiogroup-row {
-		flex-flow: row wrap;
+		//flex-flow: row wrap;
 		width: 100%;
+		max-width: 100%;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(18%, 1fr));
+		grid-gap: 4px;
 
 		& > div {
-			min-width: 64px;
-			width: 14%;
-			flex-shrink: 0;
-			flex-grow: 0;
-			margin: 4px;
+			//min-width: 80px;
+			margin: 2px;
 		}
 	}
 }
