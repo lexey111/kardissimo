@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {Button} from "../../components/utils/button.component.tsx";
 import {Modal} from "../../components/utils/modal-component.tsx";
-import {FaPlayCircle} from "react-icons/fa";
+import {FaArrowLeft, FaPlayCircle} from "react-icons/fa";
 import {TCollection} from "../../store/data/types.ts";
 import {RadioGroup} from "@headlessui/react";
 import {ImRadioChecked, ImRadioUnchecked} from "react-icons/im";
@@ -14,6 +14,7 @@ import {FaShuffle} from "react-icons/fa6";
 import {MdOutlineLinearScale} from "react-icons/md";
 import {GiCardRandom} from "react-icons/gi";
 import {LuPieChart} from "react-icons/lu";
+import {SlTarget} from "react-icons/sl";
 
 export type TRunListDialogProps = {
 	currentCollection: TCollection
@@ -73,7 +74,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 			if (cardCount >= 5) {
 				setChunkSize(5);
 			} else {
-				setChunkSize(-1);
+				setChunkSize(cardCount);
 			}
 		}
 	}, [currentCollection, chunkSize]);
@@ -93,6 +94,9 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 	}
 
 	useEffect(() => {
+		if (!currentCollection) {
+			return;
+		}
 		if (!chunkStartPoints.includes(startIndex)) {
 			const nearest = chunkStartPoints.find(val => val >= startIndex);
 			if (nearest && nearest >= 0) {
@@ -121,7 +125,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 	}
 
 	const facesData = {...defaultCollection};
-	const marksGen: any = {};
+	const marksGen: any = {'10': 10};
 	for (let i = 20; i <= cardCount; i += 20) {
 		marksGen[i] = i === cardCount ? 'All' : i;
 	}
@@ -129,13 +133,20 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 		marksGen[cardCount] = 'All';
 	}
 
-	const marksGenAdv: any = {};
+	const marksGenAdv: any = {'1': 1};
 	for (let i = 20; i <= cardCount; i += 20) {
 		marksGenAdv[i] = i;
 	}
 	if (marksGenAdv[marksGenAdv.length - 1] !== cardCount) {
 		marksGenAdv[cardCount] = cardCount;
 	}
+
+	const showChunkSizeSelector = !advanced && cardCount > 10;
+	const showChunkSizeSelectorAdv = advanced && cardCount >= 20;
+	const showChunkTypeSelector = cardCount > chunkSize;
+	const showChunkSelector = !advanced && pieceType === 'exact' && cardCount > chunkSize;
+	const showOrderSelector = ((pieceType === 'exact' || advanced) && cardCount > 2) || (cardCount <= 10);
+	const showAdvanced = cardCount >= 20;
 
 	return <Modal
 		open={isOpen}
@@ -156,7 +167,8 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 		</div>}
 		body={<div className={'run-dialog-content'}>
 			<div className={'dialog-form'}>
-				{advanced && <>
+
+				{showChunkSizeSelectorAdv && <>
 					<fieldset>
 						<label>Cards {rangeState.value[0]}..{rangeState.value[1]} &nbsp;
 							<span className={'badge badge-blue'}>{rangeState.value[1] - rangeState.value[0] + 1}</span>
@@ -173,7 +185,8 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 
 					</fieldset>
 				</>}
-				{!advanced && <fieldset>
+
+				{showChunkSizeSelector && <fieldset>
 					<label>Chunk size – {chunkSize}</label>
 					<Slider min={10}
 					        max={cardCount}
@@ -183,70 +196,71 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 					        onChange={setChunkSize as any}
 					        step={10}/>
 
-					<label>As –</label>
+					{showChunkTypeSelector && <>
+						<label>As –</label>
 
-					<RadioGroup value={pieceType} onChange={setPieceType}
+						<RadioGroup value={pieceType} onChange={setPieceType}
+						            className={'run-radiogroup radiogroup-row'}>
+							<RadioGroup.Option value={'random'}>
+								{({checked}) => (
+									<span className={checked ? 'radio-checked' : ''}>
+									{checked ? <ImRadioChecked/> : <ImRadioUnchecked/>}
+										<b><GiCardRandom/> {chunkSize} random cards</b>
+								</span>
+								)}
+							</RadioGroup.Option>
+							<RadioGroup.Option value={'exact'}>
+								{({checked}) => (
+									<span className={checked ? 'radio-checked' : ''}>
+									{checked ? <ImRadioChecked/> : <ImRadioUnchecked/>}
+										<b><LuPieChart/> {chunkSize === cardCount ? 'All the cards' : 'A chunk...'}</b>
+								</span>
+								)}
+							</RadioGroup.Option>
+						</RadioGroup>
+					</>}
+				</fieldset>}
+
+				{showChunkSelector && <fieldset>
+					<label>Choose the chunk
+						({startIndex + 1}...{startIndex + chunkSize < cardCount ? startIndex + chunkSize : cardCount}):</label>
+					<RadioGroup value={startIndex} onChange={setStartIndex}
 					            className={'run-radiogroup radiogroup-row'}>
+						{chunkList.map(piece => {
+							return <RadioGroup.Option value={piece.startIndex} key={piece.label}>
+								{({checked}) => (
+									<span className={checked ? 'radio-checked' : ''}>
+									{checked ? <ImRadioChecked/> : <ImRadioUnchecked/>}
+										{piece.label}
+								</span>
+								)}
+							</RadioGroup.Option>;
+						})}
+					</RadioGroup>
+				</fieldset>}
+
+				{showOrderSelector && <fieldset>
+					<label>Card order:</label>
+					<RadioGroup value={order} onChange={setOrder} className={'run-radiogroup radiogroup-row'}>
 						<RadioGroup.Option value={'random'}>
 							{({checked}) => (
 								<span className={checked ? 'radio-checked' : ''}>
 									{checked ? <ImRadioChecked/> : <ImRadioUnchecked/>}
-									<b><GiCardRandom/> {chunkSize} random cards</b>
+									<b><FaShuffle/> Shuffle</b>
 								</span>
 							)}
 						</RadioGroup.Option>
-						<RadioGroup.Option value={'exact'}>
+						<RadioGroup.Option value={'linear'}>
 							{({checked}) => (
 								<span className={checked ? 'radio-checked' : ''}>
 									{checked ? <ImRadioChecked/> : <ImRadioUnchecked/>}
-									<b><LuPieChart/> {chunkSize === cardCount ? 'All the cards' : 'Some chunk...'}</b>
+									<b><MdOutlineLinearScale/> Linear, one by one</b>
 								</span>
 							)}
 						</RadioGroup.Option>
 					</RadioGroup>
 				</fieldset>}
 
-				{(pieceType === 'exact' || advanced) && <>
-					{chunkSize !== cardCount && !advanced && <fieldset>
-						<label>Choose the chunk
-							({startIndex + 1}...{startIndex + chunkSize < cardCount ? startIndex + chunkSize : cardCount}):</label>
-						<RadioGroup value={startIndex} onChange={setStartIndex}
-						            className={'run-radiogroup radiogroup-row'}>
-							{chunkList.map(piece => {
-								return <RadioGroup.Option value={piece.startIndex} key={piece.label}>
-									{({checked}) => (
-										<span className={checked ? 'radio-checked' : ''}>
-									{checked ? <ImRadioChecked/> : <ImRadioUnchecked/>}
-											{piece.label}
-								</span>
-									)}
-								</RadioGroup.Option>;
-							})}
-						</RadioGroup>
-					</fieldset>}
-
-					<fieldset>
-						<label>Card order:</label>
-						<RadioGroup value={order} onChange={setOrder} className={'run-radiogroup radiogroup-row'}>
-							<RadioGroup.Option value={'random'}>
-								{({checked}) => (
-									<span className={checked ? 'radio-checked' : ''}>
-									{checked ? <ImRadioChecked/> : <ImRadioUnchecked/>}
-										<b><FaShuffle/> Shuffle</b>
-								</span>
-								)}
-							</RadioGroup.Option>
-							<RadioGroup.Option value={'linear'}>
-								{({checked}) => (
-									<span className={checked ? 'radio-checked' : ''}>
-									{checked ? <ImRadioChecked/> : <ImRadioUnchecked/>}
-										<b><MdOutlineLinearScale/> Linear, one by one</b>
-								</span>
-								)}
-							</RadioGroup.Option>
-						</RadioGroup>
-					</fieldset>
-				</>}
 				<fieldset>
 					<label>Card side to show first: </label>
 					<RadioGroup value={side} onChange={setSide} className={'run-radiogroup radiogroup-row'}>
@@ -275,11 +289,13 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 			</div>
 		</div>}
 		actions={<>
-			<Button type={'secondary'}
-			        pressed={advanced}
-			        variant={'align-left'}
-			        onClick={() => setAdvanced(v => !v)}>Advanced...</Button>
-			<Button type={'secondary'} onClick={handleClose}>Cancel (Esc)</Button>
+			{showAdvanced && <Button type={'secondary'}
+			                           pressed={advanced}
+			                           variant={'align-left'}
+			                           icon={<SlTarget/>}
+			                           onClick={() => setAdvanced(v => !v)}>Fine tune</Button>}
+
+			<Button type={'secondary'} onClick={handleClose} icon={<FaArrowLeft/>}>Cancel (Esc)</Button>
 			<Button type={'success'} icon={<FaPlayCircle/>} onClick={onRun}>Start</Button>
 		</>}
 	/>;

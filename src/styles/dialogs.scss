@@ -132,6 +132,10 @@
 		text-align: right;
 		margin-top: 8px;
 		display: flex;
+		justify-items: flex-end;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: flex-end;
 
 		button {
 			margin-left: 16px;
