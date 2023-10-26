@@ -12,7 +12,7 @@ import {useRouteError} from "react-router";
 import {PageNotFound} from "./components/utils/page-not-found.component.tsx";
 import {RunListSubpage} from "./pages/run/run-list.subpage.tsx";
 import {RunEngineSubpage} from "./pages/run/run-engine.subpage.tsx";
-import {RunPage} from "./pages/run.page.tsx";
+import {RunPage} from "./pages/run-page.tsx";
 
 const ErrorBoundary: React.FC = () => {
 	const error: any = useRouteError();

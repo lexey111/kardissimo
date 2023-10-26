@@ -4,9 +4,14 @@ import {countCollections} from "../store/data/collections-store.selectors.ts";
 import {FaCirclePlay} from "react-icons/fa6";
 import {HiRectangleStack} from "react-icons/hi2";
 import {AiFillHome} from "react-icons/ai";
+import {ICollectionState, useCollectionStore} from "../store/data/collections-store.ts";
+import {useShallow} from "zustand/react/shallow";
+
+const readySelector = (state: ICollectionState) => state.collections.filter(c => c.cards && c.cards?.length > 0).length;
 
 export const AppMenu: React.FC = () => {
 	const count = countCollections();
+	const readyCollections = useCollectionStore(useShallow(readySelector));
 
 	return <nav id='app-menu'>
 		<ul>
@@ -16,7 +21,7 @@ export const AppMenu: React.FC = () => {
 					Home
 				</NavLink>
 			</li>
-			{count > 0 && <li>
+			{readyCollections > 0 && <li>
 				<NavLink to="/run"><FaCirclePlay/> Run</NavLink>
 			</li>}
 			<li>
