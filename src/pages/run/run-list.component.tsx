@@ -18,9 +18,15 @@ export const RunList: React.FC = () => {
 
 	const currentCollection = useRef<TCollection>();
 
-	const handleRun = useCallback((order: string, side: number, num: number) => {
+	const handleRun = useCallback((data: {
+		order: 'random' | 'linear',
+		piece: 'random' | 'exact',
+		side: number,
+		from: number,
+		to: number
+	}) => {
 		setOpen(false);
-		navigate(`/run/${currentCollection.current?.id}/engine?order=${order}&side=${side}&num=${num}`);
+		navigate(`/session/${currentCollection.current?.id}?order=${data.order}&piece=${data.piece}&side=${data.side}&from=${data.from}&to=${data.to}`);
 	}, [open]);
 
 	const handleOpen = useCallback((id: string) => {

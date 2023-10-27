@@ -18,7 +18,13 @@ import {ChoosePreview} from "../../components/3d/choose-preview-component.tsx";
 export type TRunListDialogProps = {
 	currentCollection: TCollection
 	isOpen: boolean
-	handleRun: (order: string, side: number, num: number) => void
+	handleRun: (data: {
+		order: 'random' | 'linear',
+		piece: 'random' | 'exact'
+		side: number,
+		from: number,
+		to: number
+	}) => void
 	handleClose: () => void
 }
 
@@ -26,8 +32,8 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 
 	const [advanced, setAdvanced] = useState(false);
 
-	const [order, setOrder] = useState<string>('random');
-	const [pieceType, setPieceType] = useState<string>('random');
+	const [order, setOrder] = useState<'random' | 'linear'>('random');
+	const [pieceType, setPieceType] = useState<'random' | 'exact'>('random');
 	const [startIndex, setStartIndex] = useState<number>(0); // none
 
 	const [side, setSide] = useState(0);
@@ -89,7 +95,23 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 	}, [currentCollection, chunkSize]);
 
 	const onRun = () => {
-		handleRun(order, side, chunkSize);
+		if (advanced) {
+			handleRun({
+				order: order, // random, linear
+				side: side, // 0, 1...
+				piece: 'exact',
+				from: rangeState.value[0] - 1, // 10
+				to: rangeState.value[1] - 1, // 20
+			});
+		} else {
+			handleRun({
+				order: order, // random, linear
+				side: side, // 0, 1...
+				piece: pieceType,
+				from: startIndex, // 10
+				to: Math.min(startIndex + chunkSize, cardCount - 1)
+			});
+		}
 	}
 
 	const chunkList = [];
@@ -97,7 +119,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 	for (let i = 0; i < cardCount; i += chunkSize) {
 		chunkStartPoints.push(i);
 		chunkList.push({
-			label: (i + 1) + '..' + (i + chunkSize <= cardCount ? i + chunkSize : cardCount),
+			label: (i + 1) + '..' + Math.min(i + chunkSize, cardCount),
 			startIndex: i
 		});
 	}

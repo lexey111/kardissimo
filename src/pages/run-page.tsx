@@ -1,12 +1,11 @@
 import React from "react";
-import {AppPage} from "../components/app-page.component.tsx";
-import {Outlet} from "react-router-dom";
+import {RunList} from "./run/run-list.component.tsx";
+import {AppSubPage} from "../components/app-subpage.component.tsx";
 
 export const RunPage: React.FC = () => {
-	// mostly - guard
-	return <AppPage title={'Run'}>
-		<div className={'sub-page'}>
-			<Outlet/>
+	return <AppSubPage>
+		<div className={'page page-1200'}>
+			<RunList/>
 		</div>
-	</AppPage>;
+	</AppSubPage>;
 };

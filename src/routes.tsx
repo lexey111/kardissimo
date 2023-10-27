@@ -10,86 +10,72 @@ import {CollectionCardSubpage} from "./pages/collection/sub-pages/cards/collecti
 import {App} from "./app.tsx";
 import {useRouteError} from "react-router";
 import {PageNotFound} from "./components/utils/page-not-found.component.tsx";
-import {RunListSubpage} from "./pages/run/run-list.subpage.tsx";
-import {RunEngineSubpage} from "./pages/run/run-engine.subpage.tsx";
 import {RunPage} from "./pages/run-page.tsx";
+import {RunSession} from "./pages/run/run-session.tsx";
 
 const ErrorBoundary: React.FC = () => {
 	const error: any = useRouteError();
-	console.log('ERROR');
-	console.error(error);
-
-	if (error?.header) {
-		console.log('HAS HEADER', error.header);
-	}
-
 	return <PageNotFound message={error.message} header={error.header}/>;
 }
 
 export const AppRoutes = [
 
-	{
-		path: '/',
-		element: <App/>,
-		errorElement: <ErrorBoundary/>,
-		children: [
-			{
-				path: '',
-				index: true,
-				element: <HomePage/>
-			},
-			{
-				path: 'home',
-				index: true,
-				element: <HomePage/>
-			},
-			{
-				path: 'about',
-				element: <AboutPage/>
-			},
-			{
-				path: '/run/*',
-				handle: 'Run',
-				element: <RunPage/>,
-				children: [
-					{
-						path: '',
-						handle: 'Session',
-						element: <RunListSubpage/>,
-					},
-					{
-						path: ':collectionId/engine',
-						handle: 'Session',
-						element: <RunEngineSubpage/>,
-					},
-				]
-			},
-			{
-				path: '/collections',
-				handle: 'List',
-				element: <CollectionsListSubpage/>,
-			},
-			{
-				path: '/collections/*',
-				element: <CollectionPage/>,
-				children: [
-					{
-						path: ':collectionId/details',
-						handle: 'Details',
-						element: <CollectionDetailsSubpage/>
-					},
-					{
-						path: ':collectionId/cards',
-						handle: 'Cards',
-						element: <CollectionCardsSubpage/>
-					},
-					{
-						path: ':collectionId/cards/:cardId',
-						handle: 'Card',
-						element: <CollectionCardSubpage/>
-					},
-				]
-			}
-		]
-	}
-];
+		{
+			path: '/',
+			element: <App/>,
+			errorElement: <ErrorBoundary/>,
+			children: [
+				{
+					path: '',
+					index: true,
+					element: <HomePage/>
+				},
+				{
+					path: 'home',
+					index: true,
+					element: <HomePage/>
+				},
+				{
+					path: 'about',
+					element: <AboutPage/>
+				},
+				{
+					path: 'run',
+					handle: 'Run',
+					element: <RunPage/>,
+				},
+				{
+					path: 'session/:collectionId',
+					handle: 'Session',
+					element: <RunSession/>,
+				},
+				{
+					path: '/collections',
+					handle: 'List',
+					element: <CollectionsListSubpage/>,
+				},
+				{
+					path: '/collections/*',
+					element: <CollectionPage/>,
+					children: [
+						{
+							path: ':collectionId/details',
+							handle: 'Details',
+							element: <CollectionDetailsSubpage/>
+						},
+						{
+							path: ':collectionId/cards',
+							handle: 'Cards',
+							element: <CollectionCardsSubpage/>
+						},
+						{
+							path: ':collectionId/cards/:cardId',
+							handle: 'Card',
+							element: <CollectionCardSubpage/>
+						},
+					]
+				}
+			]
+		}
+	]
+;

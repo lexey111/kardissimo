@@ -49,7 +49,7 @@ export const Choose3DCard: React.FC<TChoose3DCard> = ({total, amount}) => {
 				color={c}
 				positionZ={-idx * 4}
 				translucent={true}
-				scale={c === '#fff' || c === '#0f7cf5' ? [0.98, 0.98, 6] : [1, 1, 3]}
+				scale={c === '#0f7cf5' ? [0.98, 0.98, 4] : [1, 1, 2]}
 				// scale={idx === 0 || idx === cards.length - 1 ? [0.98, 0.98, 6] : [1, 1, 3]}
 				key={idx}/>
 		})}
