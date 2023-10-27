@@ -4,7 +4,7 @@ import {useShallow} from "zustand/react/shallow";
 import {PageError} from "../../types.ts";
 import {RunCollectionCard} from "./run-collection.card.tsx";
 import {TCollection} from "../../store/data/types.ts";
-import {CollectionScene} from "../../components/scene/collection-scene.component.tsx";
+import {CollectionScene} from "../../components/3d/collection-scene.component.tsx";
 import {Header} from "../../components/utils/header.component.tsx";
 import {RunListDialog} from "./run-list.dialog.tsx";
 import {useNavigate} from "react-router-dom";

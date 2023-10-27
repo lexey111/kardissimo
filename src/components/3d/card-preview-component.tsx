@@ -21,7 +21,7 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({
 	                                                         delay = 0
                                                          }) => {
 
-	const [showDelayed, setShowDelayed] = useState(delay > 0 ? false : true);
+	const [showDelayed, setShowDelayed] = useState(delay <= 0);
 	const destroying = useRef(false);
 
 	useEffect(() => {

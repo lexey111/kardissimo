@@ -7,7 +7,7 @@ export type TChoose3DCard = {
 	total: number
 };
 
-export const Choose3DCard: React.FC<TChoose3DCard> = ({total, amount}) => {
+export const ChooseChunkSize: React.FC<TChoose3DCard> = ({total, amount}) => {
 
 	const ref = useRef<any>();
 
@@ -15,8 +15,8 @@ export const Choose3DCard: React.FC<TChoose3DCard> = ({total, amount}) => {
 	// 	//ref.current.rotation.y -= .5 * delta
 	// });
 
-	const cardsNumber = 15;
-	const percent10 = Math.round((amount / total) * cardsNumber);
+	const cardsNumber = 16;
+	const percent10 = (amount / total) * cardsNumber;
 
 	const min = Math.round(cardsNumber / 2 - percent10 / 2);
 	const max = Math.round(cardsNumber / 2 + percent10 / 2);
@@ -30,6 +30,10 @@ export const Choose3DCard: React.FC<TChoose3DCard> = ({total, amount}) => {
 		}
 	}
 
+	if (!cards.includes('#ffb700')) {
+		cards[Math.round(cardsNumber / 2)] = '#ffb700'; // at leas 1
+	}
+
 	cards.push('#0f7cf5');
 	const text = {text: amount !== total ? amount + '/' + total : 'All'};
 
@@ -39,7 +43,7 @@ export const Choose3DCard: React.FC<TChoose3DCard> = ({total, amount}) => {
 		      position-x={0}
 		      fontSize={40}
 			// font={Object.keys(Fonts)[0]}
-			  color={'#333'}
+			  color={'#13496b'}
 			  {...text}
 			  anchorX={'center'}
 			  anchorY="middle"> </Text>
@@ -49,8 +53,7 @@ export const Choose3DCard: React.FC<TChoose3DCard> = ({total, amount}) => {
 				color={c}
 				positionZ={-idx * 4}
 				translucent={true}
-				scale={c === '#0f7cf5' ? [0.98, 0.98, 4] : [1, 1, 2]}
-				// scale={idx === 0 || idx === cards.length - 1 ? [0.98, 0.98, 6] : [1, 1, 3]}
+				scale={c !== '#ffb700' ? [0.98, 0.98, 4] : [1, 1, 2]}
 				key={idx}/>
 		})}
 	</group>;

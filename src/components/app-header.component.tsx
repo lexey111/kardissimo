@@ -1,4 +1,4 @@
-import {CollectionScene} from "./scene/collection-scene.component.tsx";
+import {CollectionScene} from "./3d/collection-scene.component.tsx";
 import {Header} from "./utils/header.component.tsx";
 import React from "react";
 import {useParams} from "react-router-dom";

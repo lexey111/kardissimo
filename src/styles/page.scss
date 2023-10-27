@@ -15,6 +15,7 @@ body.exclusive-lock {
 
 	#app-menu {
 		background: transparent;
+		z-index: -1;
 
 		ul {
 			display: none;

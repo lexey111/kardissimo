@@ -9,10 +9,10 @@ import {useThree} from "@react-three/fiber";
 
 export type TCardState = 'stale' | 'rotateLeft' | 'rotateRight';
 
-const subRotateHSize = Math.PI / 32;
-const subRotateVSize = Math.PI / 64;
+const subRotateHSize = Math.PI / 16;
+const subRotateVSize = Math.PI / 32;
 
-export const FlatCard: React.FC<TCardProps> = ({faces, active = true}) => {
+export const FlatCard: React.FC<TCardProps> = ({faces, active = true, side = 0}) => {
 	const {viewport} = useThree();
 
 	const [cardState, setCardState] = useState<TCardState>('stale')
@@ -36,7 +36,7 @@ export const FlatCard: React.FC<TCardProps> = ({faces, active = true}) => {
 		config: config.slow
 	});
 
-	const currentRotation = useRef(0);
+	const currentRotation = useRef(Math.PI * side);
 
 	const {rotateCard} = useSpring({
 		rotateCard: currentRotation.current,
@@ -119,7 +119,7 @@ export const FlatCard: React.FC<TCardProps> = ({faces, active = true}) => {
 
 	const clickLeft = useCallback(() => {
 		if (cardState !== 'stale') {
-			return;
+			//return;
 		}
 		currentRotation.current -= Math.PI;
 		setCardState('rotateLeft');
@@ -127,7 +127,7 @@ export const FlatCard: React.FC<TCardProps> = ({faces, active = true}) => {
 
 	const clickRight = useCallback(() => {
 		if (cardState !== 'stale') {
-			return;
+			//return;
 		}
 		currentRotation.current += Math.PI;
 		setCardState('rotateRight');

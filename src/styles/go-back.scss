@@ -1,6 +1,6 @@
 @use 'mixins';
 
-.go-back {
+.go-back, .scene-go-back {
 	display: inline-flex;
 	flex-grow: 0;
 	flex-shrink: 0;

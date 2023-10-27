@@ -1,0 +1,57 @@
+@use 'mixins';
+
+.scene-wrapper {
+	position: fixed;
+	top: -48px; // menu
+	left: 0;
+	right: 0;
+	bottom: 0;
+	box-sizing: border-box;
+	display: flex;
+	flex-flow: row nowrap;
+	@include mixins.center();
+
+	.scene-go-back {
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		z-index: 2;
+	}
+}
+
+.scene-content {
+	width: 50%;
+	min-width: 600px;
+	height: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	@include mixins.center();
+}
+
+.scene-main {
+	overflow: hidden;
+	max-width: 600px;
+	display: flex;
+	width: 100%;
+	aspect-ratio: 2/3;
+	position: relative;
+
+	transform-origin: top center;
+	animation-name: scene-appear;
+	animation-timing-function: ease-in-out;
+	animation-duration: 1s;
+	animation-play-state: revert;
+	animation-fill-mode: backwards;
+	margin-bottom: 100px;
+}
+
+@keyframes scene-appear {
+	0% {
+		opacity: 0;
+		transform: translateY(-100px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

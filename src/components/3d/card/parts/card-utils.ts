@@ -10,8 +10,8 @@ export const DefaultValues: TCardFace = {
 	text: 'No text',
 	header: '',
 	footer: '',
-	font: Fonts['Philosopher'],
-	fontName: 'Philosopher',
+	font: Fonts[Object.keys(Fonts)[0]],
+	fontName: Object.keys(Fonts)[0],
 	fontSize: 'M',
 	color: '#ffcccc',
 	textColor: '#224455',
@@ -29,7 +29,7 @@ export function getFaceParameters(face?: TCardFaceProp): TExtendedCardProps {
 	const result = {...DefaultValues, ...face};
 
 	if (!Fonts[result.fontName]) {
-		result.fontName = 'Philosopher';
+		result.fontName = Object.keys(Fonts)[0];
 	}
 
 	result.font = Fonts[result.fontName];
