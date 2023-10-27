@@ -7,14 +7,13 @@ import {RadioGroup} from "@headlessui/react";
 import {ImRadioChecked, ImRadioUnchecked} from "react-icons/im";
 import {PiExamFill} from "react-icons/pi";
 import {useScreenSize} from "../../components/utils/useScreenSize.hook.tsx";
-import {CardPreview} from "../collection/sub-pages/card/card-preview-component.tsx";
-import {defaultCollection} from "../../store/data/collections-store.selectors.ts";
 import Slider from "rc-slider";
 import {FaShuffle} from "react-icons/fa6";
 import {MdOutlineLinearScale} from "react-icons/md";
 import {GiCardRandom} from "react-icons/gi";
 import {LuPieChart} from "react-icons/lu";
 import {SlTarget} from "react-icons/sl";
+import {ChoosePreview} from "../../components/3d/choose-preview-component.tsx";
 
 export type TRunListDialogProps = {
 	currentCollection: TCollection
@@ -46,6 +45,8 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 
 	useEffect(() => {
 		if (currentCollection) {
+			setAdvanced(false);
+
 			setOrder('random');
 
 			setPieceType('random');
@@ -60,10 +61,31 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 				lowerBound: 1,
 				upperBound: cardCount,
 				value: [1, cardCount > 10 ? 10 : cardCount]
-			})
-
+			});
 		}
 	}, [currentCollection]);
+
+	const onClose = useCallback(() => {
+		setAdvanced(false);
+
+		setOrder('random');
+
+		setPieceType('random');
+
+		setStartIndex(0);
+
+		setSide(0);
+
+		setChunkSize(10);
+
+		setRangeState({
+			lowerBound: 1,
+			upperBound: cardCount,
+			value: [1, cardCount > 10 ? 10 : cardCount]
+		});
+
+		handleClose();
+	}, []);
 
 	useEffect(() => {
 		if (!currentCollection) {
@@ -124,7 +146,6 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 		return null;
 	}
 
-	const facesData = {...defaultCollection};
 	const marksGen: any = {'10': 10};
 	for (let i = 20; i <= cardCount; i += 20) {
 		marksGen[i] = i === cardCount ? 'All' : i;
@@ -151,19 +172,17 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 	return <Modal
 		open={isOpen}
 		type={'normal'}
-		onClose={handleClose}
+		onClose={onClose}
 		title={<span className={'title-normal'}><PiExamFill/>Start drill</span>}
 		description={<span>
 			You are one step away from learning the <b>{currentCollection?.title}</b> set of cards,
 			which includes <b>{cardCount}</b> cards. Just set up a few drill options:
 		</span>}
 		sideElement={show && <div className={'run-dialog-scene'}>
-			<CardPreview
-				card={facesData}
-				disablePreview={true}
-				delay={1000}
-				side={-1}
-			/>
+			<ChoosePreview
+				total={cardCount}
+				delay={500}
+				amount={advanced ? rangeState.value[1] - rangeState.value[0] + 1 : chunkSize}/>
 		</div>}
 		body={<div className={'run-dialog-content'}>
 			<div className={'dialog-form'}>
@@ -290,12 +309,12 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 		</div>}
 		actions={<>
 			{showAdvanced && <Button type={'secondary'}
-			                           pressed={advanced}
-			                           variant={'align-left'}
-			                           icon={<SlTarget/>}
-			                           onClick={() => setAdvanced(v => !v)}>Fine tune</Button>}
+			                         pressed={advanced}
+			                         variant={'align-left'}
+			                         icon={<SlTarget/>}
+			                         onClick={() => setAdvanced(v => !v)}>Fine tune</Button>}
 
-			<Button type={'secondary'} onClick={handleClose} icon={<FaArrowLeft/>}>Cancel (Esc)</Button>
+			<Button type={'secondary'} onClick={onClose} icon={<FaArrowLeft/>}>Cancel (Esc)</Button>
 			<Button type={'success'} icon={<FaPlayCircle/>} onClick={onRun}>Start</Button>
 		</>}
 	/>;

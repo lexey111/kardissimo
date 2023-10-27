@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {Tooltip} from 'react-tooltip';
 import {TCollection, TCollectionSide} from "../../../../store/data/types.ts";
 import {Fonts} from "../../../../resources/fonts.ts";
-import {CardPreview} from "../card/card-preview-component.tsx";
+import {CardPreview} from "../../../../components/3d/card-preview-component.tsx";
 import {FaGrip} from "react-icons/fa6";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {IoCheckmarkCircle} from "react-icons/io5";

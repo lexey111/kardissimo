@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {TCard, TCardEnriched, TCardSide, TCollection} from "../../../../store/data/types.ts";
-import {CardPreview} from "./card-preview-component.tsx";
+import {CardPreview} from "../../../../components/3d/card-preview-component.tsx";
 import {NavLink} from "react-router-dom";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {IoCheckmarkCircle} from "react-icons/io5";

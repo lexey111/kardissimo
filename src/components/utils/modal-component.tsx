@@ -74,7 +74,7 @@ export const Modal: React.FC<TModalProps> = (props) => {
 							{props.description}
 						</div>}
 
-						{!!props.sideElement && props.sideElement}
+						{!!props.sideElement && <div className={'dialog-side-panel'}>{props.sideElement}</div>}
 
 						<div className="dialog-content">
 							{!!props.body && <div className={'dialog-body'}>

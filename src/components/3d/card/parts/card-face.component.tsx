@@ -40,6 +40,7 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 
 	const footerProps = {...props.face};
 	footerProps.text = props.face.footer || '';
+
 	return <group
 		position-z={props.positionZ}
 		rotation={props.rotation}
