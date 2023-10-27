@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Canvas} from "@react-three/fiber";
 
-import {OrbitControls, Stage} from "@react-three/drei";
+import {PresentationControls, Stage} from "@react-three/drei";
 import {Choose3DCard} from "./card/choose-3d-card.component.tsx";
 
 export type TChoosePreviewProps = {
@@ -46,12 +46,17 @@ export const ChoosePreview: React.FC<TChoosePreviewProps> = ({
 		>
 
 			<Stage adjustCamera={.9} intensity={6} preset="rembrandt"
-			       shadows={{type: 'contact', color: 'skyblue', colorBlend: 2, opacity: 1}}
+			       shadows={false}
 			       environment="city"
 			>
-				<OrbitControls/>
-
-				<Choose3DCard amount={amount} total={total}/>
+				<PresentationControls
+					config={{mass: 2, tension: 500}}
+					snap={{mass: 4, tension: 1500}}
+					rotation={[0, -Math.PI / 4, 0]}
+					polar={[-Math.PI / 3, Math.PI / 3]}
+					azimuth={[-Math.PI / 1.4, Math.PI / 2]}>
+					<Choose3DCard amount={amount} total={total}/>
+				</PresentationControls>
 			</Stage>
 
 			<pointLight position={[-80, 80, 120]}

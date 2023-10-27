@@ -43,29 +43,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 
 	const {show} = useScreenSize(1100);
 
-	useEffect(() => {
-		if (currentCollection) {
-			setAdvanced(false);
-
-			setOrder('random');
-
-			setPieceType('random');
-
-			setStartIndex(0);
-
-			setSide(0);
-
-			setChunkSize(10);
-
-			setRangeState({
-				lowerBound: 1,
-				upperBound: cardCount,
-				value: [1, cardCount > 10 ? 10 : cardCount]
-			});
-		}
-	}, [currentCollection]);
-
-	const onClose = useCallback(() => {
+	function resetAll() {
 		setAdvanced(false);
 
 		setOrder('random');
@@ -83,7 +61,16 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 			upperBound: cardCount,
 			value: [1, cardCount > 10 ? 10 : cardCount]
 		});
+	}
 
+	useEffect(() => {
+		if (currentCollection) {
+			resetAll();
+		}
+	}, [currentCollection]);
+
+	const onClose = useCallback(() => {
+		resetAll();
 		handleClose();
 	}, []);
 

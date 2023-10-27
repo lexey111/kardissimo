@@ -1,7 +1,6 @@
 import React, {useRef} from "react";
 import {CardSurface} from "./parts/card-surface.component.tsx";
 import {Text} from "@react-three/drei";
-import {Fonts} from "../../../resources/fonts.ts";
 
 export type TChoose3DCard = {
 	amount: number
@@ -22,7 +21,7 @@ export const Choose3DCard: React.FC<TChoose3DCard> = ({total, amount}) => {
 	const min = Math.round(cardsNumber / 2 - percent10 / 2);
 	const max = Math.round(cardsNumber / 2 + percent10 / 2);
 
-	const cards = ['#ccc'];
+	const cards = ['#0f7cf5'];
 	for (let i = 0; i < cardsNumber; i++) {
 		if (i >= min && i < max) {
 			cards.push('#ffb700');
@@ -31,26 +30,26 @@ export const Choose3DCard: React.FC<TChoose3DCard> = ({total, amount}) => {
 		}
 	}
 
-	cards.push('#ccc');
+	cards.push('#0f7cf5');
 	const text = {text: amount !== total ? amount + '/' + total : 'All'};
 
-	return <group ref={ref} rotation-y={-Math.PI / 4}>
+	return <group ref={ref}>
 		<Text position-z={6}
 		      position-y={0}
 		      position-x={0}
 		      fontSize={40}
-		      font={Object.keys(Fonts)[0]}
-		      color={'#333'}
-		      {...text}
-		      anchorX={'center'}
-		      anchorY="middle"> </Text>
+			// font={Object.keys(Fonts)[0]}
+			  color={'#333'}
+			  {...text}
+			  anchorX={'center'}
+			  anchorY="middle"> </Text>
 
 		{cards.map((c, idx) => {
 			return <CardSurface
 				color={c}
 				positionZ={-idx * 4}
 				translucent={true}
-				scale={c === '#fff' || c === '#ccc' ? [0.98, 0.98, 6] : [1, 1, 3]}
+				scale={c === '#fff' || c === '#0f7cf5' ? [0.98, 0.98, 6] : [1, 1, 3]}
 				// scale={idx === 0 || idx === cards.length - 1 ? [0.98, 0.98, 6] : [1, 1, 3]}
 				key={idx}/>
 		})}
