@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import {CardSurface} from "./parts/card-surface.component.tsx";
 import {Text} from "@react-three/drei";
 
@@ -8,13 +8,6 @@ export type TChoose3DCard = {
 };
 
 export const ChooseChunkSize: React.FC<TChoose3DCard> = ({total, amount}) => {
-
-	const ref = useRef<any>();
-
-	// useFrame((_, delta) => {
-	// 	//ref.current.rotation.y -= .5 * delta
-	// });
-
 	const cardsNumber = 16;
 	const percent10 = (amount / total) * cardsNumber;
 
@@ -37,7 +30,7 @@ export const ChooseChunkSize: React.FC<TChoose3DCard> = ({total, amount}) => {
 	cards.push('#0f7cf5');
 	const text = {text: amount !== total ? amount + '/' + total : 'All'};
 
-	return <group ref={ref}>
+	return <group>
 		<Text position-z={6}
 		      position-y={0}
 		      position-x={0}
