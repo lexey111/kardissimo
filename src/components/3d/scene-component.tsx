@@ -1,10 +1,11 @@
-import React, {useEffect, useRef, useState} from "react";
+import React from "react";
 import {Canvas} from "@react-three/fiber";
 
 import {Stage} from "@react-three/drei";
 import {FlatCard} from "./card/flat-card.component.tsx";
 import {TCardEnriched} from "../../store/data/types.ts";
 import {Fonts} from "../../resources/fonts.ts";
+import {useDebouncedResizeHook} from "../utils/useDebouncedResize.hook.tsx";
 
 // https://docs.pmnd.rs/react-three-fiber/api/canvas
 // https://github.com/pmndrs/drei#screenspace
@@ -12,29 +13,10 @@ import {Fonts} from "../../resources/fonts.ts";
 export type TSceneProps = {
 	card: TCardEnriched
 	side: number
-	delay?: number
 }
 
-export const Scene: React.FC<TSceneProps> = ({card, side, delay = 0}) => {
-	const [showDelayed, setShowDelayed] = useState(delay <= 0);
-	const destroying = useRef(false);
-
-	useEffect(() => {
-		return () => {
-			destroying.current = true;
-		}
-	}, []);
-
-	useEffect(() => {
-		if (delay === 0) {
-			return
-		}
-		setTimeout(() => {
-			if (!destroying.current) {
-				setShowDelayed(true);
-			}
-		}, delay);
-	}, [delay]);
+export const Scene: React.FC<TSceneProps> = ({card, side}) => {
+	const {display} = useDebouncedResizeHook();
 
 	if (!card || !card.sides || card.sides.length !== 2) {
 		console.error('Invalid sides array!');
@@ -46,7 +28,7 @@ export const Scene: React.FC<TSceneProps> = ({card, side, delay = 0}) => {
 		return null;
 	}
 
-	if (!showDelayed) {
+	if (!display) {
 		return null;
 	}
 

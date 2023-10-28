@@ -75,7 +75,7 @@ export const RunSession: React.FC = () => {
 				<BackToRunButton/>
 				<div className={'scene-content'}>
 					<div className={'scene-main'}>
-						<Scene card={facesData} delay={20} side={side}/>
+						<Scene card={facesData} side={side}/>
 					</div>
 				</div>
 			</div>
