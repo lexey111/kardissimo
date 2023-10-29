@@ -82,6 +82,7 @@ $textColor: var(--app-text);
 	&.pressed {
 		box-shadow: inset 1px 2px 2px mixins.blackTrans(.4);
 	}
+
 	&.pressed.pure-button-secondary {
 		background: #fff;
 	}
@@ -387,34 +388,25 @@ $textColor: var(--app-text);
 
 .pure-button-group {
 	border-radius: 6px;
+	background: mixins.whiteTrans(.2);
 
 	.pure-button {
-		margin: 0 1px 0 0;
+		margin: 0;
 		border-radius: 0;
 		height: unset;
 		font-size: .8rem;
+		background: none;
 
 		svg {
 			font-size: .8rem;
+			margin-right: 0;
 		}
 
 		&:after {
-			border-radius: 0;
-			border-width: 3px;
-			top: -2px;
-			left: 6px;
-			right: 6px;
-			bottom: -8px;
-			border-top: none;
-			border-left: none;
-			border-right: none;
+			display: none;
 		}
 
 		@include mixins.center();
-
-		svg {
-			margin-right: 0;
-		}
 
 		&.text-icon {
 			svg {
@@ -430,32 +422,23 @@ $textColor: var(--app-text);
 		&:last-child {
 			border-top-right-radius: 6px;
 			border-bottom-right-radius: 6px;
-			margin-right: 0;
+		}
+
+		&.pressed {
+			box-shadow: 0 2px 4px mixins.blackTrans(.1);
+			background: mixins.whiteTrans(.6);
+			color: mixins.blackTrans(1);
+			border-radius: 6px;
+			transform: scale(1.1);
 		}
 
 		&:focus, &:hover {
-			&.pressed {
-				box-shadow: inset 1px 2px 2px mixins.blackTrans(.4);
-			}
-		}
-
-		&.pure-button-primary.pressed {
-			background: var(--app-primary-background-darken);
-		}
-
-		&.pure-button-secondary {
-			background: var(--app-accent-background);
 			box-shadow: none;
-
-			&:focus, &:hover {
-				&.pressed {
-					box-shadow: inset 1px 2px 2px mixins.blackTrans(.4);
-				}
-			}
+			color: $primaryBg;
 
 			&.pressed {
-				background: var(--app-accent-background-darken);
-				box-shadow: inset 1px 2px 2px mixins.blackTrans(.4);
+				box-shadow: 1px 2px 2px mixins.blackTrans(.1);
+				background: mixins.whiteTrans(.6);
 			}
 		}
 	}

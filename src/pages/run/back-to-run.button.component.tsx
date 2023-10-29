@@ -9,8 +9,16 @@ export const BackToRunButton: React.FC = () => {
 		navigate('/run');
 	}, []);
 
+	const handleKeydown = useCallback((e: any) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			handleBack();
+		}
+	}, []);
 
-	return <div className={'scene-go-back'} onClick={handleBack} tabIndex={1}>
+
+	return <div className={'scene-go-back'}
+	            onKeyDown={handleKeydown}
+	            onClick={handleBack} tabIndex={1}>
 		<FaArrowLeft/>
 	</div>
 }

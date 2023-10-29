@@ -18,7 +18,9 @@ export const CollectionObject: React.FC = () => {
 	});
 
 	return <mesh position-y={-110} scale={[scale, scale, 1]}>
+
 		<CollectionStand/>
+
 		<mesh ref={ref}>
 			{sheetsArray.map((randomColor, idx) => <CollectionFallingCard key={idx}
 			                                                              color={randomColor}

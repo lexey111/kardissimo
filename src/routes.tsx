@@ -3,7 +3,7 @@ import React from "react";
 import {HomePage} from "./pages/home-page.tsx";
 import {AboutPage} from "./pages/about-page.tsx";
 import {CollectionsListSubpage} from "./pages/collection/sub-pages/list/collections-list.subpage.tsx";
-import {CollectionPage} from "./pages/collection.page.tsx";
+import {CollectionPage} from "./pages/collection-page.tsx";
 import {CollectionDetailsSubpage} from "./pages/collection/sub-pages/collection/collection-details.subpage.tsx";
 import {CollectionCardsSubpage} from "./pages/collection/sub-pages/cards/collection-cards.subpage.tsx";
 import {CollectionCardSubpage} from "./pages/collection/sub-pages/cards/collection-card.subpage.tsx";
@@ -11,7 +11,7 @@ import {App} from "./app.tsx";
 import {useRouteError} from "react-router";
 import {PageNotFound} from "./components/utils/page-not-found.component.tsx";
 import {RunPage} from "./pages/run-page.tsx";
-import {RunSession} from "./pages/run/run-session.tsx";
+import {SessionPage} from "./pages/session-page.tsx";
 
 const ErrorBoundary: React.FC = () => {
 	const error: any = useRouteError();
@@ -47,7 +47,7 @@ export const AppRoutes = [
 				{
 					path: 'session/:collectionId',
 					handle: 'Session',
-					element: <RunSession/>,
+					element: <SessionPage/>,
 				},
 				{
 					path: '/collections',

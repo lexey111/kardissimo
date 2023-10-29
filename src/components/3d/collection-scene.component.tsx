@@ -17,6 +17,7 @@ export const CollectionScene: React.FC = () => {
 	               }}
 	>
 		<ambientLight intensity={1} color={'#fff'}/>
+
 		<CollectionObject/>
 
 		<pointLight position={[-180, 80, 120]} castShadow={true}

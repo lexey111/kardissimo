@@ -3,26 +3,25 @@ import {TCardEnriched, TCollectionSide} from "./types.ts";
 import {Fonts} from "../../resources/fonts.ts";
 import {ColorSchemes} from "../../resources/colors.ts";
 
-
 export const defaultSide: TCollectionSide = {
 	name: 'Side',
 	color: ColorSchemes[Object.keys(ColorSchemes)[0]].background,
 	fontName: Object.keys(Fonts)[0],
-	colorSchemeName: Object.keys(ColorSchemes)[0],
+	colorSchemaName: Object.keys(ColorSchemes)[0],
 	fontSize: 'M',
-	fontColor: ColorSchemes[Object.keys(ColorSchemes)[0]].text
+	textColor: ColorSchemes[Object.keys(ColorSchemes)[0]].text
 };
 
 export const defaultCollection = {
 	id: 'none', sides: [
 		{
 			header: 'Header',
-			word: 'Hello world!',
+			text: 'Hello world!',
 			footer: 'Footer'
 		},
 		{
 			header: 'Encabezado',
-			word: '¡Hola Mundo!',
+			text: '¡Hola Mundo!',
 			footer: 'Pie de página'
 		},
 	],

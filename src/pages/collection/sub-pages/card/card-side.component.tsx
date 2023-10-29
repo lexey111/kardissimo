@@ -24,7 +24,7 @@ export const CardSide: React.FC<TCardAddProps> = ({collectionId, cardId, sideIdx
 
 	return <div className={'card-side-content'} onClick={navigateToCard}>
 		<div className={'card-header'}>{cardData.sides[sideIdx].header}</div>
-		<div className={'card-word'}>{cardData.sides[sideIdx].word}</div>
+		<div className={'card-word'}>{cardData.sides[sideIdx].text}</div>
 		<div className={'card-footer'}>{cardData.sides[sideIdx].footer}</div>
 	</div>;
 };

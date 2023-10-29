@@ -57,8 +57,8 @@ function getTableDefs(collectionId?: string, sides?: Array<TCollectionSide>, tab
 						//hide: tableViewMode === 'narrow'
 					},
 					{
-						field: `sides.${idx}.word`,
-						headerName: 'Word',
+						field: `sides.${idx}.text`,
+						headerName: 'Text',
 						editable: tableEditMode === 'editable',
 						filter: true,
 					},
@@ -77,7 +77,7 @@ function getTableDefs(collectionId?: string, sides?: Array<TCollectionSide>, tab
 	} else {
 		result.push(...(sides || []).map((side, idx) => {
 			return {
-				field: `sides.${idx}.word`,
+				field: `sides.${idx}.text`,
 				headerName: side,
 				editable: tableEditMode === 'editable',
 				filter: true,

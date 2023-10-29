@@ -11,7 +11,7 @@ export type TCollectionStat = {
 
 export type TCardSide = {
 	header?: string
-	word: string
+	text: string
 	footer?: string
 }
 
@@ -24,11 +24,16 @@ export type TCardAppearance = {
 	color?: string
 	fontName?: string
 	fontSize?: 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL'
-	fontColor?: string
-	colorSchemeName?: string
+	textColor?: string
+	colorSchemaName?: string
 }
 
 export type TCardEnriched = TCard & { collectionSides?: Array<TCollectionSide> };
+
+export type TPreparedSide = { id?: string } & TCardSide & TCollectionSide;
+export type TPreparedCard = Array<TPreparedSide>; // [{id, text, color, font...}, {id, text, color, font...}]...
+export type TPreparedCards = Array<TPreparedCard>; // [ [id...], [id...] ]
+
 
 export type TCollectionSide = { name: string } & TCardAppearance;
 

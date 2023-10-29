@@ -6,9 +6,9 @@ import {CardPreview} from "../../../../components/3d/card-preview-component.tsx"
 import {FaGrip} from "react-icons/fa6";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {IoCheckmarkCircle} from "react-icons/io5";
-import {ColorSchemes} from "../../../../resources/colors.ts";
 import {defaultCollection} from "../../../../store/data/collections-store.selectors.ts";
 import Select from 'react-select'
+import {ColorSchemes} from "../../../../resources/colors.ts";
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -43,7 +43,7 @@ const FontNameOptions = Object.keys(Fonts).map(key => {
 	return {value: key, label: key};
 });
 
-const ColorSchemeOptions = Object.keys(ColorSchemes).map(key => {
+const colorSchemaOptions = Object.keys(ColorSchemes).map(key => {
 	return {value: key, label: key};
 })
 
@@ -67,7 +67,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 	// }, []);
 	//
 	// const handleTextColorComplete = useCallback((idx: number, c: any) => {
-	// 	onChangeSideInput('fontColor', idx, c.hex);
+	// 	onChangeSideInput('textColor', idx, c.hex);
 	// }, []);
 
 	const hasErrors = errors && Object.keys(errors).length > 0;
@@ -96,7 +96,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 		setState(state => ({...state, [name]: value}));
 	}, []);
 
-	const onChangeColorScheme = useCallback((index: number, e: any) => {
+	const onChangeColorSchema = useCallback((index: number, e: any) => {
 		const schemeName = e.value;
 		const scheme = ColorSchemes[schemeName];
 		if (!scheme) {
@@ -110,9 +110,9 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 				}
 				return {
 					...side,
-					colorSchemeName: schemeName,
+					colorSchemaName: schemeName,
 					color: scheme.background,
-					fontColor: scheme.text
+					textColor: scheme.text
 				}
 			});
 
@@ -184,12 +184,12 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 			id: 'none', sides: [
 				{
 					header: state.cards?.[0].sides?.[0]?.header || '',
-					word: state.cards?.[0].sides?.[0]?.word || '',
+					text: state.cards?.[0].sides?.[0]?.text || '',
 					footer: state.cards?.[0].sides?.[0]?.footer || '',
 				},
 				{
 					header: state.cards?.[0].sides?.[1]?.header || '',
-					word: state.cards?.[0].sides?.[1]?.word || '',
+					text: state.cards?.[0].sides?.[1]?.text || '',
 					footer: state.cards?.[0].sides?.[1]?.footer || '',
 				},
 			],
@@ -298,18 +298,18 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 					</div>
 
 					<fieldset>
-						<label htmlFor={'colorScheme' + idx}>Colors</label>
+						<label htmlFor={'colorSchema' + idx}>Colors</label>
 						<div className={'field-set'}>
-							<Select name={'colorScheme' + idx}
-							        inputId={'colorScheme' + idx}
-							        options={ColorSchemeOptions}
+							<Select name={'colorSchema' + idx}
+							        inputId={'colorSchema' + idx}
+							        options={colorSchemaOptions}
 							        className="react-select-container"
 							        classNamePrefix="react-select"
 							        onFocus={() => handleFocus(idx)}
 							        isSearchable={true}
 							        placeholder={'Color scheme'}
-							        onChange={(e) => onChangeColorScheme(idx, e)}
-							        value={ColorSchemeOptions.filter((option: any) => option.value === _side.colorSchemeName)}
+							        onChange={(e) => onChangeColorSchema(idx, e)}
+							        value={colorSchemaOptions.filter((option: any) => option.value === _side.colorSchemaName)}
 							/>
 						</div>
 					</fieldset>
@@ -323,7 +323,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 					{/*		<span className={'pseudo-label secondary-label'}>Text</span>*/}
 					{/*		<ColorPicker*/}
 					{/*			onFocus={() => handleFocus(idx)}*/}
-					{/*			color={_side.fontColor} onComplete={(col) => handleTextColorComplete(idx, col)}/>*/}
+					{/*			color={_side.textColor} onComplete={(col) => handleTextColorComplete(idx, col)}/>*/}
 					{/*	</div>*/}
 					{/*</fieldset>*/}
 

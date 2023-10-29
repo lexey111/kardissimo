@@ -22,10 +22,6 @@ export const CollectionPage: React.FC = () => {
 		const card = collection!.cards?.find(c => c.id === params.cardId);
 
 		if (!card || !card.sides) {
-			// const wasNew = searchParams.get('from-new') !== null;
-			// if (wasNew) {
-			// 	return null;
-			// }
 			throw new Error('Card not found');
 		}
 	}

@@ -66,7 +66,7 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 	useEffect(() => {
 		setTimeout(() => {
 			if (!destroying.current) {
-				const el = document.getElementById('sides[0].word') as HTMLTextAreaElement;
+				const el = document.getElementById('sides[0].text') as HTMLTextAreaElement;
 				if (el) {
 					el.focus();
 					el.selectionStart = 0;
@@ -101,11 +101,11 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 
 					<fieldset>
 						<div className={'field-set'}>
-								<textarea id={`sides[${idx}].word`} name={`sides[${idx}].word`}
+								<textarea id={`sides[${idx}].text`} name={`sides[${idx}].text`}
 								          autoComplete="off"
-								          value={side.word}
+								          value={side.text}
 								          onFocus={() => handleFocus(idx)}
-								          onChange={(e) => onChangeSideInput('word', idx, e)}
+								          onChange={(e) => onChangeSideInput('text', idx, e)}
 								          maxLength={256}
 								          placeholder="Main text"/>
 						</div>

@@ -17,6 +17,65 @@
 		left: 20px;
 		z-index: 2;
 	}
+
+	.scene-info {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		z-index: 2;
+
+		&:focus {
+			.scene-info-content {
+				opacity: 1;
+				transform: scaleX(1) translateY(0);
+			}
+		}
+	}
+
+	.scene-info-content {
+		position: absolute;
+		right: 100%;
+		margin-right: 16px;
+		top: -4px;
+		background: mixins.whiteTrans(.7);
+		padding: 16px;
+		max-width: 500px;
+		width: 400px;
+		border-radius: 8px;
+		box-shadow: 0 2px 2px mixins.blackTrans();
+		opacity: 0;
+		transform: scaleX(0.01) translateY(-20px);
+		transition: all .2s ease;
+		transform-origin: top right;
+		text-align: left;
+		user-select: none;
+		cursor: default;
+		font-size: .8rem;
+
+		h3 {
+			margin: 0 0 1rem 0;
+			font-size: 1.2rem;
+			font-weight: 300;
+		}
+
+		p {
+			margin: 0;
+			line-height: 1.8;
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 0;
+			border-top: 7px solid transparent;
+			border-bottom: 7px solid transparent;
+
+			border-left: 7px solid mixins.whiteTrans(.7);
+			right: -7px;
+			top: 12px;
+		}
+	}
 }
 
 .scene-content {
@@ -32,6 +91,7 @@
 	overflow: hidden;
 	max-width: 600px;
 	display: flex;
+	flex-flow: column nowrap;
 	width: 100%;
 	aspect-ratio: 2/3;
 	position: relative;
@@ -43,6 +103,91 @@
 	animation-play-state: revert;
 	animation-fill-mode: backwards;
 	margin-bottom: 100px;
+}
+
+.scene-controls {
+	margin-bottom: 32px;
+	display: flex;
+	position: relative;
+	flex-flow: row nowrap;
+
+	.sc-button {
+		margin-left: 1rem;
+	}
+
+	.sc-button.icon-left {
+		margin-left: 0;
+	}
+
+	.scene-progress-outer {
+		position: absolute;
+		top: -32px;
+		left: 0;
+		right: 0;
+		height: 4px;
+		background: mixins.whiteTrans(.1);
+		border-radius: 4px;
+		overflow: hidden;
+
+		.scene-progress-inner {
+			display: block;
+			position: absolute;
+			height: 4px;
+			left: 0;
+			top: 0;
+			background: var(--app-primary-background);
+			border-radius: 0 4px 4px 0;
+			transition: all .2s ease;
+			opacity: .8;
+		}
+	}
+}
+
+.sc-button {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	background: mixins.whiteTrans(.2);
+	border-radius: 6px;
+	border: 1px solid mixins.whiteTrans(.3);
+	padding: 6px 16px;
+	cursor: pointer;
+	transition: all .2s ease;
+	user-select: none;
+	color: white;
+
+	svg {
+		margin: 0 0 0 .5rem;
+	}
+
+	&.icon-left {
+		svg {
+			margin: 0 .5rem 0 0;
+		}
+	}
+
+	&.disabled {
+		background: mixins.whiteTrans(0);
+		color: mixins.whiteTrans(.4);
+		pointer-events: none;
+
+		svg {
+			opacity: .4;
+		}
+	}
+
+	&:hover {
+		background: mixins.whiteTrans(.3);
+		border-color: mixins.whiteTrans(.4);
+		box-shadow: 0 1px 4px mixins.blackTrans(.2);
+		transform: translateY(-1px);
+	}
+
+	&:active {
+		background: mixins.whiteTrans(.7);
+		transform: translateY(0);
+		box-shadow: 0 1px 1px mixins.blackTrans(.1);
+	}
 }
 
 @keyframes scene-appear {

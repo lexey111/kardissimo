@@ -47,7 +47,7 @@ export const getDefaultCard = (collectionId?: string): TCardEnriched | undefined
 
 	return {
 		id,
-		sides: collection.sides?.map(() => ({header: '', word: '', footer: ''})),
+		sides: collection.sides?.map(() => ({header: '', text: '', footer: ''})),
 		collectionSides: collection.sides
 	};
 }
@@ -170,6 +170,6 @@ for (let i = 0; i < 100; i++) {
 
 	createCard('6789', {
 		id,
-		sides: [{header: '', word: 'Hello, world!', footer: ''}, {header: '', word: '¡Hola, Mundo!', footer: ''}],
+		sides: [{header: '', text: 'Hello, world #' + (i + 1), footer: (i + 1).toString() + 'A'}, {header: '', text: '¡Hola, Mundo!', footer: (i + 1).toString() + 'B'}],
 	});
 }

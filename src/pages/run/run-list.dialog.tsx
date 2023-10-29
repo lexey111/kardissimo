@@ -109,7 +109,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 				side: side, // 0, 1...
 				piece: pieceType,
 				from: startIndex, // 10
-				to: Math.min(startIndex + chunkSize, cardCount - 1)
+				to: Math.min(startIndex + chunkSize - 1, cardCount - 1)
 			});
 		}
 	}

@@ -2,11 +2,11 @@ import React from "react";
 
 import {Text} from "@react-three/drei";
 import {CardSurface} from "./card-surface.component.tsx";
-import {TExtendedCardProps} from "../card-types.ts";
 import {cardThickness} from "./card-utils.ts";
+import {TPreparedSide} from "../../../../store/data/types.ts";
 
 export type TCardFaceProps = {
-	face: TExtendedCardProps
+	face: TPreparedSide
 	positionZ: number
 	rotation: any
 }
@@ -32,14 +32,20 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 		fontSize = 36;
 	}
 
-	const headerProps = {...props.face};
-
-
+	const {id: _1, fontSize: _2, ...headerProps} = props.face;
 	headerProps.text = props.face.header || '';
-	const headerFontSize = fontSize * .7;
+	// @ts-ignore
+	headerProps['fontSize'] = fontSize * .7;
 
-	const footerProps = {...props.face};
+	const footerProps = {...headerProps};
 	footerProps.text = props.face.footer || '';
+	// @ts-ignore
+	footerProps['fontSize'] = fontSize * .7;
+
+	const textProps = {...headerProps};
+	textProps.text = props.face.text || '';
+	// @ts-ignore
+	textProps['fontSize'] = fontSize;
 
 	return <group
 		position-z={props.positionZ}
@@ -48,27 +54,25 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 		{props.face.header && <Text position-z={cardThickness / 2 + 0.5}
 		                            position-y={120}
 		                            {...headerProps}
-									fontSize={headerFontSize}
 		                            color={props.face.textColor}
-		                            anchorX={props.face.textAlign}
+		                            anchorX={'center'}
 		                            anchorY="top"> </Text>}
 
 		<Text position-z={cardThickness / 2 + 0.5}
-		      {...props.face}
+		      {...textProps}
 		      position-y={5}
 		      fontSize={fontSize}
 		      color={props.face.textColor}
-		      anchorX={props.face.textAlign}
+		      anchorX={'center'}
 		      anchorY="middle"> </Text>
 
 		{props.face.footer && <Text position-z={cardThickness / 2 + 0.5}
 		                            position-y={-120}
 		                            {...footerProps}
-		                            fontSize={headerFontSize}
 		                            color={props.face.textColor}
-		                            anchorX={props.face.textAlign}
+		                            anchorX={'center'}
 		                            anchorY="bottom"> </Text>}
 
-		<CardSurface color={props.face.color} positionZ={0}/>
+		<CardSurface color={props.face.color!} positionZ={0}/>
 	</group>;
 };

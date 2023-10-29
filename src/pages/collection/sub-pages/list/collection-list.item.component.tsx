@@ -38,7 +38,7 @@ export const CollectionListItem: React.FC<TCollectionItemProps> = React.memo(({i
 			<div className={'collection-pseudo-card' + (!hasCards ? ' single' : '')}
 			     style={{
 				     background: collection?.sides?.[0].color || '#eee',
-				     color: collection?.sides?.[0].fontColor || '#222',
+				     color: collection?.sides?.[0].textColor || '#222',
 			     }}
 			     tabIndex={0}
 			     onKeyDown={handleEnter}

@@ -44,17 +44,14 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 
 		<div className={'pure-button-group'}>
 			<Button icon={<FaBars/>}
-			        type={'secondary'}
 			        pressed={currentStyle === 'list'}
 			        onClick={() => setCardListStyle('list')}/>
 
 			<Button icon={<FaGrip/>}
-			        type={'secondary'}
 			        pressed={currentStyle === 'cards'}
 			        onClick={() => setCardListStyle('cards')}/>
 
 			<Button icon={<FaTable/>}
-			        type={'secondary'}
 			        pressed={currentStyle === 'table'}
 			        onClick={() => setCardListStyle('table')}/>
 		</div>

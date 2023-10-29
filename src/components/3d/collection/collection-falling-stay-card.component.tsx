@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {animated, config, useSpring} from '@react-spring/three';
 import {FlatCard} from "../card/flat-card.component.tsx";
+import {defaultSide} from "../../../store/data/collections-store.selectors.ts";
 
 export const CollectionFallingStayCard: React.FC = () => {
 	const [falling, setFalling] = useState(false);
@@ -44,17 +45,15 @@ export const CollectionFallingStayCard: React.FC = () => {
 		}, 20);
 	}, [setFalling]);
 
-	return <animated.mesh scale={[0.25, 0.25, 2]}
+	return <animated.mesh scale={[0.34, 0.34, 2]}
 	                      position-z={positionZ}
 	                      position-y={positionY}
 	                      rotation-x={rotationX}
 	                      rotation-y={rotationY}>
-		<FlatCard active={'active'} faces={[
-			{
-				text: 'Hello, world!', color: '#FDBA66', textColor: '#4f351a', fontSize: 48, lineHeight: 1
-			},
-			{
-				text: '¡Hola mundo!', color: '#8899ff', textColor: '#2b3b62', fontSize: 48, lineHeight: 1
-			}]}/>
+		<FlatCard active={false}
+		          faces={[
+			          {text: 'Hello, world!', ...defaultSide, color: '#ffaf00'},
+			          {text: '¡Hola, mundo!', ...defaultSide, color: '#00b2ff'},
+		          ]}/>
 	</animated.mesh>;
 };

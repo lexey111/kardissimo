@@ -1,3 +1,5 @@
+import {TPreparedCard} from "../../../store/data/types.ts";
+
 export type TCardFace = {
 	text: string
 	header?: string
@@ -16,9 +18,10 @@ export type TCardFace = {
 export type TCardFaceProp = Pick<TCardFace, 'text'> & (Partial<Omit<TCardFace, 'text'>>);
 
 export type TCardProps = {
-	faces: Array<TCardFaceProp>
-	active?: 'active' | 'slight' | 'none'
+	faces: TPreparedCard
+	active?: boolean
 	side?: number
+	onSetSide?: (side: number) => void
 };
 
 export type TExtendedCardProps = TCardFace & { font: string };

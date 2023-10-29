@@ -53,11 +53,11 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({
 
 	const faces = card.sides.map((side, idx) => {
 		return {
-			text: side.word || '',
+			text: side.text || '',
 			header: side.header || '',
 			footer: side.footer || '',
 			color: card.collectionSides?.[idx].color || '#FDBA66',
-			textColor: card.collectionSides?.[idx].fontColor || '#2b3b62',
+			textColor: card.collectionSides?.[idx].textColor || '#2b3b62',
 			fontSize: card.collectionSides?.[idx].fontSize || 'M',
 			fontName: card.collectionSides?.[idx].fontName || Object.keys(Fonts)[0],
 		}

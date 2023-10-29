@@ -1,21 +1,16 @@
-import React, {useCallback, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {TCardProps} from "./card-types.ts";
 import {cardThickness, getFaceParameters} from "./parts/card-utils.ts";
 import {CardFace} from "./parts/card-face.component.tsx";
 import {animated, config, useSpring} from '@react-spring/three';
 import {CardActiveOver} from "./parts/card-active-over.component.tsx";
 import {CardActiveClick} from "./parts/card-active-click.component.tsx";
-import {useThree} from "@react-three/fiber";
-
-export type TCardState = 'stale' | 'rotateLeft' | 'rotateRight';
 
 const subRotateHSize = Math.PI / 16;
 const subRotateVSize = Math.PI / 32;
 
-export const FlatCard: React.FC<TCardProps> = ({faces, active = true, side = 0}) => {
-	const {viewport} = useThree();
-
-	const [cardState, setCardState] = useState<TCardState>('stale')
+export const FlatCard: React.FC<TCardProps> = ({faces, onSetSide, active = true, side = 0}) => {
+	const [cardSide, setCardSide] = useState(side);
 
 	const [activeSubRotateLeft, setActiveSubRotateLeft] = useState(false);
 	const [activeSubRotateRight, setActiveSubRotateRight] = useState(false);
@@ -36,15 +31,37 @@ export const FlatCard: React.FC<TCardProps> = ({faces, active = true, side = 0})
 		config: config.slow
 	});
 
-	const currentRotation = useRef(Math.PI * side);
+	const [rotateProps, api] = useSpring(() => ({
+			from: {'rotation-y': Math.PI / 2},
+			to: {'rotation-y': 0},
+			config: {tension: 180, friction: 12, duration: 200},
+			//config: config.wobbly
+		}), []
+	);
 
-	const {rotateCard} = useSpring({
-		rotateCard: currentRotation.current,
-		config: config.wobbly,//{tension: 180, friction: 12, duration: 400},
-		onRest: () => {
-			setCardState('stale');
+	const ref = useRef<any>();
+
+	useEffect(() => {
+		setCardSide(side);
+	}, [side]);
+
+	useEffect(() => {
+		if (cardSide === -1) {
+			api.update({
+				to: {'rotation-y': 0},
+			});
+			api.start();
+			return;
 		}
-	});
+
+		ref.current.rotation.y = 0;
+
+		api.update({
+			to: {'rotation-y': cardSide * Math.PI},
+		});
+		api.start();
+		onSetSide && onSetSide(cardSide);
+	}, [cardSide]);
 
 	const moveTopLeft = useCallback(() => {
 		setActiveSubRotateTop(true);
@@ -118,28 +135,18 @@ export const FlatCard: React.FC<TCardProps> = ({faces, active = true, side = 0})
 	}, []);
 
 	const clickLeft = useCallback(() => {
-		if (cardState !== 'stale') {
-			//return;
-		}
-		currentRotation.current -= Math.PI;
-		setCardState('rotateLeft');
-	}, [cardState]);
+		setCardSide(v => v > 0 ? v - 1 : v + 1);
+	}, []);
 
 	const clickRight = useCallback(() => {
-		if (cardState !== 'stale') {
-			//return;
-		}
-		currentRotation.current += Math.PI;
-		setCardState('rotateRight');
-	}, [cardState]);
+		setCardSide(v => v > 0 ? v - 1 : v + 1);
+	}, []);
 
 	// Input parameters
 	const face1 = getFaceParameters(faces[0]);
 	const face2 = getFaceParameters(faces[1]);
 
-	const scale = Math.min(viewport.width / 250, viewport.height / 350);
-
-	return <group scale={[scale, scale, 1]}>
+	return <group ref={ref}>
 		{active && <CardActiveOver onLeave={moveNone}
 		                           onBottom={moveBottom}
 		                           onLeft={moveLeft}
@@ -156,7 +163,8 @@ export const FlatCard: React.FC<TCardProps> = ({faces, active = true, side = 0})
 			rotation-y={subRotateY}
 			rotation-x={subRotateX}
 		>
-			<animated.mesh rotation-y={rotateCard}>
+			{/*<animated.mesh rotation-y={rotateCard}>*/}
+			<animated.mesh {...rotateProps}>
 				<CardFace face={face1} positionZ={cardThickness / 2} rotation={[0, 0, 0]}/>
 				<CardFace face={face2} positionZ={-cardThickness / 2} rotation={[0, Math.PI, 0]}/>
 			</animated.mesh>
