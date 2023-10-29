@@ -64,7 +64,7 @@ export const Preview3DCard: React.FC<TPreview3DCardProps> = ({faces, side}) => {
 			to: {'rotation-y': side * Math.PI},
 		});
 		api.start();
-	}, [side]);
+	}, [api, side]);
 
 	const moveTopLeft = useCallback(() => {
 		setActiveSubRotateTop(true);
@@ -142,15 +142,16 @@ export const Preview3DCard: React.FC<TPreview3DCardProps> = ({faces, side}) => {
 	const face2 = getFaceParameters(faces[1]);
 
 	return <group ref={ref}>
-		<CardActiveOver onLeave={moveNone}
-		                onBottom={moveBottom}
-		                onLeft={moveLeft}
-		                onLeftBottom={moveLeftBottom}
-		                onRight={moveRight}
-		                onRightBottom={moveRightBottom}
-		                onTop={moveTop}
-		                onTopLeft={moveTopLeft}
-		                onTopRight={moveTopRight}
+		<CardActiveOver
+			onLeave={moveNone}
+			onBottom={moveBottom}
+			onLeft={moveLeft}
+			onLeftBottom={moveLeftBottom}
+			onRight={moveRight}
+			onRightBottom={moveRightBottom}
+			onTop={moveTop}
+			onTopLeft={moveTopLeft}
+			onTopRight={moveTopRight}
 		/>
 
 		<animated.mesh

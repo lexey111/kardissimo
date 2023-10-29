@@ -31,15 +31,16 @@ export const ChooseChunkSize: React.FC<TChoose3DCard> = ({total, amount}) => {
 	const text = {text: amount !== total ? amount + '/' + total : 'All'};
 
 	return <group>
-		<Text position-z={6}
-		      position-y={0}
-		      position-x={0}
-		      fontSize={40}
+		<Text
+			position-z={6}
+			position-y={0}
+			position-x={0}
+			fontSize={40}
 			// font={Object.keys(Fonts)[0]}
-			  color={'#13496b'}
-			  {...text}
-			  anchorX={'center'}
-			  anchorY="middle"> </Text>
+			color={'#13496b'}
+			{...text}
+			anchorX={'center'}
+			anchorY="middle"> </Text>
 
 		{cards.map((c, idx) => {
 			return <CardSurface

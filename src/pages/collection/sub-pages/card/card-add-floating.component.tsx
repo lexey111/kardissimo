@@ -14,14 +14,15 @@ export const CardAddFloating: React.FC<TCardAddProps> = ({collectionId}) => {
 
 	const handleAdd = useCallback(() => {
 		goCard();
-	}, []);
+	}, [goCard]);
 
 	if (!needToShowScroll) {
 		return null;
 	}
 
-	return <div className={'add-card-floating'}
-	            onClick={handleAdd}>
+	return <div
+		className={'add-card-floating'}
+		onClick={handleAdd}>
 		<IoIosAddCircle/>
 	</div>;
 

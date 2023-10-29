@@ -32,6 +32,7 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 		fontSize = 36;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const {id: _1, fontSize: _2, ...headerProps} = props.face;
 	headerProps.text = props.face.header || '';
 	// @ts-ignore
@@ -51,27 +52,30 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 		position-z={props.positionZ}
 		rotation={props.rotation}
 	>
-		{props.face.header && <Text position-z={cardThickness / 2 + 0.5}
-		                            position-y={120}
-		                            {...headerProps}
-		                            color={props.face.textColor}
-		                            anchorX={'center'}
-		                            anchorY="top"> </Text>}
+		{props.face.header && <Text
+			position-z={cardThickness / 2 + 0.5}
+			position-y={120}
+			{...headerProps}
+			color={props.face.textColor}
+			anchorX={'center'}
+			anchorY="top"> </Text>}
 
-		<Text position-z={cardThickness / 2 + 0.5}
-		      {...textProps}
-		      position-y={5}
-		      fontSize={fontSize}
-		      color={props.face.textColor}
-		      anchorX={'center'}
-		      anchorY="middle"> </Text>
+		<Text
+			position-z={cardThickness / 2 + 0.5}
+			{...textProps}
+			position-y={5}
+			fontSize={fontSize}
+			color={props.face.textColor}
+			anchorX={'center'}
+			anchorY="middle"> </Text>
 
-		{props.face.footer && <Text position-z={cardThickness / 2 + 0.5}
-		                            position-y={-120}
-		                            {...footerProps}
-		                            color={props.face.textColor}
-		                            anchorX={'center'}
-		                            anchorY="bottom"> </Text>}
+		{props.face.footer && <Text
+			position-z={cardThickness / 2 + 0.5}
+			position-y={-120}
+			{...footerProps}
+			color={props.face.textColor}
+			anchorX={'center'}
+			anchorY="bottom"> </Text>}
 
 		<CardSurface color={props.face.color!} positionZ={0}/>
 	</group>;

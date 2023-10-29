@@ -13,7 +13,7 @@ import {
 export const CollectionDetailsData: React.FC = () => {
 	const navigate = useNavigate();
 	const params = useParams();
-	let collectionId = params.collectionId;
+	const collectionId = params.collectionId;
 	const isNew = params.collectionId === 'new';
 
 	const state: TCollection = isNew ? getDefaultCollection() : getCollection(collectionId)!;
@@ -32,7 +32,7 @@ export const CollectionDetailsData: React.FC = () => {
 			updateCollection(values);
 		}
 		navigate('/collections');
-	}, []);
+	}, [isNew, navigate]);
 
 	const handleGoCards = useCallback((values: TCollection) => {
 		if (isNew) {
@@ -41,7 +41,7 @@ export const CollectionDetailsData: React.FC = () => {
 			updateCollection(values);
 		}
 		navigate(`/collections/${collectionId}/cards`);
-	}, []);
+	}, [collectionId, isNew, navigate]);
 
 	return <CollectionDetailsForm
 		initialState={state}

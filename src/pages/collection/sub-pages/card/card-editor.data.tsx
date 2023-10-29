@@ -25,21 +25,21 @@ export const CardEditorData: React.FC<TCardEditorProps> = ({collectionId, cardId
 		}
 
 		navigate(`/collections/${collectionId}/cards`);
-	}, []);
+	}, [cardId, collectionId, isNew, navigate]);
 
 	const handleEsc = useCallback((e: any) => {
 		if (e.key !== 'Escape') {
 			return;
 		}
 		handleBack();
-	}, []);
+	}, [handleBack]);
 
 	useEffect(() => {
 		window.addEventListener('keydown', handleEsc);
 		return () => {
 			window.removeEventListener('keydown', handleEsc);
 		}
-	}, []);
+	}, [handleEsc]);
 
 	const handleSubmit = useCallback((data: TCard) => {
 		if (isNew) {
@@ -56,7 +56,7 @@ export const CardEditorData: React.FC<TCardEditorProps> = ({collectionId, cardId
 			sides: data.sides
 		});
 		navigate(`/collections/${collectionId}/cards`);
-	}, []);
+	}, [collectionId, isNew, navigate]);
 
 	if (!cardData) {
 		return null;

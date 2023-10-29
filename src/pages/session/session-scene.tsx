@@ -20,16 +20,16 @@ export const SessionScene: React.FC<TSessionSceneProps> = ({cards, side}) => {
 		} else {
 			setCardSide(c => c + 1);
 		}
-	}, [cardSide]);
+	}, [cardSide, cards]);
 
 	const handlePrevious = useCallback(() => {
 		setCardIdx(v => v > 0 ? v - 1 : v);
-	}, [cardIdx]);
+	}, []);
 
 	const handleNext = useCallback(() => {
 		setCardSide(side);
 		setCardIdx(v => v < cards.length - 1 ? v + 1 : v);
-	}, [cardIdx]);
+	}, [cards.length, side]);
 
 	const handleKeys = useCallback((e: KeyboardEvent) => {
 		if (e.key === ' ') {
@@ -47,14 +47,14 @@ export const SessionScene: React.FC<TSessionSceneProps> = ({cards, side}) => {
 			e.preventDefault();
 			return false;
 		}
-	}, []);
+	}, [handleNext, handlePrevious, handleRotate]);
 
 	useEffect(() => {
 		window.addEventListener('keydown', handleKeys);
 		return () => {
 			window.removeEventListener('keydown', handleKeys);
 		}
-	}, []);
+	}, [handleKeys]);
 
 	let percentage = Math.floor(((cardIdx + 1) / cards.length) * 1000) / 10;
 	if (cardIdx === 0 && percentage >= 10) {
@@ -66,22 +66,26 @@ export const SessionScene: React.FC<TSessionSceneProps> = ({cards, side}) => {
 
 	return <>
 		<div className={'scene-main'}>
-			<Scene card={cards[cardIdx]}
-			       onSetSide={setCardSide}
-			       side={cardSide}/>
+			<Scene
+				card={cards[cardIdx]}
+				onSetSide={setCardSide}
+				side={cardSide}/>
 		</div>
 
 		<div className={'scene-controls'}>
-			<div className={'sc-button icon-left' + (cardIdx === 0 ? ' disabled' : '')}
-			     onClick={handlePrevious}>
+			<div
+				className={'sc-button icon-left' + (cardIdx === 0 ? ' disabled' : '')}
+				onClick={handlePrevious}>
 				<FaArrowLeft/> Prev
 			</div>
-			<div className={'sc-button'}
-			     onClick={handleRotate}>
+			<div
+				className={'sc-button'}
+				onClick={handleRotate}>
 				SPACE <MdRotateRight/>
 			</div>
-			<div className={'sc-button' + (cardIdx === cards.length - 1 ? ' disabled' : '')}
-			     onClick={handleNext}>
+			<div
+				className={'sc-button' + (cardIdx === cards.length - 1 ? ' disabled' : '')}
+				onClick={handleNext}>
 				Next <FaArrowRight/>
 			</div>
 			<div className={'scene-progress-outer'}>

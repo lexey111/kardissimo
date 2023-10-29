@@ -16,7 +16,7 @@ export const CardRemoveButton: React.FC<TCardRemoveProps> = ({collectionId, card
 	const handleRemove = useCallback(() => {
 		setIsOpen(false);
 		removeCard(collectionId, cardId);
-	}, []);
+	}, [cardId, collectionId]);
 
 	return <>
 		<Modal

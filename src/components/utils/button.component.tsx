@@ -11,17 +11,18 @@ export type TButtonProps = {
 	children?: any
 }
 
-export const Button: React.FC<TButtonProps> = ({
-	                                               icon,
-	                                               children,
-	                                               onClick,
-	                                               variant,
-	                                               pressed = false,
-	                                               disabled = false,
-	                                               type = 'primary',
-	                                               size = 'md'
-                                               }) => {
-	let classNames = [];
+export const Button: React.FC<TButtonProps> = (
+	{
+		icon,
+		children,
+		onClick,
+		variant,
+		pressed = false,
+		disabled = false,
+		type = 'primary',
+		size = 'md'
+	}) => {
+	const classNames = [];
 
 	switch (type) {
 		case 'primary' :
@@ -96,9 +97,10 @@ export const Button: React.FC<TButtonProps> = ({
 		classNames.push('text-icon');
 	}
 
-	return <button className={'pure-button' + (classNames.length ? ' ' + classNames.join(' ') : '')}
-	               disabled={disabled}
-	               onClick={onClick}>
+	return <button
+		className={'pure-button' + (classNames.length ? ' ' + classNames.join(' ') : '')}
+		disabled={disabled}
+		onClick={onClick}>
 		{icon}
 		{type !== 'round' && <span className={'button-text'}>{children}</span>}
 	</button>;

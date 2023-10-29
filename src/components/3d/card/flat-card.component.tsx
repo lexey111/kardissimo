@@ -61,7 +61,7 @@ export const FlatCard: React.FC<TCardProps> = ({faces, onSetSide, active = true,
 		});
 		api.start();
 		onSetSide && onSetSide(cardSide);
-	}, [cardSide]);
+	}, [api, cardSide, onSetSide]);
 
 	const moveTopLeft = useCallback(() => {
 		setActiveSubRotateTop(true);
@@ -147,15 +147,16 @@ export const FlatCard: React.FC<TCardProps> = ({faces, onSetSide, active = true,
 	const face2 = getFaceParameters(faces[1]);
 
 	return <group ref={ref}>
-		{active && <CardActiveOver onLeave={moveNone}
-		                           onBottom={moveBottom}
-		                           onLeft={moveLeft}
-		                           onLeftBottom={moveLeftBottom}
-		                           onRight={moveRight}
-		                           onRightBottom={moveRightBottom}
-		                           onTop={moveTop}
-		                           onTopLeft={moveTopLeft}
-		                           onTopRight={moveTopRight}
+		{active && <CardActiveOver
+			onLeave={moveNone}
+			onBottom={moveBottom}
+			onLeft={moveLeft}
+			onLeftBottom={moveLeftBottom}
+			onRight={moveRight}
+			onRightBottom={moveRightBottom}
+			onTop={moveTop}
+			onTopLeft={moveTopLeft}
+			onTopRight={moveTopRight}
 		/>}
 		{active && <CardActiveClick onClickLeft={clickLeft} onClickRight={clickRight}/>}
 

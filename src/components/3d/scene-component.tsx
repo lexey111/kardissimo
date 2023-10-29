@@ -36,14 +36,16 @@ export const Scene: React.FC<TSceneProps> = ({card, onSetSide, side}) => {
 		camera={{fov: 75, near: 0.1, far: 1000, position: [0, 0, 300]}}
 	>
 
-		<Stage adjustCamera={.9} intensity={6} preset="rembrandt"
-		       shadows={false}
+		<Stage
+			adjustCamera={.9} intensity={6} preset="rembrandt"
+			shadows={false}
 			// shadows={{type: 'contact', color: 'skyblue', colorBlend: 2, opacity: 1}}
-			   environment="city"
+			environment="city"
 		>
-			<FlatCard faces={card}
-			          side={side}
-			          onSetSide={onSetSide}/>
+			<FlatCard
+				faces={card}
+				side={side}
+				onSetSide={onSetSide}/>
 
 			<group position={[-150, 0, 0]} scale={[0.5, 0.5, .5]}>
 				<FlatCard
@@ -57,12 +59,14 @@ export const Scene: React.FC<TSceneProps> = ({card, onSetSide, side}) => {
 			</group>
 		</Stage>
 
-		<pointLight position={[-80, 80, 120]}
-		            color={'#0692ff'}
-		            intensity={100000}/>
+		<pointLight
+			position={[-80, 80, 120]}
+			color={'#0692ff'}
+			intensity={100000}/>
 
-		<pointLight position={[80, -80, 200]}
-		            color={'#b5ff00'}
-		            intensity={100000}/>
+		<pointLight
+			position={[80, -80, 200]}
+			color={'#b5ff00'}
+			intensity={100000}/>
 	</Canvas>;
 };

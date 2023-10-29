@@ -18,7 +18,7 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 
 	useEffect(() => {
 		restorePosition();
-	}, []);
+	}, [restorePosition]);
 
 	const cardIds = useCollectionStore(useShallow((state: ICollectionState) => state.collections
 		.find(c => c.id === collectionId)?.cards?.map(card => card.id)));
@@ -30,8 +30,9 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 
 
 	if (!cardIds || cardIds.length === 0) {
-		return <ListNoData caption={'No cards to display, yet.'}
-		                   addButton={<CardListAdd collectionId={collectionId}/>}/>;
+		return <ListNoData
+			caption={'No cards to display, yet.'}
+			addButton={<CardListAdd collectionId={collectionId}/>}/>;
 	}
 
 	if (currentStyle === 'table') {
@@ -45,13 +46,14 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 	// list and card styles are serviced by CSS
 	return <div className={`card-list list-style-${currentStyle}`}>
 		{cardIds.map((cardId, idx) => {
-			return <CardListItem key={cardId}
-			                     collectionId={collectionId}
-			                     cardId={cardId}
-			                     sides={sides}
-			                     number={currentStyle === 'cards' ? -1 : idx + 1}
-			                     currentStyle={currentStyle}
-			                     count={cardIds.length}
+			return <CardListItem
+				key={cardId}
+				collectionId={collectionId}
+				cardId={cardId}
+				sides={sides}
+				number={currentStyle === 'cards' ? -1 : idx + 1}
+				currentStyle={currentStyle}
+				count={cardIds.length}
 			/>
 		})}
 		<CardListAdd collectionId={collectionId}/>

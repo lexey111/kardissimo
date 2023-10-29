@@ -22,47 +22,49 @@ export const Modal: React.FC<TModalProps> = (props) => {
 				open={props.open}
 				onClose={props.onClose}
 			>
-				<motion.div className="dialog-backdrop"
-				            initial={{
-					            opacity: 0,
-				            }}
-				            animate={{
-					            opacity: 1,
-					            transition: {
-						            ease: "easeOut",
-						            duration: 0.5,
-					            },
-				            }}
-				            exit={{
-					            opacity: 0,
-					            transition: {
-						            ease: "easeIn",
-						            duration: 0.2,
-					            },
-				            }}
+				<motion.div
+					className="dialog-backdrop"
+					initial={{
+						opacity: 0,
+					}}
+					animate={{
+						opacity: 1,
+						transition: {
+							ease: "easeOut",
+							duration: 0.5,
+						},
+					}}
+					exit={{
+						opacity: 0,
+						transition: {
+							ease: "easeIn",
+							duration: 0.2,
+						},
+					}}
 				></motion.div>
 
-				<motion.div className={'dialog-fullscreen' + (' modal-' + props.type)}
-				            initial={{
-					            opacity: 0,
-					            scale: 0.75,
-				            }}
-				            animate={{
-					            opacity: 1,
-					            scale: 1,
-					            transition: {
-						            ease: "easeOut",
-						            duration: 0.15,
-					            },
-				            }}
-				            exit={{
-					            opacity: 0,
-					            scale: 0.75,
-					            transition: {
-						            ease: "easeIn",
-						            duration: 0.15,
-					            },
-				            }}
+				<motion.div
+					className={'dialog-fullscreen' + (' modal-' + props.type)}
+					initial={{
+						opacity: 0,
+						scale: 0.75,
+					}}
+					animate={{
+						opacity: 1,
+						scale: 1,
+						transition: {
+							ease: "easeOut",
+							duration: 0.15,
+						},
+					}}
+					exit={{
+						opacity: 0,
+						scale: 0.75,
+						transition: {
+							ease: "easeIn",
+							duration: 0.15,
+						},
+					}}
 				>
 					<div className={'close-cross'} onClick={props.onClose}>&times;</div>
 

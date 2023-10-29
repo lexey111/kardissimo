@@ -19,7 +19,7 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({collectionId}) => {
 
 	const handleAdd = useCallback(() => {
 		goCard();
-	}, []);
+	}, [goCard]);
 
 	return <div className={`card-list-add-${currentStyle}`}>
 		<span></span>

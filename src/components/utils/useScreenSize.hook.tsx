@@ -26,7 +26,7 @@ export const useScreenSize = (desiredMinWidth?: number) => {
 		return () => {
 			window.removeEventListener('resize', handleResize);
 		};
-	}, []);
+	}, [desiredMinWidth]);
 
 	return {
 		screenSize,

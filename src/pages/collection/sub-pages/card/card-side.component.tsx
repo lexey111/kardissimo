@@ -14,7 +14,7 @@ export const CardSide: React.FC<TCardAddProps> = ({collectionId, cardId, sideIdx
 
 	const navigateToCard = useCallback(() => {
 		goCard();
-	}, []);
+	}, [goCard]);
 
 	if (!cardData || !cardData.sides || cardData.sides.length < sideIdx - 1) {
 		return <div className={'card-not-found'}>

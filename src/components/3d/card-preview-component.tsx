@@ -14,12 +14,13 @@ export type TCardPreviewProps = {
 	disablePreview?: boolean
 }
 
-export const CardPreview: React.FC<TCardPreviewProps> = ({
-	                                                         card,
-	                                                         side,
-	                                                         disablePreview = false,
-	                                                         delay = 0
-                                                         }) => {
+export const CardPreview: React.FC<TCardPreviewProps> = (
+	{
+		card,
+		side,
+		disablePreview = false,
+		delay = 0
+	}) => {
 
 	const [showDelayed, setShowDelayed] = useState(delay <= 0);
 	const destroying = useRef(false);
@@ -88,9 +89,10 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({
 				camera={{fov: 75, near: 0.1, far: 1000, position: [0, 0, 300]}}
 			>
 
-				<Stage adjustCamera={.9} intensity={6} preset="rembrandt"
-				       shadows={{type: 'contact', color: 'skyblue', colorBlend: 2, opacity: 1}}
-				       environment="city"
+				<Stage
+					adjustCamera={.9} intensity={6} preset="rembrandt"
+					shadows={{type: 'contact', color: 'skyblue', colorBlend: 2, opacity: 1}}
+					environment="city"
 				>
 					{fullScreen && <OrbitControls/>}
 
@@ -99,13 +101,15 @@ export const CardPreview: React.FC<TCardPreviewProps> = ({
 						faces={faces}/>
 				</Stage>
 
-				<pointLight position={[-80, 80, 120]}
-				            color={'#aaa'}
-				            intensity={100000}/>
+				<pointLight
+					position={[-80, 80, 120]}
+					color={'#aaa'}
+					intensity={100000}/>
 
-				<pointLight position={[80, -80, 200]}
-				            color={'#000'}
-				            intensity={100000}/>
+				<pointLight
+					position={[80, -80, 200]}
+					color={'#000'}
+					intensity={100000}/>
 			</Canvas>
 		</div>
 	</div>;

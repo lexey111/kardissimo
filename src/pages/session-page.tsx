@@ -43,7 +43,7 @@ function swapAndEnrichSides(id: string, sides: Array<TCardSide>, collectionSides
 
 export const SessionPage: React.FC = () => {
 	const navigate = useNavigate();
-	let [searchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 	const params = useParams();
 	const collection = getCollection(params.collectionId);
 	const from = Number(searchParams?.get('from'));

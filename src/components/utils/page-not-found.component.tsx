@@ -9,12 +9,13 @@ export type TPageNotFoundProps = {
 }
 
 export const PageNotFound: React.FC<TPageNotFoundProps> = ({header, message, goCollections = true}) => {
-	return <AppPageError title={header || 'Page Not Found error'}
-	                     subtitle={message || 'Sorry for that.'}
-	                     back={(goCollections ? <NavLink to={'/collections'}>
-			                     &larr; Go to Collections
-		                     </NavLink>
-		                     : void 0)
-	                     }
+	return <AppPageError
+		title={header || 'Page Not Found error'}
+		subtitle={message || 'Sorry for that.'}
+		back={(goCollections ? <NavLink to={'/collections'}>
+				&larr; Go to Collections
+			</NavLink>
+			: void 0)
+		}
 	/>;
 };

@@ -15,9 +15,9 @@ export const useCardNavigateHook = (collectionId?: string, cardId?: string) => {
 	const goCard = (_cardId?: string) => {
 		const position = window.document.scrollingElement?.scrollTop;
 
-		let targetId = cardId || _cardId;
+		const targetId = cardId || _cardId;
 
-		if (typeof position !== undefined && !isNaN(position!)) {
+		if (typeof position !== 'undefined' && !isNaN(position!)) {
 			localStorage.setItem(key, position!.toFixed());
 		}
 

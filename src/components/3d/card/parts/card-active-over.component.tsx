@@ -29,31 +29,37 @@ export const CardActiveOver: React.FC<TCardActiveOverProps> = (props: TCardActiv
 			<boxGeometry args={[boxWidth, boxHeight, 0]}/>
 		</mesh>
 
-		<mesh position={[-cardWidth / 4 - quarterSize, cardHeight / 4 + quarterSize, 0]}
-		      onPointerEnter={props.onTopLeft}>
+		<mesh
+			position={[-cardWidth / 4 - quarterSize, cardHeight / 4 + quarterSize, 0]}
+			onPointerEnter={props.onTopLeft}>
 			<boxGeometry args={[cardWidth / 2 - halfSize, cardHeight / 2 - halfSize, 0]}/>
 		</mesh>
 
-		<mesh position={[-cardWidth / 4 - quarterSize, 0, 1]} onPointerEnter={props.onLeft}>
+		<mesh
+			position={[-cardWidth / 4 - quarterSize, 0, 1]} onPointerEnter={props.onLeft}>
 			<boxGeometry args={[cardWidth / 2 - halfSize, size, 0]}/>
 		</mesh>
 
-		<mesh position={[-cardWidth / 4 - quarterSize, -cardHeight / 4 - quarterSize, 0]}
-		      onPointerEnter={props.onLeftBottom}>
+		<mesh
+			position={[-cardWidth / 4 - quarterSize, -cardHeight / 4 - quarterSize, 0]}
+			onPointerEnter={props.onLeftBottom}>
 			<boxGeometry args={[cardWidth / 2 - halfSize, cardHeight / 2 - halfSize, 0]}/>
 		</mesh>
 
-		<mesh position={[cardWidth / 4 + quarterSize, cardHeight / 4 + quarterSize, 0]}
-		      onPointerEnter={props.onTopRight}>
+		<mesh
+			position={[cardWidth / 4 + quarterSize, cardHeight / 4 + quarterSize, 0]}
+			onPointerEnter={props.onTopRight}>
 			<boxGeometry args={[cardWidth / 2 - halfSize, cardHeight / 2 - halfSize, 0]}/>
 		</mesh>
 
-		<mesh position={[cardWidth / 4 + quarterSize, 0, 0]} onPointerEnter={props.onRight}>
+		<mesh
+			position={[cardWidth / 4 + quarterSize, 0, 0]} onPointerEnter={props.onRight}>
 			<boxGeometry args={[cardWidth / 2 - halfSize, size, 0]}/>
 		</mesh>
 
-		<mesh position={[cardWidth / 4 + quarterSize, -cardHeight / 4 - quarterSize, 0]}
-		      onPointerEnter={props.onRightBottom}>
+		<mesh
+			position={[cardWidth / 4 + quarterSize, -cardHeight / 4 - quarterSize, 0]}
+			onPointerEnter={props.onRightBottom}>
 			<boxGeometry args={[cardWidth / 2 - halfSize, cardHeight / 2 - halfSize, 0]}/>
 		</mesh>
 

@@ -7,9 +7,10 @@ export type TSceneInfoButtonProps = {
 export const SceneInfoButton: React.FC<TSceneInfoButtonProps> = ({info}) => {
 	const [show, setShow] = useState(false);
 
-	return <div className={'scene-info'}
-	            onClick={() => setShow(v => !v)}
-	            tabIndex={1}>
+	return <div
+		className={'scene-info'}
+		onClick={() => setShow(v => !v)}
+		tabIndex={1}>
 
 		<IoMdInformationCircle/>
 

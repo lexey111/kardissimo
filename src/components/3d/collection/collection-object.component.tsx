@@ -22,10 +22,11 @@ export const CollectionObject: React.FC = () => {
 		<CollectionStand/>
 
 		<mesh ref={ref}>
-			{sheetsArray.map((randomColor, idx) => <CollectionFallingCard key={idx}
-			                                                              color={randomColor}
-			                                                              idx={idx}
-			                                                              endPosition={6 + idx * 4}/>)}
+			{sheetsArray.map((randomColor, idx) => <CollectionFallingCard
+				key={idx}
+				color={randomColor}
+				idx={idx}
+				endPosition={6 + idx * 4}/>)}
 			<CollectionFallingStayCard/>
 		</mesh>
 	</mesh>;

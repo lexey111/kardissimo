@@ -10,7 +10,7 @@ export const AddNewCollection: React.FC = () => {
 
 	const addCollection = useCallback(() => {
 		navigate('/collections/new/details', {preventScrollReset: true});
-	}, []);
+	}, [navigate]);
 
 	if (count === 0) {
 		return null;

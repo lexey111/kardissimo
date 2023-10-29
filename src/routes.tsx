@@ -14,7 +14,9 @@ import {RunPage} from "./pages/run-page.tsx";
 import {SessionPage} from "./pages/session-page.tsx";
 
 const ErrorBoundary: React.FC = () => {
-	const error: any = useRouteError();
+	const error = useRouteError();
+
+	// @ts-ignore
 	return <PageNotFound message={error.message} header={error.header}/>;
 }
 

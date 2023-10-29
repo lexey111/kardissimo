@@ -15,7 +15,7 @@ import {TCollectionSide} from "../../../../../store/data/types.ts";
 import {Button} from "../../../../../components/utils/button.component.tsx";
 
 export type TCardListModeSelectorProps = {
-	sides?: [TCollectionSide, TCollectionSide]
+	sides?: Array<TCollectionSide>
 }
 export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({sides}) => {
 	const currentStyle = useSettingsStore((state) => state.cardListStyle);
@@ -32,36 +32,42 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 	return <div className={'list-mode-selector'}>
 		{currentStyle === 'table' && <div className={'table-mode-selector'}>
 			<div className={'pure-button-group'}>
-				<Button icon={<AiFillEye/>}
-				        pressed={tableEditMode === 'readonly'}
-				        onClick={() => setTableEditMode('readonly')}>View</Button>
+				<Button
+					icon={<AiFillEye/>}
+					pressed={tableEditMode === 'readonly'}
+					onClick={() => setTableEditMode('readonly')}>View</Button>
 
-				<Button icon={<RiEditBoxFill/>}
-				        pressed={tableEditMode === 'editable'}
-				        onClick={() => setTableEditMode('editable')}>Edit</Button>
+				<Button
+					icon={<RiEditBoxFill/>}
+					pressed={tableEditMode === 'editable'}
+					onClick={() => setTableEditMode('editable')}>Edit</Button>
 			</div>
 		</div>}
 
 		<div className={'pure-button-group'}>
-			<Button icon={<FaBars/>}
-			        pressed={currentStyle === 'list'}
-			        onClick={() => setCardListStyle('list')}/>
+			<Button
+				icon={<FaBars/>}
+				pressed={currentStyle === 'list'}
+				onClick={() => setCardListStyle('list')}/>
 
-			<Button icon={<FaGrip/>}
-			        pressed={currentStyle === 'cards'}
-			        onClick={() => setCardListStyle('cards')}/>
+			<Button
+				icon={<FaGrip/>}
+				pressed={currentStyle === 'cards'}
+				onClick={() => setCardListStyle('cards')}/>
 
-			<Button icon={<FaTable/>}
-			        pressed={currentStyle === 'table'}
-			        onClick={() => setCardListStyle('table')}/>
+			<Button
+				icon={<FaTable/>}
+				pressed={currentStyle === 'table'}
+				onClick={() => setCardListStyle('table')}/>
 		</div>
 
 		{currentStyle === 'cards' && <div className={'card-side-selector'}>
 			<div className={'pure-button-group'}>
 				{sides?.map((side, idx) => {
-					return <Button key={side.name + idx.toString()}
-					               pressed={selectedSide === idx}
-					               onClick={() => setSelectedSide(idx)}>
+					return <Button
+						key={side.name + idx.toString()}
+						pressed={selectedSide === idx}
+						onClick={() => setSelectedSide(idx)}>
 						{side.name}
 					</Button>
 				})}
@@ -70,13 +76,15 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 
 		{currentStyle === 'table' && <div className={'table-wide-selector'}>
 			<div className={'pure-button-group'}>
-				<Button icon={<TbViewportWide/>}
-				        pressed={tableViewMode === 'wide'}
-				        onClick={() => setTableViewMode('wide')}>Wide</Button>
+				<Button
+					icon={<TbViewportWide/>}
+					pressed={tableViewMode === 'wide'}
+					onClick={() => setTableViewMode('wide')}>Wide</Button>
 
-				<Button icon={<TbViewportNarrow/>}
-				        pressed={tableViewMode === 'narrow'}
-				        onClick={() => setTableViewMode('narrow')}>Narrow</Button>
+				<Button
+					icon={<TbViewportNarrow/>}
+					pressed={tableViewMode === 'narrow'}
+					onClick={() => setTableViewMode('narrow')}>Narrow</Button>
 			</div>
 		</div>}
 	</div>;

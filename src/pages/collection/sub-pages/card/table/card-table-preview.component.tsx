@@ -8,7 +8,7 @@ export const PreviewCell: React.FC = (props: any) => {
 
 	const handleClick = useCallback(() => {
 		goCard();
-	}, []);
+	}, [goCard]);
 
 	return <div className={'table-button-column'}>
 		<Button type={'round-primary'} onClick={handleClick} icon={<MdPageview/>} size={'sm'}/>

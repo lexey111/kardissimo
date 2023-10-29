@@ -49,7 +49,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 
 	const {show} = useScreenSize(1100);
 
-	function resetAll() {
+	const resetAll = useCallback(() => {
 		setAdvanced(false);
 
 		setOrder('random');
@@ -67,18 +67,18 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 			upperBound: cardCount,
 			value: [1, cardCount > 10 ? 10 : cardCount]
 		});
-	}
+	}, [cardCount])
 
 	useEffect(() => {
 		if (currentCollection) {
 			resetAll();
 		}
-	}, [currentCollection]);
+	}, [currentCollection, resetAll]);
 
 	const onClose = useCallback(() => {
 		resetAll();
 		handleClose();
-	}, []);
+	}, [handleClose, resetAll]);
 
 	useEffect(() => {
 		if (!currentCollection) {
@@ -92,7 +92,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 				setChunkSize(cardCount);
 			}
 		}
-	}, [currentCollection, chunkSize]);
+	}, [currentCollection, chunkSize, cardCount]);
 
 	const onRun = () => {
 		if (advanced) {
@@ -115,6 +115,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 	}
 
 	const chunkList = [];
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const chunkStartPoints: Array<number> = [];
 	for (let i = 0; i < cardCount; i += chunkSize) {
 		chunkStartPoints.push(i);
@@ -140,7 +141,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 		if (chunkSize === cardCount) {
 			setStartIndex(0);
 		}
-	}, [chunkSize, startIndex]);
+	}, [cardCount, chunkSize, chunkStartPoints, currentCollection, startIndex]);
 
 	const handleRangeChange = useCallback((v: any) => {
 		setRangeState({
@@ -148,7 +149,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 			upperBound: cardCount,
 			value: v
 		});
-	}, [rangeState]);
+	}, [cardCount]);
 
 
 	if (!currentCollection) {
@@ -201,34 +202,37 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 						<label>Cards {rangeState.value[0]}..{rangeState.value[1]} &nbsp;
 							<span className={'badge badge-blue'}>{rangeState.value[1] - rangeState.value[0] + 1}</span>
 						</label>
-						<Slider min={rangeState.lowerBound}
-						        className={'range-slider'}
-						        range={true}
-						        max={rangeState.upperBound}
-						        dots={false}
-						        marks={marksGenAdv}
-						        value={rangeState.value}
-						        onChange={handleRangeChange as any}
-						        step={1}/>
+						<Slider
+							min={rangeState.lowerBound}
+							className={'range-slider'}
+							range={true}
+							max={rangeState.upperBound}
+							dots={false}
+							marks={marksGenAdv}
+							value={rangeState.value}
+							onChange={handleRangeChange as any}
+							step={1}/>
 
 					</fieldset>
 				</>}
 
 				{showChunkSizeSelector && <fieldset>
 					<label>Chunk size – {chunkSize}</label>
-					<Slider min={10}
-					        max={cardCount}
-					        dots={true}
-					        marks={marksGen}
-					        value={chunkSize}
-					        onChange={setChunkSize as any}
-					        step={10}/>
+					<Slider
+						min={10}
+						max={cardCount}
+						dots={true}
+						marks={marksGen}
+						value={chunkSize}
+						onChange={setChunkSize as any}
+						step={10}/>
 
 					{showChunkTypeSelector && <>
 						<label className={'secondary-label'}>And display –</label>
 
-						<RadioGroup value={pieceType} onChange={setPieceType}
-						            className={'run-radiogroup radiogroup-row'}>
+						<RadioGroup
+							value={pieceType} onChange={setPieceType}
+							className={'run-radiogroup radiogroup-row'}>
 							<RadioGroup.Option value={'random'}>
 								{({checked}) => (
 									<span className={checked ? 'radio-checked' : ''}>
@@ -252,8 +256,9 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 				{showChunkSelector && <fieldset>
 					<label>Choose the chunk
 						({startIndex + 1}...{startIndex + chunkSize < cardCount ? startIndex + chunkSize : cardCount}):</label>
-					<RadioGroup value={startIndex} onChange={setStartIndex}
-					            className={'run-radiogroup radiogroup-row'}>
+					<RadioGroup
+						value={startIndex} onChange={setStartIndex}
+						className={'run-radiogroup radiogroup-row'}>
 						{chunkList.map(piece => {
 							return <RadioGroup.Option value={piece.startIndex} key={piece.label}>
 								{({checked}) => (
@@ -317,11 +322,12 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 			</div>
 		</div>}
 		actions={<>
-			{showAdvanced && <Button type={'secondary'}
-			                         pressed={advanced}
-			                         variant={'align-left'}
-			                         icon={<SlTarget/>}
-			                         onClick={() => setAdvanced(v => !v)}>Fine tune</Button>}
+			{showAdvanced && <Button
+				type={'secondary'}
+				pressed={advanced}
+				variant={'align-left'}
+				icon={<SlTarget/>}
+				onClick={() => setAdvanced(v => !v)}>Fine tune</Button>}
 
 			<Button type={'secondary'} onClick={onClose} icon={<FaArrowLeft/>}>Cancel (Esc)</Button>
 			<Button type={'success'} icon={<FaPlayCircle/>} onClick={onRun}>Start</Button>

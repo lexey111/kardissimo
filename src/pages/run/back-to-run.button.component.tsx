@@ -16,9 +16,10 @@ export const BackToRunButton: React.FC = () => {
 	}, []);
 
 
-	return <div className={'scene-go-back'}
-	            onKeyDown={handleKeydown}
-	            onClick={handleBack} tabIndex={1}>
+	return <div
+		className={'scene-go-back'}
+		onKeyDown={handleKeydown}
+		onClick={handleBack} tabIndex={1}>
 		<FaArrowLeft/>
 	</div>
 }

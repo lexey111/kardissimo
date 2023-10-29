@@ -13,14 +13,15 @@ export type TCardListItemProps = {
 	count: number
 }
 
-export const CardListItem: React.FC<TCardListItemProps> = ({
-	                                                           collectionId,
-	                                                           cardId,
-	                                                           sides,
-	                                                           number,
-	                                                           count,
-	                                                           currentStyle
-                                                           }) => {
+export const CardListItem: React.FC<TCardListItemProps> = (
+	{
+		collectionId,
+		cardId,
+		sides,
+		number,
+		count,
+		currentStyle
+	}) => {
 
 	const selectedSide = useSettingsStore((state) => state.selectedSide);
 

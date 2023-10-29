@@ -28,11 +28,13 @@ export type TCardSurfaceProps = {
 };
 
 export const CardSurface: React.FC<TCardSurfaceProps> = (props) => {
-	return <mesh position={[-cardWidth / 2, -cardHeight / 2, (props.positionZ || 0) - cardThickness / 2]}
-	             {...props}
-	             castShadow={true}
-	             receiveShadow={true}>
+	return <mesh
+		position={[-cardWidth / 2, -cardHeight / 2, (props.positionZ || 0) - cardThickness / 2]}
+		{...props}
+		castShadow={true}
+		receiveShadow={true}>
 		<extrudeGeometry args={[cardSurfaceShape, extrudeSettings]}/>
-		{props.translucent ? <meshPhongMaterial color={props.color} transparent={true} opacity={.7}/> : <meshPhongMaterial color={props.color}/>}
+		{props.translucent ? <meshPhongMaterial color={props.color} transparent={true} opacity={.7}/> :
+			<meshPhongMaterial color={props.color}/>}
 	</mesh>;
 };

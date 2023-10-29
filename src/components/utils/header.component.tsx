@@ -9,12 +9,13 @@ export type TAppPageHeaderProps = {
 	image?: JSX.Element
 	hasBack?: boolean
 }
-export const Header: React.FC<TAppPageHeaderProps> = ({
-	                                                      title,
-	                                                      subtitle,
-	                                                      image,
-	                                                      noBg = false, hasBack = false
-                                                      }) => {
+export const Header: React.FC<TAppPageHeaderProps> = (
+	{
+		title,
+		subtitle,
+		image,
+		noBg = false, hasBack = false
+	}) => {
 	const [show, setShow] = useState(false);
 	const {show: showImage} = useScreenSize(960);
 
@@ -32,13 +33,13 @@ export const Header: React.FC<TAppPageHeaderProps> = ({
 			}
 			setShow(!!image);
 		}, 1000);
-	}, [setShow]);
+	}, [image, setShow]);
 
 	const extraClasses = [];
 	if (hasBack) {
 		extraClasses.push('with-back');
 	}
-	if (!!subtitle) {
+	if (subtitle) {
 		extraClasses.push('with-subtitle');
 	}
 	if (noBg) {

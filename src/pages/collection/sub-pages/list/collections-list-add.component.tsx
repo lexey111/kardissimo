@@ -13,12 +13,13 @@ export const CollectionListAdd: React.FC = () => {
 		if (e.key === 'Enter' || e.key === ' ') {
 			handleAdd();
 		}
-	}, []);
+	}, [handleAdd]);
 
 	return <div className={'collection-list-add'}>
-		<div className={'item-create'} onClick={handleAdd}
-		     onKeyDown={handleEnter}
-		     tabIndex={0}>
+		<div
+			className={'item-create'} onClick={handleAdd}
+			onKeyDown={handleEnter}
+			tabIndex={0}>
 
 			<IoIosAddCircle/>
 		</div>

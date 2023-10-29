@@ -4,7 +4,11 @@ import {useShallow} from "zustand/react/shallow";
 import {AgGridReact} from 'ag-grid-react'; // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import {TCardListTableMode, TCardListTableViewMode, useSettingsStore} from "../../../../../store/settings/settings-store.ts";
+import {
+	TCardListTableMode,
+	TCardListTableViewMode,
+	useSettingsStore
+} from "../../../../../store/settings/settings-store.ts";
 import {PreviewCell} from "./card-table-preview.component.tsx";
 import {RemoveCell} from "./card-table-remove.component.tsx";
 import {useCardNavigateHook} from "../../../../../components/utils/useCardNavigate.hook.tsx";
@@ -15,7 +19,7 @@ export type TCardTableProps = {
 }
 
 function getTableDefs(collectionId?: string, sides?: Array<TCollectionSide>, tableEditMode?: TCardListTableMode, tableViewMode?: TCardListTableViewMode) {
-	let result = [];
+	const result = [];
 
 	const previewColumn: any = {
 		field: '_preview',
@@ -91,9 +95,10 @@ function getTableDefs(collectionId?: string, sides?: Array<TCollectionSide>, tab
 	return result;
 }
 
-export const CardTable: React.FC<TCardTableProps> = ({
-	                                                     collectionId,
-                                                     }) => {
+export const CardTable: React.FC<TCardTableProps> = (
+	{
+		collectionId,
+	}) => {
 
 	const {goCard} = useCardNavigateHook(collectionId!, '');
 
@@ -159,7 +164,7 @@ export const CardTable: React.FC<TCardTableProps> = ({
 		if (readonly) {
 			goCard(e.data.id);
 		}
-	}, [readonly]);
+	}, [goCard, readonly]);
 
 	return <div className={'card-table ' + tableEditMode + ' ' + tableViewMode}>
 		<div className="ag-theme-alpine">

@@ -6,10 +6,12 @@ import {defaultSide, getCollection} from "./collections-store.selectors.ts";
 const nanoid = customAlphabet(urlAlphabet, 16);
 
 export const createCollection = (newCollection: TCollection) => useCollectionStore.setState((state) => {
-	let _collection = {...newCollection};
+	const _collection = {...newCollection};
+
 	if (!newCollection.id) {
 		_collection.id = nanoid();
 	}
+
 	if (!newCollection.title) {
 		_collection.title = 'New collection';
 	}

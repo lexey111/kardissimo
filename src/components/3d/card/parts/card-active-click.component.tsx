@@ -17,13 +17,15 @@ export const CardActiveClick: React.FC<TCardActiveClickProps> = (props: TCardAct
 			<boxGeometry args={[boxWidth, boxHeight, 0]}/>
 		</mesh>
 
-		<mesh position={[-boxWidth / 4, 0, 0]}
-		      onClick={props.onClickLeft}>
+		<mesh
+			position={[-boxWidth / 4, 0, 0]}
+			onClick={props.onClickLeft}>
 			<boxGeometry args={[boxWidth / 2, boxHeight, 0]}/>
 		</mesh>
 
-		<mesh position={[boxWidth / 4, 0, 0]}
-		      onClick={props.onClickRight}>
+		<mesh
+			position={[boxWidth / 4, 0, 0]}
+			onClick={props.onClickRight}>
 			<boxGeometry args={[boxWidth / 2, boxHeight, 0]}/>
 		</mesh>
 

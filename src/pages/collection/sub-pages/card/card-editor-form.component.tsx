@@ -13,13 +13,14 @@ export type TCardEditorFormProps = {
 	isNew: boolean
 }
 
-export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
-	                                                               collection,
-	                                                               initialState,
-	                                                               onSubmit,
-	                                                               onCancel,
-	                                                               isNew
-                                                               }) => {
+export const CardEditorForm: React.FC<TCardEditorFormProps> = (
+	{
+		collection,
+		initialState,
+		onSubmit,
+		onCancel,
+		isNew
+	}) => {
 	const [state, setState] = useState(initialState);
 	const initialHash = useMemo(() => JSON.stringify(initialState), [initialState]);
 	const [touched, setTouched] = useState(false);
@@ -60,7 +61,7 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 	useEffect(() => {
 		const isTouched = JSON.stringify(state) !== initialHash;
 		setTouched(isTouched);
-	}, [state]);
+	}, [initialHash, state]);
 
 
 	useEffect(() => {
@@ -88,39 +89,42 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 
 					<fieldset>
 						<div className={'field-set'}>
-							<input id={`sides[${idx}].header`} name={`sides[${idx}].header`}
-							       autoComplete="off"
-							       maxLength={128} size={30}
-							       onFocus={() => handleFocus(idx)}
-							       value={side.header}
-							       onChange={(e) => onChangeSideInput('header', idx, e)}
-							       placeholder="Top text"
-							       type={'text'}/>
+							<input
+								id={`sides[${idx}].header`} name={`sides[${idx}].header`}
+								autoComplete="off"
+								maxLength={128} size={30}
+								onFocus={() => handleFocus(idx)}
+								value={side.header}
+								onChange={(e) => onChangeSideInput('header', idx, e)}
+								placeholder="Top text"
+								type={'text'}/>
 						</div>
 					</fieldset>
 
 					<fieldset>
 						<div className={'field-set'}>
-								<textarea id={`sides[${idx}].text`} name={`sides[${idx}].text`}
-								          autoComplete="off"
-								          value={side.text}
-								          onFocus={() => handleFocus(idx)}
-								          onChange={(e) => onChangeSideInput('text', idx, e)}
-								          maxLength={256}
-								          placeholder="Main text"/>
+								<textarea
+									id={`sides[${idx}].text`} name={`sides[${idx}].text`}
+									autoComplete="off"
+									value={side.text}
+									onFocus={() => handleFocus(idx)}
+									onChange={(e) => onChangeSideInput('text', idx, e)}
+									maxLength={256}
+									placeholder="Main text"/>
 						</div>
 					</fieldset>
 
 					<fieldset>
 						<div className={'field-set'}>
-							<input id={`sides[${idx}].footer`} name={`sides[${idx}].footer`}
-							       autoComplete="off"
-							       value={side.footer}
-							       onFocus={() => handleFocus(idx)}
-							       onChange={(e) => onChangeSideInput('footer', idx, e)}
-							       maxLength={128} size={30}
-							       placeholder="Bottom text"
-							       type={'text'}/>
+							<input
+								id={`sides[${idx}].footer`} name={`sides[${idx}].footer`}
+								autoComplete="off"
+								value={side.footer}
+								onFocus={() => handleFocus(idx)}
+								onChange={(e) => onChangeSideInput('footer', idx, e)}
+								maxLength={128} size={30}
+								placeholder="Bottom text"
+								type={'text'}/>
 						</div>
 					</fieldset>
 
@@ -128,9 +132,10 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = ({
 			})}
 			<fieldset className={'actions'}>
 				<Button onClick={onCancel} type={'secondary'}>&larr; Cancel (Esc)</Button>
-				<Button onClick={() => onSubmit(state)}
-				        icon={<IoCheckmarkCircle/>}
-				        disabled={!touched}>
+				<Button
+					onClick={() => onSubmit(state)}
+					icon={<IoCheckmarkCircle/>}
+					disabled={!touched}>
 					{isNew ? 'Create' : 'Save'}
 				</Button>
 			</fieldset>

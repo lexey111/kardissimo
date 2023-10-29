@@ -19,16 +19,16 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 
 	const goEdit = useCallback((id: string) => {
 		navigate(`/collections/${id}/details`);
-	}, []);
+	}, [navigate]);
 
 	const goCards = useCallback((id: string) => {
 		navigate(`/collections/${id}/cards`);
-	}, []);
+	}, [navigate]);
 
 	const deleteCollection = useCallback(() => {
 		removeCollection(id!);
 		setIsOpen(false)
-	}, []);
+	}, [id]);
 
 	return <>
 		<Modal

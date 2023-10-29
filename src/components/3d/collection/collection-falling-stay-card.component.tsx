@@ -45,15 +45,17 @@ export const CollectionFallingStayCard: React.FC = () => {
 		}, 20);
 	}, [setFalling]);
 
-	return <animated.mesh scale={[0.34, 0.34, 2]}
-	                      position-z={positionZ}
-	                      position-y={positionY}
-	                      rotation-x={rotationX}
-	                      rotation-y={rotationY}>
-		<FlatCard active={false}
-		          faces={[
-			          {text: 'Hello, world!', ...defaultSide, color: '#ffaf00'},
-			          {text: '¡Hola, mundo!', ...defaultSide, color: '#00b2ff'},
-		          ]}/>
+	return <animated.mesh
+		scale={[0.34, 0.34, 2]}
+		position-z={positionZ}
+		position-y={positionY}
+		rotation-x={rotationX}
+		rotation-y={rotationY}>
+		<FlatCard
+			active={false}
+			faces={[
+				{text: 'Hello, world!', ...defaultSide, color: '#ffaf00'},
+				{text: '¡Hola, mundo!', ...defaultSide, color: '#00b2ff'},
+			]}/>
 	</animated.mesh>;
 };

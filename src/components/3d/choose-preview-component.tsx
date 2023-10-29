@@ -10,11 +10,12 @@ export type TChoosePreviewProps = {
 	delay?: number
 }
 
-export const ChoosePreview: React.FC<TChoosePreviewProps> = ({
-	                                                             total,
-	                                                             amount,
-	                                                             delay = 0
-                                                             }) => {
+export const ChoosePreview: React.FC<TChoosePreviewProps> = (
+	{
+		total,
+		amount,
+		delay = 0
+	}) => {
 
 	const [showDelayed, setShowDelayed] = useState(delay > 0 ? false : true);
 	const destroying = useRef(false);
@@ -45,9 +46,10 @@ export const ChoosePreview: React.FC<TChoosePreviewProps> = ({
 			camera={{fov: 75, near: 0.1, far: 1000, position: [0, 0, 300]}}
 		>
 
-			<Stage adjustCamera={.9} intensity={6} preset="rembrandt"
-			       shadows={false}
-			       environment="dawn"
+			<Stage
+				adjustCamera={.9} intensity={6} preset="rembrandt"
+				shadows={false}
+				environment="dawn"
 			>
 				<PresentationControls
 					config={{mass: 2, tension: 500}}
@@ -59,13 +61,15 @@ export const ChoosePreview: React.FC<TChoosePreviewProps> = ({
 				</PresentationControls>
 			</Stage>
 
-			<pointLight position={[-80, 80, 120]}
-			            color={'#aaa'}
-			            intensity={100000}/>
+			<pointLight
+				position={[-80, 80, 120]}
+				color={'#aaa'}
+				intensity={100000}/>
 
-			<pointLight position={[80, -80, 200]}
-			            color={'#000'}
-			            intensity={100000}/>
+			<pointLight
+				position={[80, -80, 200]}
+				color={'#000'}
+				intensity={100000}/>
 		</Canvas>
 	</div>;
 };

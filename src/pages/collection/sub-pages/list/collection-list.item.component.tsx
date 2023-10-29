@@ -15,17 +15,17 @@ export const CollectionListItem: React.FC<TCollectionItemProps> = React.memo(({i
 
 	const goCards = useCallback(() => {
 		navigate(`/collections/${id}/cards`);
-	}, []);
+	}, [id, navigate]);
 
 	const goDetails = useCallback(() => {
 		navigate(`/collections/${id}/details`);
-	}, []);
+	}, [id, navigate]);
 
 	const handleEnter = useCallback((e: any) => {
 		if (e.key === 'Enter' || e.key === ' ') {
 			goCards();
 		}
-	}, []);
+	}, [goCards]);
 
 	if (!collection) {
 		return null;
@@ -35,14 +35,15 @@ export const CollectionListItem: React.FC<TCollectionItemProps> = React.memo(({i
 
 	return <div className={'collection-item-content'}>
 		<div className={'collection-card-info'}>
-			<div className={'collection-pseudo-card' + (!hasCards ? ' single' : '')}
-			     style={{
-				     background: collection?.sides?.[0].color || '#eee',
-				     color: collection?.sides?.[0].textColor || '#222',
-			     }}
-			     tabIndex={0}
-			     onKeyDown={handleEnter}
-			     onClick={goCards}>
+			<div
+				className={'collection-pseudo-card' + (!hasCards ? ' single' : '')}
+				style={{
+					background: collection?.sides?.[0].color || '#eee',
+					color: collection?.sides?.[0].textColor || '#222',
+				}}
+				tabIndex={0}
+				onKeyDown={handleEnter}
+				onClick={goCards}>
 				<span>
 					{collection.cards?.length || 0}
 				</span>
@@ -55,7 +56,7 @@ export const CollectionListItem: React.FC<TCollectionItemProps> = React.memo(({i
 					background: collection?.sides?.[1].color || '#eee',
 				}}></div>
 			</>}
-			{hasCards &&<div className={'card-shadow'}></div>}
+			{hasCards && <div className={'card-shadow'}></div>}
 		</div>
 		<div className={'collection-wrapper'}>
 			<div className={'collection-title'}>

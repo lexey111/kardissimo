@@ -12,8 +12,9 @@ export const CollectionList: React.FC = () => {
 
 	if (!collectionIds || collectionIds.length === 0) {
 		return <div className={'collection-list empty'}>
-			<ListNoData caption={'There are no yet collection to display.'}
-			            addButton={<CollectionListAdd/>}/>
+			<ListNoData
+				caption={'There are no yet collection to display.'}
+				addButton={<CollectionListAdd/>}/>
 		</div>;
 
 	}

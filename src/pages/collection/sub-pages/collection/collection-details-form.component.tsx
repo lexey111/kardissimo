@@ -47,13 +47,14 @@ const colorSchemaOptions = Object.keys(ColorSchemes).map(key => {
 	return {value: key, label: key};
 })
 
-export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
-	                                                                             initialState,
-	                                                                             onSubmit,
-	                                                                             onCancel,
-	                                                                             goCards,
-	                                                                             isNew
-                                                                             }) => {
+export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
+	{
+		initialState,
+		onSubmit,
+		onCancel,
+		goCards,
+		isNew
+	}) => {
 	const [state, setState] = useState(initialState);
 	const initialHash = useMemo(() => JSON.stringify(initialState), [initialState]);
 
@@ -140,7 +141,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 	const handleUseFirst = useCallback((e: any) => {
 		const value = e?.target ? e?.target?.checked : false;
 		setUseFirst(value);
-	}, [useFirst]);
+	}, []);
 
 	useEffect(() => {
 		setState(() => initialState);
@@ -169,7 +170,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 		} else {
 			setErrors(null);
 		}
-	}, [state]);
+	}, [initialHash, state]);
 
 
 	const titleError = touched && errors?.title;
@@ -202,18 +203,20 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 			<fieldset className={'required' + titleClass}>
 				<label htmlFor="title">Title</label>
 				<div className={'field-set'}>
-					<input id="title" name="title" type={'text'}
-					       autoFocus={true}
-					       autoComplete="off"
-					       onFocus={() => handleFocus(-1)}
-					       maxLength={64} size={30}
-					       value={state.title}
-					       onChange={(e) => onChangeInput('title', e)}
-					       placeholder="My first collection" required/>
+					<input
+						id="title" name="title" type={'text'}
+						autoFocus={true}
+						autoComplete="off"
+						onFocus={() => handleFocus(-1)}
+						maxLength={64} size={30}
+						value={state.title}
+						onChange={(e) => onChangeInput('title', e)}
+						placeholder="My first collection" required/>
 					{titleError && <div>
 						<a data-tooltip-id="title-tooltip" className={'tooltip-error'}>⚠</a>
-						<Tooltip id="title-tooltip" place={'right'}
-						         style={{backgroundColor: "#ff005b", color: "#fff"}}>
+						<Tooltip
+							id="title-tooltip" place={'right'}
+							style={{backgroundColor: "#ff005b", color: "#fff"}}>
 							{errors.title}
 						</Tooltip>
 					</div>}
@@ -223,13 +226,14 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 			<fieldset>
 				<label htmlFor="author">Author</label>
 				<div className={'field-set'}>
-					<input id="author" name="author"
-					       autoComplete="off"
-					       onFocus={() => handleFocus(-1)}
-					       value={state.author}
-					       onChange={(e) => onChangeInput('author', e)}
-					       maxLength={50} size={30}
-					       placeholder="John Doe" type={'text'}/>
+					<input
+						id="author" name="author"
+						autoComplete="off"
+						onFocus={() => handleFocus(-1)}
+						value={state.author}
+						onChange={(e) => onChangeInput('author', e)}
+						maxLength={50} size={30}
+						placeholder="John Doe" type={'text'}/>
 				</div>
 			</fieldset>
 
@@ -247,18 +251,20 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 					<fieldset className={'required' + sideClass}>
 						<label htmlFor={name}>Name</label>
 						<div className={'field-set'}>
-							<input id={name} name={name}
-							       onFocus={() => handleFocus(idx)}
-							       value={_side.name}
-							       onChange={(e) => onChangeSideInput('name', idx, e)}
-							       autoComplete="off"
-							       maxLength={64} size={30}
-							       placeholder="English" type={'text'}/>
+							<input
+								id={name} name={name}
+								onFocus={() => handleFocus(idx)}
+								value={_side.name}
+								onChange={(e) => onChangeSideInput('name', idx, e)}
+								autoComplete="off"
+								maxLength={64} size={30}
+								placeholder="English" type={'text'}/>
 
 							{sideError && <div>
 								<a data-tooltip-id={"title-tooltip-" + idx} className={'tooltip-error'}>⚠</a>
-								<Tooltip id={"title-tooltip-" + idx} place={'right'}
-								         style={{backgroundColor: "#ff005b", color: "#fff"}}>
+								<Tooltip
+									id={"title-tooltip-" + idx} place={'right'}
+									style={{backgroundColor: "#ff005b", color: "#fff"}}>
 									{errors?.['name' + idx]}
 								</Tooltip>
 							</div>}
@@ -270,27 +276,29 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 							<label htmlFor={fontName}>Font</label>
 							<div className={'field-set'}>
 
-								<Select inputId={fontName}
-								        name={fontName}
-								        options={FontNameOptions}
-								        className="react-select-container"
-								        classNamePrefix="react-select"
-								        onFocus={() => handleFocus(idx)}
-								        isSearchable={false}
-								        placeholder={'Font'}
-								        onChange={(e) => onChangeSideInput('fontName', idx, e)}
-								        value={FontNameOptions.filter((option: any) => option.value === _side.fontName)}
+								<Select
+									inputId={fontName}
+									name={fontName}
+									options={FontNameOptions}
+									className="react-select-container"
+									classNamePrefix="react-select"
+									onFocus={() => handleFocus(idx)}
+									isSearchable={false}
+									placeholder={'Font'}
+									onChange={(e) => onChangeSideInput('fontName', idx, e)}
+									value={FontNameOptions.filter((option: any) => option.value === _side.fontName)}
 								/>
 
 								<div className={'font-size'}>
-									<Select options={FontSizeOptions}
-									        className="react-select-container"
-									        classNamePrefix="react-select"
-									        onFocus={() => handleFocus(idx)}
-									        isSearchable={false}
-									        placeholder={'Size'}
-									        onChange={(e) => onChangeSideInput('fontSize', idx, e)}
-									        value={FontSizeOptions.filter((option: any) => option.value === _side.fontSize)}
+									<Select
+										options={FontSizeOptions}
+										className="react-select-container"
+										classNamePrefix="react-select"
+										onFocus={() => handleFocus(idx)}
+										isSearchable={false}
+										placeholder={'Size'}
+										onChange={(e) => onChangeSideInput('fontSize', idx, e)}
+										value={FontSizeOptions.filter((option: any) => option.value === _side.fontSize)}
 									/>
 								</div>
 							</div>
@@ -300,16 +308,17 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 					<fieldset>
 						<label htmlFor={'colorSchema' + idx}>Colors</label>
 						<div className={'field-set'}>
-							<Select name={'colorSchema' + idx}
-							        inputId={'colorSchema' + idx}
-							        options={colorSchemaOptions}
-							        className="react-select-container"
-							        classNamePrefix="react-select"
-							        onFocus={() => handleFocus(idx)}
-							        isSearchable={true}
-							        placeholder={'Color scheme'}
-							        onChange={(e) => onChangeColorSchema(idx, e)}
-							        value={colorSchemaOptions.filter((option: any) => option.value === _side.colorSchemaName)}
+							<Select
+								name={'colorSchema' + idx}
+								inputId={'colorSchema' + idx}
+								options={colorSchemaOptions}
+								className="react-select-container"
+								classNamePrefix="react-select"
+								onFocus={() => handleFocus(idx)}
+								isSearchable={true}
+								placeholder={'Color scheme'}
+								onChange={(e) => onChangeColorSchema(idx, e)}
+								value={colorSchemaOptions.filter((option: any) => option.value === _side.colorSchemaName)}
 							/>
 						</div>
 					</fieldset>
@@ -333,26 +342,29 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = ({
 			{(state?.cards?.length || 0) > 0 && <fieldset className={'checkbox-field'}>
 				<span className={'pseudo-label'}></span>
 				<label htmlFor={'useFirstCard'} className={'checkbox-label'}>
-					<input type={'checkbox'}
-					       onChange={handleUseFirst}
-					       name={'useFirstCard'} id={'useFirstCard'}/>
+					<input
+						type={'checkbox'}
+						onChange={handleUseFirst}
+						name={'useFirstCard'} id={'useFirstCard'}/>
 					Use card #1 to preview
 					<span className="checkmark"></span>
 				</label>
 			</fieldset>}
 
 			<fieldset className={'actions'}>
-				{!isNew && <Button type={'secondary'}
-				                   icon={<FaGrip/>}
-				                   onClick={() => goCards(state)}>Cards...</Button>}
+				{!isNew && <Button
+					type={'secondary'}
+					icon={<FaGrip/>}
+					onClick={() => goCards(state)}>Cards...</Button>}
 
 				<Button onClick={onCancel} type={'secondary'}>
 					&larr; Cancel
 				</Button>
 
-				<Button onClick={() => onSubmit(state)}
-				        icon={<IoCheckmarkCircle/>}
-				        disabled={hasErrors || (!isNew && !touched)}>
+				<Button
+					onClick={() => onSubmit(state)}
+					icon={<IoCheckmarkCircle/>}
+					disabled={hasErrors || (!isNew && !touched)}>
 					{isNew ? 'Create' : 'Save'}
 				</Button>
 			</fieldset>
