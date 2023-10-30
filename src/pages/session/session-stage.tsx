@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {MdRotateRight} from "react-icons/md";
 import {TPreparedCards} from "../../store/data/types.ts";
-import {Scene} from "../../components/3d/scene-component.tsx";
+import {SessionScene} from "../../components/3d/session-scene.component.tsx";
 import {FaArrowLeft, FaArrowRight} from "react-icons/fa6";
 
 export type TSessionSceneProps = {
@@ -9,50 +9,79 @@ export type TSessionSceneProps = {
 	side: number
 }
 
-export const SessionScene: React.FC<TSessionSceneProps> = ({cards, side}) => {
+export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side}) => {
 	const [cardIdx, setCardIdx] = useState(0);
 
 	const [cardSide, setCardSide] = useState(side);
+	const [locked, setLocked] = useState(false);
 
-	const handleRotate = useCallback(() => {
-		if (cardSide === cards[0].length - 1) {
-			setCardSide(c => c - 1);
-		} else {
-			setCardSide(c => c + 1);
-		}
-	}, [cardSide, cards]);
+	const [direction, setDirection] = useState<'left' | 'right'>('left');
 
-	const handlePrevious = useCallback(() => {
-		setCardIdx(v => v > 0 ? v - 1 : v);
+	const handleCompleteAnimation = useCallback(() => {
+		setLocked(false);
+		console.log('unlocked')
 	}, []);
 
+	const handleSetSide = useCallback((side: number) => {
+		setCardSide(() => side);
+	}, []);
+
+	const handleRotate = useCallback(() => {
+		// 0 -> 1 -> 0...
+		if (cardSide === 1) {
+			handleSetSide(0);
+		} else {
+			handleSetSide(1);
+		}
+	}, [cardSide, handleSetSide]);
+
+	const handlePrevious = useCallback(() => {
+		if (locked) {
+			return;
+		}
+		setLocked(true);
+		handleSetSide(side);
+		setDirection('left');
+		setCardIdx(v => v > 0 ? v - 1 : v);
+	}, [handleSetSide, locked, side]);
+
 	const handleNext = useCallback(() => {
-		setCardSide(side);
+		if (locked) {
+			return;
+		}
+		setLocked(true);
+		handleSetSide(side);
+		setDirection('right');
 		setCardIdx(v => v < cards.length - 1 ? v + 1 : v);
-	}, [cards.length, side]);
+	}, [cards.length, handleSetSide, locked, side]);
 
 	const handleKeys = useCallback((e: KeyboardEvent) => {
 		if (e.key === ' ') {
 			handleRotate();
 			e.preventDefault();
+			e.stopImmediatePropagation();
 			return false;
 		}
+
 		if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
 			handlePrevious();
 			e.preventDefault();
+			e.stopImmediatePropagation();
 			return false;
 		}
+
 		if (e.key === 'ArrowRight' || e.key === 'Enter') {
 			handleNext();
 			e.preventDefault();
+			e.stopImmediatePropagation();
 			return false;
 		}
 	}, [handleNext, handlePrevious, handleRotate]);
 
 	useEffect(() => {
-		window.addEventListener('keydown', handleKeys);
+		window.addEventListener('keyup', handleKeys);
 		return () => {
-			window.removeEventListener('keydown', handleKeys);
+			window.removeEventListener('keyup', handleKeys);
 		}
 	}, [handleKeys]);
 
@@ -66,13 +95,18 @@ export const SessionScene: React.FC<TSessionSceneProps> = ({cards, side}) => {
 
 	return <>
 		<div className={'scene-main'}>
-			<Scene
+			<SessionScene
 				card={cards[cardIdx]}
-				onSetSide={setCardSide}
+				prevCard={cardIdx > 0 ? cards[cardIdx - 1] : void 0}
+				nextCard={cardIdx < cards.length - 1 ? cards[cardIdx + 1] : void 0}
+				onSetSide={handleSetSide}
+				direction={direction}
+				onCompleteAnimation={handleCompleteAnimation}
 				side={cardSide}/>
 		</div>
 
 		<div className={'scene-controls'}>
+			{cardIdx}
 			<div
 				className={'sc-button icon-left' + (cardIdx === 0 ? ' disabled' : '')}
 				onClick={handlePrevious}>

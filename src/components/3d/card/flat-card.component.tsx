@@ -9,8 +9,14 @@ import {CardActiveClick} from "./parts/card-active-click.component.tsx";
 const subRotateHSize = Math.PI / 16;
 const subRotateVSize = Math.PI / 32;
 
-export const FlatCard: React.FC<TCardProps> = ({faces, onSetSide, active = true, side = 0}) => {
-	const [cardSide, setCardSide] = useState(side);
+export const FlatCard: React.FC<TCardProps> = (
+	{
+		faces,
+		onSetSide,
+		active = true,
+		side = 0,
+	}) => {
+	const [rotateDir, setRotateDir] = useState(1);
 
 	const [activeSubRotateLeft, setActiveSubRotateLeft] = useState(false);
 	const [activeSubRotateRight, setActiveSubRotateRight] = useState(false);
@@ -32,7 +38,7 @@ export const FlatCard: React.FC<TCardProps> = ({faces, onSetSide, active = true,
 	});
 
 	const [rotateProps, api] = useSpring(() => ({
-			from: {'rotation-y': Math.PI / 2},
+			from: {'rotation-y': 0},
 			to: {'rotation-y': 0},
 			config: {tension: 180, friction: 12, duration: 200},
 			//config: config.wobbly
@@ -41,27 +47,15 @@ export const FlatCard: React.FC<TCardProps> = ({faces, onSetSide, active = true,
 
 	const ref = useRef<any>();
 
-	useEffect(() => {
-		setCardSide(side);
-	}, [side]);
 
 	useEffect(() => {
-		if (cardSide === -1) {
-			api.update({
-				to: {'rotation-y': 0},
-			});
-			api.start();
-			return;
-		}
-
 		ref.current.rotation.y = 0;
 
 		api.update({
-			to: {'rotation-y': cardSide * Math.PI},
+			to: {'rotation-y': side * Math.PI * rotateDir},
 		});
 		api.start();
-		onSetSide && onSetSide(cardSide);
-	}, [api, cardSide, onSetSide]);
+	}, [api, rotateDir, side]);
 
 	const moveTopLeft = useCallback(() => {
 		setActiveSubRotateTop(true);
@@ -135,12 +129,14 @@ export const FlatCard: React.FC<TCardProps> = ({faces, onSetSide, active = true,
 	}, []);
 
 	const clickLeft = useCallback(() => {
-		setCardSide(v => v > 0 ? v - 1 : v + 1);
-	}, []);
+		setRotateDir(-1);
+		onSetSide && onSetSide(side > 0 ? 0 : 1);
+	}, [onSetSide, side]);
 
 	const clickRight = useCallback(() => {
-		setCardSide(v => v > 0 ? v - 1 : v + 1);
-	}, []);
+		setRotateDir(1);
+		onSetSide && onSetSide(side > 0 ? 0 : 1);
+	}, [onSetSide, side]);
 
 	// Input parameters
 	const face1 = getFaceParameters(faces[0]);
