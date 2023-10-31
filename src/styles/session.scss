@@ -111,17 +111,10 @@
 	position: relative;
 	flex-flow: row nowrap;
 
-	.sc-button {
-		margin-left: 1rem;
-	}
-
-	.sc-button.icon-left {
-		margin-left: 0;
-	}
-
 	.scene-progress-outer {
+		z-index: -1;
 		position: absolute;
-		top: -32px;
+		top: -24px;
 		left: 0;
 		right: 0;
 		height: 4px;
@@ -152,17 +145,27 @@
 	border: 1px solid mixins.whiteTrans(.3);
 	padding: 6px 16px;
 	cursor: pointer;
-	transition: all .2s ease;
+	transition: all .1s ease;
 	user-select: none;
 	color: white;
+	margin-left: .5rem;
 
-	svg {
-		margin: 0 0 0 .5rem;
+	&:first-of-type {
+		margin: 0;
 	}
 
-	&.icon-left {
+	svg {
+		margin: 0 .5rem 0 0;
+
+		&:focus {
+			outline: none;
+			color: var(--app-background-color);
+		}
+	}
+
+	&.icon-only {
 		svg {
-			margin: 0 .5rem 0 0;
+			margin: 0;
 		}
 	}
 

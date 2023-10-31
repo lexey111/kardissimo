@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {useExclusiveHook} from "../components/utils/useExclusive.hook.tsx";
@@ -53,6 +53,10 @@ export const SessionPage: React.FC = () => {
 	const side = Number(searchParams?.get('side'));
 
 	useExclusiveHook(); // hide menu
+
+	const handleDone = useCallback(() => {
+		navigate('/run'); // error by navigate, prevent throttling
+	}, []);
 
 	if (searchParams.size === 0) {
 		setTimeout(() => {
@@ -133,6 +137,7 @@ export const SessionPage: React.FC = () => {
 				</div>}/>
 				<div className={'scene-content'}>
 					<SessionStage
+						onDone={handleDone}
 						side={side}
 						cards={cards}/>
 				</div>

@@ -216,7 +216,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
 						<a data-tooltip-id="title-tooltip" className={'tooltip-error'}>⚠</a>
 						<Tooltip
 							id="title-tooltip" place={'right'}
-							style={{backgroundColor: "#ff005b", color: "#fff"}}>
+							variant={'error'}>
 							{errors.title}
 						</Tooltip>
 					</div>}
@@ -264,7 +264,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
 								<a data-tooltip-id={"title-tooltip-" + idx} className={'tooltip-error'}>⚠</a>
 								<Tooltip
 									id={"title-tooltip-" + idx} place={'right'}
-									style={{backgroundColor: "#ff005b", color: "#fff"}}>
+									variant={'error'}>
 									{errors?.['name' + idx]}
 								</Tooltip>
 							</div>}

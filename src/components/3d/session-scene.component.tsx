@@ -1,12 +1,13 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import {Canvas} from "@react-three/fiber";
 
-import {Stage} from "@react-three/drei";
+import {Cloud, Clouds, Stage} from "@react-three/drei";
 import {FlatCard} from "./card/flat-card.component.tsx";
 import {TPreparedCard} from "../../store/data/types.ts";
 import {animated, Controller} from "@react-spring/three";
 import {easeInOut} from "framer-motion";
 import {useDebouncedResizeHook} from "../utils/useDebouncedResize.hook.tsx";
+import {MeshBasicMaterial} from "three";
 
 // https://docs.pmnd.rs/react-three-fiber/api/canvas
 // https://github.com/pmndrs/drei#screenspace
@@ -19,19 +20,26 @@ export type TSceneProps = {
 	onSetSide: (side: number) => void
 	onCompleteAnimation: () => void
 	side: number
+	percent: number
 }
 
-const animationDuration = 600;
+const animationDuration = 400;
 const animationConfig = {tension: 18, friction: 1, duration: animationDuration, easing: easeInOut};
 
 const leftPosition = {"position-x": -120, 'position-z': 10, scale: [0, .8, 0], 'rotation-y': Math.PI / 2};
-const curPosition = {"position-x": 0, 'position-z': 0, scale: [1, 1, 1], 'rotation-y': 0};
+const curPosition = {
+	"position-x": 0,
+	'position-z': 0,
+	scale: [1, 1, 1],
+	'rotation-x': 0,
+	'rotation-y': 0
+};
 const rightPosition = {"position-x": 120, 'position-z': 10, scale: [0, .8, 0], 'rotation-y': -Math.PI / 2};
 
 const mostRightPosition = {"position-x": 120, 'position-z': 10, scale: [0, 0, 0], 'rotation-y': -Math.PI};
 const mostLeftPosition = {"position-x": -120, 'position-z': 10, scale: [0, 0, 0], 'rotation-y': Math.PI};
 
-const animationsNext = new Controller({
+const animationsLeft = new Controller({
 	...leftPosition,
 	config: {...animationConfig}
 });
@@ -41,53 +49,60 @@ const animationsCurrent = new Controller({
 	config: {...animationConfig}
 });
 
-const animationsPrev = new Controller({
+const animationsRight = new Controller({
 	...rightPosition,
 	config: {...animationConfig}
 });
 
+const animationsClouds = new Controller({
+	scale: [0, 0, 0],
+	'position-y': 0,
+	'position-z': 10,
+	config: {...animationConfig, duration: 600}
+});
+
+const animationsIntroCard = new Controller({
+	scale: [1, 1, 1],
+	'rotation-x': -Math.PI,
+	config: {...animationConfig, duration: 1200}
+});
 
 export const SessionScene: React.FC<TSceneProps> = (
 	{
 		card, prevCard, nextCard,
 		onSetSide, onCompleteAnimation,
 		direction,
-		side
+		side,
 	}) => {
-	const destroying = useRef(false);
-	const [isAnimating, setIsAnimating] = useState(false);
+	const [isAnimating, setIsAnimating] = useState(true);
+	const intro = useRef(true);
 
-	useEffect(() => {
-		return () => {
-			destroying.current = true;
-		};
-	}, []);
-
-	const [, updateState] = React.useState();
+	const [, rerender] = React.useState();
 	// @ts-ignore
-	const forceUpdate = React.useCallback(() => updateState({}), []);
+	const forceUpdate = React.useCallback(() => rerender({}), []);
 
 	const {display} = useDebouncedResizeHook();
 
-	const _prevCard = useRef<any>();
-	const _nextCard = useRef<any>();
+	const _rightCard = useRef<any>();
+	const _leftCard = useRef<any>();
 	const _curCard = useRef<any>();
 
 	const cardSet = useRef<any>();
 
 	const resetMovement = useCallback(() => {
-		animationsNext.set({...leftPosition});
+		animationsLeft.set({...leftPosition});
 		animationsCurrent.set({...curPosition});
-		animationsPrev.set({...rightPosition});
+		animationsRight.set({...rightPosition});
 	}, []);
 
 	const updateCardsState = useCallback(() => {
-		console.log('>>> done')
-
+		if (intro.current) {
+			return;
+		}
 		setIsAnimating(false);
 		_curCard.current = cardSet.current[0];
-		_nextCard.current = cardSet.current[1];
-		_prevCard.current = cardSet.current[2];
+		_leftCard.current = cardSet.current[1];
+		_rightCard.current = cardSet.current[2];
 
 		resetMovement();
 		forceUpdate();
@@ -96,24 +111,54 @@ export const SessionScene: React.FC<TSceneProps> = (
 	}, []);
 
 	const startAnimationsRight = useCallback(() => {
-		console.log('++++++++++++ START R ++++++++++++++');
 
-		void animationsNext.start({...curPosition, onResolve: updateCardsState});
+		void animationsLeft.start({...curPosition, onResolve: updateCardsState});
 		void animationsCurrent.start({...rightPosition});
-		void animationsPrev.start({...mostRightPosition});
+		void animationsRight.start({...mostRightPosition});
 
 		setIsAnimating(true);
 	}, []);
 
 	const startAnimationsLeft = useCallback(() => {
-		console.log('++++++++++++ START L ++++++++++++++');
 
-		void animationsNext.start({...mostLeftPosition});
+		void animationsLeft.start({...mostLeftPosition});
 		void animationsCurrent.start({...leftPosition});
-		void animationsPrev.start({...curPosition, onResolve: updateCardsState});
+		void animationsRight.start({...curPosition, onResolve: updateCardsState});
 
 		setIsAnimating(true);
 	}, []);
+
+	useEffect(() => {
+		animationsIntroCard.set({
+			scale: [0, 0, 0],
+			'rotation-x': 0
+		});
+
+		animationsClouds.set({
+			scale: [0, 0, 0],
+			'position-y': 0,
+			'position-z': -10,
+		})
+
+		void animationsIntroCard.start({
+			'rotation-x': 0, scale: [1, 1, 1], config: {...animationConfig, duration: 1200}
+		});
+
+		void animationsClouds.start({
+			scale: [1, 1, 1], 'position-y': 0, 'position-z': 2,
+			onResolve: () => {
+				void animationsClouds.start({
+					scale: [0, 1, 0], 'position-y': 0, 'position-z': -100,
+					onResolve: () => {
+						intro.current = false;
+						setIsAnimating(() => false);
+						updateCardsState();
+					},
+					config: {duration: 1000},
+				})
+			}
+		});
+	}, [updateCardsState]);
 
 	useEffect(() => {
 		cardSet.current = [card, nextCard, prevCard];
@@ -137,28 +182,27 @@ export const SessionScene: React.FC<TSceneProps> = (
 	return <Canvas
 		camera={{fov: 75, near: 0.1, far: 1000, position: [0, 0, 300]}}
 	>
-
 		<Stage
 			adjustCamera={.9} intensity={6} preset="rembrandt"
 			shadows={{type: 'contact', color: 'skyblue', colorBlend: 2, opacity: 1}}
 			environment="city"
 		>
 			<mesh visible={!isAnimating}>
-				{nextCard && <group {...leftPosition}>
+				{nextCard && <group {...leftPosition as any}>
 					<FlatCard
 						active={false}
 						faces={nextCard}
 						side={0}/>
 				</group>}
 
-				{card && <group {...curPosition}>
+				{card && <group {...curPosition as any}>
 					<FlatCard
 						faces={card}
 						side={side}
 						onSetSide={onSetSide}/>
 				</group>}
 
-				{prevCard && <group {...rightPosition}>
+				{prevCard && <group {...rightPosition as any}>
 					<FlatCard
 						active={false}
 						faces={prevCard}
@@ -166,25 +210,56 @@ export const SessionScene: React.FC<TSceneProps> = (
 				</group>}
 			</mesh>
 
-			<mesh visible={isAnimating}>
-				{_nextCard.current && <animated.group {...animationsNext.springs}>
+			{intro.current && <animated.group {...animationsClouds.springs}>
+				<Clouds material={MeshBasicMaterial}>
+					<Cloud
+						segments={60}
+						bounds={[100, 120, 20]}
+						volume={400}
+						speed={-2}
+						opacity={0.2}
+						growth={10}
+						seed={100}
+						color={card[0].color}/>
+					<Cloud
+						position-z={20}
+						seed={10}
+						fade={9}
+						speed={2}
+						growth={12}
+						segments={60}
+						volume={350}
+						opacity={0.2}
+						bounds={[30, 100, 20]}
+						color={card[1].color}/>
+				</Clouds>
+			</animated.group>}
+
+			{intro.current && card && <animated.group {...animationsIntroCard.springs}>
+				<FlatCard
+					faces={card}
+					active={false}
+					side={side}/>
+			</animated.group>}
+
+			<mesh visible={isAnimating && !intro.current}>
+				{_leftCard.current && <animated.group {...animationsLeft.springs}>
 					<FlatCard
 						active={false}
-						faces={_nextCard.current}
+						faces={_leftCard.current}
 						side={0}/>
 				</animated.group>}
 
 				{_curCard.current && <animated.group {...animationsCurrent.springs}>
 					<FlatCard
 						faces={_curCard.current}
-						side={side}
-						onSetSide={onSetSide}/>
+						side={side}/>
 				</animated.group>}
 
-				{_prevCard.current && <animated.group {...animationsPrev.springs}>
+				{_rightCard.current && <animated.group {...animationsRight.springs}>
 					<FlatCard
 						active={false}
-						faces={_prevCard.current}
+						faces={_rightCard.current}
 						side={0}/>
 				</animated.group>}
 			</mesh>
