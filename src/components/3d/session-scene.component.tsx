@@ -1,13 +1,12 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import {Canvas} from "@react-three/fiber";
-
-import {Cloud, Clouds, Stage} from "@react-three/drei";
 import {FlatCard} from "./card/flat-card.component.tsx";
 import {TPreparedCard} from "../../store/data/types.ts";
 import {animated, Controller} from "@react-spring/three";
 import {easeInOut} from "framer-motion";
 import {useDebouncedResizeHook} from "../utils/useDebouncedResize.hook.tsx";
-import {MeshBasicMaterial} from "three";
+import {SessionClouds} from "./session-clouds.component.tsx";
+import {Stage} from "@react-three/drei";
 
 // https://docs.pmnd.rs/react-three-fiber/api/canvas
 // https://github.com/pmndrs/drei#screenspace
@@ -54,16 +53,10 @@ const animationsRight = new Controller({
 	config: {...animationConfig}
 });
 
-const animationsClouds = new Controller({
-	scale: [0, 0, 0],
-	'position-y': 0,
-	'position-z': 10,
-	config: {...animationConfig, duration: 600}
-});
-
 const animationsIntroCard = new Controller({
 	scale: [1, 1, 1],
 	'rotation-x': -Math.PI,
+	'rotation-y': -Math.PI,
 	config: {...animationConfig, duration: 1200}
 });
 
@@ -75,7 +68,7 @@ export const SessionScene: React.FC<TSceneProps> = (
 		side,
 	}) => {
 	const [isAnimating, setIsAnimating] = useState(true);
-	const intro = useRef(true);
+	const intro = useRef(false);
 
 	const [, rerender] = React.useState();
 	// @ts-ignore
@@ -131,34 +124,21 @@ export const SessionScene: React.FC<TSceneProps> = (
 	useEffect(() => {
 		animationsIntroCard.set({
 			scale: [0, 0, 0],
-			'rotation-x': 0
+			'rotation-x': -Math.PI / 1.5,
+			'rotation-y': -Math.PI / 1.5
 		});
 
-		animationsClouds.set({
-			scale: [0, 0, 0],
-			'position-y': 0,
-			'position-z': -10,
-		})
+		intro.current = true;
+		forceUpdate();
 
 		void animationsIntroCard.start({
-			'rotation-x': 0, scale: [1, 1, 1], config: {...animationConfig, duration: 1200}
+			'rotation-x': 0, 'rotation-y': 0, scale: [1, 1, 1], onResolve: () => {
+				intro.current = false;
+				setIsAnimating(() => false);
+				updateCardsState();
+			}, config: {...animationConfig, duration: 1200, easing: easeInOut}
 		});
-
-		void animationsClouds.start({
-			scale: [1, 1, 1], 'position-y': 0, 'position-z': 2,
-			onResolve: () => {
-				void animationsClouds.start({
-					scale: [0, 1, 0], 'position-y': 0, 'position-z': -100,
-					onResolve: () => {
-						intro.current = false;
-						setIsAnimating(() => false);
-						updateCardsState();
-					},
-					config: {duration: 1000},
-				})
-			}
-		});
-	}, [updateCardsState]);
+	}, []);
 
 	useEffect(() => {
 		cardSet.current = [card, nextCard, prevCard];
@@ -210,30 +190,7 @@ export const SessionScene: React.FC<TSceneProps> = (
 				</group>}
 			</mesh>
 
-			{intro.current && <animated.group {...animationsClouds.springs}>
-				<Clouds material={MeshBasicMaterial}>
-					<Cloud
-						segments={60}
-						bounds={[100, 120, 20]}
-						volume={400}
-						speed={-2}
-						opacity={0.2}
-						growth={10}
-						seed={100}
-						color={card[0].color}/>
-					<Cloud
-						position-z={20}
-						seed={10}
-						fade={9}
-						speed={2}
-						growth={12}
-						segments={60}
-						volume={350}
-						opacity={0.2}
-						bounds={[30, 100, 20]}
-						color={card[1].color}/>
-				</Clouds>
-			</animated.group>}
+			{card && <SessionClouds color1={card[0].color} color2={card[1].color}/>}
 
 			{intro.current && card && <animated.group {...animationsIntroCard.springs}>
 				<FlatCard
