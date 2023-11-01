@@ -20,13 +20,13 @@ export const RunList: React.FC = () => {
 
 	const handleRun = useCallback((data: {
 		order: 'random' | 'linear',
-		piece: 'random' | 'exact',
-		side: number,
+		chunk: 'random' | 'exact',
+		side: number, // -1 === random
 		from: number,
 		to: number
 	}) => {
 		setOpen(false);
-		navigate(`/session/${currentCollection.current?.id}?order=${data.order}&piece=${data.piece}&side=${data.side}&from=${data.from}&to=${data.to}`);
+		navigate(`/session/${currentCollection.current?.id}?order=${data.order}&chunk=${data.chunk}&side=${data.side}&from=${data.from}&to=${data.to}`);
 	}, [open]);
 
 	const handleOpen = useCallback((id: string) => {

@@ -20,7 +20,7 @@ export type TRunListDialogProps = {
 	isOpen: boolean
 	handleRun: (data: {
 		order: 'random' | 'linear',
-		piece: 'random' | 'exact'
+		chunk: 'random' | 'exact'
 		side: number,
 		from: number,
 		to: number
@@ -99,7 +99,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 			handleRun({
 				order: order, // random, linear
 				side: side, // 0, 1...
-				piece: 'exact',
+				chunk: 'exact',
 				from: rangeState.value[0] - 1, // 10
 				to: rangeState.value[1] - 1, // 20
 			});
@@ -107,7 +107,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 			handleRun({
 				order: order, // random, linear
 				side: side, // 0, 1...
-				piece: pieceType,
+				chunk: pieceType,
 				from: startIndex, // 10
 				to: Math.min(startIndex + chunkSize - 1, cardCount - 1)
 			});
