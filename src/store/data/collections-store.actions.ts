@@ -156,7 +156,10 @@ createCollection({
 	title: 'Second collection',
 	author: 'John Doe',
 	isLocal: true,
-	sides: [{name: 'Françes'}, {name: 'Español'}]
+	sides: [
+		{name: 'English', textColor: '#222', color: '#eee'},
+		{name: 'Español', textColor: '#02326c', color: '#d29002'}
+	]
 });
 
 createCollection({
@@ -164,7 +167,10 @@ createCollection({
 	title: 'Dynamic collection',
 	author: 'John Doe',
 	isLocal: true,
-	sides: [{name: 'Ukrainian'}, {name: 'English'}]
+	sides: [
+		{name: 'Ukrainian', textColor: '#222', color: '#eee'},
+		{name: 'English', textColor: '#02326c', color: '#d29002'}
+	]
 });
 
 for (let i = 0; i < 100; i++) {
@@ -172,6 +178,9 @@ for (let i = 0; i < 100; i++) {
 
 	createCard('6789', {
 		id,
-		sides: [{header: '', text: 'Hello, world #' + (i + 1), footer: (i + 1).toString() + 'A'}, {header: '', text: '¡Hola, Mundo!', footer: (i + 1).toString() + 'B'}],
+		sides: [
+			{header: '', text: 'Hello, world #' + (i + 1), footer: (i + 1).toString() + 'A'},
+			{header: '', text: '¡Hola, Mundo!', footer: (i + 1).toString() + 'B'}
+		],
 	});
 }

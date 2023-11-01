@@ -172,7 +172,7 @@ export const SessionScene: React.FC<TSceneProps> = (
 					<FlatCard
 						active={false}
 						faces={nextCard}
-						side={0}/>
+						side={side}/>
 				</group>}
 
 				{card && <group {...curPosition as any}>
@@ -186,7 +186,7 @@ export const SessionScene: React.FC<TSceneProps> = (
 					<FlatCard
 						active={false}
 						faces={prevCard}
-						side={0}/>
+						side={side}/>
 				</group>}
 			</mesh>
 
@@ -204,7 +204,7 @@ export const SessionScene: React.FC<TSceneProps> = (
 					<FlatCard
 						active={false}
 						faces={_leftCard.current}
-						side={0}/>
+						side={side}/>
 				</animated.group>}
 
 				{_curCard.current && <animated.group {...animationsCurrent.springs}>
@@ -217,7 +217,7 @@ export const SessionScene: React.FC<TSceneProps> = (
 					<FlatCard
 						active={false}
 						faces={_rightCard.current}
-						side={0}/>
+						side={side}/>
 				</animated.group>}
 			</mesh>
 		</Stage>

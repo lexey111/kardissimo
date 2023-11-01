@@ -15,7 +15,7 @@ export type TSessionSceneProps = {
 export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}) => {
 	const [cardIdx, setCardIdx] = useState(0);
 
-	const [cardSide, setCardSide] = useState(side);
+	const [cardSide, setCardSide] = useState(side !== -1 ? side : 0);
 	const [locked, setLocked] = useState(true);
 
 	const [direction, setDirection] = useState<'left' | 'right'>('left');
@@ -26,7 +26,7 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 
 	const handleSetSide = useCallback((side: number) => {
 		setCardSide(() => side);
-	}, []);
+	}, [setCardSide]);
 
 	const handleRotate = useCallback(() => {
 		if (locked) {
@@ -45,7 +45,7 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 			return;
 		}
 		setLocked(true);
-		handleSetSide(side);
+		handleSetSide(0);
 		setDirection('left');
 		setCardIdx(v => v > 0 ? v - 1 : v);
 	}, [cardIdx, handleSetSide, locked, side]);
@@ -55,7 +55,7 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 			return;
 		}
 		setLocked(true);
-		handleSetSide(side);
+		handleSetSide(0);
 		setDirection('right');
 		setCardIdx(v => v < cards.length - 1 ? v + 1 : v);
 	}, [cardIdx, cards.length, handleSetSide, locked, side]);
