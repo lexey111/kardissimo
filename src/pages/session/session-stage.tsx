@@ -5,6 +5,7 @@ import {SessionScene} from "../../components/3d/session-scene.component.tsx";
 import {FaArrowLeft, FaArrowRight} from "react-icons/fa6";
 import {Tooltip} from "react-tooltip";
 import {IoIosCheckmarkCircle} from "react-icons/io";
+import {Button} from "../../components/utils/button.component.tsx";
 
 export type TSessionSceneProps = {
 	cards: TPreparedCards
@@ -14,6 +15,8 @@ export type TSessionSceneProps = {
 
 export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}) => {
 	const [cardIdx, setCardIdx] = useState(0);
+	const [shownCards, setShownCards] = useState(new Array(cards.length).fill(false));
+	const [allShown, setAllShown] = useState(false);
 
 	const [cardSide, setCardSide] = useState(side !== -1 ? side : 0);
 	const [locked, setLocked] = useState(true);
@@ -60,6 +63,13 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 		setCardIdx(v => v < cards.length - 1 ? v + 1 : v);
 	}, [cardIdx, cards.length, handleSetSide, locked, side]);
 
+	const gotoCard = useCallback((idx: number) => {
+		setLocked(true);
+		handleSetSide(0);
+		setDirection(idx > cardIdx ? 'right' : 'left');
+		setCardIdx(() => idx);
+	}, [cardIdx, handleSetSide, locked, side]);
+
 	const handleKeys = useCallback((e: KeyboardEvent) => {
 		if (e.key === ' ') {
 			handleRotate();
@@ -83,6 +93,19 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 		}
 	}, [handleNext, handlePrevious, handleRotate]);
 
+	const closeConfirmation = useCallback(() => {
+		window.focus();
+
+		if (document.activeElement && (document.activeElement as any)['blur']) {
+			(document.activeElement as any)['blur']();
+		}
+	}, []);
+
+	const confirmExit = useCallback(() => {
+		console.log('confirm exit')
+		onDone();
+	}, []);
+
 	useEffect(() => {
 		window.addEventListener('keyup', handleKeys);
 		return () => {
@@ -90,14 +113,13 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 		}
 	}, [handleKeys]);
 
-	let percentage = Math.floor(((cardIdx + 1) / cards.length) * 1000) / 10;
-	if (cardIdx === 0 && percentage >= 10) {
-		percentage = 4;
-	}
+	useEffect(() => {
+		setShownCards(v => v.map((x, idx) => idx === cardIdx ? true : x));
+	}, [cardIdx]);
 
-	if (cardIdx === cards.length - 1) {
-		percentage = 100;
-	}
+	useEffect(() => {
+		setAllShown(() => shownCards.every(Boolean));
+	}, [shownCards]);
 
 	return <>
 		<div className={'scene-main'}>
@@ -108,7 +130,6 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 				onSetSide={handleSetSide}
 				direction={direction}
 				onCompleteAnimation={handleCompleteAnimation}
-				percent={percentage}
 				side={cardSide}/>
 		</div>
 
@@ -141,13 +162,33 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 				</Tooltip>
 			</div>
 			<div
-				className={'sc-button'}
-				onClick={onDone}>
+				className={'sc-button' + (allShown ? ' all-ready' : '')}
+				tabIndex={0}
+				onClick={() => allShown && onDone()}>
 				<IoIosCheckmarkCircle/> Done
+
+				{!allShown && <div className={'done-confirmation'}>
+					<p>Are you sure you want to exit?</p>
+					<div>
+						<Button type={'secondary'} size={'sm'} onClick={closeConfirmation}>No</Button>
+						<Button type={'primary'} size={'sm'} onClick={confirmExit}>Yes</Button>
+					</div>
+				</div>}
+
 			</div>
 
 			<div className={'scene-progress-outer'}>
-				<div className={'scene-progress-inner'} style={{width: percentage + '%'}}></div>
+				<div className={'scene-progress-text'}>{cardIdx + 1} / {cards.length}</div>
+				<div className={'progress-dots'}>
+					{shownCards.map((shown, idx) => {
+						return <div
+							className={'progress-dot' + (shown ? ' shown' : '') + (idx === cardIdx ? ' current' : '')}
+							onClick={() => gotoCard(idx)}
+							key={idx}>
+							<span>{idx + 1}</span>
+						</div>;
+					})}
+				</div>
 			</div>
 		</div>
 	</>

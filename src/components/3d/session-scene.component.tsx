@@ -19,10 +19,9 @@ export type TSceneProps = {
 	onSetSide: (side: number) => void
 	onCompleteAnimation: () => void
 	side: number
-	percent: number
 }
 
-const animationDuration = 400;
+const animationDuration = 300;
 const animationConfig = {tension: 18, friction: 1, duration: animationDuration, easing: easeInOut};
 
 const leftPosition = {"position-x": -120, 'position-z': 10, scale: [0, .8, 0], 'rotation-y': Math.PI / 2};

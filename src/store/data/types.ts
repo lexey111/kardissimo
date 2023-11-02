@@ -34,7 +34,6 @@ export type TPreparedSide = { id?: string } & TCardSide & TCollectionSide;
 export type TPreparedCard = Array<TPreparedSide>; // [{id, text, color, font...}, {id, text, color, font...}]...
 export type TPreparedCards = Array<TPreparedCard>; // [ [id...], [id...] ]
 
-
 export type TCollectionSide = { name: string } & TCardAppearance;
 
 export type TCollection = {
