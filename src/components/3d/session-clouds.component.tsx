@@ -16,11 +16,13 @@ export const SessionClouds: React.FC<TSessionCloudsProps> = ({color1, color2}) =
 	useFrame((_, delta) => {
 		if (cloudRef.current && opacity > 0) {
 			cloudRef.current.rotation.y += delta;
-			cloudRef.current.position.y += 2;
+			cloudRef.current.position.y += 5;
+			cloudRef.current.position.z += 1;
 			cloudRef.current.scale.x -= .001;
-			cloudRef.current.scale.y -= .001;
-			setOpacity(v => v > 0 ? v - 0.013 : 0);
-			setVolume(v => v > 0 ? v - 1 : 0);
+			cloudRef.current.scale.y -= .01;
+
+			setOpacity(v => v > 0 ? v - 0.03 : 0);
+			setVolume(v => v > 0 ? v - 13 : 0);
 		}
 	});
 
@@ -28,7 +30,7 @@ export const SessionClouds: React.FC<TSessionCloudsProps> = ({color1, color2}) =
 		return null;
 	}
 
-	return <Clouds position-z={20} position-y={-50} ref={cloudRef}>
+	return <Clouds position-z={30} position-y={-70} ref={cloudRef}>
 		<Cloud
 			segments={60}
 			bounds={[100, 120, 20]}
@@ -36,7 +38,7 @@ export const SessionClouds: React.FC<TSessionCloudsProps> = ({color1, color2}) =
 			speed={-2}
 			opacity={opacity}
 			growth={10}
-			seed={100}
+			seed={2}
 			color={color1 || '#fff'}/>
 		<Cloud
 			seed={10}

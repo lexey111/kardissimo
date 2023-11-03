@@ -97,11 +97,6 @@
 	position: relative;
 
 	transform-origin: top center;
-	animation-name: scene-appear;
-	animation-timing-function: ease-in-out;
-	animation-duration: 1s;
-	animation-play-state: revert;
-	animation-fill-mode: backwards;
 	margin-bottom: 100px;
 }
 
@@ -112,7 +107,7 @@
 	flex-flow: row nowrap;
 
 	transform-origin: top center;
-	animation-name: progress-appear;
+	animation-name: controls-appear;
 	animation-timing-function: ease-in-out;
 	animation-duration: 1s;
 	animation-play-state: revert;
@@ -298,18 +293,7 @@
 	}
 }
 
-@keyframes scene-appear {
-	0% {
-		opacity: 0;
-		transform: translateY(-100px);
-	}
-	100% {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-@keyframes progress-appear {
+@keyframes controls-appear {
 	0% {
 		opacity: 0;
 		transform: translateY(100px);

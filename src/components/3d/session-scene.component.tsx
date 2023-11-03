@@ -56,7 +56,7 @@ const animationsIntroCard = new Controller({
 	scale: [1, 1, 1],
 	'rotation-x': -Math.PI,
 	'rotation-y': -Math.PI,
-	config: {...animationConfig, duration: 1200}
+	config: {...animationConfig, duration: 500}
 });
 
 export const SessionScene: React.FC<TSceneProps> = (
@@ -135,7 +135,7 @@ export const SessionScene: React.FC<TSceneProps> = (
 				intro.current = false;
 				setIsAnimating(() => false);
 				updateCardsState();
-			}, config: {...animationConfig, duration: 1200, easing: easeInOut}
+			}, config: {...animationConfig, duration: 400, easing: easeInOut}
 		});
 	}, []);
 

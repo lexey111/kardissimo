@@ -20,6 +20,7 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 
 	const [cardSide, setCardSide] = useState(side !== -1 ? side : 0);
 	const [locked, setLocked] = useState(true);
+	const [delayedShow, setDelayedShow] = useState(true);
 
 	const [direction, setDirection] = useState<'left' | 'right'>('left');
 
@@ -66,6 +67,13 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 	const gotoCard = useCallback((idx: number) => {
 		setLocked(true);
 		handleSetSide(0);
+		if (Math.abs(idx - cardIdx) > 1) {
+
+			setDelayedShow(false);
+			setTimeout(() => {
+				setDelayedShow(true);
+			}, 20);
+		}
 		setDirection(idx > cardIdx ? 'right' : 'left');
 		setCardIdx(() => idx);
 	}, [cardIdx, handleSetSide, locked, side]);
@@ -123,7 +131,7 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 
 	return <>
 		<div className={'scene-main'}>
-			<SessionScene
+			{delayedShow && <SessionScene
 				card={cards[cardIdx]}
 				prevCard={cardIdx > 0 ? cards[cardIdx - 1] : void 0}
 				nextCard={cardIdx < cards.length - 1 ? cards[cardIdx + 1] : void 0}
@@ -131,6 +139,7 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 				direction={direction}
 				onCompleteAnimation={handleCompleteAnimation}
 				side={cardSide}/>
+			}
 		</div>
 
 		<div className={'scene-controls'}>
