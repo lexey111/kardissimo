@@ -46,7 +46,7 @@ export const CollectionFallingStayCard: React.FC = () => {
 	}, [setFalling]);
 
 	return <animated.mesh
-		scale={[0.34, 0.34, 2]}
+		scale={[0.34, 0.34, .4]}
 		position-z={positionZ}
 		position-y={positionY}
 		rotation-x={rotationX}
@@ -54,8 +54,8 @@ export const CollectionFallingStayCard: React.FC = () => {
 		<FlatCard
 			active={false}
 			faces={[
-				{text: 'Hello, world!', ...defaultSide, color: '#ffaf00'},
-				{text: '¡Hola, mundo!', ...defaultSide, color: '#00b2ff'},
+				{text: '"Hello, World"\nCollection', header: 'English', footer: 'Español', ...defaultSide, color: '#ffaf00'},
+				{text: '¡Hola, Mundo!', ...defaultSide, color: '#00b2ff'},
 			]}/>
 	</animated.mesh>;
 };

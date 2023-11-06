@@ -4,7 +4,7 @@ import {TCardFaceProp} from "../card-types.ts";
 export const cardWidth = 200;
 export const cardHeight = 300;
 export const cardBorderRadius = 20;
-export const cardThickness = 1;
+export const cardThickness = 4;
 
 export const DefaultValues = {
 	text: 'No text',

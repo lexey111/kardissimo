@@ -5,11 +5,11 @@ import {ColorSchemes} from "../../resources/colors.ts";
 
 export const defaultSide: TCollectionSide = {
 	name: 'Side',
-	color: ColorSchemes[Object.keys(ColorSchemes)[0]].background,
+	color: ColorSchemes[Object.keys(ColorSchemes)[0]].color,
 	fontName: Object.keys(Fonts)[0],
 	colorSchemaName: Object.keys(ColorSchemes)[0],
 	fontSize: 'M',
-	textColor: ColorSchemes[Object.keys(ColorSchemes)[0]].text
+	textColor: ColorSchemes[Object.keys(ColorSchemes)[0]].textColor
 };
 
 export const defaultCollection = {

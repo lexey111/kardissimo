@@ -38,7 +38,7 @@ export const CollectionFallingCard: React.FC<TCollectionFallingCardProps> = ({co
 		}, 20);
 	}, [setFalling]);
 
-	return <animated.mesh scale={[.4, .4, 3.5]} rotation-x={Math.PI / 2} rotation-z={rotateCard} position-y={positionY}>
+	return <animated.mesh scale={[.4, .4, 0.9]} rotation-x={Math.PI / 2} rotation-z={rotateCard} position-y={positionY}>
 		<CardSurface color={color}/>
 	</animated.mesh>;
 };

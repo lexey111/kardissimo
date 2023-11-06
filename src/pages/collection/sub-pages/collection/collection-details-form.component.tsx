@@ -112,8 +112,8 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
 				return {
 					...side,
 					colorSchemaName: schemeName,
-					color: scheme.background,
-					textColor: scheme.text
+					color: scheme.color,
+					textColor: scheme.textColor
 				}
 			});
 

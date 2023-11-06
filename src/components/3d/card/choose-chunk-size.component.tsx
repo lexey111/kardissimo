@@ -32,7 +32,7 @@ export const ChooseChunkSize: React.FC<TChoose3DCard> = ({total, amount}) => {
 
 	return <group>
 		<Text
-			position-z={6}
+			position-z={1.1}
 			position-y={0}
 			position-x={0}
 			fontSize={40}
@@ -47,7 +47,7 @@ export const ChooseChunkSize: React.FC<TChoose3DCard> = ({total, amount}) => {
 				color={c}
 				positionZ={-idx * 4}
 				translucent={true}
-				scale={c !== '#ffb700' ? [0.98, 0.98, 4] : [1, 1, 2]}
+				scale={c !== '#ffb700' ? [0.98, 0.98, .7] : [1, 1, .9]}
 				key={idx}/>
 		})}
 	</group>;
