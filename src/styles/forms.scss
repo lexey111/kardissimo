@@ -4,9 +4,7 @@
 	display: flex;
 	flex-flow: column wrap;
 	align-content: center;
-	background-color: mixins.whiteTrans(0.4);
-	box-shadow: 4px 4px 18px mixins.blackTrans(.2);
-	border-radius: 8px;
+	@include mixins.card;
 	padding: 32px 0 0;
 	max-width: 600px;
 	color: var(--app-modal-text);

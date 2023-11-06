@@ -1,57 +1,23 @@
-import React, {useState} from "react";
-import {useOutlet} from "react-router";
-import {ScrollRestoration, useLocation} from "react-router-dom";
-import {AnimatePresence, motion} from "framer-motion";
+import React, {useEffect} from "react";
+import {Outlet, ScrollRestoration} from "react-router-dom";
 import {AppMenu} from "./components/app-menu.component.tsx";
 import {AppFooter} from "./components/app-footer.component.tsx";
-
-
-const AnimatedOutlet: React.FC = () => {
-	const o = useOutlet();
-	const [outlet] = useState(o);
-	return <>{outlet}</>;
-};
-
-const topAnimationParams = {
-	initial: {
-		opacity: 0,
-		transform: 'translateY(-20px)'
-	},
-	in: {
-		opacity: 1,
-		transform: 'translateY(0)'
-	},
-	exit: {
-		opacity: 0,
-		transform: 'translateY(20px)'
-	}
-};
-
-const pageTransition = {
-	type: 'tween',
-	ease: 'circIn',
-	duration: 0.2
-};
+import {getSessionAndUser, resetSession} from "./store/auth/auth-store.actions.ts";
 
 export const App: React.FC = () => {
-	const location = useLocation();
+	useEffect(() => {
+		try {
+			void getSessionAndUser();
+		} catch (e) {
+			resetSession();
+		}
+	}, []);
 
 	return <>
 		<AppMenu/>
-		<AnimatePresence mode="popLayout">
-			<motion.main
-				key={location.pathname}
-				className="app-page"
-				initial={'initial'}
-				exit={'exit'}
-				animate={'in'}
-				variants={topAnimationParams}
-				transition={pageTransition}
-				style={{display: 'flex', width: '100%', height: '100%'}}
-			>
-				<AnimatedOutlet/>
-			</motion.main>
-		</AnimatePresence>
+		<div className="app-page" style={{display: 'flex', width: '100%', height: '100%'}}>
+			<Outlet/>
+		</div>
 
 		<ScrollRestoration
 			getKey={(location) => {

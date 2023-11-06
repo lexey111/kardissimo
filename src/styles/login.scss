@@ -1,0 +1,24 @@
+@use 'mixins';
+
+.login-buttons {
+	@include mixins.card;
+	@include mixins.center;
+	padding: 32px;
+	color: mixins.blackTrans(.9);
+	margin-top: 48px;
+	display: flex;
+	flex-flow: column wrap;
+	align-content: center;
+
+	h1 {
+		margin: 0 0 32px 0;
+	}
+
+	.pure-button {
+		margin-left: 8px;
+
+		&:first-of-type {
+			margin-left: 0;
+		}
+	}
+}

@@ -1,16 +1,40 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {matchRoutes} from "react-router";
 import {AppRoutes} from "../routes.tsx";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import {IAuthState, useAuthStore} from "../store/auth/auth-store.ts";
+import {getSessionAndUser} from "../store/auth/auth-store.actions.ts";
+import {CgSpinner} from "react-icons/cg";
 
 export type TAppPageProps = {
 	title?: string
+	authOnly?: boolean
 	children: any
 }
 
-export const AppPage: React.FC<TAppPageProps> = ({title, children}) => {
+const userSelector = (state: IAuthState) => state;
+export const AppPage: React.FC<TAppPageProps> = ({title, authOnly = true, children}) => {
+	const navigate = useNavigate();
 	const location = useLocation();
 	const currentRouteTitle = (matchRoutes(AppRoutes, location)?.pop() as any)?.route?.['handle'];
+	const user = useAuthStore(userSelector);
+	const [authChecked, setAuthChecked] = useState(!authOnly || !!user.loginData.id);
+
+	useEffect(() => {
+		if (!user.loginData.id && authOnly && authChecked) {
+			navigate('/home');
+		}
+	}, [user.loginData, authChecked]);
+
+	useEffect(() => {
+
+		if (authOnly && !authChecked) {
+			(async () => {
+				await getSessionAndUser();
+				setAuthChecked(true);
+			})();
+		}
+	}, []);
 
 	if (title) {
 		window.document.title = title + (currentRouteTitle ? ' | ' + currentRouteTitle : '');
@@ -20,7 +44,8 @@ export const AppPage: React.FC<TAppPageProps> = ({title, children}) => {
 
 	return <div className='app-page-wrapper'>
 		<div className={'app-page-content'}>
-			{children}
+			{!authChecked && <div className={'app-page-spinner'}><CgSpinner/> Reading credentials...</div>}
+			{authChecked && children}
 		</div>
 	</div>;
 };

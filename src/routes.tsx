@@ -12,16 +12,16 @@ import {useRouteError} from "react-router";
 import {PageNotFound} from "./components/utils/page-not-found.component.tsx";
 import {RunPage} from "./pages/run-page.tsx";
 import {SessionPage} from "./pages/session-page.tsx";
+import {LoginPage} from "./pages/login-page.tsx";
 
 const ErrorBoundary: React.FC = () => {
 	const error = useRouteError();
-
+	console.log(error);
 	// @ts-ignore
 	return <PageNotFound message={error.message} header={error.header}/>;
 }
 
 export const AppRoutes = [
-
 		{
 			path: '/',
 			element: <App/>,
@@ -40,6 +40,11 @@ export const AppRoutes = [
 				{
 					path: 'about',
 					element: <AboutPage/>
+				},
+				{
+					path: 'login',
+					handle: 'Login',
+					element: <LoginPage/>
 				},
 				{
 					path: 'run',

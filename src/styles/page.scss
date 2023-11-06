@@ -1,3 +1,5 @@
+@use 'mixins';
+
 #root {
 	display: flex;
 	width: 100%;
@@ -17,9 +19,29 @@ body.exclusive-lock {
 		background: transparent;
 		z-index: -1;
 
-		ul {
+		.app-menu-content {
 			display: none;
 		}
+	}
+}
+
+.app-page-spinner {
+	display: flex;
+	flex-flow: row nowrap;
+	@include mixins.center();
+	font-size: 14px;
+	@include mixins.card;
+	color: mixins.blackTrans(.8);
+	padding: 16px;
+	margin: 32px 0;
+
+	svg {
+		width: 1.5rem;
+		height: 1.5rem;
+		margin-right: 8px;
+		animation-name: spin;
+		animation-duration: 1s;
+		animation-iteration-count: infinite;
 	}
 }
 
@@ -86,4 +108,14 @@ a:hover, a:focus {
 
 .center {
 	@include center();
+}
+
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(359deg);
+	}
 }

@@ -34,3 +34,9 @@
 @function whiteTrans($opacity: .4) {
 	@return rgba(255, 255, 255, $opacity);
 }
+
+@mixin card {
+	background-color: whiteTrans(0.4);
+	box-shadow: 4px 4px 18px blackTrans(.2);
+	border-radius: 8px;
+}
