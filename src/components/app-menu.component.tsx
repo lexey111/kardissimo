@@ -10,6 +10,7 @@ import {IAuthState, useAuthStore} from "../store/auth/auth-store.ts";
 import {Button} from "./utils/button.component.tsx";
 import {logout} from "../store/auth/auth-store.actions.ts";
 import {UserAvatar} from "./utils/user-avatar.component.tsx";
+import {CgSpinner} from "react-icons/cg";
 
 const readySelector = (state: ICollectionState) => state.collections.filter(c => c.cards && c.cards?.length > 0).length;
 const userSelector = (state: IAuthState) => state;
@@ -24,14 +25,20 @@ export const AppMenu: React.FC = () => {
 	}, []);
 
 	const loggedIn = user.loginData.id && !user.fetching;
+	if (user.fetching) {
+		return <nav id='app-menu'>
+			<div className={'app-menu-content'}>
+				<div className={'spin'}><CgSpinner/></div>
+			</div>
+		</nav>;
+	}
 
 	return <nav id='app-menu'>
 		<div className={'app-menu-content'}>
 			<ul>
-				<li>
+				<li className={'icon-only'}>
 					<NavLink to="/home">
 						<AiFillHome/>
-						Home
 					</NavLink>
 				</li>
 
@@ -49,7 +56,7 @@ export const AppMenu: React.FC = () => {
 					</li>
 				</>}
 
-				{!loggedIn && <li>
+				{!loggedIn && <li className={'login'}>
 					<NavLink to="/login">Login</NavLink>
 				</li>}
 			</ul>

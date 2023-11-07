@@ -22,6 +22,6 @@ export const UserAvatar: React.FC<TUserAvatarProps> = ({src, name}) => {
 	return <div className={'avatar-container' + (loaded ? ' loaded' : '') + (error ? ' fallback' : '')}>
 		<img src={src} onLoad={handleLoaded} onError={handleError} referrerPolicy="no-referrer"/>
 		<div className={'avatar-fallback'}>{name?.substring(0, 1).toUpperCase()}</div>
-		<div className={'avatar-wait spin'}><CgSpinner/></div>
+		{!loaded && !error && <div className={'avatar-wait spin'}><CgSpinner/></div>}
 	</div>
 }

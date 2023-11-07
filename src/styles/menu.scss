@@ -7,8 +7,8 @@
 	z-index: 10;
 	flex-flow: row wrap;
 	width: 100%;
-	height: 56px;
-	justify-content: center;
+	height: 64px;
+	justify-content: flex-end;
 	align-items: center;
 	align-content: center;
 	justify-items: center;
@@ -21,7 +21,7 @@
 	.app-menu-content {
 		display: flex;
 		flex-flow: row nowrap;
-		max-width: 960px;
+		padding-right: 32px;
 	}
 
 	ul {
@@ -60,11 +60,37 @@
 
 				&:focus {
 					text-decoration: underline;
+					box-shadow: inset 0 0 0 2px var(--app-accent-background);
 				}
 			}
 
 			svg {
 				margin-right: .4rem;
+			}
+
+			&.icon-only {
+				a {
+					border-radius: 100%;
+					padding: 0;
+					width: 48px;
+					height: 48px;
+
+					svg {
+						margin-right: 0;
+						font-size: 1.3rem;
+					}
+				}
+			}
+
+			&.login {
+				margin-left: 16px;
+
+				a {
+					background: var(--app-primary-background);
+					color: var(--app-primary-color);
+					padding: 8px 32px;
+					box-shadow: inset 0 0 0 1px mixins.whiteTrans(.5);
+				}
 			}
 		}
 	}
@@ -133,7 +159,7 @@
 }
 
 .user-avatar {
-	margin: 0 16px;
+	margin: 0 0 0 16px;
 	width: 46px;
 	height: 46px;
 	align-self: center;
@@ -156,15 +182,15 @@
 		flex-flow: column wrap;
 		@include mixins.center();
 		top: 100%;
-		left: 50%;
+		right: -18px;
 		margin-top: 16px;
-		background: mixins.whiteTrans(.9);
+		background: mixins.whiteTrans(.8);
 		color: mixins.blackTrans(.9);
 		white-space: nowrap;
 		padding: 8px 16px 16px 16px;
 		border-radius: 8px;
-		box-shadow: 0 2px 4px mixins.blackTrans();
-		transform: translateX(-50%) translateY(10px);
+		box-shadow: 0 12px 12px mixins.blackTrans(), inset 0 0 32px #fff;
+		transform: translateY(10px);
 		transition: all .2s ease;
 
 		p {
@@ -179,7 +205,7 @@
 			width: 0;
 			height: 0;
 			top: -10px;
-			left: 50%;
+			right: 20px;
 			border-left: 10px solid transparent;
 			border-right: 10px solid transparent;
 			border-bottom: 10px solid mixins.whiteTrans(.9);
@@ -189,13 +215,14 @@
 
 	&:focus, &:focus-within {
 		border-color: #ffbd0e;
+		outline: none;
 		transform: scale(1.1);
 
 		.actions {
 			opacity: 1;
 			z-index: 10;
 			pointer-events: all;
-			transform: translateX(-50%) translateY(0);
+			transform: translateY(0);
 		}
 	}
 

@@ -13,7 +13,7 @@ export type IAuthState = {
 }
 
 export const useAuthStore = create<IAuthState>(() => ({
-	fetching: false,
+	fetching: true,
 	loginData: {
 	}
 }));

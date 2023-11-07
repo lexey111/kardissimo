@@ -1,0 +1,74 @@
+@use 'mixins';
+
+.jumbo-logo {
+	width: 100%;
+	background: mixins.blackTrans(.1);
+	margin-bottom: 32px;
+}
+
+.kardissimo-content {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	justify-items: center;
+	position: relative;
+
+	& > div {
+		position: relative;
+		max-width: 400px;
+		//margin-left: -140px;
+	}
+
+	canvas {
+		display: flex;
+		height: 400px;
+		width: 400px;
+		max-height: 400px;
+		max-width: 400px;
+		flex-grow: 0;
+		flex-shrink: 0;
+	}
+}
+
+.jumbo-text {
+	max-width: unset !important;
+	margin-left: -60px;
+	color: mixins.whiteTrans(.8);
+
+	h1 {
+		font-size: 8rem;
+		margin: 0;
+		padding: 0;
+		font-weight: 100;
+		line-height: 1;
+	}
+
+	p {
+		margin: 0;
+		font-size: 2rem;
+		font-weight: 200;
+		line-height: 1;
+	}
+
+	transform-origin: bottom center;
+	transform: translateY(-10px);
+	animation-name: text-appear;
+	animation-timing-function: ease;
+	animation-duration: .8s;
+	animation-delay: 1s;
+	animation-play-state: revert;
+	animation-fill-mode: backwards;
+}
+
+@keyframes text-appear {
+	0% {
+		opacity: 0;
+		transform: translateY(40px) scaleY(.1);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(-10px) scaleY(1);
+	}
+}
