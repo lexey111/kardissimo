@@ -35,8 +35,9 @@
 	@return rgba(255, 255, 255, $opacity);
 }
 
-@mixin card {
-	background-color: whiteTrans(0.4);
-	box-shadow: 4px 4px 18px blackTrans(.2);
-	border-radius: 8px;
+@mixin card($opacity: 0.4) {
+	background-color: whiteTrans($opacity);
+	box-shadow: 0 0 0 1px whiteTrans(.7), inset 0 0 32px whiteTrans(.5), 4px 4px 18px blackTrans(.2);
+	border-radius: 16px;
+	backdrop-filter: blur(20px);
 }

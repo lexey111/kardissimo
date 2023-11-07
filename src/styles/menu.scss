@@ -90,7 +90,10 @@
 	}
 
 	.actions {
-		display: none;
+		display: block;
+		opacity: 0;
+		z-index: -1;
+		pointer-events: none;
 		position: absolute;
 		flex-flow: column wrap;
 		@include mixins.center();
@@ -103,12 +106,13 @@
 		padding: 8px 16px 16px 16px;
 		border-radius: 8px;
 		box-shadow: 0 2px 4px mixins.blackTrans();
-		transform: translateX(-50%);
-		z-index: 10;
+		transform: translateX(-50%) translateY(10px);
+		transition: all .2s ease;
 
 		p {
-			font-size: 1em;
+			font-size: 1rem;
 			text-align: center;
+			margin-bottom: 24px;
 		}
 
 		&:after {
@@ -130,7 +134,10 @@
 		transform: scale(1.1);
 
 		.actions {
-			display: block;
+			opacity: 1;
+			z-index: 10;
+			pointer-events: all;
+			transform: translateX(-50%) translateY(0);
 		}
 	}
 

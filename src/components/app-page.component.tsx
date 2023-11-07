@@ -4,7 +4,7 @@ import {AppRoutes} from "../routes.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import {IAuthState, useAuthStore} from "../store/auth/auth-store.ts";
 import {getSessionAndUser} from "../store/auth/auth-store.actions.ts";
-import {CgSpinner} from "react-icons/cg";
+import {WaitCredentials} from "./wait-credentials.component.tsx";
 
 export type TAppPageProps = {
 	title?: string
@@ -43,8 +43,8 @@ export const AppPage: React.FC<TAppPageProps> = ({title, authOnly = true, childr
 	}
 
 	return <div className='app-page-wrapper'>
+		{!authChecked && <WaitCredentials/>}
 		<div className={'app-page-content'}>
-			{!authChecked && <div className={'app-page-spinner'}><CgSpinner/> Reading credentials...</div>}
 			{authChecked && children}
 		</div>
 	</div>;

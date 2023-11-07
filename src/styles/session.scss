@@ -37,7 +37,7 @@
 		right: 100%;
 		margin-right: 16px;
 		top: -4px;
-		background: mixins.whiteTrans(.7);
+		background: mixins.whiteTrans(.9);
 		padding: 16px;
 		max-width: 500px;
 		width: 400px;
@@ -71,7 +71,7 @@
 			border-top: 7px solid transparent;
 			border-bottom: 7px solid transparent;
 
-			border-left: 7px solid mixins.whiteTrans(.7);
+			border-left: 7px solid mixins.whiteTrans(.9);
 			right: -7px;
 			top: 12px;
 		}
@@ -254,7 +254,10 @@
 	}
 
 	.done-confirmation {
-		display: none;
+		display: block;
+		opacity: 0;
+		z-index: -1;
+		pointer-events: none;
 		position: absolute;
 		bottom: 100%;
 		right: 0;
@@ -265,7 +268,8 @@
 		padding: 16px;
 		border-radius: 8px;
 		box-shadow: 0 2px 4px mixins.blackTrans();
-		z-index: 10;
+		transition: all .4s ease;
+		transform: translateY(-10px);
 
 		.pure-button {
 			margin-left: 6px;
@@ -287,7 +291,11 @@
 
 	&:focus, &:focus-within {
 		.done-confirmation {
+			transform: translateY(0);
 			display: block;
+			opacity: 1;
+			z-index: 10;
+			pointer-events: all;
 		}
 	}
 }

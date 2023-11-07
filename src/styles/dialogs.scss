@@ -17,12 +17,13 @@
 	left: 20px;
 	right: 20px;
 	bottom: 20px;
-	background: var(--app-modal-background);
-	border-radius: 18px;
+	@include mixins.card(.6);
+	//background: var(--app-modal-background);
+	border-radius: 32px;
 	color: #333;
 	display: flex;
 	flex-flow: column nowrap;
-	@include center();
+	@include mixins.center();
 	z-index: 1001;
 
 	&.modal-danger {
@@ -69,6 +70,8 @@
 	justify-content: center;
 	align-items: center;
 	justify-items: center;
+	background: mixins.whiteTrans();
+	box-shadow: 0 0 0 2px whiteTrans(.7), inset 0 0 32px whiteTrans(.5);
 
 	.dialog-title, .dialog-description, .dialog-actions, .dialog-content {
 		flex-shrink: 0;

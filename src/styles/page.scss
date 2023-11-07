@@ -26,14 +26,19 @@ body.exclusive-lock {
 }
 
 .app-page-spinner {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: mixins.blackTrans();
+	//transform: translateY(-50%);
 	display: flex;
 	flex-flow: row nowrap;
 	@include mixins.center();
 	font-size: 14px;
-	@include mixins.card;
 	color: mixins.blackTrans(.8);
-	padding: 16px;
-	margin: 32px 0;
+	z-index: 200;
 
 	svg {
 		width: 1.5rem;
@@ -83,6 +88,11 @@ a:hover, a:focus {
 	flex-flow: column nowrap;
 	align-items: center;
 	position: relative;
+	animation-name: page-appear;
+	animation-timing-function: ease-in-out;
+	animation-duration: .2s;
+	animation-play-state: revert;
+	animation-fill-mode: backwards;
 }
 
 .page {
@@ -117,5 +127,16 @@ a:hover, a:focus {
 	}
 	100% {
 		transform: rotate(359deg);
+	}
+}
+
+@keyframes page-appear {
+	0% {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }
