@@ -25,6 +25,12 @@ body.exclusive-lock {
 	}
 }
 
+.spin {
+	animation-name: spin;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}
+
 .app-page-spinner {
 	position: fixed;
 	top: 0;

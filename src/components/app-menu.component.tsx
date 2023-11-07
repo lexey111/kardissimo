@@ -7,9 +7,9 @@ import {AiFillHome} from "react-icons/ai";
 import {ICollectionState, useCollectionStore} from "../store/data/collections-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {IAuthState, useAuthStore} from "../store/auth/auth-store.ts";
-import Avatar from 'react-avatar';
 import {Button} from "./utils/button.component.tsx";
 import {logout} from "../store/auth/auth-store.actions.ts";
+import {UserAvatar} from "./utils/user-avatar.component.tsx";
 
 const readySelector = (state: ICollectionState) => state.collections.filter(c => c.cards && c.cards?.length > 0).length;
 const userSelector = (state: IAuthState) => state;
@@ -55,12 +55,7 @@ export const AppMenu: React.FC = () => {
 			</ul>
 
 			{loggedIn && <div className={'user-avatar'} tabIndex={0}>
-				<Avatar
-					color={'rgba(255, 255, 255, .8)'}
-					fgColor={'#333'}
-					name={user.loginData.name}
-					src={user.loginData.avatar}
-					size="40" round={true}/>
+				<UserAvatar src={user.loginData.avatar} name={user.loginData.name} />
 
 				<div className={'actions'}>
 					<p>

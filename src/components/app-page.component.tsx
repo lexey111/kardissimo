@@ -4,7 +4,7 @@ import {AppRoutes} from "../routes.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import {IAuthState, useAuthStore} from "../store/auth/auth-store.ts";
 import {getSessionAndUser} from "../store/auth/auth-store.actions.ts";
-import {WaitCredentials} from "./wait-credentials.component.tsx";
+import {WaitCredentials} from "./utils/wait-credentials.component.tsx";
 
 export type TAppPageProps = {
 	title?: string
