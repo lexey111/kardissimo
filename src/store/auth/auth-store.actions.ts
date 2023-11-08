@@ -82,10 +82,9 @@ export const getSessionAndUser = async () => {
 	const {data: {user}} = await supabase.auth.getUser();
 
 	if (!user) {
-		console.log('no user')
 		return resetSession();
 	}
-	console.log('user', user.id)
+
 	useAuthStore.setState(() => {
 		return {
 			fetching: false,

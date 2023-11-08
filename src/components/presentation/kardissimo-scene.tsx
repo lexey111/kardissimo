@@ -9,21 +9,20 @@ export const KardissimoScene: React.FC = () => {
 			camera={{fov: 75, near: 0.1, far: 1000, position: [0, 0, 300]}}
 		>
 			<Stage
-				adjustCamera={1.4} intensity={6} preset="rembrandt"
-				shadows={{type: 'contact', color: '#333', colorBlend: 2, opacity: .4}}
-				// shadows={false}
-				environment="night"
+				adjustCamera={1.1} intensity={12} preset="rembrandt"
+				shadows={false}
+				environment="city"
 			>
 				<KardissimoComponent/>
 			</Stage>
 
 			<pointLight
-				position={[-80, 80, 120]}
+				position={[-80, 80, 500]}
 				color={'#aaa'}
 				intensity={100000}/>
 
 			<pointLight
-				position={[80, -80, 200]}
+				position={[80, -80, 700]}
 				color={'#000'}
 				intensity={100000}/>
 		</Canvas>

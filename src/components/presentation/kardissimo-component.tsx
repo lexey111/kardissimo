@@ -1,7 +1,8 @@
-import React, {useEffect, useRef} from "react";
-import {useFrame, useLoader} from '@react-three/fiber';
-import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
+import React, {useRef} from "react";
+import {useFrame} from '@react-three/fiber';
 import * as THREE from "three";
+import {SVGLogo} from "./svg-logo.component.tsx";
+import {SVGK} from "./svg-k.component.tsx";
 
 const logoMaterial = new THREE.MeshLambertMaterial({color: '#f1e6c0', transparent: true, opacity: .8});
 
@@ -116,6 +117,8 @@ function transition() {
 		}
 	}
 
+	logoMaterial.color.setRGB(currentColor[0] / 256, currentColor[1] / 256, currentColor[2] / 256);
+
 	if (increment[0] == 0 && increment[1] == 0 && increment[2] == 0) {
 		startTransition();
 	}
@@ -123,38 +126,21 @@ function transition() {
 
 export const KardissimoComponent: React.FC = () => {
 	const logoRef = useRef<any>();
-	const kRef = useRef<any>();
 	const ref = useRef<any>();
 
-	const result = useLoader(GLTFLoader, '/kardissimo-logo.gltf');
-
 	useFrame((_, delta) => {
-		if (logoRef.current) {
+		if (ref.current) {
 			ref.current.rotation.y -= delta;
-			ref.current.rotation.x = -Math.sin(ref.current.rotation.y) / 4;
-			kRef.current.position.z = Math.sin(ref.current.rotation.y)  * 100 - 60;
-			kRef.current.rotation.x = Math.sin(ref.current.rotation.y) / 8;
+			logoRef.current.rotation.x = -Math.sin(ref.current.rotation.y) / 4;
 			transition();
-			logoRef.current.children.forEach((ch: any) => {
-				ch.material.color.setRGB(currentColor[0] / 256, currentColor[1] / 256, currentColor[2] / 256);
-			});
 		}
 	});
 
-	useEffect(() => {
-		logoRef.current = result.nodes.logo;
-		kRef.current = result.nodes.k;
-
-		logoRef.current.children.forEach((ch: any) => {
-			ch.material = logoMaterial;
-		});
-
-		kRef.current.children.forEach((ch: any) => {
-			ch.material = kMaterial;
-		});
-	}, [result]);
-
 	return <group ref={ref}>
-		{result && <primitive object={result.scene}/>}
+		<group ref={logoRef}>
+			<SVGLogo material={logoMaterial} shift={-20}/>
+			<SVGLogo material={kMaterial} shift={20}/>
+			<SVGK material={kMaterial}/>
+		</group>
 	</group>;
 };
