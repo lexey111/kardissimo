@@ -30,10 +30,13 @@ export const LoginPage: React.FC = () => {
 		<div className={'login-buttons'}>
 			{user.fetching && <span>Retrieving data...</span>}
 
-			{!user.fetching && !user.loginData.id && <><h1>Login with social network account</h1>
-				<div>
-					<Button type={'primary'} onClick={handleGoogle} icon={<FaGoogle/>}>Login with Google</Button>
-					<Button type={'primary'} onClick={handleFB} icon={<FaFacebookSquare/>}>Login with Facebook</Button>
+			{!user.fetching && !user.loginData.id && <>
+				<h1>Login with social network | other service account</h1>
+				<p>We will only receive your email address and avatar.</p>
+				<p>No spam, no subscriptions, we promise.</p>
+				<div className={'login-controls'}>
+					<Button type={'primary'} onClick={handleGoogle} icon={<FaGoogle/>}>Use Google</Button>
+					<Button type={'primary'} onClick={handleFB} icon={<FaFacebookSquare/>}>Use Facebook</Button>
 				</div>
 			</>}
 

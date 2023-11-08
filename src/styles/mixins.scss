@@ -41,3 +41,7 @@
 	border-radius: 16px;
 	backdrop-filter: blur(20px);
 }
+
+@mixin focusRing() {
+	box-shadow: 0 0 0 4px var(--app-accent-background);
+}

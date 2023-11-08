@@ -8,40 +8,42 @@ const supabase = createClient(
 );
 
 export const tryLoginWithGoogle = async () => {
-	resetSession();
+	resetSession(true);
 
 	const {error} = await supabase.auth.signInWithOAuth({provider: 'google'});
 
 	if (error) {
 		useAuthStore.setState(() => {
 			return {fetching: false, loginData: {error: error}};
-		})
+		});
 	} else {
 		useAuthStore.setState(() => {
 			return {fetching: false, loginData: {error: null}};
-		})
+		});
+		await getSessionAndUser();
 	}
 }
 export const tryLoginWithFB = async () => {
-	resetSession();
+	resetSession(true);
 
 	const {error} = await supabase.auth.signInWithOAuth({provider: 'facebook'});
 
 	if (error) {
 		useAuthStore.setState(() => {
 			return {fetching: false, loginData: {error: error}};
-		})
+		});
 	} else {
 		useAuthStore.setState(() => {
 			return {fetching: false, loginData: {error: null}};
-		})
+		});
+		await getSessionAndUser();
 	}
 }
 
-export const resetSession = () => {
+export const resetSession = (fetching = false) => {
 	useAuthStore.setState(() => {
 		return {
-			fetching: false,
+			fetching: fetching,
 			loginData: {
 				id: '',
 				name: '',
@@ -54,7 +56,10 @@ export const resetSession = () => {
 }
 
 export const logout = async () => {
+	resetSession(true);
+
 	const {error} = await supabase.auth.signOut();
+
 	if (error) {
 		console.log(error);
 	}
@@ -80,7 +85,7 @@ export const getSessionAndUser = async () => {
 		console.log('no user')
 		return resetSession();
 	}
-	console.log('update state')
+
 	useAuthStore.setState(() => {
 		return {
 			fetching: false,

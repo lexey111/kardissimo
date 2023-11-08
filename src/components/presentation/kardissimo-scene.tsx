@@ -9,10 +9,10 @@ export const KardissimoScene: React.FC = () => {
 			camera={{fov: 75, near: 0.1, far: 1000, position: [0, 0, 300]}}
 		>
 			<Stage
-				adjustCamera={1.2} intensity={6} preset="rembrandt"
-				// shadows={{type: 'contact', color: 'skyblue', colorBlend: 2, opacity: 1}}
-				shadows={false}
-				environment="apartment"
+				adjustCamera={1.4} intensity={6} preset="rembrandt"
+				shadows={{type: 'contact', color: '#333', colorBlend: 2, opacity: .4}}
+				// shadows={false}
+				environment="night"
 			>
 				<KardissimoComponent/>
 			</Stage>

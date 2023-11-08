@@ -1,5 +1,5 @@
 import React, {useCallback} from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {countCollections} from "../store/data/collections-store.selectors.ts";
 import {FaCirclePlay} from "react-icons/fa6";
 import {HiRectangleStack} from "react-icons/hi2";
@@ -16,12 +16,17 @@ const readySelector = (state: ICollectionState) => state.collections.filter(c =>
 const userSelector = (state: IAuthState) => state;
 
 export const AppMenu: React.FC = () => {
+	const navigate = useNavigate();
 	const count = countCollections();
 	const readyCollections = useCollectionStore(useShallow(readySelector));
 	const user = useAuthStore(userSelector);
 
 	const handleLogout = useCallback(() => {
 		void logout();
+	}, []);
+
+	const handleLogin = useCallback(() => {
+		navigate('/login');
 	}, []);
 
 	const loggedIn = user.loginData.id && !user.fetching;
@@ -57,12 +62,12 @@ export const AppMenu: React.FC = () => {
 				</>}
 
 				{!loggedIn && <li className={'login'}>
-					<NavLink to="/login">Login</NavLink>
+					Please <Button type={'danger'} onClick={handleLogin}>Login</Button> here.
 				</li>}
 			</ul>
 
 			{loggedIn && <div className={'user-avatar'} tabIndex={0}>
-				<UserAvatar src={user.loginData.avatar} name={user.loginData.name} />
+				<UserAvatar src={user.loginData.avatar} name={user.loginData.name}/>
 
 				<div className={'actions'}>
 					<p>

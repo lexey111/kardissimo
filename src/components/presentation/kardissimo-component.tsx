@@ -3,7 +3,7 @@ import {useFrame, useLoader} from '@react-three/fiber';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
 import * as THREE from "three";
 
-const logoMaterial = new THREE.MeshLambertMaterial({color: '#f1e6c0', transparent: false, opacity: .5});
+const logoMaterial = new THREE.MeshLambertMaterial({color: '#f1e6c0', transparent: true, opacity: .8});
 
 const kMaterial = new THREE.MeshPhysicalMaterial({
 	metalness: .8,
@@ -131,6 +131,9 @@ export const KardissimoComponent: React.FC = () => {
 	useFrame((_, delta) => {
 		if (logoRef.current) {
 			ref.current.rotation.y -= delta;
+			ref.current.rotation.x = -Math.sin(ref.current.rotation.y) / 4;
+			kRef.current.position.z = Math.sin(ref.current.rotation.y)  * 100 - 60;
+			kRef.current.rotation.x = Math.sin(ref.current.rotation.y) / 8;
 			transition();
 			logoRef.current.children.forEach((ch: any) => {
 				ch.material.color.setRGB(currentColor[0] / 256, currentColor[1] / 256, currentColor[2] / 256);

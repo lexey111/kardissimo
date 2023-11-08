@@ -9,6 +9,7 @@ import {IoCheckmarkCircle} from "react-icons/io5";
 import {defaultCollection} from "../../../../store/data/collections-store.selectors.ts";
 import Select from 'react-select'
 import {ColorSchemes} from "../../../../resources/colors.ts";
+import {Switch} from "../../../../components/utils/switch.component.tsx";
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -136,11 +137,6 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
 
 			return {...state, sides: updatedSides};
 		});
-	}, []);
-
-	const handleUseFirst = useCallback((e: any) => {
-		const value = e?.target ? e?.target?.checked : false;
-		setUseFirst(value);
 	}, []);
 
 	useEffect(() => {
@@ -341,14 +337,8 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
 
 			{(state?.cards?.length || 0) > 0 && <fieldset className={'checkbox-field'}>
 				<span className={'pseudo-label'}></span>
-				<label htmlFor={'useFirstCard'} className={'checkbox-label'}>
-					<input
-						type={'checkbox'}
-						onChange={handleUseFirst}
-						name={'useFirstCard'} id={'useFirstCard'}/>
-					Use card #1 to preview
-					<span className="checkmark"></span>
-				</label>
+
+				<Switch value={useFirst} onChange={setUseFirst} text={'Use card #1 to preview'}/>
 			</fieldset>}
 
 			<fieldset className={'actions'}>
