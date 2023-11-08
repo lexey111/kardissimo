@@ -421,10 +421,12 @@ textarea {
 			padding-right: 0;
 			flex-grow: 2;
 			font-weight: 500;
+
 			.badge {
 				margin-left: auto;
 			}
 		}
+
 		label.secondary-label {
 			padding-top: 16px;
 			margin-left: 0;
@@ -589,6 +591,16 @@ textarea {
 		}
 	}
 
+}
+
+.tab-switcher {
+	width: 100%;
+	background: mixins.whiteTrans();
+	padding: 32px 0 16px 0;
+	margin-bottom: 16px;
+	display: flex;
+	flex-flow: row nowrap;
+	@include mixins.center();
 }
 
 @keyframes preview-appear {

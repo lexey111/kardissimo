@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 
 export type TSwitchProps = {
-	value: boolean
+	value?: boolean
 	text?: string
 	boldOnFocus?: boolean
 	onChange: (value: boolean) => void

@@ -8,10 +8,10 @@ import {SessionStage} from "./session/session-stage.tsx";
 import {BackToRunButton} from "./run/back-to-run.button.component.tsx";
 import {SceneInfoButton} from "./run/scene-info.button.component.tsx";
 import {TCardSide, TCollection, TCollectionSide, TPreparedCard, TPreparedCards} from "../store/data/types.ts";
+import {Fonts} from "../resources/fonts.ts";
 
 function getDirectOrder(id: string, sides: Array<TCardSide>, collectionSides: Array<TCollectionSide>): TPreparedCard {
 	const result = [];
-	// as is, 0 is the first
 	for (let i = 0; i < sides.length; i++) {
 		result.push({id, ...sides[i], ...collectionSides[i]})
 	}
@@ -20,7 +20,6 @@ function getDirectOrder(id: string, sides: Array<TCardSide>, collectionSides: Ar
 
 function getReverseOrder(id: string, sides: Array<TCardSide>, collectionSides: Array<TCollectionSide>): TPreparedCard {
 	const result = [];
-	// as is, 0 is the first
 	for (let i = sides.length - 1; i >= 0; i--) {
 		result.push({id, ...sides[i], ...collectionSides[i]})
 	}
@@ -41,11 +40,32 @@ function swapAndEnrichSides(id: string, sides: Array<TCardSide>, collectionSides
 		: getReverseOrder(id, sides, collectionSides);
 }
 
+function getCardDesign(collection: TCollection, cardIdx: number) {
+	let design: any = [...collection.sides!];
+
+	if (collection.cards![cardIdx].ownDesign) {
+		design = collection.cards![cardIdx].sides!.map((side, idx) => {
+			if (side.appearance) {
+				return {
+					name: collection.sides?.[idx]?.name,
+					color: side.appearance.color || collection.sides?.[idx]?.color || '#FDBA66',
+					textColor: side.appearance.textColor || collection.sides?.[idx]?.textColor || '#2b3b62',
+					fontSize: side.appearance.fontSize || collection.sides?.[idx]?.fontSize || 'M',
+					fontName: side.appearance.fontName || collection.sides?.[idx]?.fontName || Object.keys(Fonts)[0],
+				}
+			}
+			return collection.sides![idx];
+		});
+	}
+	return design;
+}
+
 function getExactChunk(collection: TCollection, from: number, to: number, side: number) {
 	const result = [];
 
 	for (let i = from; i <= to; i++) {
-		result.push(swapAndEnrichSides(collection.cards![i].id, collection.cards![i].sides!, collection.sides!, side));
+		const design = getCardDesign(collection, i);
+		result.push(swapAndEnrichSides(collection.cards![i].id, collection.cards![i].sides!, design, side));
 	}
 
 	return result;
@@ -72,7 +92,8 @@ function getRandomChunk(collection: TCollection, amount: number, side: number) {
 			continue;
 		}
 		usedIdx.push(idx);
-		result.push(swapAndEnrichSides(collection.cards![idx].id, collection.cards![idx].sides!, collection.sides!, side));
+		const design = getCardDesign(collection, idx);
+		result.push(swapAndEnrichSides(collection.cards![idx].id, collection.cards![idx].sides!, design, side));
 	}
 
 	return result;

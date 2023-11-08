@@ -71,6 +71,7 @@ export const getCard = (collectionId?: string, cardId?: string): TCardEnriched |
 
 	return {
 		id: card.id,
+		ownDesign: card.ownDesign,
 		sides: card.sides?.map(side => ({header: '', footer: '', ...side})), // enrich with ''
 		collectionSides: collection.sides
 	};

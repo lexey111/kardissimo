@@ -53,14 +53,34 @@ export const CardPreview: React.FC<TCardPreviewProps> = (
 	}
 
 	const faces = card.sides.map((side, idx) => {
+		let color = card.collectionSides?.[idx].color;
+		let textColor = card.collectionSides?.[idx].textColor;
+		let fontSize = card.collectionSides?.[idx].fontSize;
+		let fontName = card.collectionSides?.[idx].fontName;
+
+		if (card.ownDesign) {
+			if (side.appearance?.color) {
+				color = side.appearance?.color;
+			}
+			if (side.appearance?.textColor) {
+				textColor = side.appearance?.textColor;
+			}
+			if (side.appearance?.fontSize) {
+				fontSize = side.appearance?.fontSize;
+			}
+			if (side.appearance?.fontName) {
+				fontName = side.appearance?.fontName;
+			}
+		}
+
 		return {
 			text: side.text || '',
 			header: side.header || '',
 			footer: side.footer || '',
-			color: card.collectionSides?.[idx].color || '#FDBA66',
-			textColor: card.collectionSides?.[idx].textColor || '#2b3b62',
-			fontSize: card.collectionSides?.[idx].fontSize || 'M',
-			fontName: card.collectionSides?.[idx].fontName || Object.keys(Fonts)[0],
+			color: color || '#FDBA66',
+			textColor: textColor || '#2b3b62',
+			fontSize: fontSize || 'M',
+			fontName: fontName || Object.keys(Fonts)[0],
 		}
 	});
 

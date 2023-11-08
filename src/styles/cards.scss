@@ -91,6 +91,7 @@
 		border-bottom-right-radius: 12px;
 	}
 
+	color: #2b566e;
 	.card-header, .card-word, .card-footer {
 		display: flex;
 		border: 1px dashed mixins.blackTrans(.12);
@@ -100,7 +101,6 @@
 		align-items: center;
 		text-align: center;
 		justify-content: center;
-		color: #2b566e;
 		max-height: 80px;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -116,7 +116,6 @@
 		margin: 16px 0;
 		font-size: .8rem;
 		flex-grow: 2;
-		color: #0f384f;
 		white-space: pre-wrap;
 		font-weight: 400;
 	}
@@ -126,6 +125,7 @@
 		font-size: .7rem;
 		font-weight: 300;
 	}
+
 }
 
 .add-card-floating {

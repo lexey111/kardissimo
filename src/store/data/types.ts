@@ -1,7 +1,9 @@
-export type TBackgroundAppearance = {
-	colorFrom: string
-	colorTo: string
-	angle: number
+export type TCardAppearance = {
+	color?: string
+	fontName?: string
+	fontSize?: 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL'
+	textColor?: string
+	colorSchemaName?: string
 }
 
 export type TCollectionStat = {
@@ -13,20 +15,14 @@ export type TCardSide = {
 	header?: string
 	text: string
 	footer?: string
+	appearance? : TCardAppearance
 }
 
 export type TCard = {
 	id: string
-	sides?: Array<TCardSide>  // 2, TBD
+	ownDesign?: boolean
+	sides?: Array<TCardSide>
 };
-
-export type TCardAppearance = {
-	color?: string
-	fontName?: string
-	fontSize?: 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL'
-	textColor?: string
-	colorSchemaName?: string
-}
 
 export type TCardEnriched = TCard & { collectionSides?: Array<TCollectionSide> };
 

@@ -389,7 +389,7 @@ $textColor: var(--app-text);
 
 .pure-button-group {
 	border-radius: 6px;
-	background: mixins.whiteTrans(.2);
+	background: mixins.whiteTrans(.4);
 
 	.pure-button {
 		margin: 0;
@@ -397,6 +397,7 @@ $textColor: var(--app-text);
 		height: unset;
 		font-size: .8rem;
 		background: none;
+		color: mixins.blackTrans(.8);
 
 		svg {
 			font-size: .8rem;

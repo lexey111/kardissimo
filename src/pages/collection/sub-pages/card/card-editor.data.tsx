@@ -45,6 +45,7 @@ export const CardEditorData: React.FC<TCardEditorProps> = ({collectionId, cardId
 		if (isNew) {
 			createCard(collectionId!, {
 				id: data.id,
+				ownDesign: data.ownDesign,
 				sides: data.sides
 			});
 
@@ -53,6 +54,7 @@ export const CardEditorData: React.FC<TCardEditorProps> = ({collectionId, cardId
 		// to filter ['names']
 		updateCard(collectionId, {
 			id: data.id,
+			ownDesign: data.ownDesign,
 			sides: data.sides
 		});
 		navigate(`/collections/${collectionId}/cards`);

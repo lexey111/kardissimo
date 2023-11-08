@@ -4,6 +4,11 @@ import {CardPreview} from "../../../../components/3d/card-preview-component.tsx"
 import {NavLink} from "react-router-dom";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {IoCheckmarkCircle} from "react-icons/io5";
+import {Switch} from "../../../../components/utils/switch.component.tsx";
+import {HDivider} from "../../../../components/utils/h-divider.component.tsx";
+import Select from "react-select";
+import {colorSchemaOptions, FontNameOptions, FontSizeOptions} from "../../../../resources/options.ts";
+import {ColorSchemes} from "../../../../resources/colors.ts";
 
 export type TCardEditorFormProps = {
 	collection?: TCollection
@@ -24,7 +29,7 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 	const [state, setState] = useState(initialState);
 	const initialHash = useMemo(() => JSON.stringify(initialState), [initialState]);
 	const [touched, setTouched] = useState(false);
-	const [side, setSide] = useState(-1);
+	const [side, setSide] = useState(0);
 
 	const destroying = useRef(false);
 
@@ -32,6 +37,12 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 		setSide(idx);
 	}, []);
 
+
+	const handleOwnDesign = useCallback((value: boolean) => {
+		setState((state: any) => {
+			return {...state, ownDesign: value};
+		});
+	}, []);
 
 	const onChangeSideInput = useCallback((name: string, index: number, e: any) => {
 		const value = e.target ? e.target.value : e;
@@ -42,6 +53,70 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 					return side;
 				}
 				return {...side, [name]: value}
+			});
+
+			return {...state, sides: updatedSides};
+		});
+	}, []);
+
+	const onChangeColorSchema = useCallback((index: number, e: any) => {
+		const schemeName = e.value;
+		const scheme = ColorSchemes[schemeName];
+		if (!scheme) {
+			return;
+		}
+		setState(state => {
+			const updatedSides = state.sides?.map((side, idx) => {
+				if (idx !== index) {
+					return side;
+				}
+				return {
+					...side,
+					appearance: {
+						...side.appearance,
+						colorSchemaName: schemeName,
+						color: scheme.color,
+						textColor: scheme.textColor
+					}
+				}
+			});
+
+			return {...state, sides: updatedSides};
+		});
+	}, []);
+
+	const onChangeSideFontName = useCallback((index: number, e: any) => {
+		setState(state => {
+			const updatedSides = state.sides?.map((side, idx) => {
+				if (idx !== index) {
+					return side;
+				}
+				return {
+					...side,
+					appearance: {
+						...side.appearance,
+						fontName: e.value
+					}
+				}
+			});
+
+			return {...state, sides: updatedSides};
+		});
+	}, []);
+
+	const onChangeSideFontSize = useCallback((index: number, e: any) => {
+		setState(state => {
+			const updatedSides = state.sides?.map((side, idx) => {
+				if (idx !== index) {
+					return side;
+				}
+				return {
+					...side,
+					appearance: {
+						...side.appearance,
+						fontSize: e.value
+					}
+				}
 			});
 
 			return {...state, sides: updatedSides};
@@ -77,24 +152,45 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 		}, 200);
 	}, []);
 
+	const saveDisabled = !touched || (state?.sides?.some(side => !side.header && !side.text && !side.footer));
+
 	return <div className={'card-side-editor'}>
 		<div className={'form-editor'}>
 			{collection &&
-				<h2><NavLink to={`/collections/${collection.id}/details`}>{collection.title}</NavLink></h2>}
+				<h2>Card of &nbsp; <NavLink to={`/collections/${collection.id}/details`}>{collection.title}</NavLink></h2>}
 
-			{state.sides?.map((side: TCardSide, idx: number) => {
+			{state.ownDesign && <div className={'tab-switcher'}>
+				<div className={'pure-button-group'}>
+					{state.sides?.map((_, idx: number) => {
+						return <Button
+							key={idx}
+							pressed={side === idx} onClick={() => setSide(() => idx)}>
+							{state.collectionSides?.[idx].name}
+						</Button>
+					})}
+				</div>
+			</div>}
+
+			{state.sides?.map((_side: TCardSide, idx: number) => {
+				const fontName = 'sides[' + idx + '].fontName';
+				if (state.ownDesign && idx !== side) {
+					return null;
+				}
+
 				return <div key={idx.toString()}>
-					<h3 className={idx === 0 ? 'title' : ''}>Side {idx + 1}: <b>{state.collectionSides?.[idx].name}</b>
-					</h3>
+					{!state.ownDesign && <h3 className={idx === 0 ? 'title' : ''}>Side {idx + 1}: &nbsp;
+						<b>{state.collectionSides?.[idx].name}</b>
+					</h3>}
 
 					<fieldset>
+						{state.ownDesign && <label htmlFor={`sides[${idx}].header`}>Header</label>}
 						<div className={'field-set'}>
 							<input
 								id={`sides[${idx}].header`} name={`sides[${idx}].header`}
 								autoComplete="off"
 								maxLength={128} size={30}
 								onFocus={() => handleFocus(idx)}
-								value={side.header}
+								value={_side.header}
 								onChange={(e) => onChangeSideInput('header', idx, e)}
 								placeholder="Top text"
 								type={'text'}/>
@@ -102,11 +198,12 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 					</fieldset>
 
 					<fieldset>
+						{state.ownDesign && <label htmlFor={`sides[${idx}].text`}>Text</label>}
 						<div className={'field-set'}>
 								<textarea
 									id={`sides[${idx}].text`} name={`sides[${idx}].text`}
 									autoComplete="off"
-									value={side.text}
+									value={_side.text}
 									onFocus={() => handleFocus(idx)}
 									onChange={(e) => onChangeSideInput('text', idx, e)}
 									maxLength={256}
@@ -115,11 +212,12 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 					</fieldset>
 
 					<fieldset>
+						{state.ownDesign && <label htmlFor={`sides[${idx}].footer`}>Footer</label>}
 						<div className={'field-set'}>
 							<input
 								id={`sides[${idx}].footer`} name={`sides[${idx}].footer`}
 								autoComplete="off"
-								value={side.footer}
+								value={_side.footer}
 								onFocus={() => handleFocus(idx)}
 								onChange={(e) => onChangeSideInput('footer', idx, e)}
 								maxLength={128} size={30}
@@ -128,14 +226,77 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 						</div>
 					</fieldset>
 
+					{state.ownDesign && <>
+						<div className={'field-row-set'}>
+							<fieldset>
+								<label htmlFor={fontName}>Font</label>
+								<div className={'field-set'}>
+
+									<Select
+										inputId={fontName}
+										name={fontName}
+										options={FontNameOptions}
+										className="react-select-container"
+										classNamePrefix="react-select"
+										onFocus={() => handleFocus(idx)}
+										isSearchable={false}
+										placeholder={'Font'}
+										onChange={(e) => onChangeSideFontName(idx, e)}
+										value={FontNameOptions.filter((option: any) => option.value === _side.appearance?.fontName)}
+									/>
+
+									<div className={'font-size'}>
+										<Select
+											options={FontSizeOptions}
+											className="react-select-container"
+											classNamePrefix="react-select"
+											onFocus={() => handleFocus(idx)}
+											isSearchable={false}
+											placeholder={'Size'}
+											onChange={(e) => onChangeSideFontSize(idx, e)}
+											value={FontSizeOptions.filter((option: any) => option.value === _side.appearance?.fontSize)}
+										/>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+
+						<fieldset>
+							<label htmlFor={'colorSchema' + idx}>Colors</label>
+							<div className={'field-set'}>
+								<Select
+									name={'colorSchema' + idx}
+									inputId={'colorSchema' + idx}
+									options={colorSchemaOptions}
+									className="react-select-container"
+									classNamePrefix="react-select"
+									onFocus={() => handleFocus(idx)}
+									isSearchable={true}
+									placeholder={'Color scheme'}
+									onChange={(e) => onChangeColorSchema(idx, e)}
+									value={colorSchemaOptions.filter((option: any) => option.value === _side.appearance?.colorSchemaName)}
+								/>
+							</div>
+						</fieldset>
+					</>}
+
 				</div>;
 			})}
 			<fieldset className={'actions'}>
+				<Switch
+					value={state.ownDesign}
+					boldOnFocus={false}
+					onChange={handleOwnDesign}
+					text={'Own design'}/>
+
+				<HDivider width={'32px'}/>
+
 				<Button onClick={onCancel} type={'secondary'}>&larr; Cancel (Esc)</Button>
+
 				<Button
 					onClick={() => onSubmit(state)}
 					icon={<IoCheckmarkCircle/>}
-					disabled={!touched}>
+					disabled={saveDisabled}>
 					{isNew ? 'Create' : 'Save'}
 				</Button>
 			</fieldset>

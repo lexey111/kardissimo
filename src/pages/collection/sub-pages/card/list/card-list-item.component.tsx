@@ -3,6 +3,7 @@ import {CardSide} from "../card-side.component.tsx";
 import {CardRemoveButton} from "../card-remove.button.tsx";
 import {TCardListStyle, useSettingsStore} from "../../../../../store/settings/settings-store.ts";
 import {TCollectionSide} from "../../../../../store/data/types.ts";
+import {getCard} from "../../../../../store/data/collections-store.selectors.ts";
 
 export type TCardListItemProps = {
 	collectionId?: string
@@ -24,6 +25,7 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 	}) => {
 
 	const selectedSide = useSettingsStore((state) => state.selectedSide);
+	const cardData = getCard(collectionId, cardId);
 
 	return <div className={'card-item'}>
 		{number > 0 && <div className={'card-number'}>{number}
@@ -31,7 +33,15 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 		</div>}
 
 		<div className={'card-sides'}>
-			{sides?.map((_, idx) => {
+			{sides?.map((collectionSide, idx) => {
+				const sideColor = (cardData?.ownDesign
+					? cardData.sides?.[idx]?.appearance?.color
+					: collectionSide?.color) || '#FDBA66';
+
+				const sideText = (cardData?.ownDesign
+					? cardData.sides?.[idx]?.appearance?.textColor
+					: collectionSide?.textColor) || '#2b3b62';
+
 				let needRender = true;
 				if (currentStyle === 'cards') {
 					if (selectedSide) {
@@ -47,6 +57,8 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 					collectionId={collectionId}
 					cardId={cardId}
 					sideIdx={idx}
+					background={sideColor}
+					color={sideText}
 					key={cardId + idx.toString()}/>
 			})}
 

@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {Tooltip} from 'react-tooltip';
 import {TCollection, TCollectionSide} from "../../../../store/data/types.ts";
-import {Fonts} from "../../../../resources/fonts.ts";
 import {CardPreview} from "../../../../components/3d/card-preview-component.tsx";
 import {FaGrip} from "react-icons/fa6";
 import {Button} from "../../../../components/utils/button.component.tsx";
@@ -10,6 +9,7 @@ import {defaultCollection} from "../../../../store/data/collections-store.select
 import Select from 'react-select'
 import {ColorSchemes} from "../../../../resources/colors.ts";
 import {Switch} from "../../../../components/utils/switch.component.tsx";
+import {colorSchemaOptions, FontNameOptions, FontSizeOptions} from "../../../../resources/options.ts";
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -30,23 +30,6 @@ export type TCollectionDetailsFormProps = {
 	isNew: boolean
 }
 
-const FontSizeOptions: any = [
-	{value: 'XXS', label: 'XXS'},
-	{value: 'XS', label: 'XS'},
-	{value: 'S', label: 'S'},
-	{value: 'M', label: 'M'},
-	{value: 'L', label: 'L'},
-	{value: 'XL', label: 'XL'},
-	{value: 'XXL', label: 'XXL'},
-];
-
-const FontNameOptions = Object.keys(Fonts).map(key => {
-	return {value: key, label: key};
-});
-
-const colorSchemaOptions = Object.keys(ColorSchemes).map(key => {
-	return {value: key, label: key};
-})
 
 export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
 	{
