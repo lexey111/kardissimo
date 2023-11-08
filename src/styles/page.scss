@@ -101,6 +101,12 @@ a:hover, a:focus {
 	animation-fill-mode: backwards;
 }
 
+.align-left {
+	margin-right: auto;
+	margin-left: 0 !important;
+	display: flex;
+}
+
 .page {
 	max-width: 100%;
 	min-width: 400px;

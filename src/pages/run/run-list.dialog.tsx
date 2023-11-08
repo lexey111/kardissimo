@@ -12,8 +12,8 @@ import {FaShuffle} from "react-icons/fa6";
 import {MdOutlineLinearScale} from "react-icons/md";
 import {GiCardRandom} from "react-icons/gi";
 import {LuPieChart} from "react-icons/lu";
-import {SlTarget} from "react-icons/sl";
 import {ChoosePreview} from "../../components/3d/choose-preview-component.tsx";
+import {Switch} from "../../components/utils/switch.component.tsx";
 
 export type TRunListDialogProps = {
 	currentCollection: TCollection
@@ -322,12 +322,9 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 			</div>
 		</div>}
 		actions={<>
-			{showAdvanced && <Button
-				type={'secondary'}
-				pressed={advanced}
-				variant={'align-left'}
-				icon={<SlTarget/>}
-				onClick={() => setAdvanced(v => !v)}>Fine tune</Button>}
+			{showAdvanced && <div className={'align-left'}>
+				<Switch text={'Fine tune'} boldOnFocus={false} value={advanced} onChange={setAdvanced}/>
+			</div>}
 
 			<Button type={'secondary'} onClick={onClose} icon={<FaArrowLeft/>}>Cancel (Esc)</Button>
 			<Button type={'success'} icon={<FaPlayCircle/>} onClick={onRun}>Start</Button>
