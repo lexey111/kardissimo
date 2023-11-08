@@ -1,0 +1,113 @@
+@use 'mixins';
+
+.app-settings-icon {
+	position: static;
+	cursor: pointer;
+	outline: none;
+	width: 48px;
+	height: 48px;
+	display: flex;
+	flex-flow: row nowrap;
+	@include mixins.center();
+	transition: all .2s ease;
+	font-size: 24px;
+
+	&:hover {
+		color: var(--app-accent-background);
+	}
+
+	.app-settings-backdrop {
+		opacity: 0;
+		pointer-events: none;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		visibility: collapse;
+		backdrop-filter: blur(4px);
+		box-shadow: inset 0 0 128px mixins.blackTrans(.5);
+		background: mixins.blackTrans();
+		transition: all .2s ease;
+		cursor: default;
+	}
+
+	.app-settings-container {
+		opacity: 0;
+		pointer-events: none;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		width: 400px;
+		visibility: collapse;
+		background: mixins.whiteTrans(.9);
+		backdrop-filter: blur(10px);
+		padding: 16px;
+		box-shadow: -16px 0 32px mixins.blackTrans();
+		transition: all .2s ease;
+		transform: translateX(20px);
+		border-radius: 16px 0 0 16px;
+		cursor: default;
+
+	}
+
+	&.active {
+		.app-settings-container, .app-settings-backdrop {
+			opacity: 1;
+			transform: translateX(0);
+			pointer-events: all;
+			visibility: visible;
+			z-index: 300;
+		}
+	}
+}
+
+.app-settings-container {
+	font-size: 1rem;
+	color: var(--app-modal-text);
+	display: flex;
+	flex-flow: column nowrap;
+	@include mixins.center();
+	justify-content: flex-start;
+
+	h1 {
+		margin: -8px 0 32px 0;
+		width: 100%;
+		display: flex;
+		@include mixins.center();
+		position: relative;
+
+		.app-settings-close {
+			transition: all .2s ease;
+			position: absolute;
+			cursor: pointer;
+			top: 50%;
+			right: 8px;
+			font-size: 22px;
+			padding: 0;
+			margin: 0;
+			display: flex;
+			@include mixins.center();
+			transform: translateY(-50%);
+			opacity: .8;
+
+			svg {
+				margin: 0 !important;
+			}
+
+			&:hover {
+				opacity: 1;
+				transform: translateY(-50%) scale(1.2);
+			}
+		}
+	}
+}
+
+body.settings-lock {
+	overflow: hidden;
+
+	canvas {
+		opacity: 0;
+	}
+}

@@ -17,7 +17,7 @@
 		right: -64px;
 		background: url('./cross.png');
 		opacity: .1;
-		animation: bg-move 2s ease-in-out infinite;
+		animation: bg-move 2s linear infinite;
 	}
 }
 
@@ -38,6 +38,7 @@
 	align-content: center;
 	justify-items: center;
 	position: relative;
+	margin-left: -100px;
 
 	& > div {
 		position: relative;

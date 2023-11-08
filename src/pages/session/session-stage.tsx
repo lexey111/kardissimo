@@ -150,7 +150,7 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 				<Tooltip
 					variant={'info'}
 					delayShow={1000}
-					id="left-tooltip" place={'left'}>
+					id="left-tooltip" place={'top'}>
 					Left Arrow, Backspace
 				</Tooltip>
 			</div>
@@ -166,7 +166,7 @@ export const SessionStage: React.FC<TSessionSceneProps> = ({cards, side, onDone}
 				<Tooltip
 					variant={'info'}
 					delayShow={1000}
-					id="right-tooltip" place={'right'}>
+					id="right-tooltip" place={'top'}>
 					Right Arrow, Enter
 				</Tooltip>
 			</div>

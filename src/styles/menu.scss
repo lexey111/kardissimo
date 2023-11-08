@@ -72,6 +72,7 @@
 				border-radius: 12px;
 				transition: all .4s ease;
 				outline: none;
+				height: 32px;
 				display: flex;
 				@include mixins.center();
 
@@ -89,7 +90,7 @@
 			}
 
 			&.icon-only {
-				margin-right: auto;
+				margin: 0 4px;
 
 				a {
 					svg {
@@ -97,6 +98,10 @@
 						font-size: 1.3rem;
 					}
 				}
+			}
+
+			&.icon-left {
+				margin: 0 auto 0 0;
 			}
 
 			&.login {
@@ -173,7 +178,7 @@
 }
 
 .user-avatar {
-	margin: 0 0 0 16px;
+	margin: 0 0 0 8px;
 	width: 46px;
 	height: 46px;
 	align-self: center;

@@ -82,7 +82,7 @@ function getTableDefs(collectionId?: string, sides?: Array<TCollectionSide>, tab
 		result.push(...(sides || []).map((side, idx) => {
 			return {
 				field: `sides.${idx}.text`,
-				headerName: side,
+				headerName: side.name,
 				editable: tableEditMode === 'editable',
 				filter: true,
 			};

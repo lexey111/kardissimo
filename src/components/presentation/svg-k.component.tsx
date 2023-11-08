@@ -1,4 +1,5 @@
 import React, {useEffect, useRef} from "react";
+// @ts-ignore
 import {SVGLoader} from "three/examples/jsm/loaders/SVGLoader";
 import * as THREE from "three";
 

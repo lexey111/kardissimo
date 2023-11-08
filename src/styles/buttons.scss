@@ -111,6 +111,12 @@ $textColor: var(--app-text);
 		transition: all .2s ease;
 	}
 
+	&.no-text-icon {
+		svg {
+			margin: 0 !important;
+		}
+	}
+
 	&.button-sm {
 		font-size: .9rem;
 		height: 24px;

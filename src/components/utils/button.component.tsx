@@ -97,6 +97,10 @@ export const Button: React.FC<TButtonProps> = (
 		classNames.push('text-icon');
 	}
 
+	if (icon && !children && type.indexOf('round') !== -1) {
+		classNames.push('no-text-icon');
+	}
+
 	return <button
 		className={'pure-button' + (classNames.length ? ' ' + classNames.join(' ') : '')}
 		disabled={disabled}

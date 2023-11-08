@@ -27,7 +27,6 @@ export const CardSide: React.FC<TCardAddProps> = ({collectionId, cardId, color, 
 	const styles: any = {};
 	if (color) {
 		styles['color'] = color;
-		console.log(styles)
 	}
 	if (background) {
 		styles['backgroundColor'] = background;
