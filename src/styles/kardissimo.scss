@@ -2,8 +2,32 @@
 
 .jumbo-logo {
 	width: 100%;
-	background: mixins.blackTrans(.1);
+	//background: mixins.blackTrans(.1);
 	margin-bottom: 32px;
+	position: relative;
+	overflow: hidden;
+
+	&:before {
+		content: '';
+		z-index: -1;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: -64px;
+		right: -64px;
+		background: url('./cross.png');
+		opacity: .1;
+		animation: bg-move 2s ease-in-out infinite;
+	}
+}
+
+@keyframes bg-move {
+	0% {
+		transform: translateX(0);
+	}
+	0% {
+		transform: translateX(31px);
+	}
 }
 
 .kardissimo-content {
@@ -23,9 +47,9 @@
 
 	canvas {
 		display: flex;
-		height: 400px;
+		height: 368px;
 		width: 400px;
-		max-height: 400px;
+		max-height: 368px;
 		max-width: 400px;
 		flex-grow: 0;
 		flex-shrink: 0;

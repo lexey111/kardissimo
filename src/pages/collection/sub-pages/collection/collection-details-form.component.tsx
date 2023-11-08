@@ -321,7 +321,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
 			{(state?.cards?.length || 0) > 0 && <fieldset className={'checkbox-field'}>
 				<span className={'pseudo-label'}></span>
 
-				<Switch value={useFirst} onChange={setUseFirst} text={'Use card #1 to preview'}/>
+				<Switch value={useFirst} onChange={setUseFirst} text={'Use texts of card #1 to preview'}/>
 			</fieldset>}
 
 			<fieldset className={'actions'}>

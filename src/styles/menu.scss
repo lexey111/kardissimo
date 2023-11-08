@@ -26,6 +26,24 @@
 		padding: 0 32px;
 	}
 
+	.menu-logo {
+		color: mixins.whiteTrans(.8);
+		display: flex;
+		margin-right: auto;
+		font-size: 2rem;
+		font-weight: 100;
+
+		svg {
+			width: 32px;
+			height: 32px;
+			margin-right: 8px;
+			background: mixins.whiteTrans(.6);
+			padding: 6px;
+			border-radius: 100%;
+			fill: var(--app-primary-background);
+		}
+	}
+
 	ul {
 		display: flex;
 		height: 48px;
@@ -179,7 +197,7 @@
 		top: 100%;
 		right: -18px;
 		margin-top: 16px;
-		background: mixins.whiteTrans(.8);
+		background: mixins.whiteTrans(1);
 		color: mixins.blackTrans(.9);
 		white-space: nowrap;
 		padding: 8px 16px 16px 16px;
@@ -203,7 +221,7 @@
 			right: 20px;
 			border-left: 10px solid transparent;
 			border-right: 10px solid transparent;
-			border-bottom: 10px solid mixins.whiteTrans(.9);
+			border-bottom: 10px solid mixins.whiteTrans(1);
 			transform: translateX(-50%);
 		}
 	}

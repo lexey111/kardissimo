@@ -85,7 +85,7 @@ export const getSessionAndUser = async () => {
 		console.log('no user')
 		return resetSession();
 	}
-
+	console.log('user', user.id)
 	useAuthStore.setState(() => {
 		return {
 			fetching: false,
