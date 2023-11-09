@@ -1,6 +1,7 @@
 import React from "react";
 import {AnimatePresence, motion} from "framer-motion";
 import {Dialog} from "@headlessui/react";
+import {CloseCross} from "./close-cross.component.tsx";
 
 export type TModalProps = {
 	open: boolean
@@ -66,7 +67,9 @@ export const Modal: React.FC<TModalProps> = (props) => {
 						},
 					}}
 				>
-					<div className={'close-cross'} onClick={props.onClose}>&times;</div>
+					<div className={'close-cross'}>
+						<CloseCross onClick={props.onClose}/>
+					</div>
 
 					<div className={'dialog-content-wrapper'}>
 						<Dialog.Title></Dialog.Title>

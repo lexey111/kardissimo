@@ -11,7 +11,7 @@ import {
 } from "../../../../../store/settings/settings-store.ts";
 import {PreviewCell} from "./card-table-preview.component.tsx";
 import {RemoveCell} from "./card-table-remove.component.tsx";
-import {useCardNavigateHook} from "../../../../../components/utils/useCardNavigate.hook.tsx";
+import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
 import {TCollectionSide} from "../../../../../store/data/types.ts"; // Optional theme CSS
 
 export type TCardTableProps = {

@@ -6,7 +6,7 @@ import {useSettingsStore} from "../../../../../store/settings/settings-store.ts"
 import {ListNoData} from "../../cards/card-list-no-data.component.tsx";
 import {CardListItem} from "./card-list-item.component.tsx";
 import {CardTable} from "../table/card-table.component.tsx";
-import {useCardNavigateHook} from "../../../../../components/utils/useCardNavigate.hook.tsx";
+import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
 
 export type TCardListProps = {
 	collectionId?: string

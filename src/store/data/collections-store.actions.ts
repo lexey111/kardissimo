@@ -157,8 +157,8 @@ createCollection({
 	author: 'John Doe',
 	isLocal: true,
 	sides: [
-		{name: 'English', textColor: '#222', color: '#eee'},
-		{name: 'Español', textColor: '#02326c', color: '#d29002'}
+		{name: 'English', textColor: '#222', color: '#c5e2e3'},
+		{name: 'Español', textColor: '#02326c', color: '#e7d3a8'}
 	]
 });
 
@@ -168,8 +168,8 @@ createCollection({
 	author: 'John Doe',
 	isLocal: true,
 	sides: [
-		{name: 'Ukrainian', textColor: '#222', color: '#eee'},
-		{name: 'English', textColor: '#02326c', color: '#d29002'}
+		{name: 'Ukrainian', textColor: '#222', color: '#c4e8ec'},
+		{name: 'English', textColor: '#02326c', color: '#ead1a4'}
 	]
 });
 

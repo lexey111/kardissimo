@@ -28,23 +28,28 @@
 		backdrop-filter: blur(4px);
 		box-shadow: inset 0 0 128px mixins.blackTrans(.5);
 		background: mixins.blackTrans();
-		transition: all .2s ease;
+		transition: all .3s ease;
 		cursor: default;
+		transform: scaleX(.5);
+		transform-origin: right center;
 	}
 
 	.app-settings-container {
 		opacity: 0;
 		pointer-events: none;
 		position: fixed;
-		top: 0;
-		bottom: 0;
+		top: 8px;
+		bottom: 8px;
 		right: 0;
 		width: 400px;
 		visibility: collapse;
-		background: mixins.whiteTrans(.9);
+		background: #fff;
 		backdrop-filter: blur(10px);
 		padding: 16px;
-		box-shadow: -16px 0 32px mixins.blackTrans();
+
+		box-shadow: -16px 0 32px mixins.blackTrans(),
+		0 0 0 8px mixins.blackTrans(.2);
+
 		transition: all .2s ease;
 		transform: translateX(20px);
 		border-radius: 16px 0 0 16px;
@@ -55,7 +60,7 @@
 	&.active {
 		.app-settings-container, .app-settings-backdrop {
 			opacity: 1;
-			transform: translateX(0);
+			transform: translateX(0) scale(1);
 			pointer-events: all;
 			visibility: visible;
 			z-index: 300;
@@ -79,35 +84,64 @@
 		position: relative;
 
 		.app-settings-close {
-			transition: all .2s ease;
 			position: absolute;
-			cursor: pointer;
-			top: 50%;
-			right: 8px;
-			font-size: 22px;
-			padding: 0;
-			margin: 0;
-			display: flex;
-			@include mixins.center();
-			transform: translateY(-50%);
-			opacity: .8;
-
-			svg {
-				margin: 0 !important;
-			}
-
-			&:hover {
-				opacity: 1;
-				transform: translateY(-50%) scale(1.2);
-			}
+			top: 14px;
+			right: 0;
 		}
 	}
 }
 
-body.settings-lock {
-	overflow: hidden;
 
-	canvas {
-		opacity: 0;
+.appearance-items {
+	display: flex;
+	flex-flow: row wrap;
+	@include mixins.center();
+	width: 100%;
+
+	.appearance-item-wrapper {
+		display: flex;
+		flex-flow: column wrap;
+		@include mixins.center();
+
+		.appearance-item {
+			width: 100px;
+			height: 100px;
+			margin: 8px;
+			border-radius: 12px;
+			box-sizing: border-box;
+			border: 4px solid #fff;
+			box-shadow: 0 4px 8px mixins.blackTrans(), inset 0 0 0 1px mixins.whiteTrans();
+			cursor: pointer;
+			transition: all .2s ease;
+		}
+
+		.appearance-item-name {
+			margin-top: 4px;
+			font-size: .8rem;
+			color: mixins.blackTrans(.4);
+			transition: all .2s ease;
+		}
+
+		&:hover {
+			.appearance-item {
+				border: 4px solid var(--app-accent-background);
+			}
+
+			.appearance-item-name {
+				color: mixins.blackTrans(.7);
+			}
+		}
+
+		&.active {
+			.appearance-item {
+				border-color: var(--app-primary-background);
+				cursor: default;
+			}
+
+			.appearance-item-name {
+				font-weight: bold;
+				color: #222
+			}
+		}
 	}
 }

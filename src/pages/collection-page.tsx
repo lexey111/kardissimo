@@ -2,7 +2,7 @@ import React from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {Outlet, useParams} from "react-router-dom";
 import {getCollection} from "../store/data/collections-store.selectors.ts";
-import {useExclusiveHook} from "../components/utils/useExclusive.hook.tsx";
+import {useExclusiveHook} from "../components/hooks/useExclusive.hook.tsx";
 import {AppHeader} from "../components/app-header.component.tsx";
 
 export const CollectionPage: React.FC = () => {

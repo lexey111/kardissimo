@@ -11,7 +11,7 @@ import {Button} from "./utils/button.component.tsx";
 import {logout} from "../store/auth/auth-store.actions.ts";
 import {UserAvatar} from "./utils/user-avatar.component.tsx";
 import {CgSpinner} from "react-icons/cg";
-import {AppSettings} from "./app-settings.component.tsx";
+import {AppSettings} from "./settings/app-settings.component.tsx";
 
 const readySelector = (state: ICollectionState) => state.collections.filter(c => c.cards && c.cards?.length > 0).length;
 const userSelector = (state: IAuthState) => state;

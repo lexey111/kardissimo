@@ -7,24 +7,6 @@
 	flex-flow: column nowrap;
 }
 
-body.exclusive-lock {
-	#app-footer {
-		max-height: 0;
-		height: 0;
-		overflow: hidden;
-		opacity: 0;
-	}
-
-	#app-menu {
-		background: transparent;
-		z-index: -1;
-
-		.app-menu-content {
-			display: none;
-		}
-	}
-}
-
 .spin {
 	animation-name: spin;
 	animation-duration: 1s;

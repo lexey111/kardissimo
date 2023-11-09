@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import {getCard} from "../../../../store/data/collections-store.selectors.ts";
-import {useCardNavigateHook} from "../../../../components/utils/useCardNavigate.hook.tsx";
+import {useCardNavigateHook} from "../../../../components/hooks/useCardNavigate.hook.tsx";
 
 export type TCardAddProps = {
 	collectionId?: string

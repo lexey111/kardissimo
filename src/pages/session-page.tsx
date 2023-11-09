@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
-import {useExclusiveHook} from "../components/utils/useExclusive.hook.tsx";
+import {useExclusiveHook} from "../components/hooks/useExclusive.hook.tsx";
 import {getCollection} from "../store/data/collections-store.selectors.ts";
 import {PageError} from "../types.ts";
 import {SessionStage} from "./session/session-stage.tsx";

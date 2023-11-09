@@ -1,0 +1,40 @@
+body.settings-lock {
+	overflow: hidden;
+
+	canvas {
+		opacity: 0;
+	}
+}
+
+body.exclusive-lock {
+	#app-footer {
+		max-height: 0;
+		height: 0;
+		overflow: hidden;
+		opacity: 0;
+	}
+
+	#app-menu {
+		background: transparent;
+		z-index: -1;
+
+		.app-menu-content {
+			display: none;
+		}
+	}
+
+	.app-page-header {
+		margin-bottom: 8px;
+		margin-top: -48px;
+
+		.app-ph-title {
+			animation: none;
+		}
+
+		.app-ph-caption {
+			&:before {
+				display: none;
+			}
+		}
+	}
+}

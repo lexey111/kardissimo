@@ -3,7 +3,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {CollectionDetailsForm} from "./collection-details-form.component.tsx";
 import {TCollection} from "../../../../store/data/types.ts";
 import {getCollection} from "../../../../store/data/collections-store.selectors.ts";
-import {useCardNavigateHook} from "../../../../components/utils/useCardNavigate.hook.tsx";
+import {useCardNavigateHook} from "../../../../components/hooks/useCardNavigate.hook.tsx";
 import {
 	createCollection,
 	getDefaultCollection,

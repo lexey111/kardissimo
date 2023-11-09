@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {BackToCollectionsButton} from "../collection/back-to-collections.button.component.tsx";
-import {useScreenSize} from "./useScreenSize.hook.tsx";
+import {useScreenSize} from "../hooks/useScreenSize.hook.tsx";
 
 export type TAppPageHeaderProps = {
 	title: string | JSX.Element

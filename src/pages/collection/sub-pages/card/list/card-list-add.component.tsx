@@ -3,7 +3,7 @@ import {IoIosAddCircle} from "react-icons/io";
 import {useSettingsStore} from "../../../../../store/settings/settings-store.ts";
 import {ICollectionState, useCollectionStore} from "../../../../../store/data/collections-store.ts";
 import {useShallow} from "zustand/react/shallow";
-import {useCardNavigateHook} from "../../../../../components/utils/useCardNavigate.hook.tsx";
+import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
 
 export type TCardListAddProps = {
 	collectionId?: string

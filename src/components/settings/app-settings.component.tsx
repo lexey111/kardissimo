@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {HiMiniCog6Tooth} from "react-icons/hi2";
-import {IoCloseSharp} from "react-icons/io5";
+import {CloseCross} from "../utils/close-cross.component.tsx";
+import {AppearanceSelector} from "./appearance-selector.component.tsx";
 
 export const AppSettings: React.FC = () => {
 	const [active, setActive] = useState(false);
@@ -36,11 +37,11 @@ export const AppSettings: React.FC = () => {
 		<div className={'app-settings-container'}>
 			<h1>
 				Appearance
-				<div className={'app-settings-close'} onClick={() => setActive(false)}><IoCloseSharp/></div>
+				<div className={'app-settings-close'}>
+					<CloseCross onClick={() => setActive(false)}/>
+				</div>
 			</h1>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet beatae consequatur eum eveniet
-			exercitationem fugit modi provident quae. Adipisci ducimus, est eveniet ipsa libero maiores perferendis
-			quia quidem repellat sunt.
+			<AppearanceSelector/>
 		</div>
 	</div>;
 }

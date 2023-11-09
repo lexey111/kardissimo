@@ -76,6 +76,7 @@
 		.go-back {
 			font-size: 1.5rem;
 			margin-right: 1rem;
+			margin-bottom: -4px;
 		}
 
 		&:before {
@@ -114,22 +115,6 @@
 	}
 }
 
-body.exclusive-lock {
-	.app-page-header {
-		margin-bottom: 8px;
-		margin-top: -48px;
-
-		.app-ph-title {
-			animation: none;
-		}
-
-		.app-ph-caption {
-			&:before {
-				display: none;
-			}
-		}
-	}
-}
 
 @keyframes appear {
 	0% {

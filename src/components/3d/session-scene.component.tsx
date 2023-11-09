@@ -4,7 +4,7 @@ import {FlatCard} from "./card/flat-card.component.tsx";
 import {TPreparedCard} from "../../store/data/types.ts";
 import {animated, Controller} from "@react-spring/three";
 import {easeInOut} from "framer-motion";
-import {useDebouncedResizeHook} from "../utils/useDebouncedResize.hook.tsx";
+import {useDebouncedResizeHook} from "../hooks/useDebouncedResize.hook.tsx";
 import {SessionClouds} from "./session-clouds.component.tsx";
 import {Stage} from "@react-three/drei";
 

@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import {IoIosAddCircle} from "react-icons/io";
-import {useHeight} from "../../../../components/utils/useHeight.hook.tsx";
-import {useCardNavigateHook} from "../../../../components/utils/useCardNavigate.hook.tsx";
+import {useHeight} from "../../../../components/hooks/useHeight.hook.tsx";
+import {useCardNavigateHook} from "../../../../components/hooks/useCardNavigate.hook.tsx";
 
 
 export type TCardAddProps = {
