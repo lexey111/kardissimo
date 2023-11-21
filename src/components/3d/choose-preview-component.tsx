@@ -47,9 +47,9 @@ export const ChoosePreview: React.FC<TChoosePreviewProps> = (
 		>
 
 			<Stage
-				adjustCamera={.9} intensity={6} preset="rembrandt"
-				shadows={false}
-				environment="dawn"
+				adjustCamera={.9} intensity={1} preset="rembrandt"
+				// shadows={false}
+				environment="city"
 			>
 				<PresentationControls
 					config={{mass: 2, tension: 500}}
@@ -62,7 +62,7 @@ export const ChoosePreview: React.FC<TChoosePreviewProps> = (
 			</Stage>
 
 			<pointLight
-				position={[-80, 80, 120]}
+				position={[-80, 80, 220]}
 				color={'#aaa'}
 				intensity={100000}/>
 

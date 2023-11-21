@@ -34,7 +34,17 @@ export const CardSurface: React.FC<TCardSurfaceProps> = (props) => {
 		castShadow={true}
 		receiveShadow={true}>
 		<extrudeGeometry args={[cardSurfaceShape, extrudeSettings]}/>
-		{props.translucent ? <meshPhongMaterial color={props.color} transparent={true} opacity={.7}/> :
+		{props.translucent ? <meshPhysicalMaterial
+				metalness={1.8}
+				roughness={.15}
+				envMapIntensity={0.95}
+				clearcoat={1}
+				transmission={.95}
+				reflectivity={0.2}
+				ior={2.9}
+				side={THREE.DoubleSide}
+				color={props.color}
+				transparent={true} opacity={.4}/> :
 			<meshPhongMaterial color={props.color}/>}
 	</mesh>;
 };

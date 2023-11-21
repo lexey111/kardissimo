@@ -1,5 +1,16 @@
 @use 'mixins';
 
+body.theme-snow {
+	#app-menu {
+		background: #fff;
+		a {
+			&:hover, &.active {
+				background: var(--app-primary-background);
+			}
+		}
+	}
+}
+
 #app-menu {
 	background: mixins.blackTrans(.4);
 	display: flex;
@@ -16,7 +27,7 @@
 	flex-grow: 0;
 	flex-shrink: 0;
 	max-height: 2000px;
-	transition: all .4s ease;
+	transition: all .2s ease;
 
 	.app-menu-content {
 		display: flex;

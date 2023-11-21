@@ -6,13 +6,6 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 */
 @use 'mixins';
 
-$focusRing: var(--app-accent-background);
-
-$primaryBg: var(--app-primary-background);
-$dangerBg: var(--app-danger-background);
-$secondaryGroupBg: var(--app-accent-background);
-$textColor: var(--app-text);
-
 .pure-button {
 	white-space: nowrap;
 	vertical-align: middle;
@@ -52,7 +45,7 @@ $textColor: var(--app-text);
 		left: -4px;
 		right: -4px;
 		bottom: -4px;
-		border: 6px solid $focusRing;
+		border: 6px solid var(--app-accent-background);
 		border-radius: 8px;
 		transform: scale(.5);
 	}
@@ -186,7 +179,7 @@ $textColor: var(--app-text);
 
 	&.pure-button-danger {
 		background: var(--app-danger-background);
-		color: var(--app-danger-text)
+		color: var(--app-danger-text);
 	}
 
 	&.pure-button-success {
@@ -238,7 +231,7 @@ $textColor: var(--app-text);
 }
 
 .pure-button-primary, .pure-button-danger {
-	color: $textColor;
+	color: var(--app-text);
 
 	&:focus, &:hover {
 		box-shadow: 0 1px 2px mixins.blackTrans(.4);
@@ -246,11 +239,11 @@ $textColor: var(--app-text);
 }
 
 .pure-button-primary {
-	background-color: $primaryBg;
+	background-color: var(--app-primary-background);
 }
 
 .pure-button-danger {
-	background-color: $dangerBg;
+	background-color: var(--app-danger-background);
 }
 
 .pure-button-floating {
@@ -294,7 +287,7 @@ $textColor: var(--app-text);
 	flex-shrink: 0;
 
 	&.round-danger, &.round-primary {
-		color: var(--app-text);
+		color: var(--app-danger-text);
 
 		&.button-sm {
 			svg {
@@ -385,7 +378,7 @@ $textColor: var(--app-text);
 	}
 
 	&:hover, &:focus {
-		border: 2px solid $focusRing;
+		border: 2px solid var(--app-accent-background);
 	}
 
 	&.white-ring {
@@ -434,7 +427,7 @@ $textColor: var(--app-text);
 
 		&.pressed {
 			box-shadow: 0 2px 4px mixins.blackTrans(.1);
-			background: mixins.whiteTrans(.6);
+			background: mixins.whiteTrans(.9);
 			color: mixins.blackTrans(1);
 			border-radius: 6px;
 			transform: scale(1.1);
@@ -442,11 +435,13 @@ $textColor: var(--app-text);
 
 		&:focus, &:hover {
 			box-shadow: none;
-			color: $primaryBg;
+			//color: var(--app-primary-background);
+			transform: scale(1.1);
 
 			&.pressed {
 				box-shadow: 1px 2px 2px mixins.blackTrans(.1);
-				background: mixins.whiteTrans(.6);
+				background: mixins.whiteTrans(.9);
+				color: mixins.blackTrans(1);
 			}
 		}
 	}

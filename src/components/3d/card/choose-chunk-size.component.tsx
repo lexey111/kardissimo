@@ -37,7 +37,8 @@ export const ChooseChunkSize: React.FC<TChoose3DCard> = ({total, amount}) => {
 			position-x={0}
 			fontSize={40}
 			// font={Object.keys(Fonts)[0]}
-			color={'#13496b'}
+			color={'#fff'}
+			fillOpacity={.7}
 			{...text}
 			anchorX={'center'}
 			anchorY="middle"> </Text>

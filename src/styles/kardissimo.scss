@@ -1,5 +1,13 @@
 @use 'mixins';
 
+body.theme-snow {
+	.jumbo-logo {
+		&:before {
+			opacity: .7;
+		}
+	}
+}
+
 .jumbo-logo {
 	width: 100%;
 	//background: mixins.blackTrans(.1);
@@ -60,7 +68,7 @@
 .jumbo-text {
 	max-width: unset !important;
 	margin-left: -30px;
-	color: mixins.whiteTrans(.8);
+	color: var(--app-text);
 
 	h1 {
 		font-size: 8rem;

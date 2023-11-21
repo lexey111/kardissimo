@@ -1,5 +1,15 @@
 @use "mixins";
 
+body.theme-snow {
+	.run-radiogroup {
+		& > div {
+			span {
+				color: var(--app-text);
+			}
+		}
+	}
+}
+
 .run-radiogroup {
 	display: flex;
 	flex-flow: column wrap;
@@ -19,6 +29,7 @@
 
 		span {
 			color: var(--app-background-color);
+			//			color: var(--app-text);
 			width: 100%;
 			border-radius: 4px;
 			padding: 8px 8px 8px 30px;
