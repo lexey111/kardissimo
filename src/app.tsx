@@ -3,8 +3,12 @@ import {Outlet, ScrollRestoration} from "react-router-dom";
 import {AppMenu} from "./components/app-menu.component.tsx";
 import {AppFooter} from "./components/app-footer.component.tsx";
 import {getSessionAndUser, resetSession} from "./store/auth/auth-store.actions.ts";
+import {useSettingsStore} from "./store/settings/settings-store.ts";
+import {WaitCredentials} from "./components/utils/wait-credentials.component.tsx";
 
 export const App: React.FC = () => {
+	const isBusy = useSettingsStore((state) => state?.busy);
+
 	useEffect(() => {
 		try {
 			void getSessionAndUser();
@@ -12,6 +16,10 @@ export const App: React.FC = () => {
 			resetSession();
 		}
 	}, []);
+
+	if (isBusy) {
+		return <WaitCredentials/>;
+	}
 
 	return <>
 		<AppMenu/>

@@ -3,6 +3,7 @@
 body.theme-snow {
 	#app-menu {
 		background: #fff;
+
 		a {
 			&:hover, &.active {
 				background: var(--app-primary-background);
@@ -35,6 +36,32 @@ body.theme-snow {
 		justify-content: flex-end;
 		flex-flow: row nowrap;
 		padding: 0 32px;
+
+		&.wait {
+			.spin {
+				display: inline-flex;
+				align-self: center;
+				width: 16px;
+				height: 16px;
+				padding: 0 !important;
+				margin: 0 !important;
+				line-height: 16px !important;
+
+				svg {
+					width: 16px;
+					height: 16px;
+					padding: 0 !important;
+					margin: 0 !important;
+					line-height: 16px !important;
+				}
+			}
+
+			.after-spin {
+				opacity: .8;
+				font-size: .8rem;
+				margin-left: 8px;
+			}
+		}
 	}
 
 	.menu-logo {

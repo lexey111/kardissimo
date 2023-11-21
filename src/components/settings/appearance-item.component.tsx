@@ -9,7 +9,7 @@ export type TAppearanceItemProps = {
 
 export const AppearanceItem: React.FC<TAppearanceItemProps> = ({id, onApply}) => {
 	const item = Appearances.find(ap => ap.id === id);
-	const currentAppearance = useSettingsStore((state) => state.currentAppearance);
+	const currentAppearance = useSettingsStore((state) => state?.currentAppearance);
 
 	if (!id) {
 		return null;

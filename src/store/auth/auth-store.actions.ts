@@ -1,11 +1,8 @@
-import {createClient} from "@supabase/supabase-js";
 import {useAuthStore} from "./auth-store.ts";
+import {supabase} from "../supabase.ts";
+import {loadSettingsFromServer, setAllSetting} from "../settings/settings-store.actions.ts";
+import {DefaultSettings} from "../settings/settings-store.ts";
 
-// Create a single supabase client for interacting with your database
-const supabase = createClient(
-	import.meta.env.VITE_SUPABASE_APP,
-	import.meta.env.VITE_SUPABASE_KEY
-);
 
 export const tryLoginWithGoogle = async () => {
 	resetSession(true);
@@ -53,6 +50,8 @@ export const resetSession = (fetching = false) => {
 			}
 		}
 	});
+
+	setAllSetting({...DefaultSettings}, true);
 }
 
 export const logout = async () => {
@@ -97,6 +96,8 @@ export const getSessionAndUser = async () => {
 			}
 		}
 	});
+
+	await loadSettingsFromServer();
 
 	return user;
 }

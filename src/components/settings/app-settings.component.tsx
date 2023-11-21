@@ -47,7 +47,9 @@ export const AppSettings: React.FC = () => {
 					<CloseCross onClick={() => setActive(false)}/>
 				</div>
 			</h1>
-			<AppearanceSelector onApply={handleApply}/>
+			{active && <>
+				<AppearanceSelector onApply={handleApply}/>
+			</>}
 		</div>
 	</div>;
 }

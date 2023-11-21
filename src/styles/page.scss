@@ -25,7 +25,7 @@
 	flex-flow: row nowrap;
 	@include mixins.center();
 	font-size: 14px;
-	color: mixins.blackTrans(.8);
+	color: var(--app-text);
 	z-index: 200;
 
 	svg {

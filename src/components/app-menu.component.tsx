@@ -12,6 +12,7 @@ import {logout} from "../store/auth/auth-store.actions.ts";
 import {UserAvatar} from "./utils/user-avatar.component.tsx";
 import {CgSpinner} from "react-icons/cg";
 import {AppSettings} from "./settings/app-settings.component.tsx";
+import {useSettingsStore} from "../store/settings/settings-store.ts";
 
 const readySelector = (state: ICollectionState) => state.collections.filter(c => c.cards && c.cards?.length > 0).length;
 const userSelector = (state: IAuthState) => state;
@@ -21,6 +22,7 @@ export const AppMenu: React.FC = () => {
 	const count = countCollections();
 	const readyCollections = useCollectionStore(useShallow(readySelector));
 	const user = useAuthStore(userSelector);
+	const isBusy = useSettingsStore((state) => state?.busy);
 
 	const handleLogout = useCallback(() => {
 		void logout();
@@ -31,10 +33,11 @@ export const AppMenu: React.FC = () => {
 	}, []);
 
 	const loggedIn = user.loginData.id && !user.fetching;
-	if (user.fetching) {
+	if (user.fetching || isBusy) {
 		return <nav id='app-menu'>
-			<div className={'app-menu-content'}>
+			<div className={'app-menu-content wait'}>
 				<div className={'spin'}><CgSpinner/></div>
+				<span className={'after-spin'}>Just a moment...</span>
 			</div>
 		</nav>;
 	}

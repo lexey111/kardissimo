@@ -10,12 +10,19 @@ export type ISettingsState = {
 	tableViewMode: TCardListTableViewMode
 	selectedSide: number
 	currentAppearance: string
+	busy: boolean
 }
 
-export const useSettingsStore = create<ISettingsState>(() => ({
+export const DefaultSettings: ISettingsState = {
 	cardListStyle: 'list',
 	tableEditMode: 'readonly',
 	tableViewMode: 'wide',
 	selectedSide: 0,
-	currentAppearance: 'default'
+	currentAppearance: 'default',
+	busy: false
+};
+
+export const useSettingsStore = create<ISettingsState>(() => ({
+	...DefaultSettings,
+	busy: true
 }));

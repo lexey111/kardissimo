@@ -5,12 +5,14 @@ import {FaFacebookSquare, FaGoogle} from "react-icons/fa";
 import {IAuthState, useAuthStore} from "../store/auth/auth-store.ts";
 import {useNavigate} from "react-router-dom";
 import {tryLoginWithFB, tryLoginWithGoogle} from "../store/auth/auth-store.actions.ts";
+import {useSettingsStore} from "../store/settings/settings-store.ts";
 
 const userSelector = (state: IAuthState) => state;
 
 export const LoginPage: React.FC = () => {
 	const user = useAuthStore(userSelector);
 	const navigate = useNavigate();
+	const isBusy = useSettingsStore((state) => state?.busy);
 
 	const handleGoogle = useCallback(() => {
 		void tryLoginWithGoogle();
@@ -28,7 +30,7 @@ export const LoginPage: React.FC = () => {
 
 	return <AppPage title={'About page'} authOnly={false}>
 		<div className={'login-buttons'}>
-			{user.fetching && <span>Retrieving data...</span>}
+			{user.fetching || isBusy && <span>Retrieving data...</span>}
 
 			{!user.fetching && !user.loginData.id && <>
 				<h1>Login with social network | other service account</h1>

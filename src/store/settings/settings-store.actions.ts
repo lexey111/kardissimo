@@ -1,20 +1,51 @@
-import {TCardListStyle, TCardListTableMode, TCardListTableViewMode, useSettingsStore} from "./settings-store.ts";
+import {
+	ISettingsState,
+	TCardListStyle,
+	TCardListTableMode,
+	TCardListTableViewMode,
+	useSettingsStore
+} from "./settings-store.ts";
 import {Appearances} from "../../resources/appearance.ts";
+import {supabase} from "../supabase.ts";
+import {useAuthStore} from "../auth/auth-store.ts";
+
+export const setAllSetting = (data: ISettingsState, updateStyles = false) => useSettingsStore.setState((state) => {
+	if (updateStyles) {
+		assignGlobalStyles(data?.currentAppearance);
+	}
+	return {...state, ...data};
+});
 
 export const setCardListStyle = (style: TCardListStyle) => useSettingsStore.setState((state) => {
-	return {...state, cardListStyle: style};
+	const result = {...state, cardListStyle: style};
+	void saveSettingsToServer(result);
+
+	return result;
+});
+
+export const setBusyState = (busy: boolean) => useSettingsStore.setState((state) => {
+	return {...state, busy: busy};
 });
 
 export const setTableEditMode = (mode: TCardListTableMode) => useSettingsStore.setState((state) => {
-	return {...state, tableEditMode: mode};
+	const result = {...state, tableEditMode: mode};
+	void saveSettingsToServer(result);
+
+	return result;
 });
 
 export const setTableViewMode = (mode: TCardListTableViewMode) => useSettingsStore.setState((state) => {
-	return {...state, tableViewMode: mode};
+	const result = {...state, tableViewMode: mode};
+	void saveSettingsToServer(result);
+
+	return result;
 });
 
 export const setSelectedSide = (side: number) => useSettingsStore.setState((state) => {
-	return {...state, selectedSide: side};
+	const result = {...state, selectedSide: side};
+	void saveSettingsToServer(result);
+
+	return result;
 });
 
 const r: any = document.querySelector(':root');
@@ -51,6 +82,18 @@ export const setCurrentAppearance = (id: string) => useSettingsStore.setState((s
 	if (!id || !app) {
 		return {...state};
 	}
+
+	const result = {...state, currentAppearance: id};
+	assignGlobalStyles(id);
+	void saveSettingsToServer(result);
+	return result;
+});
+
+export const assignGlobalStyles = (id: string) => {
+	const app = Appearances.find(ap => ap.id === id);
+	if (!id || !app) {
+		return;
+	}
 	// @ts-ignore
 	document.body.classList = 'theme-' + app.id;
 
@@ -68,6 +111,39 @@ export const setCurrentAppearance = (id: string) => useSettingsStore.setState((s
 	r!.style.setProperty('--app-danger-background', app?.dangerColor);
 	r!.style.setProperty('--app-danger-text', app?.dangerText || '#fff');
 	r!.style.setProperty('--app-danger-background-darken', LightenDarkenColor(app!.dangerColor!, -20));
+};
 
-	return {...state, currentAppearance: id};
-});
+
+export const loadSettingsFromServer = async (): Promise<any> => {
+	const {data, error} = await supabase
+		.from('settings')
+		.select();
+
+	if (error) {
+		throw error;
+	}
+
+	if (!data?.[0]?.data) {
+		throw new Error('Invalid data from server');
+	}
+
+	const state = JSON.parse(data[0].data);
+	setAllSetting({...state, busy: false});
+	assignGlobalStyles(state.currentAppearance);
+}
+
+
+export const saveSettingsToServer = async (state: Record<string, any>) => {
+	const userId = useAuthStore.getState().loginData.id;
+
+	const {error} = await supabase
+		.from('settings')
+		.upsert({data: JSON.stringify(state)})
+		.eq('id', userId)
+
+	if (error) {
+		throw error;
+	}
+
+	setBusyState(false);
+}
