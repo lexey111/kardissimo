@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {HiMiniCog6Tooth} from "react-icons/hi2";
 import {CloseCross} from "../utils/close-cross.component.tsx";
 import {AppearanceSelector} from "./appearance-selector.component.tsx";
+import {setCurrentAppearance} from "../../store/settings/settings-store.actions.ts";
 
 export const AppSettings: React.FC = () => {
 	const [active, setActive] = useState(false);
@@ -12,6 +13,11 @@ export const AppSettings: React.FC = () => {
 		}
 		setActive(false);
 	}, [setActive]);
+
+	const handleApply = useCallback((id: string) => {
+		setCurrentAppearance(id);
+		setActive(false);
+	}, []);
 
 	useEffect(() => {
 		window.addEventListener('keydown', handleEsc);
@@ -41,7 +47,7 @@ export const AppSettings: React.FC = () => {
 					<CloseCross onClick={() => setActive(false)}/>
 				</div>
 			</h1>
-			<AppearanceSelector/>
+			<AppearanceSelector onApply={handleApply}/>
 		</div>
 	</div>;
 }
