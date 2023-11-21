@@ -3,8 +3,8 @@ import {useAuthStore} from "./auth-store.ts";
 
 // Create a single supabase client for interacting with your database
 const supabase = createClient(
-	"https://ahdimeykyrsljwlwqvkb.supabase.co",
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoZGltZXlreXJzbGp3bHdxdmtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTkyODQwMDMsImV4cCI6MjAxNDg2MDAwM30.V8goUsJSZLZ36CtXBDOQISPzCMbOfWCqk16Fe_5R5ck"
+	import.meta.env.VITE_SUPABASE_APP,
+	import.meta.env.VITE_SUPABASE_KEY
 );
 
 export const tryLoginWithGoogle = async () => {

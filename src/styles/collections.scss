@@ -116,7 +116,7 @@ body.theme-snow {
 	width: 100%;
 	aspect-ratio: 2/3;
 	background: mixins.whiteTrans(.4);
-	border-radius: 12px;
+	border-radius: 20px;
 	display: flex;
 	position: relative;
 	@include mixins.content-center();
