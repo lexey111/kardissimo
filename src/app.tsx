@@ -17,6 +17,12 @@ export const App: React.FC = () => {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (!isBusy) {
+			document.body.classList.add('ready');
+		}
+	}, [isBusy]);
+
 	if (isBusy) {
 		return <WaitCredentials/>;
 	}

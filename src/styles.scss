@@ -23,6 +23,7 @@
 @import "styles/kardissimo";
 @import "styles/switch";
 @import "styles/settings";
+@import "styles/themes";
 
 html {
 	font-family: sans-serif;
@@ -36,6 +37,7 @@ body {
 
 	color-scheme: light dark;
 	color: var(--app-text);
+	background: #aaa;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -62,6 +64,10 @@ html, body {
 	bottom: 0;
 	z-index: -1;
 	background: var(--app-background);
+}
+
+body.ready {
+	// ...
 }
 
 h1, h2, h3 {

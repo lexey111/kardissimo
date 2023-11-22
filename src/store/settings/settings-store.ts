@@ -1,4 +1,6 @@
 import {create} from 'zustand';
+import {Appearances} from "../../resources/appearance.ts";
+import {assignGlobalStyles} from "./settings-store.utils.ts";
 
 export type TCardListStyle = 'list' | 'cards' | 'table';
 export type TCardListTableMode = 'readonly' | 'editable';
@@ -22,7 +24,16 @@ export const DefaultSettings: ISettingsState = {
 	busy: false
 };
 
+let lastTheme = localStorage.getItem('lastUsedTheme');
+if (!lastTheme || !Appearances.find(ap => ap.id === lastTheme)) {
+	lastTheme = 'default';
+} else {
+	assignGlobalStyles(lastTheme);
+}
+
+
 export const useSettingsStore = create<ISettingsState>(() => ({
 	...DefaultSettings,
+	currentAppearance: lastTheme!,
 	busy: true
 }));

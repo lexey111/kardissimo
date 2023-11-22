@@ -7,6 +7,9 @@
 	--app-primary-background: #0075ce;
 	--app-primary-background-darken: #005fa9;
 
+	--app-card-background: rgba(255, 255, 255, .4);
+	--app-card-text: #333;
+
 	--app-primary-color: #fff;
 	--app-text: #fff;
 	--app-link-color: #114e8f;

@@ -39,7 +39,7 @@ export const AppPage: React.FC<TAppPageProps> = ({title, authOnly = true, childr
 	if (title) {
 		window.document.title = title + (currentRouteTitle ? ' | ' + currentRouteTitle : '');
 	} else {
-		window.document.title = 'My Cool App';
+		window.document.title = 'Kardissimo';
 	}
 
 	return <div className='app-page-wrapper'>

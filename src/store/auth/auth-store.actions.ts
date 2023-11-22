@@ -1,7 +1,6 @@
 import {useAuthStore} from "./auth-store.ts";
 import {supabase} from "../supabase.ts";
-import {loadSettingsFromServer, setAllSetting} from "../settings/settings-store.actions.ts";
-import {DefaultSettings} from "../settings/settings-store.ts";
+import {loadSettingsFromServer, resetSettings} from "../settings/settings-store.actions.ts";
 
 
 export const tryLoginWithGoogle = async () => {
@@ -51,7 +50,7 @@ export const resetSession = (fetching = false) => {
 		}
 	});
 
-	setAllSetting({...DefaultSettings}, true);
+	resetSettings();
 }
 
 export const logout = async () => {
