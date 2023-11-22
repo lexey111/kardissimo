@@ -39,9 +39,10 @@ export const assignGlobalStyles = (id: string) => {
 	document.body.classList.add('theme-' + app.id);
 	localStorage.setItem('lastUsedTheme', app.id);
 
-	r!.style.setProperty('--app-background', app?.background);
+	r!.style.setProperty('--app-background', app?.background); // gradient
 	r!.style.setProperty('--app-text', app?.textColor);
 	r!.style.setProperty('--app-primary-background', app?.primaryColor); // synonyms
+	r!.style.setProperty('--app-primary-background-darken', LightenDarkenColor(app!.primaryColor!, 15));
 	r!.style.setProperty('--app-background-color', app?.primaryColor);
 
 	r!.style.setProperty('--app-success-background', app?.successColor);

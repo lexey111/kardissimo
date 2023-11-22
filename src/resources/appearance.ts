@@ -28,7 +28,7 @@ export const Appearances: Array<TAppAppearance> = [
 		name: 'Deep Sky',
 		background: 'linear-gradient(10deg, #028dff 10.21%, #092f4f 84.57%)',
 		textColor: '#d3d8ec',
-		primaryColor: '#66bdfd',
+		primaryColor: '#165786',
 		accentColor: '#89e7d9',
 		dangerColor: '#e1128e',
 		successColor: '#12e594'

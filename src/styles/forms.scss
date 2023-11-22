@@ -1,5 +1,26 @@
 @use 'mixins';
 
+body.theme-snow {
+	.form-editor {
+		h2, h3 {
+			background-color: mixins.blackTrans(.1);
+			color: var(--app-card-text);
+
+			a {
+				color: var(--app-card-text);
+			}
+		}
+
+		input[type=text], textarea, select {
+			border-radius: 0;
+
+			&:focus {
+				box-shadow: none;
+			}
+		}
+	}
+}
+
 .form-editor {
 	display: flex;
 	flex-flow: column wrap;
@@ -30,13 +51,14 @@
 		overflow: hidden;
 
 		a {
-			color: var(--app-primary-background);
+			color: var(--app-card-text);
 			display: flex;
 			flex-flow: row nowrap;
 			align-content: center;
 			justify-content: center;
 			justify-items: center;
 			align-items: center;
+			font-style: italic;
 			text-underline-offset: 20px;
 
 			svg {

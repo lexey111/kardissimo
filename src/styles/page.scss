@@ -92,6 +92,8 @@ a:hover, a:focus {
 .page {
 	max-width: 100%;
 	min-width: 400px;
+	display: block;
+	float: none;
 }
 
 .page-1200 {

@@ -4,6 +4,7 @@ import {CollectionListItem} from "./collection-list.item.component.tsx";
 import {useShallow} from "zustand/react/shallow";
 import {ListNoData} from "../cards/card-list-no-data.component.tsx";
 import {CollectionListAdd} from "./collections-list-add.component.tsx";
+import {CollectionListAddItem} from "./collection-list.add-item.component.tsx";
 
 const selector = (state: ICollectionState) => state.collections.map(c => c.id);
 
@@ -25,6 +26,6 @@ export const CollectionList: React.FC = () => {
 				<CollectionListItem id={collectionId!}/>
 			</div>;
 		})}
-		{/*<CardAddFloating collectionId={'123'}/>*/}
+		<CollectionListAddItem/>
 	</div>;
 };

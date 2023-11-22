@@ -10,7 +10,6 @@ import {IAuthState, useAuthStore} from "../store/auth/auth-store.ts";
 import {Button} from "./utils/button.component.tsx";
 import {logout} from "../store/auth/auth-store.actions.ts";
 import {UserAvatar} from "./utils/user-avatar.component.tsx";
-import {CgSpinner} from "react-icons/cg";
 import {AppSettings} from "./settings/app-settings.component.tsx";
 import {useSettingsStore} from "../store/settings/settings-store.ts";
 
@@ -34,12 +33,7 @@ export const AppMenu: React.FC = () => {
 
 	const loggedIn = user.loginData.id && !user.fetching;
 	if (user.fetching || isBusy) {
-		return <nav id='app-menu'>
-			<div className={'app-menu-content wait'}>
-				<div className={'spin'}><CgSpinner/></div>
-				<span className={'after-spin'}>Just a moment...</span>
-			</div>
-		</nav>;
+		return null;
 	}
 
 	return <nav id='app-menu'>

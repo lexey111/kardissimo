@@ -43,6 +43,14 @@
 	color: var(--app-card-text);
 }
 
+@mixin newcard($opacity: 0.4) {
+	background-color: whiteTrans(.05);
+	box-shadow: 0 0 0 1px whiteTrans(.4), inset 0 0 64px whiteTrans(.1);
+	border-radius: 20px;
+	backdrop-filter: blur(20px);
+	color: var(--app-card-text);
+}
+
 @mixin focusRing() {
 	box-shadow: 0 0 0 4px var(--app-accent-background);
 }

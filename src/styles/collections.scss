@@ -3,16 +3,75 @@
 body.theme-snow {
 	.collection-list {
 		.collection-pseudo-card.single {
-			background: #fff !important;
+			background: var(--app-primary-background) !important;
+			border: none;
 		}
 	}
 }
 
 .collection-list {
-	margin: 64px 0;
+	margin: 32px auto;
+	display: grid;
+	gap: 16px;
+	grid-template-columns: repeat(2, 1fr);
+	grid-auto-rows: minmax(310px, auto);
 
-	position: relative;
-	z-index: 1;
+	&.empty {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.collection-list {
+		grid-template-columns: 1fr;
+	}
+}
+
+.collection-item {
+	@include mixins.card();
+	display: flex;
+	flex-flow: column nowrap;
+
+	&.create-collection {
+		@include mixins.newcard();
+
+		.collection-item-create {
+			font-size: 6rem;
+			transition: all .2s ease;
+			display: flex;
+			@include absolute-center();
+			cursor: pointer;
+			pointer-events: all;
+
+			svg {
+				box-shadow: inset 1px 1px 4px mixins.blackTrans(.1);
+				border-radius: 100%;
+				transition: all .2s ease;
+				padding: 0;
+			}
+
+			&:before {
+				content: '';
+				display: block;
+				z-index: -1;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: mixins.blackTrans(.2);
+				border-radius: 100%;
+			}
+
+			border-radius: 100%;
+		}
+
+		&:hover {
+			svg {
+				box-shadow: inset 0 0 0 4px var(--app-accent-background);
+			}
+		}
+	}
 }
 
 .collection-list-add {
@@ -61,26 +120,21 @@ body.theme-snow {
 	}
 }
 
-.collection-item {
-	display: flex;
-	flex-flow: row nowrap;
-	margin: 0 0 64px 0;
-	align-items: center;
-	min-width: 300px;
-	width: 100%;
-}
-
 .collection-item-content {
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: flex-start;
 	flex-grow: 2;
 	margin: 0;
+	padding: 32px;
+
+	.create-collection & {
+		color: var(--app-text);
+	}
 }
 
 .collection-card-info {
 	width: 120px;
-	margin-top: 16px;
 	display: flex;
 	position: relative;
 	flex-flow: column nowrap;
@@ -206,46 +260,78 @@ body.theme-snow {
 
 .collection-wrapper {
 	display: flex;
-	flex-flow: column nowrap;
+	flex-flow: column wrap;
+	align-items: stretch;
+	height: 100%;
 	font-size: .9rem;
 	flex-grow: 2;
-	color: var(--app-text);
+	color: var(--app-card-text);
 	font-weight: 200;
 	margin-left: 48px;
 }
 
+.collection-item-content-wrapper {
+	display: flex;
+	width: 100%;
+	border-radius: 20px;
+	flex-flow: column nowrap;
+}
 
 .collection-title {
 	font-size: 2rem;
-	margin: 0 0 12px 0;
-	padding: 0 0 6px 0;
-	line-height: 1;
-	border-bottom: 1px solid mixins.whiteTrans(.6);
+	font-weight: 200;
+	margin: 0;
+	padding: 32px 0 0 0;
 	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	line-height: 1;
+	//border-radius: 20px 20px 0 0;
+	//background: mixins.blackTrans(.1);
+	width: 100%;
+
+	span {
+		flex-grow: 2;
+		margin-left: 32px;
+	}
+
+	button {
+		margin-left: auto;
+		margin-right: 16px !important;
+	}
 }
 
 .collection-item-actions {
 	display: flex;
 	color: var(--app-text);
 	flex-flow: row wrap;
-	margin-top: 16px;
-	padding-top: 16px;
+	margin-top: auto;
+	justify-items: flex-end;
 
 	button {
-		margin-right: .5rem;
-		color: var(--app-text);
-
 		&:last-of-type {
-			color: var(--app-text);
-			margin-right: 0;
 			margin-left: auto;
+			align-self: flex-end;
 		}
+	}
+}
+
+.collection-item-actions-stack {
+	display: flex;
+	flex-flow: column wrap;
+	align-items: flex-end;
+	align-content: stretch;
+
+	button {
+		margin: 6px 0 0 0;
+		width: 100%;
+		color: var(--app-text);
 	}
 }
 
 .add-new-collection {
 	margin: 32px 0;
-	display: flex;
+	display: block;
 	flex-flow: column wrap;
 }
 
