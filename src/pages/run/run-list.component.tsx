@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {PageError} from "../../types.ts";
@@ -11,7 +11,11 @@ import {useNavigate} from "react-router-dom";
 
 const selector = (state: ICollectionState) => state.collections.filter(c => c.cards && c.cards?.length > 0);
 
-export const RunList: React.FC = () => {
+export type TRunListProps = {
+	preOpenId?: string;
+}
+
+export const RunList: React.FC<TRunListProps> = ({preOpenId}) => {
 	const navigate = useNavigate();
 	const collections = useCollectionStore(useShallow(selector));
 	const [open, setOpen] = useState(false);
@@ -31,12 +35,20 @@ export const RunList: React.FC = () => {
 
 	const handleOpen = useCallback((id: string) => {
 		currentCollection.current = collections.find(c => c.id === id);
-		setOpen(true);
+		if (currentCollection.current) {
+			setOpen(true);
+		}
 	}, [open]);
 
 	const handleClose = useCallback(() => {
 		setOpen(false);
 	}, [open]);
+
+	useEffect(() => {
+		if (preOpenId) {
+			handleOpen(preOpenId);
+		}
+	}, [preOpenId]);
 
 
 	if (!collections || collections.length === 0) {

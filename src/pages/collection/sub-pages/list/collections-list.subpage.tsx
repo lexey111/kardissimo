@@ -4,8 +4,6 @@ import {AppPage} from "../../../../components/app-page.component.tsx";
 
 export const CollectionsListSubpage: React.FC = () => {
 	return <AppPage title={'Collections page'}>
-		<div className={'page page-1200'}>
-			<CollectionList/>
-		</div>
+		<CollectionList/>
 	</AppPage>;
 };

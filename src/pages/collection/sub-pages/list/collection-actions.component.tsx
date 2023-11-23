@@ -23,7 +23,7 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 
 	const goRun = useCallback((id: string) => {
 		// TODO: run route
-		navigate(`/collections/${id}/details`);
+		navigate(`/run?id=${id}`);
 	}, [navigate]);
 
 	const goCards = useCallback((id: string) => {
@@ -63,7 +63,7 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 				<Button
 					onClick={() => goRun(id!)}
 					icon={<FaPlay/>}
-					disabled={(collection?.cards?.length || 0) < 2}
+					// disabled={(collection?.cards?.length || 0) < 2}
 					type='success'>
 					Run
 				</Button>
