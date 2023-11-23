@@ -47,14 +47,6 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
 	const [side, setSide] = useState(0);
 	const [useFirst, setUseFirst] = useState(false);
 
-	// const handleColorComplete = useCallback((idx: number, c: any) => {
-	// 	onChangeSideInput('color', idx, c.hex);
-	// }, []);
-	//
-	// const handleTextColorComplete = useCallback((idx: number, c: any) => {
-	// 	onChangeSideInput('textColor', idx, c.hex);
-	// }, []);
-
 	const hasErrors = errors && Object.keys(errors).length > 0;
 
 	const rotateTimer = useRef<any>();
@@ -301,20 +293,6 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
 							/>
 						</div>
 					</fieldset>
-
-					{/*<fieldset>*/}
-					{/*	<span className={'pseudo-label'}>Background</span>*/}
-					{/*	<div className={'field-set'}>*/}
-					{/*		<ColorPicker*/}
-					{/*			onFocus={() => handleFocus(idx)}*/}
-					{/*			color={_side.color} onComplete={(col) => handleColorComplete(idx, col)}/>*/}
-					{/*		<span className={'pseudo-label secondary-label'}>Text</span>*/}
-					{/*		<ColorPicker*/}
-					{/*			onFocus={() => handleFocus(idx)}*/}
-					{/*			color={_side.textColor} onComplete={(col) => handleTextColorComplete(idx, col)}/>*/}
-					{/*	</div>*/}
-					{/*</fieldset>*/}
-
 				</div>
 			})}
 
