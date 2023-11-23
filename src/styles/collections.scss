@@ -10,7 +10,9 @@ body.theme-snow {
 }
 
 .collection-list {
-	margin: 32px auto;
+	width: 100%;
+	max-width: 1500px;
+	margin: 0 auto;
 	display: grid;
 	gap: 16px;
 	grid-template-columns: repeat(2, 1fr);

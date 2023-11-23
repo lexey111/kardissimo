@@ -96,11 +96,26 @@ a:hover, a:focus {
 	float: none;
 }
 
-.page-1200 {
-	max-width: 1200px;
-	width: 80%;
-	min-width: 400px;
-	margin-bottom: 32px;
+.page-32 {
+	width: 100%;
+	max-width: 1600px;
+	min-width: 200px;
+	display: block;
+	float: none;
+	border: 32px solid transparent;
+	box-sizing: border-box;
+}
+
+@media screen and (max-width: 600px) {
+	.page-32 {
+		border-width: 16px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.page-32 {
+		border-width: 8px;
+	}
 }
 
 .sub-page {

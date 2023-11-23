@@ -8,7 +8,7 @@ export const AboutPage: React.FC = () => {
 			title={'About'}
 			subtitle={'What that is and what for'}
 		/>
-		<div className={'page-1200'}>
+		<div className={'page-32'}>
 			<ul>
 				<li>Zustand</li>
 				<li>ThreeJS</li>
