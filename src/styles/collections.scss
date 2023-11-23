@@ -42,6 +42,12 @@ body.theme-snow {
 	}
 }
 
+body.deep-scroll-size {
+	.create-collection {
+		display: none;
+	}
+}
+
 .collection-list-add {
 	@include mixins.center();
 	width: 100%;

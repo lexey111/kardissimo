@@ -55,13 +55,13 @@ export const useHeight = (addHeight: number) => {
 			return;
 		}
 
-		if (document.body.clientHeight - addHeight - container.current?.offsetHeight < -300) {
-			// dirty trick
+		const scrollLength = container.current?.offsetHeight - document.body.clientHeight;
+
+		if (scrollLength > addHeight * 2) {
 			document.body.classList.add('deep-scroll-size');
 			setNeedToShow(true);
 		}
-
-		if (document.body.clientHeight - addHeight - container.current?.offsetHeight > -150) {
+		if (scrollLength <= addHeight) {
 			document.body.classList.remove('deep-scroll-size');
 			setNeedToShow(false);
 		}
