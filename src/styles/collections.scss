@@ -34,52 +34,17 @@ body.theme-snow {
 
 	&.create-collection {
 		@include mixins.newcard();
-
-		.collection-item-create {
-			font-size: 6rem;
-			transition: all .2s ease;
-			display: flex;
-			@include absolute-center();
-			cursor: pointer;
-			pointer-events: all;
-
-			svg {
-				box-shadow: inset 1px 1px 4px mixins.blackTrans(.1);
-				border-radius: 100%;
-				transition: all .2s ease;
-				padding: 0;
-			}
-
-			&:before {
-				content: '';
-				display: block;
-				z-index: -1;
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				background: mixins.blackTrans(.2);
-				border-radius: 100%;
-			}
-
-			border-radius: 100%;
-		}
-
-		&:hover {
-			svg {
-				box-shadow: inset 0 0 0 4px var(--app-accent-background);
-			}
-		}
+		@include mixins.center();
+		width: 100%;
+		height: 100%;
 	}
 }
 
 .collection-list-add {
 	@include mixins.center();
-	display: flex;
-	margin: 0;
-	height: 6rem;
-	align-items: center;
+	width: 100%;
+	height: 100px;
+	position: relative;
 }
 
 .item-create {

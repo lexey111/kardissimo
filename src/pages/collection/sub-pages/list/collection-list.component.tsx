@@ -3,7 +3,7 @@ import {ICollectionState, useCollectionStore} from "../../../../store/data/colle
 import {CollectionListItem} from "./collection-list.item.component.tsx";
 import {useShallow} from "zustand/react/shallow";
 import {ListNoData} from "../cards/card-list-no-data.component.tsx";
-import {CollectionListAdd} from "./collections-list-add.component.tsx";
+import {EmptyCollectionListAdd} from "./empty-collections-list-add.component.tsx";
 import {CollectionListAddItem} from "./collection-list.add-item.component.tsx";
 
 const selector = (state: ICollectionState) => state.collections.map(c => c.id);
@@ -15,7 +15,7 @@ export const CollectionList: React.FC = () => {
 		return <div className={'collection-list empty'}>
 			<ListNoData
 				caption={'There are no yet collection to display.'}
-				addButton={<CollectionListAdd/>}/>
+				addButton={<EmptyCollectionListAdd/>}/>
 		</div>;
 
 	}

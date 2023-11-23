@@ -10,55 +10,10 @@
 		margin: 0 auto;
 
 		.card-side-content {
+			cursor: default;
 			padding: 32px 0;
 			height: 64px;
-			font-size: 6rem;
-			background: none;
-			border: 1px dashed mixins.whiteTrans( .5);
-			box-shadow: none;
-		}
-	}
-
-	.card-item-create {
-		font-size: 6rem;
-		transition: all .2s ease;
-		display: flex;
-		@include absolute-center();
-		cursor: pointer;
-		pointer-events: none;
-
-		svg {
-			box-shadow: inset 1px 1px 4px mixins.blackTrans( .1);
-			border-radius: 100%;
-			transition: all .2s ease;
-			padding: 0;
-		}
-
-		&:before {
-			content: '';
-			display: block;
-			z-index: -1;
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background: mixins.blackTrans(.2);
-			border-radius: 100%;
-		}
-
-		border-radius: 100%;
-	}
-
-	&:hover {
-		.card-side-content {
-			transform: none;
-			border-style: solid;
-			background: mixins.whiteTrans( .1);
-		}
-
-		svg {
-			box-shadow: inset 0 0 0 4px var(--app-accent-background);
+			@include mixins.newcard();
 		}
 	}
 }
@@ -68,7 +23,24 @@
 	margin: 0 auto 2rem;
 }
 
-.empty-list .card-list-add-list {
+.card-list-add-list {
+	.card-sides {
+		.card-side-content {
+			border-radius: 0;
+		}
+
+		.card-side-content:first-child {
+			border-right: none;
+			margin-right: 0;
+			border-radius: 20px 0 0 20px;
+		}
+
+		.card-side-content:last-child {
+			border-left: none;
+			margin-left: 0;
+			border-radius: 0 20px 20px 0;
+		}
+	}
 }
 
 .empty-list .card-list-add-cards {
@@ -101,7 +73,7 @@
 				flex-grow: 2;
 				height: auto;
 				width: 150px;
-				border-radius: 8px;
+				border-radius: 20px;
 				max-width: 150px;
 			}
 		}
@@ -127,8 +99,8 @@
 				right: 0;
 				transform: translateY(-50%);
 				height: 40%;
-				border: 1px solid mixins.whiteTrans( .2);
-				background: mixins.whiteTrans( .1);
+				border: 1px solid mixins.whiteTrans(.2);
+				background: mixins.whiteTrans(.1);
 				border-left: none;
 				border-right: none;
 			}
@@ -137,11 +109,13 @@
 		.card-side-content:first-child {
 			border-right: none;
 			margin-right: 0;
+			border-radius: 20px 0 0 20px;
 		}
 
 		.card-side-content:last-child {
 			border-left: none;
 			margin-left: 0;
+			border-radius: 0 20px 20px 0;
 		}
 	}
 }

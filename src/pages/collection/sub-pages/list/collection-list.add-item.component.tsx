@@ -1,7 +1,6 @@
 import React, {useCallback} from "react";
 import {useNavigate} from "react-router-dom";
-import {IoIosAddCircle} from "react-icons/io";
-
+import {BigAddButton} from "../../../../components/utils/big-add-button.component.tsx";
 
 export const CollectionListAddItem: React.FC = () => {
 	const navigate = useNavigate();
@@ -10,12 +9,10 @@ export const CollectionListAddItem: React.FC = () => {
 		navigate('/collections/new/details', {preventScrollReset: true});
 	}, [navigate]);
 
-	return <div className={'collection-item create-collection'} onClick={addCollection}>
+	return <div className={'collection-item create-collection'}>
 		<div className={'collection-item-content-wrapper'}>
 			<div className={'collection-item-content'}>
-				<div className={'collection-item-create'}>
-					<IoIosAddCircle/>
-				</div>
+				<BigAddButton onClick={addCollection}/>
 			</div>
 		</div>
 	</div>;

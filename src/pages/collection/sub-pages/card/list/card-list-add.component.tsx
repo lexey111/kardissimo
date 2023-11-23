@@ -1,9 +1,9 @@
 import React, {useCallback} from "react";
-import {IoIosAddCircle} from "react-icons/io";
 import {useSettingsStore} from "../../../../../store/settings/settings-store.ts";
 import {ICollectionState, useCollectionStore} from "../../../../../store/data/collections-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
+import {BigAddButton} from "../../../../../components/utils/big-add-button.component.tsx";
 
 export type TCardListAddProps = {
 	collectionId?: string
@@ -24,7 +24,7 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({collectionId}) => {
 	return <div className={`card-list-add-${currentStyle}`}>
 		<span></span>
 		<div className={'card-item add'}>
-			<div className={'card-sides'} onClick={handleAdd}>
+			<div className={'card-sides'}>
 				{sides?.map((_, idx) => {
 					if (currentStyle === 'cards' && idx > 0) {
 						return null
@@ -32,10 +32,7 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({collectionId}) => {
 					return <div key={'new' + idx.toString()} className={'card-side-content'}></div>;
 				})}
 			</div>
-
-			<div className={'card-item-create'}>
-				<IoIosAddCircle/>
-			</div>
+			<BigAddButton onClick={handleAdd}/>
 		</div>
 		<span></span>
 	</div>;
