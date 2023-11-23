@@ -1,7 +1,7 @@
 import React from "react";
 
 export type TButtonProps = {
-	type?: 'primary' | 'success' | 'secondary' | 'round' | 'danger' | 'round-danger' | 'round-primary' | 'round-success'
+	type?: 'primary' | 'success' | 'secondary' | 'round' | 'danger' | 'round-danger' | 'round-primary' | 'round-success' | 'ghost'
 	disabled?: boolean
 	pressed?: boolean
 	size?: 'sm' | 'md' | 'lg' | 'xl'
@@ -27,6 +27,9 @@ export const Button: React.FC<TButtonProps> = (
 	switch (type) {
 		case 'primary' :
 			classNames.push('pure-button-primary');
+			break;
+		case 'ghost' :
+			classNames.push('pure-button-ghost');
 			break;
 		case 'secondary' :
 			classNames.push('pure-button-secondary');

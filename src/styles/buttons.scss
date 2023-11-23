@@ -233,6 +233,31 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	}
 }
 
+.pure-button-ghost {
+	box-shadow: none;
+	background: mixins.whiteTrans(.1);
+	color: var(--app-link-color);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+
+	&:after {
+		border-width: 4px;
+	}
+
+	svg {
+		opacity: .8;
+	}
+
+	&:hover, &:focus {
+		background: none;
+
+		svg {
+			opacity: 1;
+			transform: scale(1.2);
+		}
+	}
+}
+
 .pure-button-primary, .pure-button-danger {
 	color: var(--app-text);
 

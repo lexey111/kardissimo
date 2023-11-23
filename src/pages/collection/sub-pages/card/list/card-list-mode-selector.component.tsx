@@ -13,6 +13,7 @@ import {AiFillEye} from "react-icons/ai";
 import {TbViewportNarrow, TbViewportWide} from "react-icons/tb";
 import {TCollectionSide} from "../../../../../store/data/types.ts";
 import {Button} from "../../../../../components/utils/button.component.tsx";
+import {CardImport} from "../../cards/card-import.component.tsx";
 
 export type TCardListModeSelectorProps = {
 	sides?: Array<TCollectionSide>
@@ -87,5 +88,7 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 					onClick={() => setTableViewMode('narrow')}>Narrow</Button>
 			</div>
 		</div>}
+
+		<CardImport collapsed={true}/>
 	</div>;
 };

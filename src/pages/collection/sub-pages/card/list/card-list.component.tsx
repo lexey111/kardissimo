@@ -31,7 +31,6 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 
 	if (!cardIds || cardIds.length === 0) {
 		return <ListNoData
-			caption={'No cards to display, yet.'}
 			addButton={<CardListAdd collectionId={collectionId}/>}/>;
 	}
 

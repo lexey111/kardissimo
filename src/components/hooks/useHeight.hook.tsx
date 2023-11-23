@@ -71,9 +71,11 @@ export const useHeight = (addHeight: number) => {
 	useEffect(() => {
 		window.addEventListener('resize', onResize);
 
-		checkScroll(); // immediately
+		debouncedCheck();
+		// checkScroll(); // immediately
 
 		return () => {
+			document.body.classList.remove('deep-scroll-size');
 			debouncer.current && clearTimeout(debouncer.current);
 			window.removeEventListener('resize', onResize);
 

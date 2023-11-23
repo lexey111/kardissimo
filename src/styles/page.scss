@@ -112,9 +112,20 @@ a:hover, a:focus {
 }
 
 .center {
-	@include center();
+	@include mixins.center();
 }
 
+kbd {
+	font-size: .8rem;
+	background: mixins.blackTrans(.1);
+	color: var(--app-text);
+	border-radius: 4px;
+	font-weight: 200;
+	white-space: nowrap;
+	padding: 4px 8px;
+	margin: 0 0.4rem;
+	box-shadow: 0 0 0 1px mixins.blackTrans(.2);
+}
 
 @keyframes spin {
 	0% {

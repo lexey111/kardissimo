@@ -1,4 +1,14 @@
+@use "mixins";
+
 body.theme-snow {
 	--app-card-background: #fff;
 	--app-card-text: #445;
+}
+
+body.theme-dark {
+	kbd {
+		background: mixins.whiteTrans(.1);
+		color: var(--app-text);
+		box-shadow: 0 0 0 1px mixins.whiteTrans(.2);
+	}
 }

@@ -1,4 +1,4 @@
-import {TPreparedCard} from "../../../store/data/types.ts";
+import {TPreparedCard} from "./types.ts";
 
 export type TCardFace = {
 	text: string

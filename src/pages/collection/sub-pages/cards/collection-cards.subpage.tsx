@@ -23,6 +23,6 @@ export const CollectionCardsSubpage: React.FC = () => {
 	return <div className={'page-32'}>
 		<CardListHeader collectionId={collection.id}/>
 		<CardList collectionId={collection.id}/>
-		<BigAddFloatingButton onClick={handleAdd} extraHeight={50}/>
+		{(collection?.cards?.length || 0) > 5 && <BigAddFloatingButton onClick={handleAdd} extraHeight={50}/>}
 	</div>;
 };

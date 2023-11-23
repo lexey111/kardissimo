@@ -23,7 +23,6 @@ export const RunPage: React.FC = () => {
 		if (!targetCollection || (targetCollection.cards?.length || 0) < 2) {
 			// reset parameters
 			toast('Collection not found or not ready to run', {
-				position: 'top-center',
 				type: 'error',
 				autoClose: 3000,
 			});
