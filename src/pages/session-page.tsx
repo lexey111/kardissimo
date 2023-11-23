@@ -203,7 +203,7 @@ export const SessionPage: React.FC = () => {
 	}
 
 	return <AppPage title={'Run'}>
-		<div className={'sub-page'}>
+		<div className={'page-32'}>
 			{cards && cards.length > 0 && <div className={'scene-wrapper'}>
 				<BackToRunButton/>
 				<SceneInfoButton info={<div>

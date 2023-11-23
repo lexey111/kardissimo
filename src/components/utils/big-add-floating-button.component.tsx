@@ -9,8 +9,7 @@ export type TAddBigButtonFloatingProps = {
 }
 
 export const BigAddFloatingButton: React.FC<TAddBigButtonFloatingProps> = ({onClick, extraHeight}) => {
-	const {needToShowScroll} = useHeight(extraHeight || 160);
-	console.log(needToShowScroll)
+	useHeight(extraHeight || 160);
 
 	return <div className={'add-item-floating'}>
 		<BigAddButton onClick={onClick}/>

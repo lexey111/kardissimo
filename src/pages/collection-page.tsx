@@ -30,9 +30,7 @@ export const CollectionPage: React.FC = () => {
 	return <>
 		<AppHeader/>
 		<AppPage title={'Collection'}>
-			<div className={'sub-page'}>
-				<Outlet/>
-			</div>
+			<Outlet/>
 		</AppPage>
 	</>;
 };
