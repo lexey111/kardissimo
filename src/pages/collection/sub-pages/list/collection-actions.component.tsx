@@ -63,7 +63,7 @@ export const CollectionActions: React.FC<TCollectionActionsProps> = ({id}) => {
 				<Button
 					onClick={() => goRun(id!)}
 					icon={<FaPlay/>}
-					// disabled={(collection?.cards?.length || 0) < 2}
+					disabled={(collection?.cards?.length || 0) < 2}
 					type='success'>
 					Run
 				</Button>

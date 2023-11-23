@@ -5,9 +5,12 @@ import {AppFooter} from "./components/app-footer.component.tsx";
 import {getSessionAndUser, resetSession} from "./store/auth/auth-store.actions.ts";
 import {useSettingsStore} from "./store/settings/settings-store.ts";
 import {WaitCredentials} from "./components/utils/wait-credentials.component.tsx";
+import {Slide, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const App: React.FC = () => {
 	const isBusy = useSettingsStore((state) => state?.busy);
+	const currentStyle = useSettingsStore((state) => state.currentAppearance);
 
 	useEffect(() => {
 		try {
@@ -39,5 +42,18 @@ export const App: React.FC = () => {
 			}}
 		/>
 		<AppFooter/>
+		<ToastContainer
+			position="top-right"
+			autoClose={5000}
+			hideProgressBar={true}
+			newestOnTop={false}
+			transition={Slide}
+			closeOnClick
+			rtl={false}
+			pauseOnFocusLoss
+			draggable
+			pauseOnHover
+			theme={currentStyle === 'grey' || currentStyle === 'dark' ? 'dark' : 'light'}
+		/>
 	</>;
 };
