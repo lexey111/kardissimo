@@ -1,13 +1,11 @@
 @use 'mixins';
 
 .no-data-text {
-	background: mixins.whiteTrans(.4);
-	box-shadow: 1px 2px 4px mixins.blackTrans(0.1);
-	color: mixins.blackTrans(0.7);
+	@include mixins.card();
 	max-width: 726px;
 	padding: 16px;
 	border-radius: 8px;
-	@include center();
+	@include mixins.center();
 	margin: 2rem auto;
 	display: flex;
 	flex-flow: row wrap;
@@ -24,6 +22,7 @@
 .arrow-up {
 	position: absolute;
 	top: -16px;
+	left: 50%;
 	width: 0;
 	height: 0;
 	border-left: 15px solid transparent;
@@ -31,4 +30,12 @@
 
 	border-bottom: 15px solid mixins.whiteTrans(.6);
 	transform: translateX(-50%);
+}
+
+
+.data-preview {
+	//width: 100%;
+	.ag-theme-alpine {
+		//
+	}
 }

@@ -20,6 +20,7 @@ body.theme-snow {
 
 	&.empty {
 		grid-template-columns: 1fr;
+		display: block;
 	}
 }
 

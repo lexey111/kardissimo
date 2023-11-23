@@ -41,6 +41,20 @@
 	&.modal-normal {
 		box-shadow: 0 0 0 8px rgba(2, 129, 255, 0.5);
 	}
+
+	&.modal-wide {
+		.dialog-body, .dialog-title, .dialog-actions, .dialog-content {
+			width: 100% !important;
+			max-width: unset !important;
+			justify-content: center !important;
+
+			p {
+				text-align: center;
+			}
+		}
+
+		box-shadow: 0 0 0 8px rgba(2, 129, 255, 0.5);
+	}
 }
 
 .close-cross {

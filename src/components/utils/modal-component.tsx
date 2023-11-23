@@ -5,7 +5,7 @@ import {CloseCross} from "./close-cross.component.tsx";
 
 export type TModalProps = {
 	open: boolean
-	type: 'normal' | 'danger'
+	type: 'normal' | 'danger' | 'wide'
 	onClose: () => void
 	title?: string | JSX.Element
 	description?: string | JSX.Element
