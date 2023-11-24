@@ -18,11 +18,11 @@ export const CSVFileUpload: React.FC<TCSVFileUploadProps> = ({handleFile}) => {
 
 		reader.onload = async (e: any) => {
 			const text = (e.target.result);
-			console.log(text);
 			handleFile(text);
 		};
 
 		reader.readAsText(event.target.files[0]);
+		event.target.value = null
 	};
 
 	return <>

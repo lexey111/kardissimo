@@ -256,6 +256,24 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 			transform: scale(1.2);
 		}
 	}
+
+	&[aria-expanded="true"] {
+		color: var(--app-text);
+		background-color: var(--app-primary-background);
+	}
+}
+
+.button-menu {
+	padding-right: 1.5rem;
+
+	&:before {
+		content: '‣';
+		position: absolute;
+		display: block;
+		right: 8px;
+		font-size: 1.5rem;
+		transform: rotate(90deg);
+	}
 }
 
 .pure-button-primary, .pure-button-danger {

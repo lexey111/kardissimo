@@ -124,7 +124,7 @@
 .cards-import {
 	@include mixins.card();
 	@include mixins.center();
-	padding: 16px 32px;
+	padding: 16px 28px;
 	margin-top: 4px;
 	display: block;
 	float: none;
@@ -139,7 +139,7 @@
 		display: block;
 		float: none;
 		overflow: hidden;
-		margin-bottom: 32px;
+		padding: 4px;
 
 		img {
 			border: 8px solid mixins.whiteTrans(.7);
@@ -167,6 +167,7 @@
 	float: none;
 	width: 100%;
 	margin-top: 32px;
+	padding: 4px 0;
 	overflow: hidden;
 
 	button {
@@ -179,5 +180,43 @@
 
 	button {
 		height: 28px !important;
+	}
+}
+
+.dropdown-menu {
+	position: absolute;
+	right: 0;
+	top: 100%;
+	transform: translateY(2px);
+	display: flex;
+	flex-flow: column wrap;
+	outline: none;
+
+	@include mixins.card();
+	color: var(--app-card-text);
+	border-radius: 2px;
+	padding: 16px;
+
+	button {
+		color: var(--app-card-text);
+		background: none;
+		margin-bottom: 8px;
+		transition: none;
+		border-radius: 0;
+
+		svg {
+			transition: none;
+		}
+
+		&:hover, &:focus {
+			box-shadow: none;
+			background: var(--app-primary-background);
+			color: var(--app-primary-color);
+			transition: none;
+
+			&:after {
+				display: none;
+			}
+		}
 	}
 }

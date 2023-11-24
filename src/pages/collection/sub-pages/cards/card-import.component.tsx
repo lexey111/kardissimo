@@ -9,6 +9,8 @@ import {ImportPreviewDialog, TImportedData} from "./card-import-dialog.component
 import {createCard} from "../../../../store/data/collections-store.actions.ts";
 import {customAlphabet, urlAlphabet} from "nanoid";
 import {CSVFileUpload} from "./csv-upload.component.tsx";
+import {ImportMenu} from "./card-import-menu.component.tsx";
+import Papa from 'papaparse';
 
 const nanoid = customAlphabet(urlAlphabet, 16);
 
@@ -21,49 +23,45 @@ function trimText64(str: string): string {
 	return result.substring(0, 63);
 }
 
-function parseClipboard(str: string) {
-	const parsedRows = str.split('\n');
+function parseRawStrings(str: string) {
+	const parsedRows = Papa.parse(str).data;
+	let maxDataLength = 0;
 
-	return parsedRows.map(rowStr => {
-		let values = rowStr.split('\t').filter(Boolean);
+	parsedRows.forEach((d: Array<any>) => {
+		const meaningfull = d.filter(Boolean).length;
+		if (maxDataLength < meaningfull) {
+			maxDataLength = meaningfull
+		}
+	});
 
-		if (!values || !Array.isArray(values) || values.length === 0) {
+	return parsedRows?.map((values: any) => {
+		if (!values || !Array.isArray(values)) {
 			return undefined;
 		}
 
-		if (values.length !== 2 && values.length < 6) {
-			values = rowStr.split(',');
-		}
-
-		if (values.length !== 2 && values.length < 6) {
+		if (values.length < 2) {
 			return undefined;
 		}
 
-		if (values.length === 2) {
-			if (values[0].trim() === '' && values[1].trim() === '') {
-				return undefined;
-			}
+		if (maxDataLength < 6) {
 			return {text0: trimText64(values[0]), text1: trimText64(values[1])};
 		}
 
-		if (values.length >= 6) {
-			if (values[0].trim() === '' && values[1].trim() === '' && values[2].trim() === '' && values[3].trim() === '' && values[4].trim() === '' && values[5].trim() === '') {
-				return undefined;
-			}
-
-			return {
-				header0: trimText64(values[0]),
-				text0: trimText64(values[1]),
-				footer0: trimText64(values[2]),
-				header1: trimText64(values[3]),
-				text1: trimText64(values[4]),
-				footer1: trimText64(values[5]),
-			};
+		if (values[0].trim() === '' && values[1].trim() === '' && values[2].trim() === '' && values[3].trim() === '' && values[4].trim() === '' && values[5].trim() === '') {
+			return undefined;
 		}
-		return undefined;
+
+		return {
+			header0: trimText64(values[0]),
+			text0: trimText64(values[1]),
+			footer0: trimText64(values[2]),
+			header1: trimText64(values[3]),
+			text1: trimText64(values[4]),
+			footer1: trimText64(values[5]),
+		};
 	})
 		.filter(Boolean)
-		.map((data, idx) => ({_num: idx + 1, _checked: true, ...data}))
+		.map((data: any, idx: number) => ({_num: idx + 1, _checked: true, ...data}))
 }
 
 export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
@@ -75,7 +73,7 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 
 	const handleImport = useCallback((text: string) => {
 		setImportedData(null);
-		const parsedData = parseClipboard(text);
+		const parsedData = parseRawStrings(text);
 
 		if (parsedData.length > 0) {
 			setImportedData(parsedData);
@@ -92,7 +90,6 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 	}, [importedData]);
 
 	const handleLoadCSV = useCallback((text: string) => {
-		console.log('To process', text);
 		handleImport(text);
 
 	}, []);
@@ -125,7 +122,10 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 
 	if (collapsed) {
 		return <div className={'action-row'}>
-			<Button onClick={handleClipboardImport} icon={<FaFileImport/>} type={'ghost'}>Import...</Button>
+			<ImportMenu links={[
+				<Button onClick={handleClipboardImport} icon={<FaFileImport/>} type={'ghost'}>Import...</Button>,
+				<CSVFileUpload handleFile={handleLoadCSV}/>
+			]}/>
 
 			<ImportPreviewDialog
 				isOpen={isOpen}
