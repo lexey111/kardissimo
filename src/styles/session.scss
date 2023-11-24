@@ -130,7 +130,7 @@
 		.scene-progress-text {
 			font-size: .8rem;
 			margin-bottom: 6px;
-			color: mixins.whiteTrans(.6);
+			color: var(--app-text);
 		}
 
 		.progress-dots {
@@ -196,13 +196,13 @@
 	flex-flow: row nowrap;
 	align-items: center;
 	background: mixins.whiteTrans(.2);
+	color: var(--app-text);
 	border-radius: 6px;
 	border: 1px solid mixins.whiteTrans(.3);
 	padding: 6px 16px;
 	cursor: pointer;
 	transition: all .1s ease;
 	user-select: none;
-	color: white;
 	position: relative;
 	margin-left: .5rem;
 	z-index: 1;

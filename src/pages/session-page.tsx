@@ -82,7 +82,7 @@ function getRandomChunk(collection: TCollection, amount: number, side: number) {
 	const usedIdx: Array<number> = [];
 	const max = collection.cards!.length;
 
-	if (amount > max - 1) {
+	if (amount > max) {
 		throw new PageError('Invalid random chunk params', 'Oops');
 	}
 
