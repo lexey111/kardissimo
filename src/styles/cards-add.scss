@@ -124,7 +124,7 @@
 .cards-import {
 	@include mixins.card();
 	@include mixins.center();
-	padding: 16px;
+	padding: 16px 32px;
 	margin-top: 4px;
 	display: block;
 	float: none;
@@ -142,11 +142,17 @@
 		margin-bottom: 32px;
 
 		img {
-			border: 2px solid var(--app-text);
+			border: 8px solid mixins.whiteTrans(.7);
 			float: left;
 			width: 60%;
+			margin-bottom: 32px;
 			border-radius: 20px;
 			margin-right: 32px;
+		}
+
+		img.image-right {
+			margin: 0 0 0 32px;
+			float: right;
 		}
 	}
 
@@ -154,6 +160,17 @@
 		line-height: 1.6rem;
 		text-align: left;
 		margin-bottom: 1rem;
+	}
+}
+
+.import-actions {
+	float: none;
+	width: 100%;
+	margin-top: 32px;
+	overflow: hidden;
+
+	button {
+		margin: 0 4px;
 	}
 }
 

@@ -8,6 +8,7 @@ import {IoIosAddCircle} from "react-icons/io";
 import {ImportPreviewDialog, TImportedData} from "./card-import-dialog.component.tsx";
 import {createCard} from "../../../../store/data/collections-store.actions.ts";
 import {customAlphabet, urlAlphabet} from "nanoid";
+import {CSVFileUpload} from "./csv-upload.component.tsx";
 
 const nanoid = customAlphabet(urlAlphabet, 16);
 
@@ -15,7 +16,7 @@ export type TCardListNoDataProps = {
 	collapsed?: boolean
 };
 
-function trimText64(str: string) : string {
+function trimText64(str: string): string {
 	const result = str.trim();
 	return result.substring(0, 63);
 }
@@ -72,9 +73,8 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [importedData, setImportedData] = useState<any>(null);
 
-	const handleImport = useCallback(async () => {
+	const handleImport = useCallback((text: string) => {
 		setImportedData(null);
-		const text = await navigator.clipboard.readText();
 		const parsedData = parseClipboard(text);
 
 		if (parsedData.length > 0) {
@@ -85,6 +85,17 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 		}
 
 	}, [importedData]);
+
+	const handleClipboardImport = useCallback(async () => {
+		const text = await navigator.clipboard.readText();
+		handleImport(text);
+	}, [importedData]);
+
+	const handleLoadCSV = useCallback((text: string) => {
+		console.log('To process', text);
+		handleImport(text);
+
+	}, []);
 
 	const handleProcess = useCallback((data?: Array<TImportedData>) => {
 		setIsOpen(false);
@@ -114,7 +125,14 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 
 	if (collapsed) {
 		return <div className={'action-row'}>
-			<Button onClick={handleImport} icon={<FaFileImport/>} type={'ghost'}>Import...</Button>
+			<Button onClick={handleClipboardImport} icon={<FaFileImport/>} type={'ghost'}>Import...</Button>
+
+			<ImportPreviewDialog
+				isOpen={isOpen}
+				setIsOpen={setIsOpen}
+				handleProcess={handleProcess}
+				sides={collection.sides}
+				data={importedData}/>
 		</div>;
 	}
 
@@ -124,12 +142,12 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 
 		No cards to display, yet. Please, use the button <IoIosAddCircle/> above to create the first one.
 
-		<h2 className={'center'}>Import</h2>
+		<h2 className={'right'}>Importing data from Clipboard</h2>
 
 		<div className={'text'}>
-			<img src="/import1.png" alt="Screenshot"/>
+			<img src="/import1.png" alt="Screenshot" className={'image-left'}/>
 			<p>
-				Also you can import from Google Spreadsheets via Clipboard.
+				Also you can import from Google Sheets via Clipboard.
 			</p>
 			<p>
 				To do that, fill <b>two</b> (only texts) or <b>six</b> (header, text, footer) columns in
@@ -139,11 +157,24 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 			<p>
 				Then click the button below (if the browser asks, allow access to the clipboard):
 			</p>
+			<div className={'import-actions'}>
+				<Button onClick={handleClipboardImport} icon={<FaFileImport/>}>Import from Clipboard...</Button>
+			</div>
+			<h2>Comma-separated values (CSV)</h2>
+			<img src="/import2.png" alt="Screenshot" className={'image-right'}/>
+			<p>
+				However, you can store your data in a <kbd>.CSV</kbd> file and import them.
+			</p>
+			<p>
+				To do that use any spreadsheet application, like Google Sheets or Microsoft Excel, to fill your data.
+				Please use the same two- or six-columns structure as for Clipboard import.
+			</p>
+			<p>
+				Then download or export the sheet in .CSV format.
+			</p>
+			<CSVFileUpload handleFile={handleLoadCSV}/>
 		</div>
 
-		<div>
-			<Button onClick={handleImport} icon={<FaFileImport/>}>Import from Clipboard...</Button>
-		</div>
 
 		<ImportPreviewDialog
 			isOpen={isOpen}

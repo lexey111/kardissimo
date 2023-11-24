@@ -112,9 +112,7 @@ export const CardTable: React.FC<TCardTableProps> = (
 	const sides = useCollectionStore(useShallow((state: ICollectionState) => state.collections
 		.find(c => c.id === collectionId)?.sides));
 
-
 	const [columnDefs, setColumnDefs] = useState(getTableDefs(collectionId, sides, tableEditMode, tableViewMode));
-
 
 	useEffect(() => {
 		if (!gridRef.current.api) {
@@ -157,8 +155,12 @@ export const CardTable: React.FC<TCardTableProps> = (
 	}, []);
 
 	const cards = useCollectionStore(useShallow((state: ICollectionState) => state.collections
-		.find(c => c.id === collectionId)?.cards //.map(c => ({'_preview': 1, ...c}))
+		.find(c => c.id === collectionId)?.cards
 	));
+
+	useEffect(() => {
+		gridRef.current?.api?.setRowData(cards);
+	}, [cards?.length]);
 
 	const processDoubleClick = useCallback((e: any) => {
 		if (readonly) {
