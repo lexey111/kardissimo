@@ -121,6 +121,7 @@ export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = ({isOpen, setI
 	}, [data]);
 
 	const doImport = useCallback(() => {
+		gridRef.current.api.stopEditing();
 		handleProcess(localData?.filter?.((d:any) => d._checked));
 	}, [localData]);
 
