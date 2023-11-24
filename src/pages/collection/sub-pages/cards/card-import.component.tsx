@@ -15,6 +15,11 @@ export type TCardListNoDataProps = {
 	collapsed?: boolean
 };
 
+function trimText64(str: string) : string {
+	const result = str.trim();
+	return result.substring(0, 63);
+}
+
 function parseClipboard(str: string) {
 	const parsedRows = str.split('\n');
 
@@ -37,7 +42,7 @@ function parseClipboard(str: string) {
 			if (values[0].trim() === '' && values[1].trim() === '') {
 				return undefined;
 			}
-			return {text0: values[0].trim(), text1: values[1].trim()};
+			return {text0: trimText64(values[0]), text1: trimText64(values[1])};
 		}
 
 		if (values.length >= 6) {
@@ -46,12 +51,12 @@ function parseClipboard(str: string) {
 			}
 
 			return {
-				header0: values[0].trim(),
-				text0: values[1].trim(),
-				footer0: values[2].trim(),
-				header1: values[3].trim(),
-				text1: values[4].trim(),
-				footer1: values[5].trim(),
+				header0: trimText64(values[0]),
+				text0: trimText64(values[1]),
+				footer0: trimText64(values[2]),
+				header1: trimText64(values[3]),
+				text1: trimText64(values[4]),
+				footer1: trimText64(values[5]),
 			};
 		}
 		return undefined;
