@@ -1,14 +1,15 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useCallback, useState} from "react";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {toast} from "react-toastify";
 import {getCollection} from "../../../../store/data/collections-store.selectors.ts";
 import {useParams} from "react-router-dom";
-import {FaArrowLeft, FaFileImport} from "react-icons/fa";
+import {FaFileImport} from "react-icons/fa";
 import {IoIosAddCircle} from "react-icons/io";
-import {Modal} from "../../../../components/utils/modal-component.tsx";
-import {FaTrashCan} from "react-icons/fa6";
-import {AgGridReact} from "ag-grid-react";
-import {TCollectionSide} from "../../../../store/data/types.ts";
+import {ImportPreviewDialog, TImportedData} from "./card-import-dialog.component.tsx";
+import {createCard} from "../../../../store/data/collections-store.actions.ts";
+import {customAlphabet, urlAlphabet} from "nanoid";
+
+const nanoid = customAlphabet(urlAlphabet, 16);
 
 export type TCardListNoDataProps = {
 	collapsed?: boolean
@@ -18,7 +19,7 @@ function parseClipboard(str: string) {
 	const parsedRows = str.split('\n');
 
 	return parsedRows.map(rowStr => {
-		let values = rowStr.split('\t');
+		let values = rowStr.split('\t').filter(Boolean);
 
 		if (!values || !Array.isArray(values) || values.length === 0) {
 			return undefined;
@@ -54,114 +55,9 @@ function parseClipboard(str: string) {
 			};
 		}
 		return undefined;
-	}).filter(Boolean);
-}
-
-function getTableDefs(data: any, sides: Array<TCollectionSide>): any {
-	const result: any = [];
-
-	if (!data) {
-		return result;
-	}
-
-	const checkboxColumn: any = {
-		field: '_checkbox',
-		headerName: '',
-		width: 40,
-		maxWidth: 40,
-		minWidth: 40,
-		editable: false, sortable: false, resizable: false, filter: '',
-	};
-
-	result.push(checkboxColumn);
-
-	sides.forEach((side, idx) => {
-		if (Object.keys(data[0]).length === 2) {
-			result.push({
-				headerName: side?.name || '#' + (idx + 1),
-				editable: true, sortable: false, resizable: true, filter: '',
-				field: 'text' + (idx),
-			});
-		}
-
-		if (Object.keys(data[0]).length === 6) {
-			result.push({
-				headerName: side?.name || '#' + (idx + 1),
-				editable: false, sortable: false, resizable: false, filter: '',
-				children: [
-					{
-						headerName: 'Header',
-						editable: true,
-						sortable: false,
-						resizable: true,
-						filter: '',
-						field: 'header' + (idx)
-					},
-					{
-						headerName: 'Text',
-						editable: true,
-						sortable: false,
-						resizable: true,
-						filter: '',
-						field: 'text' + (idx)
-					},
-					{
-						headerName: 'Footer',
-						editable: true,
-						sortable: false,
-						resizable: true,
-						filter: '',
-						field: 'footer' + (idx)
-					}
-				]
-			});
-		}
-	});
-
-	return result;
-}
-
-// @ts-ignore
-const PreviewDialog: React.FC = ({isOpen, setIsOpen, handleProcess, data, sides}) => {
-	const gridRef = useRef<any>(); // Optional - for accessing Grid's API
-	const [columnDefs, setColumnDefs] = useState(getTableDefs(data, sides));
-
-	useEffect(() => {
-		setColumnDefs(getTableDefs(data, sides));
-	}, [data]);
-
-	return <Modal
-		open={isOpen}
-		type={Object.keys(data?.[0] || {}).length < 6 ? 'normal' : 'wide'}
-		onClose={() => setIsOpen(false)}
-		title={'Import data'}
-		body={<>
-			<p>
-				Are you sure you want to import this data?
-			</p>
-			<div className={'data-preview'}>
-				<div className="ag-theme-alpine">
-					<AgGridReact
-						ref={gridRef}
-						domLayout={'autoHeight'}
-						rowData={data}
-						columnDefs={columnDefs as any}
-						animateRows={false}
-						rowSelection={'single'}
-						enableCellEditingOnBackspace={true}
-						// onGridReady={handleReady}
-						enterNavigatesVertically={true}
-						enterNavigatesVerticallyAfterEdit={true}
-					/>
-				</div>
-
-			</div>
-		</>}
-		actions={<>
-			<Button type={'secondary'} onClick={() => setIsOpen(false)} icon={<FaArrowLeft/>}>Cancel (Esc)</Button>
-			<Button type={'primary'} icon={<FaTrashCan/>} onClick={handleProcess}>Import</Button>
-		</>}
-	/>
+	})
+		.filter(Boolean)
+		.map((data, idx) => ({_num: idx + 1, _checked: true, ...data}))
 }
 
 export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
@@ -176,8 +72,6 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 		const text = await navigator.clipboard.readText();
 		const parsedData = parseClipboard(text);
 
-		console.log('data', parsedData);
-
 		if (parsedData.length > 0) {
 			setImportedData(parsedData);
 			setIsOpen(true);
@@ -187,9 +81,23 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 
 	}, [importedData]);
 
-	const handleProcess = useCallback(() => {
-		console.log('import!')
-	}, [importedData]);
+	const handleProcess = useCallback((data?: Array<TImportedData>) => {
+		setIsOpen(false);
+		if (!data || data.length === 0) {
+			toast('Sorry, nothing to import.', {type: 'error'})
+			return;
+		}
+		data.forEach(item => {
+			createCard(params.collectionId, {
+				id: nanoid(),
+				sides: [
+					{text: item.text0, header: item.header0, footer: item.footer0},
+					{text: item.text1, header: item.header1, footer: item.footer1},
+				]
+			});
+		});
+		toast('Done. Cards imported: ' + data.length, {type: 'info'})
+	}, []);
 
 	if (!collection) {
 		return null;
@@ -232,7 +140,7 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 			<Button onClick={handleImport} icon={<FaFileImport/>}>Import from Clipboard...</Button>
 		</div>
 
-		<PreviewDialog
+		<ImportPreviewDialog
 			isOpen={isOpen}
 			setIsOpen={setIsOpen}
 			handleProcess={handleProcess}

@@ -49,6 +49,9 @@ export const assignGlobalStyles = (id: string) => {
 	r!.style.setProperty('--app-success-background', app?.successColor);
 	r!.style.setProperty('--app-success-text', app?.successText || '#fff');
 
+	r!.style.setProperty('--app-info-background', app?.infoColor || '#abcdf5');
+	r!.style.setProperty('--app-info-text', app?.infoText || '#294470');
+
 	r!.style.setProperty('--app-accent-background', app?.accentColor);
 	r!.style.setProperty('--app-accent-background-darken', LightenDarkenColor(app!.accentColor!, -20));
 

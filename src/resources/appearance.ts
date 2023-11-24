@@ -7,6 +7,9 @@ export type TAppAppearance = {
 	primaryColor: string
 	accentColor: string
 
+	infoColor?: string
+	infoText?: string
+
 	dangerColor: string
 	dangerText?: string
 
@@ -23,7 +26,9 @@ export const Appearances: Array<TAppAppearance> = [
 		primaryColor: '#0075ce',
 		accentColor: '#ffbd0e',
 		dangerColor: '#FF005B',
-		successColor: '#01a628'
+		successColor: '#01a628',
+		infoColor: '#abcdf5',
+		infoText: '#295770'
 	},
 	{
 		id: 'sky',
@@ -34,7 +39,9 @@ export const Appearances: Array<TAppAppearance> = [
 		primaryColor: '#165786',
 		accentColor: '#89e7d9',
 		dangerColor: '#e1128e',
-		successColor: '#12e594'
+		successColor: '#12e594',
+		infoColor: '#053873',
+		infoText: '#99c1ff'
 	},
 	{
 		id: 'bright',
@@ -47,7 +54,9 @@ export const Appearances: Array<TAppAppearance> = [
 		dangerText: '#e8c9c9',
 		dangerColor: '#ff0000',
 		successColor: '#8cff00',
-		successText: '#192d01'
+		successText: '#192d01',
+		infoColor: '#0076ff',
+		infoText: '#b9f7ff'
 	},
 	{
 		id: 'snow',
@@ -59,7 +68,9 @@ export const Appearances: Array<TAppAppearance> = [
 		accentColor: '#b6b6b6',
 		dangerColor: '#c54747',
 		dangerText: '#e8c9c9',
-		successColor: '#5abb4f'
+		successColor: '#5abb4f',
+		infoColor: '#c0d1ef',
+		infoText: '#555b5d'
 	},
 	{
 		id: 'grey',
@@ -72,7 +83,9 @@ export const Appearances: Array<TAppAppearance> = [
 		dangerColor: '#a2013a',
 		dangerText: '#e8c9c9',
 		successColor: '#04621a',
-		successText: '#b0de7d'
+		successText: '#b0de7d',
+		infoColor: '#cad3ea',
+		infoText: '#5d5d5d'
 	},
 	{
 		id: 'dark',
@@ -83,6 +96,8 @@ export const Appearances: Array<TAppAppearance> = [
 		primaryColor: '#936606',
 		accentColor: '#0384bb',
 		dangerColor: '#ff4400',
-		successColor: '#7c9d16'
+		successColor: '#7c9d16',
+		infoColor: '#1b4140',
+		infoText: '#66b8bd'
 	},
 ]

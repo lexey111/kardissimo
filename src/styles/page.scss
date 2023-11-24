@@ -49,6 +49,15 @@ a:hover, a:focus {
 	text-underline-offset: 4px;
 }
 
+p.inform {
+	background: var(--app-info-background);
+	color: var(--app-info-text);
+	padding: 16px;
+	border-radius: 8px;
+	font-size: .9rem;
+	font-style: italic;
+}
+
 .app-page {
 	// menu + (page + footer)
 	order: 2;
