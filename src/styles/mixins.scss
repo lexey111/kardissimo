@@ -51,6 +51,6 @@
 	color: var(--app-card-text);
 }
 
-@mixin focusRing() {
-	box-shadow: 0 0 0 4px var(--app-accent-background);
+@mixin focusRing($extra...) {
+	box-shadow: $extra, 0 0 0 4px var(--app-accent-background);
 }
