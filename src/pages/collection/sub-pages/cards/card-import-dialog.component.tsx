@@ -1,18 +1,16 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import {Button} from "../../../../components/utils/button.component.tsx";
-import {FaArrowLeft} from "react-icons/fa";
 import {Modal} from "../../../../components/utils/modal-component.tsx";
 import {FaTrashCan} from "react-icons/fa6";
 import {AgGridReact} from "ag-grid-react";
 import {TCollectionSide} from "../../../../store/data/types.ts";
 import Select from "react-select";
 
-export const importModes: any = [
+const importModes: any = [
 	{value: 'add', label: 'Add new cards'},
 	{value: 'replace', label: 'Remove all existing cards and add new'},
 	{value: 'merge', label: 'Add only absent cards (by text on side #1)'},
 ];
-
 
 function getTableDefs(data: any, sides: Array<TCollectionSide>): any {
 	const result: any = [];

@@ -14,6 +14,8 @@ import {TbViewportNarrow, TbViewportWide} from "react-icons/tb";
 import {TCollectionSide} from "../../../../../store/data/types.ts";
 import {Button} from "../../../../../components/utils/button.component.tsx";
 import {CardImport} from "../../cards/card-import.component.tsx";
+import {useParams} from "react-router-dom";
+import {getCollection} from "../../../../../store/data/collections-store.selectors.ts";
 
 export type TCardListModeSelectorProps = {
 	sides?: Array<TCollectionSide>
@@ -23,6 +25,8 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 	const tableEditMode = useSettingsStore((state) => state.tableEditMode);
 	const tableViewMode = useSettingsStore((state) => state.tableViewMode);
 	const selectedSide = useSettingsStore((state) => state.selectedSide);
+	const params = useParams();
+	const collection = getCollection(params.collectionId);
 
 	if (sides && sides.length > 0) {
 		if (typeof selectedSide === 'undefined' || sides.length < selectedSide) {
@@ -31,6 +35,9 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 	}
 
 	return <div className={'list-mode-selector'}>
+		<div className={'lm-amount'}>
+			{collection?.cards?.length || ''}
+		</div>
 		{currentStyle === 'table' && <div className={'table-mode-selector'}>
 			<div className={'pure-button-group'}>
 				<Button

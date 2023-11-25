@@ -139,11 +139,14 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 
 	if (collapsed) {
 		return <div className={'action-row'}>
-			<ImportMenu links={[
-				<Button onClick={handleClipboardImport} icon={<FaFileImport/>} type={'ghost'}>Import from
-					clipboard...</Button>,
+			<ImportMenu>
+				<Button
+					onClick={handleClipboardImport} icon={<FaFileImport/>} type={'ghost'}>
+					Import from clipboard...
+				</Button>
+
 				<CSVFileUpload handleFile={handleLoadCSV}/>
-			]}/>
+			</ImportMenu>
 
 			<ImportPreviewDialog
 				isOpen={isOpen}

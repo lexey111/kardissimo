@@ -30,6 +30,15 @@
 	display: flex;
 	flex-flow: row nowrap;
 
+	.lm-amount {
+		margin-right: 16px;
+		color: var(--app-text);
+		height: 100%;
+		display: flex;
+		flex-flow: row nowrap;
+		@include mixins.center();
+	}
+
 	@include mixins.absolute-center();
 
 	.card-side-selector {
