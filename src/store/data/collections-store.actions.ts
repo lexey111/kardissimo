@@ -89,11 +89,13 @@ export const updateCollection = (data: TCollection) => useCollectionStore.setSta
 
 export const createCard = (collectionId?: string, data?: TCard) => useCollectionStore.setState((state) => {
 	if (!collectionId || !data) {
+		console.error(`Collection "${collectionId}" not found or no data provided!`);
 		return {...state.collections};
 	}
 	const collection = state.collections.find(c => c.id === collectionId);
 
 	if (!collection) {
+		console.error(`Collection "${collectionId}" not found!`);
 		return {...state.collections};
 	}
 

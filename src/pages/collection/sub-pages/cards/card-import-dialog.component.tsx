@@ -5,6 +5,14 @@ import {Modal} from "../../../../components/utils/modal-component.tsx";
 import {FaTrashCan} from "react-icons/fa6";
 import {AgGridReact} from "ag-grid-react";
 import {TCollectionSide} from "../../../../store/data/types.ts";
+import Select from "react-select";
+
+export const importModes: any = [
+	{value: 'add', label: 'Add new cards'},
+	{value: 'replace', label: 'Remove all existing cards and add new'},
+	{value: 'merge', label: 'Add only absent cards (by text on side #1)'},
+];
+
 
 function getTableDefs(data: any, sides: Array<TCollectionSide>): any {
 	const result: any = [];
@@ -97,12 +105,21 @@ export type TImportedData = {
 export type TPreviewDialogProps = {
 	isOpen: boolean
 	setIsOpen: (state: boolean) => void
-	handleProcess: (data?: Array<TImportedData>) => void
+	hasRecords: boolean
+	handleProcess: (data?: Array<TImportedData>, params?: any) => void
 	data: Array<TImportedData>
 	sides?: Array<TCollectionSide>
 }
 
-export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = ({isOpen, setIsOpen, handleProcess, data, sides}) => {
+export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = (
+	{
+		isOpen,
+		setIsOpen,
+		hasRecords,
+		handleProcess,
+		data,
+		sides
+	}) => {
 	const gridRef = useRef<any>(); // Optional - for accessing Grid's API
 	const [columnDefs, setColumnDefs] = useState(null);
 	const [localData, setLocalData] = useState<Array<TImportedData>>();
@@ -112,15 +129,19 @@ export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = ({isOpen, setI
 		setSelectionLength(() => localData?.filter(d => d._checked).length || 0);
 	}, [localData]);
 
+	const [importMode, setImportMode] = useState('add');
+
 	useEffect(() => {
 		if (!data || !data.length) {
 			setLocalData(void 0);
 			setColumnDefs(null);
 			setSelectionLength(0);
+			setImportMode('add');
 
 			return;
 		}
 
+		setImportMode('add');
 		setLocalData(() => data);
 		setColumnDefs(getTableDefs(data, sides || [{name: '#1'}, {name: '#2'}]));
 		setSelectionLength(data?.length || 0);
@@ -128,7 +149,9 @@ export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = ({isOpen, setI
 
 	const doImport = useCallback(() => {
 		gridRef.current.api.stopEditing();
-		handleProcess(localData?.filter?.((d: any) => d._checked));
+		handleProcess(localData?.filter?.((d: any) => d._checked), {
+			mode: importMode
+		});
 	}, [localData]);
 
 	return <Modal
@@ -160,7 +183,24 @@ export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = ({isOpen, setI
 			</div>
 		</>}
 		actions={<>
-			<Button type={'secondary'} onClick={() => setIsOpen(false)} icon={<FaArrowLeft/>}>Cancel (Esc)</Button>
+			<div className={'dialog-switches'}>
+				<Select
+					name={'mergeMode'}
+					inputId={'mergeMode'}
+					menuPlacement="auto"
+					options={importModes}
+					className="react-select-container"
+					classNamePrefix="react-select"
+					isSearchable={false}
+					placeholder={'Import mode'}
+					onChange={(e) => setImportMode(e.value)}
+					isOptionDisabled={(option) => hasRecords ? false : option !== 'add'}
+					value={importModes.filter((option: any) => option.value === importMode)}
+				/>
+			</div>
+
+			<Button type={'secondary'} onClick={() => setIsOpen(false)}>Cancel</Button>
+
 			<Button
 				disabled={selectionLength === 0}
 				type={'primary'} icon={<FaTrashCan/>}

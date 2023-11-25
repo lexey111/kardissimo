@@ -10,8 +10,8 @@ export const ImportMenu: React.FC<TImportMenuProps> = ({links}) => {
 	return <Menu>
 		<Menu.Button className={'pure-button pure-button-ghost button-menu'}><FaFileImport/> Import...</Menu.Button>
 		<Menu.Items className={'dropdown-menu'}>
-			{links.map(l => {
-				return <Menu.Item>
+			{links.map((l, idx) => {
+				return <Menu.Item key={idx}>
 					{l}
 				</Menu.Item>;
 			})}

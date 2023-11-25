@@ -44,6 +44,9 @@ function parseRawStrings(str: string) {
 		}
 
 		if (maxDataLength < 6) {
+			if (!values[0] && !values[1]) {
+				return undefined;
+			}
 			return {text0: trimText64(values[0]), text1: trimText64(values[1])};
 		}
 
@@ -94,14 +97,28 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 
 	}, []);
 
-	const handleProcess = useCallback((data?: Array<TImportedData>) => {
+	const handleProcess = useCallback((data?: Array<TImportedData>, params?: any) => {
 		setIsOpen(false);
 		if (!data || data.length === 0) {
 			toast('Sorry, nothing to import.', {type: 'error'})
 			return;
 		}
+		if (!collection) {
+			toast('Sorry, collection not found.', {type: 'error'})
+			return;
+		}
+
+		if (params.mode === 'replace') {
+			console.log('cleanup!');
+		}
+		console.log(data)
+		let counter = 0;
 		data.forEach(item => {
-			createCard(params.collectionId, {
+			if (params.mode === 'merge') {
+				console.log('merge');
+			}
+			counter++;
+			createCard(collection!.id, {
 				id: nanoid(),
 				sides: [
 					{text: item.text0, header: item.header0, footer: item.footer0},
@@ -109,8 +126,8 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 				]
 			});
 		});
-		toast('Done. Cards imported: ' + data.length, {type: 'info'})
-	}, []);
+		toast('Done. Cards imported: ' + counter, {type: 'info'})
+	}, [collection]);
 
 	if (!collection) {
 		return null;
@@ -123,12 +140,14 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 	if (collapsed) {
 		return <div className={'action-row'}>
 			<ImportMenu links={[
-				<Button onClick={handleClipboardImport} icon={<FaFileImport/>} type={'ghost'}>Import...</Button>,
+				<Button onClick={handleClipboardImport} icon={<FaFileImport/>} type={'ghost'}>Import from
+					clipboard...</Button>,
 				<CSVFileUpload handleFile={handleLoadCSV}/>
 			]}/>
 
 			<ImportPreviewDialog
 				isOpen={isOpen}
+				hasRecords={(collection.cards?.length || 0) > 0}
 				setIsOpen={setIsOpen}
 				handleProcess={handleProcess}
 				sides={collection.sides}
@@ -178,6 +197,7 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 
 		<ImportPreviewDialog
 			isOpen={isOpen}
+			hasRecords={(collection.cards?.length || 0) > 0}
 			setIsOpen={setIsOpen}
 			handleProcess={handleProcess}
 			sides={collection.sides}

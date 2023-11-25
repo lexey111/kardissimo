@@ -366,6 +366,9 @@ textarea {
 
 .react-select__menu {
 	margin: 2px 0 !important;
+	text-align: left;
+	white-space: nowrap;
+	width: auto !important;
 }
 
 .rc-slider.rc-slider-horizontal {

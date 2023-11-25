@@ -170,6 +170,7 @@
 		flex-direction: row;
 		flex-wrap: nowrap;
 		justify-content: flex-end;
+		align-items: center;
 
 		button {
 			margin-left: 16px;
@@ -179,7 +180,8 @@
 			font-size: .9rem;
 			display: flex;
 			flex-flow: row nowrap;
-			border-right: 1px solid mixins.blackTrans(.5);
+			border-right: 1px solid mixins.whiteTrans(.2);
+			box-shadow: 1px 0 0 0 mixins.blackTrans(.2);
 			padding-right: 16px;
 			margin-right: 16px;
 
