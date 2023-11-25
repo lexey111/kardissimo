@@ -235,6 +235,7 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 									<Select
 										inputId={fontName}
 										name={fontName}
+										menuPlacement="auto"
 										options={FontNameOptions}
 										className="react-select-container"
 										classNamePrefix="react-select"
@@ -250,6 +251,7 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 											options={FontSizeOptions}
 											className="react-select-container"
 											classNamePrefix="react-select"
+											menuPlacement="auto"
 											onFocus={() => handleFocus(idx)}
 											isSearchable={false}
 											placeholder={'Size'}
@@ -266,6 +268,7 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 							<div className={'field-set'}>
 								<Select
 									name={'colorSchema' + idx}
+									menuPlacement="top"
 									inputId={'colorSchema' + idx}
 									options={colorSchemaOptions}
 									className="react-select-container"

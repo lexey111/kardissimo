@@ -250,6 +250,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
 								<Select
 									inputId={fontName}
 									name={fontName}
+									menuPlacement="auto"
 									options={FontNameOptions}
 									className="react-select-container"
 									classNamePrefix="react-select"
@@ -263,6 +264,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
 								<div className={'font-size'}>
 									<Select
 										options={FontSizeOptions}
+										menuPlacement="auto"
 										className="react-select-container"
 										classNamePrefix="react-select"
 										onFocus={() => handleFocus(idx)}
@@ -284,6 +286,7 @@ export const CollectionDetailsForm: React.FC<TCollectionDetailsFormProps> = (
 								inputId={'colorSchema' + idx}
 								options={colorSchemaOptions}
 								className="react-select-container"
+								menuPlacement="top"
 								classNamePrefix="react-select"
 								onFocus={() => handleFocus(idx)}
 								isSearchable={true}
