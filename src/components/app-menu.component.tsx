@@ -67,6 +67,7 @@ export const AppMenu: React.FC = () => {
 					<li>
 						<NavLink to="/about">About</NavLink>
 					</li>
+
 					<li className={'icon-only'}>
 						<AppSettings/>
 					</li>

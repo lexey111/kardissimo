@@ -38,7 +38,7 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 		<div className={'lm-amount'}>
 			{collection?.cards?.length || ''}
 		</div>
-		{currentStyle === 'table' && <div className={'table-mode-selector'}>
+		{currentStyle === 'table' && (collection?.cards?.length || 0) > 0 && <div className={'table-mode-selector'}>
 			<div className={'pure-button-group'}>
 				<Button
 					icon={<AiFillEye/>}
@@ -69,7 +69,7 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 				onClick={() => setCardListStyle('table')}/>
 		</div>
 
-		{currentStyle === 'cards' && <div className={'card-side-selector'}>
+		{currentStyle === 'cards' && (collection?.cards?.length || 0) > 0 && <div className={'card-side-selector'}>
 			<div className={'pure-button-group'}>
 				{sides?.map((side, idx) => {
 					return <Button
@@ -82,7 +82,7 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 			</div>
 		</div>}
 
-		{currentStyle === 'table' && <div className={'table-wide-selector'}>
+		{currentStyle === 'table' && (collection?.cards?.length || 0) > 0 && <div className={'table-wide-selector'}>
 			<div className={'pure-button-group'}>
 				<Button
 					icon={<TbViewportWide/>}
