@@ -110,6 +110,39 @@ export const createCard = (collectionId?: string, data?: TCard) => useCollection
 	};
 });
 
+export const removeAllCards = (collectionId?: string) => useCollectionStore.setState((state) => {
+	if (!collectionId) {
+		console.error(`Collection "${collectionId}" not found or no data provided!`);
+		return {...state.collections};
+	}
+	const collection = state.collections.find(c => c.id === collectionId);
+
+	if (!collection) {
+		console.error(`Collection "${collectionId}" not found!`);
+		return {...state.collections};
+	}
+
+	collection.cards = [];
+
+	return {
+		collections: state.collections
+	};
+});
+
+export const isCardExists = (collectionId?: string, text?: string) => {
+	const collection = useCollectionStore.getState().collections.find(c => c.id === collectionId);
+	if (!collection) {
+		console.error(`Collection not found!`);
+		return false;
+	}
+
+	if (!collection.cards || collection.cards.length === 0) {
+		return false
+	}
+
+	return collection.cards.findIndex(c => c.sides?.[0].text === text) !== -1;
+}
+
 export const updateCard = (collectionId?: string, data?: TCard) => useCollectionStore.setState((state) => {
 	const collection = state.collections.find(c => c.id === collectionId);
 

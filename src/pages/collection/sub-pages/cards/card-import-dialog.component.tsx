@@ -7,9 +7,9 @@ import {TCollectionSide} from "../../../../store/data/types.ts";
 import Select from "react-select";
 
 const importModes: any = [
-	{value: 'add', label: 'Add new cards'},
-	{value: 'replace', label: 'Remove all existing cards and add new'},
-	{value: 'merge', label: 'Add only absent cards (by text on side #1)'},
+	{value: 'add', label: 'Add all cards'},
+	{value: 'merge', label: 'Add only new cards (by text on side #1)'},
+	{value: 'replace', label: 'Remove all existing cards and add these instead'},
 ];
 
 function getTableDefs(data: any, sides: Array<TCollectionSide>): any {
@@ -127,19 +127,19 @@ export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = (
 		setSelectionLength(() => localData?.filter(d => d._checked).length || 0);
 	}, [localData]);
 
-	const [importMode, setImportMode] = useState('add');
+	const [importMode, setImportMode] = useState(hasRecords ? 'merge' : 'add');
 
 	useEffect(() => {
 		if (!data || !data.length) {
 			setLocalData(void 0);
 			setColumnDefs(null);
 			setSelectionLength(0);
-			setImportMode('add');
+			setImportMode(hasRecords ? 'merge' : 'add');
 
 			return;
 		}
 
-		setImportMode('add');
+		setImportMode(hasRecords ? 'merge' : 'add');
 		setLocalData(() => data);
 		setColumnDefs(getTableDefs(data, sides || [{name: '#1'}, {name: '#2'}]));
 		setSelectionLength(data?.length || 0);
@@ -147,10 +147,11 @@ export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = (
 
 	const doImport = useCallback(() => {
 		gridRef.current.api.stopEditing();
+
 		handleProcess(localData?.filter?.((d: any) => d._checked), {
 			mode: importMode
 		});
-	}, [localData]);
+	}, [localData, importMode]);
 
 	return <Modal
 		open={isOpen}

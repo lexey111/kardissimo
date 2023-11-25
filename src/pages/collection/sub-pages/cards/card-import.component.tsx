@@ -6,7 +6,7 @@ import {useParams} from "react-router-dom";
 import {FaFileImport} from "react-icons/fa";
 import {IoIosAddCircle} from "react-icons/io";
 import {ImportPreviewDialog, TImportedData} from "./card-import-dialog.component.tsx";
-import {createCard} from "../../../../store/data/collections-store.actions.ts";
+import {createCard, isCardExists, removeAllCards} from "../../../../store/data/collections-store.actions.ts";
 import {customAlphabet, urlAlphabet} from "nanoid";
 import {CSVFileUpload} from "./csv-upload.component.tsx";
 import {ImportMenu} from "./card-import-menu.component.tsx";
@@ -109,15 +109,19 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 		}
 
 		if (params.mode === 'replace') {
-			console.log('cleanup!');
+			removeAllCards(collection.id);
 		}
-		console.log(data)
+
 		let counter = 0;
 		data.forEach(item => {
 			if (params.mode === 'merge') {
-				console.log('merge');
+				if (isCardExists(collection.id, item.text0)) {
+					return;
+				}
 			}
+
 			counter++;
+
 			createCard(collection!.id, {
 				id: nanoid(),
 				sides: [
