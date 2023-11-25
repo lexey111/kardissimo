@@ -49,6 +49,8 @@ function getTableDefs(data: any, sides: Array<TCollectionSide>): any {
 						editable: true,
 						sortable: false,
 						resizable: true,
+						wrapText: true,
+						autoHeight: true,
 						filter: '',
 						field: 'header' + (idx)
 					},
@@ -57,6 +59,8 @@ function getTableDefs(data: any, sides: Array<TCollectionSide>): any {
 						editable: true,
 						sortable: false,
 						resizable: true,
+						wrapText: true,
+						autoHeight: true,
 						filter: '',
 						field: 'text' + (idx)
 					},
@@ -65,6 +69,8 @@ function getTableDefs(data: any, sides: Array<TCollectionSide>): any {
 						editable: true,
 						sortable: false,
 						resizable: true,
+						wrapText: true,
+						autoHeight: true,
 						filter: '',
 						field: 'footer' + (idx)
 					}
@@ -122,7 +128,7 @@ export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = ({isOpen, setI
 
 	const doImport = useCallback(() => {
 		gridRef.current.api.stopEditing();
-		handleProcess(localData?.filter?.((d:any) => d._checked));
+		handleProcess(localData?.filter?.((d: any) => d._checked));
 	}, [localData]);
 
 	return <Modal

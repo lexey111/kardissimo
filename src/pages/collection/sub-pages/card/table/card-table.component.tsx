@@ -57,6 +57,8 @@ function getTableDefs(collectionId?: string, sides?: Array<TCollectionSide>, tab
 						field: `sides.${idx}.header`,
 						headerName: 'Header',
 						editable: tableEditMode === 'editable',
+						wrapText: true,
+						autoHeight: true,
 						filter: true,
 						//hide: tableViewMode === 'narrow'
 					},
@@ -64,12 +66,16 @@ function getTableDefs(collectionId?: string, sides?: Array<TCollectionSide>, tab
 						field: `sides.${idx}.text`,
 						headerName: 'Text',
 						editable: tableEditMode === 'editable',
+						wrapText: true,
+						autoHeight: true,
 						filter: true,
 					},
 					{
 						field: `sides.${idx}.footer`,
 						headerName: 'Footer',
 						editable: tableEditMode === 'editable',
+						wrapText: true,
+						autoHeight: true,
 						filter: true,
 						// hide: tableViewMode === 'narrow'
 					}]
