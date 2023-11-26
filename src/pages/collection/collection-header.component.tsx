@@ -1,10 +1,10 @@
-import {CollectionScene} from "./3d/collection-scene.component.tsx";
-import {Header} from "./utils/header.component.tsx";
+import {CollectionScene} from "../../components/3d/collection-scene.component.tsx";
+import {PageHeader} from "../../components/utils/page-header.component.tsx";
 import React from "react";
 import {useParams} from "react-router-dom";
-import {getCollection} from "../store/data/collections-store.selectors.ts";
+import {getCollection} from "../../store/data/collections-store.selectors.ts";
 
-export const AppHeader: React.FC = () => {
+export const CollectionHeader: React.FC = () => {
 	const params = useParams();
 	const collectionId = params.collectionId;
 	const isNew = collectionId === 'new';
@@ -14,7 +14,7 @@ export const AppHeader: React.FC = () => {
 		return null;
 	}
 
-	return <Header
+	return <PageHeader
 		hasBack={true}
 		title={collection?.title || 'New collection'}
 		image={<CollectionScene/>}

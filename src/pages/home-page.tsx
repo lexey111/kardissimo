@@ -1,6 +1,6 @@
 import React from "react";
 import {AppPage} from "../components/app-page.component.tsx";
-import {Header} from "../components/utils/header.component.tsx";
+import {PageHeader} from "../components/utils/page-header.component.tsx";
 import {KardissimoScene} from "../components/presentation/kardissimo-scene.tsx";
 
 export const HomePage: React.FC = () => {
@@ -9,7 +9,7 @@ export const HomePage: React.FC = () => {
 			<KardissimoScene/>
 		</div>
 
-		<Header
+		<PageHeader
 			title={'Home'}
 			subtitle={'Welcome here! How do you do?'}
 		/>

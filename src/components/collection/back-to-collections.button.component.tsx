@@ -6,9 +6,9 @@ export const BackToCollectionsButton: React.FC = () => {
 	const navigate = useNavigate();
 
 	const handleBack = useCallback(() => {
-		navigate('/collections', {preventScrollReset: true});
+		//navigate('/collections', {preventScrollReset: true});
+		navigate(-1);
 	}, [navigate]);
-
 
 	return <div className={'go-back'} onClick={handleBack} tabIndex={1}>
 		<FaArrowLeft/>

@@ -5,7 +5,7 @@ import {PageError} from "../../types.ts";
 import {RunCollectionCard} from "./run-collection.card.tsx";
 import {TCollection} from "../../store/data/types.ts";
 import {CollectionScene} from "../../components/3d/collection-scene.component.tsx";
-import {Header} from "../../components/utils/header.component.tsx";
+import {PageHeader} from "../../components/utils/page-header.component.tsx";
 import {RunListDialog} from "./run-list.dialog.tsx";
 import {useNavigate} from "react-router-dom";
 
@@ -56,7 +56,7 @@ export const RunList: React.FC<TRunListProps> = ({preOpenId}) => {
 	}
 
 	return <div className={'run-list'}>
-		<Header
+		<PageHeader
 			hasBack={false}
 			noBg={true}
 			title={<>Select a collection to run <span className={'badge badge-white'}>{collections.length}</span></>}

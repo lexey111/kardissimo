@@ -1,10 +1,10 @@
 import React from "react";
 import {AppPage} from "../components/app-page.component.tsx";
-import {Header} from "../components/utils/header.component.tsx";
+import {PageHeader} from "../components/utils/page-header.component.tsx";
 
 export const AboutPage: React.FC = () => {
 	return <AppPage title={'About page'}>
-		<Header
+		<PageHeader
 			title={'About'}
 			subtitle={'What that is and what for'}
 		/>

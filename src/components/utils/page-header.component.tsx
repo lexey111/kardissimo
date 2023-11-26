@@ -9,7 +9,8 @@ export type TAppPageHeaderProps = {
 	image?: JSX.Element
 	hasBack?: boolean
 }
-export const Header: React.FC<TAppPageHeaderProps> = (
+
+export const PageHeader: React.FC<TAppPageHeaderProps> = (
 	{
 		title,
 		subtitle,
@@ -45,7 +46,6 @@ export const Header: React.FC<TAppPageHeaderProps> = (
 	if (noBg) {
 		extraClasses.push('no-bg');
 	}
-
 
 	return <div className={'app-page-header' + ' ' + extraClasses.join(', ')}>
 		<div className={'app-ph-title'}>

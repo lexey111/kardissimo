@@ -3,7 +3,7 @@ import {AppPage} from "../components/app-page.component.tsx";
 import {Outlet, useParams} from "react-router-dom";
 import {getCollection} from "../store/data/collections-store.selectors.ts";
 import {useExclusiveHook} from "../components/hooks/useExclusive.hook.tsx";
-import {AppHeader} from "../components/app-header.component.tsx";
+import {CollectionHeader} from "./collection/collection-header.component.tsx";
 
 export const CollectionPage: React.FC = () => {
 	const params = useParams();
@@ -28,7 +28,7 @@ export const CollectionPage: React.FC = () => {
 
 	// mostly - guard
 	return <>
-		<AppHeader/>
+		<CollectionHeader/>
 		<AppPage title={'Collection'}>
 			<Outlet/>
 		</AppPage>
