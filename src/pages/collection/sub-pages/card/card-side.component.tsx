@@ -1,6 +1,5 @@
-import React, {useCallback} from "react";
+import React from "react";
 import {getCard} from "../../../../store/data/collections-store.selectors.ts";
-import {useCardNavigateHook} from "../../../../components/hooks/useCardNavigate.hook.tsx";
 
 export type TCardAddProps = {
 	collectionId?: string
@@ -12,11 +11,6 @@ export type TCardAddProps = {
 
 export const CardSide: React.FC<TCardAddProps> = ({collectionId, cardId, color, background, sideIdx = 0}) => {
 	const cardData = getCard(collectionId, cardId);
-	const {goCard} = useCardNavigateHook(collectionId!, cardId!);
-
-	const navigateToCard = useCallback(() => {
-		goCard();
-	}, [goCard]);
 
 	if (!cardData || !cardData.sides || cardData.sides.length < sideIdx - 1) {
 		return <div className={'card-not-found'}>
@@ -28,13 +22,12 @@ export const CardSide: React.FC<TCardAddProps> = ({collectionId, cardId, color, 
 	if (color) {
 		styles['color'] = color;
 	}
+
 	if (background) {
 		styles['backgroundColor'] = background;
 	}
-	return <div
-		className={'card-side-content'}
-		style={styles}
-		onClick={navigateToCard}>
+
+	return <div className={'card-side-content'} style={styles}>
 		<div className={'card-header'}>{cardData.sides[sideIdx].header}</div>
 		<div className={'card-word'}>{cardData.sides[sideIdx].text}</div>
 		<div className={'card-footer'}>{cardData.sides[sideIdx].footer}</div>

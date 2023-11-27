@@ -7,6 +7,8 @@ import {CardsNoData} from "../../cards/card-list-no-data.component.tsx";
 import {CardListItem} from "./card-list-item.component.tsx";
 import {CardTable} from "../table/card-table.component.tsx";
 import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 export type TCardListProps = {
 	collectionId?: string
@@ -43,17 +45,20 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 
 	// list and card styles are serviced by CSS
 	return <div className={`card-list list-style-${currentStyle}`}>
-		{cardIds.map((cardId, idx) => {
-			return <CardListItem
-				key={cardId}
-				collectionId={collectionId}
-				cardId={cardId}
-				sides={sides}
-				number={currentStyle === 'cards' ? -1 : idx + 1}
-				currentStyle={currentStyle}
-				count={cardIds.length}
-			/>
-		})}
+		<DndProvider backend={HTML5Backend}>
+			{cardIds.map((cardId, idx) => {
+				return <CardListItem
+					key={cardId}
+					index={idx}
+					collectionId={collectionId}
+					cardId={cardId}
+					sides={sides}
+					number={currentStyle === 'cards' ? -1 : idx + 1}
+					currentStyle={currentStyle}
+					count={cardIds.length}
+				/>
+			})}
+		</DndProvider>
 		<CardListAdd collectionId={collectionId}/>
 	</div>;
 };

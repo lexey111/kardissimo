@@ -27,10 +27,10 @@ function parseRawStrings(str: string) {
 	const parsedRows = Papa.parse(str).data;
 	let maxDataLength = 0;
 
-	parsedRows.forEach((d: Array<any>) => {
-		const meaningfull = d.filter(Boolean).length;
-		if (maxDataLength < meaningfull) {
-			maxDataLength = meaningfull
+	parsedRows.forEach((d: any) => {
+		const meaningful = d.filter(Boolean).length;
+		if (maxDataLength < meaningful) {
+			maxDataLength = meaningful
 		}
 	});
 

@@ -1,5 +1,5 @@
 {
-  "name": "test_scene",
+  "name": "kardissimo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -27,6 +27,8 @@
     "prop-types": "^15.8.1",
     "rc-slider": "^10.3.1",
     "react": "^18.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-router": "^6.18.0",
@@ -41,6 +43,7 @@
     "zustand": "^4.4.6"
   },
   "devDependencies": {
+    "@types/papaparse": "^5.3.13",
     "@types/react": "^18.2.24",
     "@types/react-dom": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
