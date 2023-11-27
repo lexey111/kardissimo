@@ -8,7 +8,6 @@
 	grid-template-columns: 1fr 1fr;
 	grid-column-gap: 1px;
 	position: relative;
-	max-width: 960px;
 }
 
 .card-sides-header {
@@ -127,8 +126,6 @@
 	}
 
 }
-
-
 
 .card-side-editor {
 	width: 100%;

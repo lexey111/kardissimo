@@ -22,6 +22,9 @@ export const CollectionCardsSubpage: React.FC = () => {
 
 	return <div className={'page-32'}>
 		<CardListHeader collectionId={collection.id}/>
+		{collection && (collection.cards?.length || 0) > 1 && <p className={'tip'}>
+			You can drag and drop cards to reorder.
+		</p>}
 		<CardList collectionId={collection.id}/>
 		{(collection?.cards?.length || 0) > 5 && <BigAddFloatingButton onClick={handleAdd} extraHeight={50}/>}
 	</div>;

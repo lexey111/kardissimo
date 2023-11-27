@@ -35,9 +35,9 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 	}
 
 	return <div className={'list-mode-selector'}>
-		<div className={'lm-amount'}>
+		{(collection?.cards?.length || 0) > 10 && <div className={'lm-amount'}>
 			{collection?.cards?.length || ''}
-		</div>
+		</div>}
 		{currentStyle === 'table' && (collection?.cards?.length || 0) > 0 && <div className={'table-mode-selector'}>
 			<div className={'pure-button-group'}>
 				<Button

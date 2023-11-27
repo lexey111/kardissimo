@@ -49,6 +49,15 @@ a:hover, a:focus {
 	text-underline-offset: 4px;
 }
 
+p.tip {
+	color: var(--app-text);
+	text-align: center;
+	padding: 16px;
+	border-radius: 8px;
+	font-size: .9rem;
+	font-style: italic;
+}
+
 p.inform {
 	background: var(--app-info-background);
 	color: var(--app-info-text);
