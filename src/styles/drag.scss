@@ -45,3 +45,48 @@
 		}
 	}
 }
+
+.list-style-list {
+	.drag-wrapper {
+		&.drag {
+			opacity: .4;
+			pointer-events: none;
+			transform: scale(.9);
+			background: var(--app-accent-background);
+
+			.card-actions {
+				display: none;
+			}
+		}
+
+		&.over {
+			&:after {
+				content: '';
+				position: absolute;
+				top: -4px;
+				left: -8px;
+				right: -8px;
+				height: 2px;
+				width: unset;
+				background: var(--app-accent-background);
+				box-shadow: 0 0 0 1px mixins.whiteTrans(.9);
+			}
+
+			&.drag-back {
+				transform: translateY(8px) scaleX(.9);
+			}
+
+			&.drag-forward {
+				transform: translateY(-8px) scaleX(.9);
+
+				&:after {
+					top: unset;
+					bottom: -4px;
+					left: -8px;
+					right: -8px;
+					height: 2px;
+				}
+			}
+		}
+	}
+}

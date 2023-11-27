@@ -7,6 +7,7 @@
 
 	.card-item {
 		display: grid;
+		margin: 8px 0;
 		grid-template-columns: 100px 10fr 100px;
 	}
 
@@ -15,6 +16,7 @@
 
 	.card-sides {
 		//width: 100%;
+		margin-bottom: 0;
 		position: relative;
 	}
 }
