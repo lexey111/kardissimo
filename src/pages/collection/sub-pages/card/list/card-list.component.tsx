@@ -32,7 +32,6 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 	const currentStyle = useSettingsStore((state) => state.cardListStyle);
 
 	const handleMove = useCallback((dragIndex: number, hoverIndex: number) => {
-		console.log('move', dragIndex, hoverIndex)
 		moveCardTo(collectionId!, dragIndex, hoverIndex);
 	}, []);
 

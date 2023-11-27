@@ -12,7 +12,8 @@ import {
 import {PreviewCell} from "./card-table-preview.component.tsx";
 import {RemoveCell} from "./card-table-remove.component.tsx";
 import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
-import {TCollectionSide} from "../../../../../store/data/types.ts"; // Optional theme CSS
+import {TCollectionSide} from "../../../../../store/data/types.ts";
+import {moveCardTo} from "../../../../../store/data/collections-store.selectors.ts"; // Optional theme CSS
 
 export type TCardTableProps = {
 	collectionId?: string
@@ -24,9 +25,10 @@ function getTableDefs(collectionId?: string, sides?: Array<TCollectionSide>, tab
 	const previewColumn: any = {
 		field: '_preview',
 		headerName: '',
-		width: 60,
-		maxWidth: 60,
-		minWidth: 60,
+		rowDrag: true,
+		width: 80,
+		maxWidth: 80,
+		minWidth: 80,
 		editable: false, sortable: false, resizable: false, filter: '',
 		cellRenderer: PreviewCell,
 		cellRendererParams: {
@@ -120,6 +122,8 @@ export const CardTable: React.FC<TCardTableProps> = (
 
 	const [columnDefs, setColumnDefs] = useState(getTableDefs(collectionId, sides, tableEditMode, tableViewMode));
 
+	const [sourceIndex, setSourceIndex] = useState(-1);
+
 	useEffect(() => {
 		if (!gridRef.current.api) {
 			return;
@@ -174,6 +178,15 @@ export const CardTable: React.FC<TCardTableProps> = (
 		}
 	}, [goCard, readonly]);
 
+	const handleDrag = useCallback((e: any) => {
+		const endIndex = e.overIndex;
+		moveCardTo(collectionId!, sourceIndex, endIndex)
+	}, [sourceIndex]);
+
+	const handleDragEnter = useCallback((e: any) => {
+		setSourceIndex(() => e.overIndex);
+	}, [setSourceIndex]);
+
 	return <div className={'card-table ' + tableEditMode + ' ' + tableViewMode}>
 		<div className="ag-theme-alpine">
 			<AgGridReact
@@ -184,6 +197,9 @@ export const CardTable: React.FC<TCardTableProps> = (
 				defaultColDef={defaultColDef}
 				animateRows={true}
 				rowSelection={'single'}
+				onRowDragEnd={handleDrag}
+				onRowDragEnter={handleDragEnter}
+				rowDragManaged={true}
 				//suppressCellFocus={readonly}
 				enableCellEditingOnBackspace={true}
 				onRowDoubleClicked={processDoubleClick}
