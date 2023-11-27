@@ -77,4 +77,37 @@ export const getCard = (collectionId?: string, cardId?: string): TCardEnriched |
 	};
 });
 
+export const moveCardTo = (collectionId: string, idx1: number, idx2: number) => useCollectionStore.setState(state => {
+	return {
+		collections: state.collections.map(collection => {
+			if (collection.id !== collectionId) {
+				return {...collection};
+			}
+			if (!collection || !collection.cards) {
+				return {...collection};
+			}
+
+			if (idx1 < 0 || idx1 >= collection.cards.length) {
+				return {...collection};
+			}
+
+			if (idx2 < 0 || idx2 >= collection.cards.length) {
+				return {...collection};
+			}
+
+			if (idx1 === idx2) {
+				return {...collection};
+			}
+			const cards = [...collection.cards];
+			const target = cards.splice(idx1, 1)[0];
+			cards.splice(idx2, 0, target);
+
+			return {
+				...collection,
+				cards: cards
+			}
+		})
+	}
+});
+
 export const countCards = (collectionId?: string) => useCollectionStore(state => state.collections?.find(c => c.id === collectionId)?.cards?.length || 0)

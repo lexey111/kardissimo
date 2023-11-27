@@ -5,10 +5,10 @@
 	transition: all .2s ease;
 
 	&.drag {
-		opacity: .2;
+		opacity: .4;
 		pointer-events: none;
 		transform: scale(.9);
-		background: var(--app-primary-background);
+		background: var(--app-accent-background);
 
 		.card-actions {
 			display: none;
@@ -16,8 +16,6 @@
 	}
 
 	&.over {
-		transform: translateX(-8px) scale(1.05);
-
 		.card-side-content {
 			box-shadow: none;
 		}
@@ -25,12 +23,25 @@
 		&:after {
 			content: '';
 			position: absolute;
-			right: -4px;
-			top: 0;
-			bottom: 0;
-			width: 4px;
+			left: -9px;
+			top: -8px;
+			bottom: -8px;
+			width: 2px;
 			background: var(--app-accent-background);
 			box-shadow: 0 0 0 1px mixins.whiteTrans(.9);
+		}
+
+		&.drag-back {
+			transform: translateX(8px) scaleX(.9);
+		}
+
+		&.drag-forward {
+			transform: translateX(-8px) scaleX(.9);
+
+			&:after {
+				right: -9px;
+				left: unset;
+			}
 		}
 	}
 }

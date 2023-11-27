@@ -15,6 +15,7 @@ export type TCardListItemProps = {
 	cardId: string
 	number: number
 	count: number
+	handleMove: (dragIndex: number, hoverIndex: number) => void
 }
 
 export const CardListItem: React.FC<TCardListItemProps> = (
@@ -25,16 +26,12 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 		number,
 		index,
 		count,
+		handleMove,
 		currentStyle
 	}) => {
 
 	const selectedSide = useSettingsStore((state) => state.selectedSide);
 	const cardData = getCard(collectionId, cardId);
-
-	//moveCard: (dragIndex: number, hoverIndex: number) => void
-	const handleMove = useCallback((dragIndex: number, hoverIndex: number) => {
-		console.log('move', dragIndex, hoverIndex)
-	}, []);
 
 	const {goCard} = useCardNavigateHook(collectionId!, cardId!);
 

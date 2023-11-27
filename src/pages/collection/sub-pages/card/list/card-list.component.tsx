@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {ICollectionState, useCollectionStore} from "../../../../../store/data/collections-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {CardListAdd} from "./card-list-add.component.tsx";
@@ -9,6 +9,7 @@ import {CardTable} from "../table/card-table.component.tsx";
 import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
+import {moveCardTo} from "../../../../../store/data/collections-store.selectors.ts";
 
 export type TCardListProps = {
 	collectionId?: string
@@ -29,6 +30,11 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 		.find(c => c.id === collectionId)?.sides));
 
 	const currentStyle = useSettingsStore((state) => state.cardListStyle);
+
+	const handleMove = useCallback((dragIndex: number, hoverIndex: number) => {
+		console.log('move', dragIndex, hoverIndex)
+		moveCardTo(collectionId!, dragIndex, hoverIndex);
+	}, []);
 
 	if (!cardIds || cardIds.length === 0) {
 		return <CardsNoData
@@ -51,6 +57,7 @@ export const CardList: React.FC<TCardListProps> = ({collectionId}) => {
 					key={cardId}
 					index={idx}
 					collectionId={collectionId}
+					handleMove={handleMove}
 					cardId={cardId}
 					sides={sides}
 					number={currentStyle === 'cards' ? -1 : idx + 1}
