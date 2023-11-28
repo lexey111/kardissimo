@@ -181,7 +181,7 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 				<kbd>Ctrl/⌘</kbd>+<kbd>C</kbd>.
 			</p>
 			<p>
-				Then click the button below (if the browser asks, allow access to the clipboard):
+				Then click the import button below (if the browser asks, allow access to the clipboard):
 			</p>
 			<div className={'import-actions'}>
 				<Button onClick={handleClipboardImport} icon={<FaFileImport/>}>Import from Clipboard...</Button>

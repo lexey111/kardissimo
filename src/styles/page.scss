@@ -5,6 +5,7 @@
 	width: 100%;
 	min-height: 100vh;
 	flex-flow: column nowrap;
+	z-index: 1;
 }
 
 .spin {
@@ -74,6 +75,7 @@ p.inform {
 	flex-grow: 2;
 	flex-shrink: 2;
 	flex-flow: column nowrap;
+	z-index: 0;
 }
 
 .app-page-wrapper {

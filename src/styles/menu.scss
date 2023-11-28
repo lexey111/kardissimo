@@ -35,6 +35,7 @@ body.theme-snow {
 		width: 100%;
 		justify-content: flex-end;
 		flex-flow: row nowrap;
+		align-items: center;
 		padding: 0 32px;
 
 		&.wait {
@@ -65,22 +66,57 @@ body.theme-snow {
 	}
 
 	.menu-logo {
-		color: mixins.whiteTrans(.8);
+		color: mixins.whiteTrans(1);
 		display: flex;
-		margin-right: auto;
-		font-size: 2rem;
-		font-weight: 100;
+		text-transform: uppercase;
+		font-weight: 200;
+		position: relative;
+		z-index: 2;
+
+		&:before {
+			content: '';
+			position: absolute;
+			background: mixins.blackTrans(.2);
+			height: 64px;
+			right: 0;
+			left: -10vw;
+			border-radius: 22px;
+			z-index: -1;
+		}
 
 		svg {
-			width: 32px;
-			height: 32px;
-			margin-right: 8px;
-			background: mixins.whiteTrans(.6);
-			padding: 6px;
-			border-radius: 100%;
-			fill: var(--app-primary-background);
-			transform: rotate(15deg);
+			width: 48px !important;
+			height: 48px !important;
+			margin-left: 16px;
+			border-radius: 8px;
+			fill: var(--app-text);
+			transform: rotate(5deg);
+			background: var(--app-background);
+			transition: all .2s ease;
 		}
+
+		a.active, a:hover, a:focus {
+			background: transparent !important;
+			box-shadow: none;
+
+			svg {
+				opacity: 1;
+				box-shadow: inset 0 2px 4px mixins.blackTrans(.8);
+				background: var(--app-background);
+				transform: rotate(15deg);
+			}
+		}
+
+		a:focus {
+			svg {
+				box-shadow: 0 0 0 2px var(--app-accent-background);
+			}
+		}
+	}
+
+	.faq {
+		margin-right: auto;
+		margin-left: 16px;
 	}
 
 	ul {
@@ -119,12 +155,13 @@ body.theme-snow {
 				}
 
 				&:focus {
-					box-shadow: 0 0 0 4px var(--app-accent-background);
+					box-shadow: 0 0 0 2px var(--app-accent-background);
 				}
 			}
 
 			svg {
 				margin-right: .4rem;
+				opacity: 1;
 			}
 
 			&.icon-only {
@@ -310,5 +347,50 @@ body.theme-snow {
 		padding: 8px 0;
 		justify-content: center;
 		font-size: .9rem;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	#app-menu {
+		.app-menu-content {
+			ul {
+				li {
+					a {
+						border-radius: 4px;
+						width: 48px;
+						height: 48px;
+						padding: 0;
+
+						span {
+							display: none;
+						}
+
+						svg {
+							margin: 0;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 600px) {
+	#app-menu {
+		.app-menu-content {
+			ul {
+				li {
+					a {
+						width: 32px;
+					}
+
+					&.menu-logo {
+						&:before {
+							display: none;
+						}
+					}
+				}
+			}
+		}
 	}
 }

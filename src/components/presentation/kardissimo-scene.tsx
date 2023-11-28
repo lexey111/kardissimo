@@ -29,7 +29,7 @@ export const KardissimoScene: React.FC = () => {
 		<div className={'jumbo-text'}>
 			<h1>Kardissimo</h1>
 			<p>
-				the new dimension for flash cards
+				a new dimension of flash cards
 			</p>
 		</div>
 	</div>;

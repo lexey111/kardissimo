@@ -7,7 +7,7 @@ export const FaqPage: React.FC = () => {
 		<p>&nbsp;</p>
 		<PageHeader
 			title={'Frequently asked questions'}
-			subtitle={'What that is and what for'}
+			subtitle={'What that is and what for and how to deal with it'}
 		/>
 		<div className={'page-32'}>
 			<ul>
