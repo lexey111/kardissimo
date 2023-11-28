@@ -67,6 +67,7 @@
 	background: mixins.whiteTrans(.9);
 
 	@include mixins.center();
+	z-index: 1;
 }
 
 .card-side-content {

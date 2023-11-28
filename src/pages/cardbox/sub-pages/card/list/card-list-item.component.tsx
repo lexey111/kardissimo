@@ -40,7 +40,7 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 	}, [goCard]);
 
 	return <DraggableCard moveCard={handleMove} key={cardId} id={cardId} index={index}>
-		<div className={'card-item'} onClick={navigateToCard}>
+		<div className={'card-item'}>
 			{number > 0 && <div className={'card-number'}>{number}
 				{number % 2 === 0 && <span>of {count}</span>}
 			</div>}
@@ -71,6 +71,7 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 						cardId={cardId}
 						sideIdx={idx}
 						background={sideColor}
+						onClick={navigateToCard}
 						color={sideText}
 						key={cardId + idx.toString()}/>
 				})}

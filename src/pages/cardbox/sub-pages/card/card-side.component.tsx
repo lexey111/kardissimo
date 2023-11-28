@@ -7,9 +7,16 @@ export type TCardAddProps = {
 	sideIdx?: number
 	color?: string
 	background?: string
+	onClick: () => void;
 }
 
-export const CardSide: React.FC<TCardAddProps> = ({cardboxId, cardId, color, background, sideIdx = 0}) => {
+export const CardSide: React.FC<TCardAddProps> = (
+	{
+		cardboxId,
+		cardId, color, background,
+		onClick,
+		sideIdx = 0
+	}) => {
 	const cardData = getCard(cardboxId, cardId);
 
 	if (!cardData || !cardData.sides || cardData.sides.length < sideIdx - 1) {
@@ -27,7 +34,7 @@ export const CardSide: React.FC<TCardAddProps> = ({cardboxId, cardId, color, bac
 		styles['backgroundColor'] = background;
 	}
 
-	return <div className={'card-side-content'} style={styles}>
+	return <div className={'card-side-content'} style={styles} onClick={onClick}>
 		<div className={'card-header'}>{cardData.sides[sideIdx].header}</div>
 		<div className={'card-word'}>{cardData.sides[sideIdx].text}</div>
 		<div className={'card-footer'}>{cardData.sides[sideIdx].footer}</div>

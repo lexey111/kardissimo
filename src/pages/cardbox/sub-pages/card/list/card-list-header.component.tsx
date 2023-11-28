@@ -3,6 +3,7 @@ import {CardListModeSelector} from "./card-list-mode-selector.component.tsx";
 import {ICardboxState, useCardboxStore} from "../../../../../store/data/cardboxes-store.ts";
 import {useSettingsStore} from "../../../../../store/settings/settings-store.ts";
 import {useShallow} from "zustand/react/shallow";
+import {getCardbox} from "../../../../../store/data/cardboxes-store.selectors.ts";
 
 export type TCardListHeaderProps = {
 	cardboxId?: string
@@ -14,8 +15,13 @@ export const CardListHeader: React.FC<TCardListHeaderProps> = ({cardboxId}) => {
 
 	const currentStyle = useSettingsStore((state) => state.cardListStyle);
 	const showSideNames = currentStyle === 'list';
+	const cardbox = getCardbox(cardboxId);
 
 	if (!sides || sides.length < 2) {
+		return null;
+	}
+
+	if ((cardbox?.cards?.length || 0) === 0) {
 		return null;
 	}
 
