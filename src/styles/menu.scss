@@ -302,6 +302,7 @@ body.theme-snow {
 	box-shadow: inset 0 8px 32px mixins.blackTrans(.8);
 	color: mixins.whiteTrans(.3);
 	transition: all .2s ease;
+	z-index: 3;
 
 	#app-footer-content {
 		display: flex;
