@@ -84,15 +84,53 @@ body.theme-snow {
 			z-index: -1;
 		}
 
+		span {
+			margin-right: 64px;
+		}
+
 		svg {
 			width: 48px !important;
 			height: 48px !important;
-			margin-left: 16px;
 			border-radius: 8px;
 			fill: var(--app-text);
-			transform: rotate(5deg);
-			background: var(--app-background);
+			transform: rotate(10deg);
 			transition: all .2s ease;
+			position: absolute;
+			right: 16px;
+			z-index: 2;
+		}
+
+		svg.shadowk {
+			fill: mixins.blackTrans(.2);
+			padding-left: 4px;
+			z-index: 1;
+		}
+
+		i {
+			border-radius: 8px;
+			transition: all .2s ease;
+			content: '';
+			display: block;
+			position: absolute;
+			right: 22px;
+			width: 40px;
+			height: 40px;
+			transform: rotate(5deg);
+			z-index: 0;
+			overflow: hidden;
+			box-shadow: 0 2px 2px mixins.blackTrans(.2);
+
+			&:before {
+				content: '';
+				position: absolute;
+				top: -8px;
+				left: -8px;
+				right: -8px;
+				bottom: -8px;
+				background: var(--app-background);
+				box-shadow: inset 0 2px 20px mixins.blackTrans(.4);
+			}
+
 		}
 
 		a.active, a:hover, a:focus {
@@ -101,14 +139,21 @@ body.theme-snow {
 
 			svg {
 				opacity: 1;
-				box-shadow: inset 0 2px 4px mixins.blackTrans(.8);
-				background: var(--app-background);
 				transform: rotate(15deg);
 			}
+
+			i {
+				transform: rotate(-10deg);
+
+				&:before {
+					animation: rotate-bg infinite 5s linear;
+				}
+			}
+
 		}
 
 		a:focus {
-			svg {
+			i {
 				box-shadow: 0 0 0 2px var(--app-accent-background);
 			}
 		}
@@ -187,6 +232,15 @@ body.theme-snow {
 				}
 			}
 		}
+	}
+}
+
+@keyframes rotate-bg {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(359deg);
 	}
 }
 
@@ -376,6 +430,18 @@ body.theme-snow {
 							margin: 0;
 						}
 					}
+
+					&.menu-logo {
+						margin: 0;
+
+						i, svg {
+							right: 0;
+						}
+
+						&:before {
+							display: none;
+						}
+					}
 				}
 			}
 		}
@@ -389,12 +455,6 @@ body.theme-snow {
 				li {
 					a {
 						width: 32px;
-					}
-
-					&.menu-logo {
-						&:before {
-							display: none;
-						}
 					}
 				}
 			}
