@@ -10,6 +10,7 @@ export const FaqPage: React.FC = () => {
 			subtitle={'What that is and what for and how to deal with it'}
 		/>
 		<div className={'page-32'}>
+
 			<ul>
 				<li>Zustand</li>
 				<li>ThreeJS</li>

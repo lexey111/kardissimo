@@ -54,7 +54,7 @@ export const CardboxFallingStayCard: React.FC = () => {
 		<FlatCard
 			active={false}
 			faces={[
-				{text: '"Hello, World"\nCardbox', header: 'English', footer: 'Español', ...defaultSide, color: '#ffaf00'},
+				{text: '"Hello, World"\nCard box', header: 'English', footer: 'Español', ...defaultSide, color: '#ffaf00'},
 				{text: '¡Hola, Mundo!', ...defaultSide, color: '#00b2ff'},
 			]}/>
 	</animated.mesh>;

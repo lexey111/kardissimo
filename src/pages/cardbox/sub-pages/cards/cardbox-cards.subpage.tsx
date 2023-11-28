@@ -25,6 +25,7 @@ export const CardboxCardsSubpage: React.FC = () => {
 		{cardbox && (cardbox.cards?.length || 0) > 1 && <p className={'tip'}>
 			You can drag and drop cards to reorder.
 		</p>}
+
 		<CardList cardboxId={cardbox.id}/>
 		{(cardbox?.cards?.length || 0) > 5 && <BigAddFloatingButton onClick={handleAdd} extraHeight={50}/>}
 	</div>;
