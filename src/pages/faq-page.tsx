@@ -2,7 +2,7 @@ import React from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {PageHeader} from "../components/utils/page-header.component.tsx";
 
-export const AboutPage: React.FC = () => {
+export const FaqPage: React.FC = () => {
 	return <AppPage title={'About page'}>
 		<PageHeader
 			title={'About'}

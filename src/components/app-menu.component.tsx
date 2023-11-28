@@ -1,11 +1,8 @@
 import React, {useCallback} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
-import {countCollections} from "../store/data/collections-store.selectors.ts";
 import {FaCirclePlay} from "react-icons/fa6";
 import {HiRectangleStack} from "react-icons/hi2";
-import {AiFillHome} from "react-icons/ai";
-import {ICollectionState, useCollectionStore} from "../store/data/collections-store.ts";
-import {useShallow} from "zustand/react/shallow";
+import {AiFillQuestionCircle} from "react-icons/ai";
 import {IAuthState, useAuthStore} from "../store/auth/auth-store.ts";
 import {Button} from "./utils/button.component.tsx";
 import {logout} from "../store/auth/auth-store.actions.ts";
@@ -13,13 +10,10 @@ import {UserAvatar} from "./utils/user-avatar.component.tsx";
 import {AppSettings} from "./settings/app-settings.component.tsx";
 import {useSettingsStore} from "../store/settings/settings-store.ts";
 
-const readySelector = (state: ICollectionState) => state.collections.filter(c => c.cards && c.cards?.length > 0).length;
 const userSelector = (state: IAuthState) => state;
 
 export const AppMenu: React.FC = () => {
 	const navigate = useNavigate();
-	const count = countCollections();
-	const readyCollections = useCollectionStore(useShallow(readySelector));
 	const user = useAuthStore(userSelector);
 	const isBusy = useSettingsStore((state) => state?.busy);
 
@@ -39,7 +33,7 @@ export const AppMenu: React.FC = () => {
 	return <nav id='app-menu'>
 		<div className={'app-menu-content'}>
 			<ul>
-				{!loggedIn && <li className={'menu-logo'}>
+				<li className={'menu-logo home'}>
 					<NavLink to="/home">
 						<svg viewBox="0 0 1024 1024">
 							<path
@@ -47,25 +41,26 @@ export const AppMenu: React.FC = () => {
 						</svg>
 						Kardissimo
 					</NavLink>
-				</li>}
+				</li>
 
 				{loggedIn && <>
-					<li className={'icon-only icon-left'}>
-						<NavLink to="/home">
-							<AiFillHome/>
+					<li>
+						<NavLink to="/run">
+							<FaCirclePlay/>
+							Run
 						</NavLink>
 					</li>
-
-					{readyCollections > 0 && <li>
-						<NavLink to="/run"><FaCirclePlay/> Run</NavLink>
-					</li>}
 					<li>
-						<NavLink to="/collections"><HiRectangleStack/>
-							Collections {count > 0 &&
-								<span className={'badge badge-white'}>{count}</span>}</NavLink>
+						<NavLink to="/collections">
+							<HiRectangleStack/>
+							Card boxes
+						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/about">About</NavLink>
+						<NavLink to="/faq">
+							<AiFillQuestionCircle/>
+							FAQ
+						</NavLink>
 					</li>
 
 					<li className={'icon-only'}>

@@ -1,7 +1,7 @@
 import React from "react";
 
 import {HomePage} from "./pages/home-page.tsx";
-import {AboutPage} from "./pages/about-page.tsx";
+import {FaqPage} from "./pages/faq-page.tsx";
 import {CollectionsListSubpage} from "./pages/collection/sub-pages/list/collections-list.subpage.tsx";
 import {CollectionPage} from "./pages/collection-page.tsx";
 import {CollectionDetailsSubpage} from "./pages/collection/sub-pages/collection/collection-details.subpage.tsx";
@@ -38,8 +38,8 @@ export const AppRoutes = [
 					element: <HomePage/>
 				},
 				{
-					path: 'about',
-					element: <AboutPage/>
+					path: 'faq',
+					element: <FaqPage/>
 				},
 				{
 					path: 'login',
