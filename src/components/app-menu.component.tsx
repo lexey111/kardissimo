@@ -43,6 +43,13 @@ export const AppMenu: React.FC = () => {
 					</NavLink>
 				</li>
 
+				<li>
+					<NavLink to="/faq">
+						<AiFillQuestionCircle/>
+						FAQ
+					</NavLink>
+				</li>
+
 				{loggedIn && <>
 					<li>
 						<NavLink to="/run">
@@ -56,12 +63,6 @@ export const AppMenu: React.FC = () => {
 							Card boxes
 						</NavLink>
 					</li>
-					<li>
-						<NavLink to="/faq">
-							<AiFillQuestionCircle/>
-							FAQ
-						</NavLink>
-					</li>
 
 					<li className={'icon-only'}>
 						<AppSettings/>
@@ -69,7 +70,7 @@ export const AppMenu: React.FC = () => {
 				</>}
 
 				{!loggedIn && <li className={'login'}>
-					Please <Button type={'danger'} onClick={handleLogin}>Login</Button> here
+					<Button type={'danger'} onClick={handleLogin}>Login</Button>
 				</li>}
 			</ul>
 

@@ -3,9 +3,10 @@ import {AppPage} from "../components/app-page.component.tsx";
 import {PageHeader} from "../components/utils/page-header.component.tsx";
 
 export const FaqPage: React.FC = () => {
-	return <AppPage title={'About page'}>
+	return <AppPage title={'FAQ'} authOnly={false}>
+		<p>&nbsp;</p>
 		<PageHeader
-			title={'About'}
+			title={'Frequently asked questions'}
 			subtitle={'What that is and what for'}
 		/>
 		<div className={'page-32'}>
