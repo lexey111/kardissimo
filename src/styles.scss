@@ -6,7 +6,7 @@
 @import "styles/variables.css";
 @import "styles/menu";
 @import "styles/page";
-@import "styles/collections";
+@import "styles/cardboxes";
 @import "styles/go-back";
 @import "styles/forms";
 @import "styles/header";
@@ -29,7 +29,6 @@
 
 html {
 	font-family: sans-serif;
-	background: var(--app-background);
 	font-family: system-ui;
 	font-display: optional;
 	font-synthesis: none;
@@ -45,7 +44,6 @@ body {
 
 	color-scheme: light dark;
 	color: var(--app-text);
-	background: var(--app-background);
 
 	width: 100vw;
 	height: 100vh;

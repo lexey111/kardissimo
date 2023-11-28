@@ -2,70 +2,70 @@ import React, {useCallback, useEffect, useState} from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {useExclusiveHook} from "../components/hooks/useExclusive.hook.tsx";
-import {getCollection} from "../store/data/collections-store.selectors.ts";
+import {getCardbox} from "../store/data/cardboxes-store.selectors.ts";
 import {PageError} from "../types.ts";
 import {SessionStage} from "./session/session-stage.tsx";
 import {BackToRunButton} from "./run/back-to-run.button.component.tsx";
 import {SceneInfoButton} from "./run/scene-info.button.component.tsx";
-import {TCardSide, TCollection, TCollectionSide, TPreparedCard, TPreparedCards} from "../store/data/types.ts";
+import {TCardSide, TCardbox, TCardboxSide, TPreparedCard, TPreparedCards} from "../store/data/types.ts";
 import {Fonts} from "../resources/fonts.ts";
 
-function getDirectOrder(id: string, sides: Array<TCardSide>, collectionSides: Array<TCollectionSide>): TPreparedCard {
+function getDirectOrder(id: string, sides: Array<TCardSide>, cardboxSides: Array<TCardboxSide>): TPreparedCard {
 	const result = [];
 	for (let i = 0; i < sides.length; i++) {
-		result.push({id, ...sides[i], ...collectionSides[i]})
+		result.push({id, ...sides[i], ...cardboxSides[i]})
 	}
 	return result;
 }
 
-function getReverseOrder(id: string, sides: Array<TCardSide>, collectionSides: Array<TCollectionSide>): TPreparedCard {
+function getReverseOrder(id: string, sides: Array<TCardSide>, cardboxSides: Array<TCardboxSide>): TPreparedCard {
 	const result = [];
 	for (let i = sides.length - 1; i >= 0; i--) {
-		result.push({id, ...sides[i], ...collectionSides[i]})
+		result.push({id, ...sides[i], ...cardboxSides[i]})
 	}
 	return result;
 }
 
-function swapAndEnrichSides(id: string, sides: Array<TCardSide>, collectionSides: Array<TCollectionSide>, side: number): TPreparedCard {
+function swapAndEnrichSides(id: string, sides: Array<TCardSide>, cardboxSides: Array<TCardboxSide>, side: number): TPreparedCard {
 	if (side === 0) {
-		return getDirectOrder(id, sides, collectionSides);
+		return getDirectOrder(id, sides, cardboxSides);
 	}
 
 	if (side === 1) {
-		return getReverseOrder(id, sides, collectionSides);
+		return getReverseOrder(id, sides, cardboxSides);
 	}
 
 	return Math.random() > 0.5
-		? getDirectOrder(id, sides, collectionSides)
-		: getReverseOrder(id, sides, collectionSides);
+		? getDirectOrder(id, sides, cardboxSides)
+		: getReverseOrder(id, sides, cardboxSides);
 }
 
-function getCardDesign(collection: TCollection, cardIdx: number) {
-	let design: any = [...collection.sides!];
+function getCardDesign(cardbox: TCardbox, cardIdx: number) {
+	let design: any = [...cardbox.sides!];
 
-	if (collection.cards![cardIdx].ownDesign) {
-		design = collection.cards![cardIdx].sides!.map((side, idx) => {
+	if (cardbox.cards![cardIdx].ownDesign) {
+		design = cardbox.cards![cardIdx].sides!.map((side, idx) => {
 			if (side.appearance) {
 				return {
-					name: collection.sides?.[idx]?.name,
-					color: side.appearance.color || collection.sides?.[idx]?.color || '#FDBA66',
-					textColor: side.appearance.textColor || collection.sides?.[idx]?.textColor || '#2b3b62',
-					fontSize: side.appearance.fontSize || collection.sides?.[idx]?.fontSize || 'M',
-					fontName: side.appearance.fontName || collection.sides?.[idx]?.fontName || Object.keys(Fonts)[0],
+					name: cardbox.sides?.[idx]?.name,
+					color: side.appearance.color || cardbox.sides?.[idx]?.color || '#FDBA66',
+					textColor: side.appearance.textColor || cardbox.sides?.[idx]?.textColor || '#2b3b62',
+					fontSize: side.appearance.fontSize || cardbox.sides?.[idx]?.fontSize || 'M',
+					fontName: side.appearance.fontName || cardbox.sides?.[idx]?.fontName || Object.keys(Fonts)[0],
 				}
 			}
-			return collection.sides![idx];
+			return cardbox.sides![idx];
 		});
 	}
 	return design;
 }
 
-function getExactChunk(collection: TCollection, from: number, to: number, side: number) {
+function getExactChunk(cardbox: TCardbox, from: number, to: number, side: number) {
 	const result = [];
 
 	for (let i = from; i <= to; i++) {
-		const design = getCardDesign(collection, i);
-		result.push(swapAndEnrichSides(collection.cards![i].id, collection.cards![i].sides!, design, side));
+		const design = getCardDesign(cardbox, i);
+		result.push(swapAndEnrichSides(cardbox.cards![i].id, cardbox.cards![i].sides!, design, side));
 	}
 
 	return result;
@@ -77,10 +77,10 @@ function getRandomInt(min: number, max: number) {
 	return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
 }
 
-function getRandomChunk(collection: TCollection, amount: number, side: number) {
+function getRandomChunk(cardbox: TCardbox, amount: number, side: number) {
 	const result = [];
 	const usedIdx: Array<number> = [];
-	const max = collection.cards!.length;
+	const max = cardbox.cards!.length;
 
 	if (amount > max) {
 		throw new PageError('Invalid random chunk params', 'Oops');
@@ -92,8 +92,8 @@ function getRandomChunk(collection: TCollection, amount: number, side: number) {
 			continue;
 		}
 		usedIdx.push(idx);
-		const design = getCardDesign(collection, idx);
-		result.push(swapAndEnrichSides(collection.cards![idx].id, collection.cards![idx].sides!, design, side));
+		const design = getCardDesign(cardbox, idx);
+		result.push(swapAndEnrichSides(cardbox.cards![idx].id, cardbox.cards![idx].sides!, design, side));
 	}
 
 	return result;
@@ -121,14 +121,14 @@ export const SessionPage: React.FC = () => {
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
 	const params = useParams();
-	const collection = getCollection(params.collectionId);
+	const cardbox = getCardbox(params.cardboxId);
 	const from = Number(searchParams?.get('from'));
 	const to = Number(searchParams?.get('to'));
 	const order = searchParams?.get('order');
 	const chunkType = searchParams?.get('chunk');
 	const side = Number(searchParams?.get('side'));
 
-	console.log('collection', params.collectionId);
+	console.log('cardbox', params.cardboxId);
 	console.log('from', from, 'to', to, 'number', to - from + 1);
 	console.log('side', side);
 	console.log('order', order);
@@ -143,24 +143,24 @@ export const SessionPage: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		if (!collection) {
+		if (!cardbox) {
 			return;
 		}
 
 		let chunk: TPreparedCards = [];
 		if (chunkType === 'exact') {
-			chunk = getExactChunk(collection!, from, to, side);
+			chunk = getExactChunk(cardbox!, from, to, side);
 			if (order === 'random') {
 				chunk = shuffle(chunk);
 			}
 		}
 
 		if (chunkType === 'random') {
-			chunk = getRandomChunk(collection!, to - from + 1, side);
+			chunk = getRandomChunk(cardbox!, to - from + 1, side);
 		}
 
 		setCards(chunk);
-	}, [collection, from, chunkType, side, to]);
+	}, [cardbox, from, chunkType, side, to]);
 
 	if (searchParams.size === 0) {
 		setTimeout(() => {
@@ -168,28 +168,28 @@ export const SessionPage: React.FC = () => {
 		}, 200);
 		return;
 	} else {
-		if (!collection) {
-			throw new PageError('Unfortunately, there is no collection with given ID.', 'Oops');
+		if (!cardbox) {
+			throw new PageError('Unfortunately, there is no cardbox with given ID.', 'Oops');
 		}
-		if (!collection.cards) {
-			throw new PageError('Unfortunately, collection is not ready to start yet.', 'Empty collection');
+		if (!cardbox.cards) {
+			throw new PageError('Unfortunately, cardbox is not ready to start yet.', 'Empty cardbox');
 		}
-		if (!collection.sides) {
-			throw new PageError('Unfortunately, collection is not ready to start yet.', 'Wrong Sides');
+		if (!cardbox.sides) {
+			throw new PageError('Unfortunately, cardbox is not ready to start yet.', 'Wrong Sides');
 		}
 
-		if (isNaN(from) || isNaN(to) || isNaN(side) || from > to || from < 0 || to < 0 || to >= collection.cards!.length) {
+		if (isNaN(from) || isNaN(to) || isNaN(side) || from > to || from < 0 || to < 0 || to >= cardbox.cards!.length) {
 			// console.log('isNaN(from)', isNaN(from))
 			// console.log('isNaN(to)', isNaN(to))
 			// console.log('isNaN(side)', isNaN(side))
 			// console.log('from > to', from > to)
 			// console.log('from < 0', from < 0)
 			// console.log('to < 1', to < 1)
-			// console.log('to >= collection.cards!.length', to >= collection.cards!.length)
+			// console.log('to >= cardbox.cards!.length', to >= cardbox.cards!.length)
 			throw new PageError('Bad parameters. Please, correct and run again.', 'Error');
 		}
 
-		if (side < -1 || side >= collection.sides!.length) {
+		if (side < -1 || side >= cardbox.sides!.length) {
 			throw new PageError('Bad side. Please, correct and run again.', 'Error');
 		}
 
@@ -209,14 +209,14 @@ export const SessionPage: React.FC = () => {
 				<SceneInfoButton info={<div>
 					<h3>Session Info</h3>
 					<p>
-						<b>Collection:</b> {collection.title}
-						{collection.author && ' by ' + collection.author}
+						<b>Cardbox:</b> {cardbox.title}
+						{cardbox.author && ' by ' + cardbox.author}
 					</p>
 					<p>
 						<b>Cards: </b> {from + 1}..{to + 1} ({cards.length})
 					</p>
 					<p>
-						<b>Primary side:</b> {side === -1 ? 'random' : collection.sides[side].name}
+						<b>Primary side:</b> {side === -1 ? 'random' : cardbox.sides[side].name}
 					</p>
 					<p>
 						<b>Order:</b> {order}

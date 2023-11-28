@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect, useRef} from "react";
 
-export const useCardNavigateHook = (collectionId?: string, cardId?: string) => {
+export const useCardNavigateHook = (cardboxId?: string, cardId?: string) => {
 	const navigate = useNavigate();
 	const destroying = useRef(false);
 
@@ -11,7 +11,7 @@ export const useCardNavigateHook = (collectionId?: string, cardId?: string) => {
 		}
 	}, []);
 
-	const key = '_pos_cards_' + collectionId;
+	const key = '_pos_cards_' + cardboxId;
 	const goCard = (_cardId?: string) => {
 		const position = window.document.scrollingElement?.scrollTop;
 
@@ -22,11 +22,11 @@ export const useCardNavigateHook = (collectionId?: string, cardId?: string) => {
 		}
 
 		if (cardId === 'new') {
-			navigate(`/collections/${collectionId}/cards/new`, {preventScrollReset: true});
+			navigate(`/cardboxes/${cardboxId}/cards/new`, {preventScrollReset: true});
 			return;
 		}
 
-		navigate(`/collections/${collectionId}/cards/${targetId}`, {preventScrollReset: true});
+		navigate(`/cardboxes/${cardboxId}/cards/${targetId}`, {preventScrollReset: true});
 	};
 
 	const resetPosition = () => {

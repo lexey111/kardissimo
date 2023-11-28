@@ -23,7 +23,8 @@ body.theme-snow {
 		bottom: 0;
 		left: -64px;
 		right: -64px;
-		background: url('./cross.png');
+		// cross.png
+		background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAASUlEQVR42u3RAQaAQBgF4f/+J40CAmF3OkMenpg5wcdMErCmGfC0AfwfIECAAAECgM23NrCAmzxckAIECBAgQICAqw0424Bjwl55H/qvuiajIgAAAABJRU5ErkJggg==');
 		opacity: .1;
 		animation: bg-move 2s linear infinite;
 	}

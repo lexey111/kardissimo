@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
-import {BackToCollectionsButton} from "../collection/back-to-collections.button.component.tsx";
 import {useScreenSize} from "../hooks/useScreenSize.hook.tsx";
+import {BackToCardboxesButton} from "../collection/back-to-cardboxes.button.component.tsx";
 
 export type TAppPageHeaderProps = {
 	title: string | JSX.Element
@@ -50,7 +50,7 @@ export const PageHeader: React.FC<TAppPageHeaderProps> = (
 	return <div className={'app-page-header' + ' ' + extraClasses.join(', ')}>
 		<div className={'app-ph-title'}>
 			<div className={'app-ph-caption'}>
-				{hasBack && <BackToCollectionsButton/>}
+				{hasBack && <BackToCardboxesButton/>}
 				{title}
 			</div>
 			{subtitle && <div className={'app-ph-subtitle'}>{subtitle}</div>}

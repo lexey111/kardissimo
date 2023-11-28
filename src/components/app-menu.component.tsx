@@ -51,7 +51,7 @@ export const AppMenu: React.FC = () => {
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/collections">
+						<NavLink to="/cardboxes">
 							<HiRectangleStack/>
 							Card boxes
 						</NavLink>

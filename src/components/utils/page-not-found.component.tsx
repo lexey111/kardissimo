@@ -5,15 +5,15 @@ import React from "react";
 export type TPageNotFoundProps = {
 	message?: string
 	header?: string;
-	goCollections?: boolean
+	goCardboxes?: boolean
 }
 
-export const PageNotFound: React.FC<TPageNotFoundProps> = ({header, message, goCollections = true}) => {
+export const PageNotFound: React.FC<TPageNotFoundProps> = ({header, message, goCardboxes = true}) => {
 	return <AppPageError
 		title={header || 'Page Not Found error'}
 		subtitle={message || 'Sorry for that.'}
-		back={(goCollections ? <NavLink to={'/collections'}>
-				&larr; Go to Collections
+		back={(goCardboxes ? <NavLink to={'/cardboxes'}>
+				&larr; Go to Cardboxes
 			</NavLink>
 			: void 0)
 		}

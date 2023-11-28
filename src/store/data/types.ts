@@ -6,7 +6,7 @@ export type TCardAppearance = {
 	colorSchemaName?: string
 }
 
-export type TCollectionStat = {
+export type TCardboxStat = {
 	created_at: Date
 	changed_at: Date
 }
@@ -24,20 +24,20 @@ export type TCard = {
 	sides?: Array<TCardSide>
 };
 
-export type TCardEnriched = TCard & { collectionSides?: Array<TCollectionSide> };
+export type TCardEnriched = TCard & { cardboxSides?: Array<TCardboxSide> };
 
-export type TPreparedSide = { id?: string } & TCardSide & TCollectionSide;
+export type TPreparedSide = { id?: string } & TCardSide & TCardboxSide;
 export type TPreparedCard = Array<TPreparedSide>; // [{id, text, color, font...}, {id, text, color, font...}]...
 export type TPreparedCards = Array<TPreparedCard>; // [ [id...], [id...] ]
 
-export type TCollectionSide = { name: string } & TCardAppearance;
+export type TCardboxSide = { name: string } & TCardAppearance;
 
-export type TCollection = {
+export type TCardbox = {
 	id?: string
 	title?: string
 	isLocal?: boolean
 	author?: string
-	stat?: TCollectionStat
-	sides?: Array<TCollectionSide> // 2, TBD
+	stat?: TCardboxStat
+	sides?: Array<TCardboxSide> // 2, TBD
 	cards?: Array<TCard>
 }

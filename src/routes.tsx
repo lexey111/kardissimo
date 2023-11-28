@@ -2,11 +2,11 @@ import React from "react";
 
 import {HomePage} from "./pages/home-page.tsx";
 import {FaqPage} from "./pages/faq-page.tsx";
-import {CollectionsListSubpage} from "./pages/collection/sub-pages/list/collections-list.subpage.tsx";
-import {CollectionPage} from "./pages/collection-page.tsx";
-import {CollectionDetailsSubpage} from "./pages/collection/sub-pages/collection/collection-details.subpage.tsx";
-import {CollectionCardsSubpage} from "./pages/collection/sub-pages/cards/collection-cards.subpage.tsx";
-import {CollectionCardSubpage} from "./pages/collection/sub-pages/cards/collection-card.subpage.tsx";
+import {CardboxesListSubpage} from "./pages/cardbox/sub-pages/list/cardbox-list.subpage.tsx";
+import {CardboxPage} from "./pages/cardbox-page.tsx";
+import {CardboxDetailsSubpage} from "./pages/cardbox/sub-pages/cardbox/cardbox-details.subpage.tsx";
+import {CardboxCardsSubpage} from "./pages/cardbox/sub-pages/cards/cardbox-cards.subpage.tsx";
+import {CardboxCardSubpage} from "./pages/cardbox/sub-pages/cards/cardbox-card.subpage.tsx";
 import {App} from "./app.tsx";
 import {useRouteError} from "react-router";
 import {PageNotFound} from "./components/utils/page-not-found.component.tsx";
@@ -52,33 +52,33 @@ export const AppRoutes = [
 					element: <RunPage/>,
 				},
 				{
-					path: 'session/:collectionId',
+					path: 'session/:cardboxId',
 					handle: 'Session',
 					element: <SessionPage/>,
 				},
 				{
-					path: '/collections',
+					path: '/cardboxes',
 					handle: 'List',
-					element: <CollectionsListSubpage/>,
+					element: <CardboxesListSubpage/>,
 				},
 				{
-					path: '/collections/*',
-					element: <CollectionPage/>,
+					path: '/cardboxes/*',
+					element: <CardboxPage/>,
 					children: [
 						{
-							path: ':collectionId/details',
+							path: ':cardboxId/details',
 							handle: 'Details',
-							element: <CollectionDetailsSubpage/>
+							element: <CardboxDetailsSubpage/>
 						},
 						{
-							path: ':collectionId/cards',
+							path: ':cardboxId/cards',
 							handle: 'Cards',
-							element: <CollectionCardsSubpage/>
+							element: <CardboxCardsSubpage/>
 						},
 						{
-							path: ':collectionId/cards/:cardId',
+							path: ':cardboxId/cards/:cardId',
 							handle: 'Card',
-							element: <CollectionCardSubpage/>
+							element: <CardboxCardSubpage/>
 						},
 					]
 				}

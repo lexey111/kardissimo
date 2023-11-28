@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {Button} from "../../components/utils/button.component.tsx";
 import {Modal} from "../../components/utils/modal-component.tsx";
 import {FaArrowLeft, FaPlayCircle} from "react-icons/fa";
-import {TCollection} from "../../store/data/types.ts";
+import {TCardbox} from "../../store/data/types.ts";
 import {RadioGroup} from "@headlessui/react";
 import {ImRadioChecked, ImRadioUnchecked} from "react-icons/im";
 import {PiExamFill} from "react-icons/pi";
@@ -16,7 +16,7 @@ import {ChoosePreview} from "../../components/3d/choose-preview-component.tsx";
 import {Switch} from "../../components/utils/switch.component.tsx";
 
 export type TRunListDialogProps = {
-	currentCollection: TCollection
+	currentCardbox: TCardbox
 	isOpen: boolean
 	handleRun: (data: {
 		order: 'random' | 'linear',
@@ -28,7 +28,7 @@ export type TRunListDialogProps = {
 	handleClose: () => void
 }
 
-export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection, handleRun, handleClose, isOpen}) => {
+export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCardbox, handleRun, handleClose, isOpen}) => {
 
 	const [advanced, setAdvanced] = useState(false);
 
@@ -45,7 +45,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 		value: [0, 10],
 	});
 
-	const cardCount = currentCollection?.cards?.length || 0;
+	const cardCount = currentCardbox?.cards?.length || 0;
 
 	const {show} = useScreenSize(1100);
 
@@ -70,10 +70,10 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 	}, [cardCount])
 
 	useEffect(() => {
-		if (currentCollection) {
+		if (currentCardbox) {
 			resetAll();
 		}
-	}, [currentCollection, resetAll]);
+	}, [currentCardbox, resetAll]);
 
 	const onClose = useCallback(() => {
 		resetAll();
@@ -81,7 +81,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 	}, [handleClose, resetAll]);
 
 	useEffect(() => {
-		if (!currentCollection) {
+		if (!currentCardbox) {
 			return;
 		}
 
@@ -92,7 +92,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 				setChunkSize(cardCount);
 			}
 		}
-	}, [currentCollection, chunkSize, cardCount]);
+	}, [currentCardbox, chunkSize, cardCount]);
 
 	const onRun = () => {
 		if (advanced) {
@@ -115,7 +115,6 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 	}
 
 	const chunkList = [];
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const chunkStartPoints: Array<number> = [];
 	for (let i = 0; i < cardCount; i += chunkSize) {
 		chunkStartPoints.push(i);
@@ -126,7 +125,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 	}
 
 	useEffect(() => {
-		if (!currentCollection) {
+		if (!currentCardbox) {
 			return;
 		}
 		if (!chunkStartPoints.includes(startIndex)) {
@@ -141,7 +140,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 		if (chunkSize === cardCount) {
 			setStartIndex(0);
 		}
-	}, [cardCount, chunkSize, chunkStartPoints, currentCollection, startIndex]);
+	}, [cardCount, chunkSize, chunkStartPoints, currentCardbox, startIndex]);
 
 	const handleRangeChange = useCallback((v: any) => {
 		setRangeState({
@@ -152,7 +151,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 	}, [cardCount]);
 
 
-	if (!currentCollection) {
+	if (!currentCardbox) {
 		return null;
 	}
 
@@ -185,7 +184,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 		onClose={onClose}
 		title={<span className={'title-normal'}><PiExamFill/>Start drill</span>}
 		description={<span>
-			You are one step away from learning the <b>{currentCollection?.title}</b> set of cards,
+			You are one step away from learning the <b>{currentCardbox?.title}</b> set of cards,
 			which includes <b>{cardCount}</b> cards. Just set up a few drill options:
 		</span>}
 		sideElement={show && <div className={'run-dialog-scene'}>
@@ -297,7 +296,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCollection,
 				<fieldset>
 					<label>Card side to show first: </label>
 					<RadioGroup value={side} onChange={setSide} className={'run-radiogroup radiogroup-row'}>
-						{currentCollection?.sides?.map((side, idx) => {
+						{currentCardbox?.sides?.map((side, idx) => {
 							return <RadioGroup.Option value={idx} key={idx}>
 								{({checked}) => (
 									<span className={checked ? 'radio-checked' : ''}>

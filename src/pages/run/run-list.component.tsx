@@ -1,15 +1,15 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import {ICollectionState, useCollectionStore} from "../../store/data/collections-store.ts";
+import {ICardboxState, useCardboxStore} from "../../store/data/cardboxes-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {PageError} from "../../types.ts";
-import {RunCollectionCard} from "./run-collection.card.tsx";
-import {TCollection} from "../../store/data/types.ts";
-import {CollectionScene} from "../../components/3d/collection-scene.component.tsx";
+import {RunCardboxCard} from "./run-cardbox.card.tsx";
+import {TCardbox} from "../../store/data/types.ts";
+import {CardboxScene} from "../../components/3d/cardbox-scene.component.tsx";
 import {PageHeader} from "../../components/utils/page-header.component.tsx";
 import {RunListDialog} from "./run-list.dialog.tsx";
 import {useNavigate} from "react-router-dom";
 
-const selector = (state: ICollectionState) => state.collections.filter(c => c.cards && c.cards?.length > 0);
+const selector = (state: ICardboxState) => state.cardboxes.filter(c => c.cards && c.cards?.length > 0);
 
 export type TRunListProps = {
 	preOpenId?: string;
@@ -17,10 +17,10 @@ export type TRunListProps = {
 
 export const RunList: React.FC<TRunListProps> = ({preOpenId}) => {
 	const navigate = useNavigate();
-	const collections = useCollectionStore(useShallow(selector));
+	const cardboxes = useCardboxStore(useShallow(selector));
 	const [open, setOpen] = useState(false);
 
-	const currentCollection = useRef<TCollection>();
+	const currentCardbox = useRef<TCardbox>();
 
 	const handleRun = useCallback((data: {
 		order: 'random' | 'linear',
@@ -30,12 +30,12 @@ export const RunList: React.FC<TRunListProps> = ({preOpenId}) => {
 		to: number
 	}) => {
 		setOpen(false);
-		navigate(`/session/${currentCollection.current?.id}?order=${data.order}&chunk=${data.chunk}&side=${data.side}&from=${data.from}&to=${data.to}`);
+		navigate(`/session/${currentCardbox.current?.id}?order=${data.order}&chunk=${data.chunk}&side=${data.side}&from=${data.from}&to=${data.to}`);
 	}, [open]);
 
 	const handleOpen = useCallback((id: string) => {
-		currentCollection.current = collections.find(c => c.id === id);
-		if (currentCollection.current) {
+		currentCardbox.current = cardboxes.find(c => c.id === id);
+		if (currentCardbox.current) {
 			setOpen(true);
 		}
 	}, [open]);
@@ -51,28 +51,28 @@ export const RunList: React.FC<TRunListProps> = ({preOpenId}) => {
 	}, [preOpenId]);
 
 
-	if (!collections || collections.length === 0) {
-		throw new PageError('Unfortunately, there are no collections ready for launch. Please go to the Collections page and fill out at least one.', 'Oops');
+	if (!cardboxes || cardboxes.length === 0) {
+		throw new PageError('Unfortunately, there are no cardboxes ready for launch. Please go to the Cardboxes page and fill out at least one.', 'Oops');
 	}
 
 	return <div className={'run-list'}>
 		<PageHeader
 			hasBack={false}
 			noBg={true}
-			title={<>Select a collection to run <span className={'badge badge-white'}>{collections.length}</span></>}
-			image={<CollectionScene/>}
+			title={<>Select a cardbox to run <span className={'badge badge-white'}>{cardboxes.length}</span></>}
+			image={<CardboxScene/>}
 		/>
 
-		<div className={'run-collections'}>
-			{collections.map(collection => {
-				return <RunCollectionCard key={collection.id} collection={collection} onRun={handleOpen}/>
+		<div className={'run-cardboxes'}>
+			{cardboxes.map(cardbox => {
+				return <RunCardboxCard key={cardbox.id} cardbox={cardbox} onRun={handleOpen}/>
 			})}
 		</div>
 
-		{currentCollection.current && <RunListDialog
+		{currentCardbox.current && <RunListDialog
 			isOpen={open}
 			handleRun={handleRun}
 			handleClose={handleClose}
-			currentCollection={currentCollection.current}/>}
+			currentCardbox={currentCardbox.current}/>}
 	</div>;
 };

@@ -24,6 +24,14 @@ export const CardPreview: React.FC<TCardPreviewProps> = (
 
 	const [showDelayed, setShowDelayed] = useState(delay <= 0);
 	const destroying = useRef(false);
+	const [fullScreen, setFullScreen] = useState(false);
+
+	const toggleMode = useCallback(() => {
+		if (disablePreview) {
+			return;
+		}
+		setFullScreen(v => !v);
+	}, [fullScreen]);
 
 	useEffect(() => {
 		return () => {
@@ -47,16 +55,16 @@ export const CardPreview: React.FC<TCardPreviewProps> = (
 		return null;
 	}
 
-	if (!card.collectionSides || card.sides.length !== card.collectionSides.length) {
-		console.error('Invalid sides/collectionSides arrays!');
+	if (!card.cardboxSides || card.sides.length !== card.cardboxSides.length) {
+		console.error('Invalid sides/cardboxSides arrays!');
 		return null;
 	}
 
 	const faces = card.sides.map((side, idx) => {
-		let color = card.collectionSides?.[idx].color;
-		let textColor = card.collectionSides?.[idx].textColor;
-		let fontSize = card.collectionSides?.[idx].fontSize;
-		let fontName = card.collectionSides?.[idx].fontName;
+		let color = card.cardboxSides?.[idx].color;
+		let textColor = card.cardboxSides?.[idx].textColor;
+		let fontSize = card.cardboxSides?.[idx].fontSize;
+		let fontName = card.cardboxSides?.[idx].fontName;
 
 		if (card.ownDesign) {
 			if (side.appearance?.color) {
@@ -83,15 +91,6 @@ export const CardPreview: React.FC<TCardPreviewProps> = (
 			fontName: fontName || Object.keys(Fonts)[0],
 		}
 	});
-
-	const [fullScreen, setFullScreen] = useState(false);
-
-	const toggleMode = useCallback(() => {
-		if (disablePreview) {
-			return;
-		}
-		setFullScreen(v => !v);
-	}, [fullScreen]);
 
 	if (!showDelayed) {
 		return null;
