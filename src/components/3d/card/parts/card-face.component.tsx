@@ -31,6 +31,9 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 	if (props.face.fontSize === 'XXL') {
 		fontSize = 36;
 	}
+	if (props.face.fontSize === 'XXXL') {
+		fontSize = 42;
+	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const {id: _1, fontSize: _2, ...headerProps} = props.face;

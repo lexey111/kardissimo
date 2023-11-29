@@ -1,7 +1,7 @@
 export type TCardAppearance = {
 	color?: string
 	fontName?: string
-	fontSize?: 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL'
+	fontSize?: 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL'
 	textColor?: string
 	colorSchemaName?: string
 }

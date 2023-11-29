@@ -1,7 +1,7 @@
 import React from "react";
 import {Canvas} from "@react-three/fiber";
 import {CardboxObject} from "./cardbox/cardbox-object.component.tsx";
-import {CardObject} from "./cardbox/card-object.component.tsx";
+import {CardCircleObject} from "./cardbox/card-circle-object.component.tsx";
 
 // https://docs.pmnd.rs/react-three-fiber/api/canvas
 
@@ -27,7 +27,7 @@ export const CardboxScene: React.FC<TCardboxSceneProps> = ({type = 'stand'}) => 
 	>
 		<ambientLight intensity={1} color={'#fff'}/>
 
-		{type === 'stand' ? <CardboxObject/> : <CardObject/>}
+		{type === 'stand' ? <CardboxObject/> : <CardCircleObject/>}
 
 		<pointLight
 			position={[-180, 80, 120 * factorLight]} castShadow={true}

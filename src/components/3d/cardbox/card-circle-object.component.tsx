@@ -23,16 +23,28 @@ const colors = [
 	'#fd4fde',
 ];
 
+const texts = [
+	'Hello!',
+	'Hi!',
+	'How are you?',
+	'How do you do?',
+	'What\s up?',
+	'¡Hola!',
+	'¡Buenos dias!'
+];
+
 const radius = 300;
 
-export const CardObject: React.FC = () => {
+export const CardCircleObject: React.FC = () => {
 
 	const ref = useRef<any>();
 	useFrame((_, delta) => {
-		ref.current.rotation.y += 0.5 * delta
+		ref.current.rotation.y += 1.5 * delta;
+		ref.current.rotation.x += Math.sin(delta) / 3;
+		ref.current.rotation.z += 0.2 * delta;
 	});
 
-	return <mesh ref={ref}>
+	return <mesh ref={ref} scale={[0.9, 0.9, 0.9]}>
 		{rotations.map((r, idx) => {
 			return <mesh
 				position-x={Math.sin(r) * radius}
@@ -45,12 +57,17 @@ export const CardObject: React.FC = () => {
 					active={false}
 					faces={[
 						{
-							text: (idx + 1).toString(),
-							header: 'English',
-							footer: 'Español', ...defaultSide, fontSize: 'XXL', textColor: '#000',
+							text: texts[idx],
+							...defaultSide,
+							fontSize: 'XXXL',
+							textColor: '#000',
 							color: colors[idx]
 						},
-						{text: (idx + 1).toString(), ...defaultSide, color: colors[7 - idx]},
+						{
+							text: texts[7 - idx],
+							...defaultSide,
+							color: colors[7 - idx]
+						},
 					]}/>
 			</mesh>
 		})}
