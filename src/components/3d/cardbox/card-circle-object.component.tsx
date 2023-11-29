@@ -28,7 +28,7 @@ const texts = [
 	'Hi!',
 	'How are you?',
 	'How do you do?',
-	'What\s up?',
+	'What\'s up?',
 	'¡Hola!',
 	'¡Buenos dias!'
 ];
@@ -44,14 +44,14 @@ export const CardCircleObject: React.FC = () => {
 		ref.current.rotation.z += 0.2 * delta;
 	});
 
-	return <mesh ref={ref} scale={[0.9, 0.9, 0.9]}>
+	return <mesh ref={ref} scale={[0.9, 0.9, 0.9]} position-y={10}>
 		{rotations.map((r, idx) => {
 			return <mesh
 				position-x={Math.sin(r) * radius}
 				position-z={Math.cos(r) * radius}
-				position-y={70}
 				key={r}
 				scale-z={4}
+				position-y={90}
 				rotation-y={r}>
 				<FlatCard
 					active={false}
