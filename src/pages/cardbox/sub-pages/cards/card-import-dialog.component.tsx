@@ -186,7 +186,7 @@ export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = (
 				<Select
 					name={'mergeMode'}
 					inputId={'mergeMode'}
-					menuPlacement="auto"
+					menuPlacement="top"
 					options={importModes}
 					className="react-select-container"
 					classNamePrefix="react-select"

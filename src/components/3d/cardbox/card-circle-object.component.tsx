@@ -39,9 +39,9 @@ export const CardCircleObject: React.FC = () => {
 
 	const ref = useRef<any>();
 	useFrame((_, delta) => {
-		ref.current.rotation.y += 1.5 * delta;
-		ref.current.rotation.x += Math.sin(delta) / 3;
-		ref.current.rotation.z += 0.2 * delta;
+		ref.current.rotation.y += .5 * delta;
+		ref.current.rotation.x += Math.sin(delta) / 10;
+		ref.current.rotation.z += 0.05 * delta;
 	});
 
 	return <mesh ref={ref} scale={[0.9, 0.9, 0.9]} position-y={10}>

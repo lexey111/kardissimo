@@ -368,6 +368,7 @@ textarea {
 	margin: 2px 0 !important;
 	text-align: left;
 	white-space: nowrap;
+	box-shadow: 0 0 20px mixins.blackTrans(.6);
 	//width: auto !important;
 }
 
@@ -639,5 +640,10 @@ textarea {
 		opacity: 1;
 	}
 }
+
+.react-select__menu {
+	box-shadow: 0 0 40px mixins.blackTrans() !important;
+}
+
 
 @import 'rc-slider/assets/index.css';

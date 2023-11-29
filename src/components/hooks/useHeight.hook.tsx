@@ -55,7 +55,7 @@ export const useHeight = (addHeight: number) => {
 			return;
 		}
 
-		const scrollLength = container.current?.offsetHeight - document.body.clientHeight;
+		const scrollLength = container.current?.offsetHeight - window.innerHeight;
 
 		if (scrollLength > addHeight * 2) {
 			document.body.classList.add('deep-scroll-size');
