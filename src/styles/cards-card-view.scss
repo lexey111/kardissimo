@@ -1,4 +1,4 @@
-.card-list.list-style-cards {
+.card-list.list-style-cards, .list-style-list {
 	display: flex;
 	flex-flow: row wrap;
 	align-items: stretch;
@@ -7,11 +7,6 @@
 
 	.card-item {
 		margin: 8px;
-	}
-
-	.card-number {
-		font-size: 2rem;
-		z-index: -1;
 	}
 
 	.card-sides {

@@ -59,9 +59,7 @@ export const CardList: React.FC<TCardListProps> = ({cardboxId}) => {
 					handleMove={handleMove}
 					cardId={cardId}
 					sides={sides}
-					number={currentStyle === 'cards' ? -1 : idx + 1}
 					currentStyle={currentStyle}
-					count={cardIds.length}
 				/>
 			})}
 		</DndProvider>

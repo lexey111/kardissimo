@@ -13,8 +13,6 @@ export type TCardListItemProps = {
 	currentStyle: TCardListStyle
 	index: number
 	cardId: string
-	number: number
-	count: number
 	handleMove: (dragIndex: number, hoverIndex: number) => void
 }
 
@@ -23,9 +21,7 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 		cardboxId,
 		cardId,
 		sides,
-		number,
 		index,
-		count,
 		handleMove,
 		currentStyle
 	}) => {
@@ -41,10 +37,6 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 
 	return <DraggableCard moveCard={handleMove} key={cardId} id={cardId} index={index}>
 		<div className={'card-item'}>
-			{number > 0 && <div className={'card-number'}>{number}
-				{number % 2 === 0 && <span>of {count}</span>}
-			</div>}
-
 			<div className={'card-sides'}>
 				{sides?.map((cardboxSide, idx) => {
 					const sideColor = (cardData?.ownDesign
