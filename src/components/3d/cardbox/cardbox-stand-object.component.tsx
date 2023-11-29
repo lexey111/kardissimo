@@ -4,11 +4,10 @@ import {useFrame, useThree} from "@react-three/fiber";
 import {CardboxFallingCard} from "./cardbox-falling-card.component.tsx";
 import {CardboxFallingStayCard} from "./cardbox-falling-stay-card.component.tsx";
 
-const sheetsArray = Array.from({length: 30}, () => {
-	return Math.random() > 0.7 ? '#' + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0') : '#a99';
-});
+const randColor = () => Math.random() > 0.7 ? '#' + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0') : '#a99';
+const sheetsArray = Array.from({length: 30}, () => randColor());
 
-export const CardboxObject: React.FC = () => {
+export const CardboxStandObject: React.FC = () => {
 	const {viewport} = useThree();
 	const scale = Math.min(viewport.width / 250, viewport.height / 250);
 

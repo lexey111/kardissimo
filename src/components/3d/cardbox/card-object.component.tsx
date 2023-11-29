@@ -21,26 +21,26 @@ export const CardObject: React.FC<TCardObjectProps> = ({text1, text2, color1, co
 	});
 
 	return <mesh
-			castShadow
-			ref={ref}
-			scale={[1, 1, 4]}>
-			<FlatCard
-				active={false}
-				faces={[
-					{
-						text: text1 || 'English',
-						...defaultSide,
-						fontSize: 'XXXL',
-						textColor: color1 || '#333',
-						color: background1 || '#fff864'
-					},
-					{
-						text: text2 || 'Español',
-						...defaultSide,
-						fontSize: 'XXXL',
-						textColor: color2 || '#333',
-						color: background2 || '#4fd4fd'
-					},
-				]}/>
-		</mesh>;
+		castShadow
+		ref={ref}
+		scale={[1, 1, 2]}>
+		<FlatCard
+			active={false}
+			faces={[
+				{
+					text: text1 || 'English',
+					...defaultSide,
+					fontSize: 'XXXL',
+					textColor: color1 || '#333',
+					color: background1 || '#fff864'
+				},
+				{
+					text: text2 || 'Español',
+					...defaultSide,
+					fontSize: 'XXXL',
+					textColor: color2 || '#333',
+					color: background2 || '#4fd4fd'
+				},
+			]}/>
+	</mesh>;
 };

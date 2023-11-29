@@ -2,13 +2,20 @@ import React, {useCallback} from "react";
 import {useNavigate} from "react-router-dom";
 import {FaArrowLeft} from "react-icons/fa";
 
-export const BackToCardboxesButton: React.FC = () => {
+export type TBackButtonProps = {
+	returnTo?: string
+}
+
+export const BackButton: React.FC<TBackButtonProps> = ({returnTo = 'back'}) => {
 	const navigate = useNavigate();
 
 	const handleBack = useCallback(() => {
-		//navigate('/cardboxes', {preventScrollReset: true});
-		navigate(-1);
-	}, [navigate]);
+		if (returnTo === 'back') {
+			navigate(-1);
+			return;
+		}
+		navigate(returnTo);
+	}, [navigate, returnTo]);
 
 	return <div className={'go-back'} onClick={handleBack} tabIndex={1}>
 		<FaArrowLeft/>

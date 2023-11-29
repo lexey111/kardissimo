@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useScreenSize} from "../hooks/useScreenSize.hook.tsx";
-import {BackToCardboxesButton} from "../collection/back-to-cardboxes.button.component.tsx";
+import {BackButton} from "../collection/back-button.component.tsx";
 
 export type TAppPageHeaderProps = {
 	title: string | JSX.Element
@@ -8,6 +8,7 @@ export type TAppPageHeaderProps = {
 	subtitle?: string | JSX.Element
 	image?: JSX.Element
 	hasBack?: boolean
+	returnTo?: string
 }
 
 export const PageHeader: React.FC<TAppPageHeaderProps> = (
@@ -15,6 +16,7 @@ export const PageHeader: React.FC<TAppPageHeaderProps> = (
 		title,
 		subtitle,
 		image,
+		returnTo,
 		noBg = false, hasBack = false
 	}) => {
 	const [show, setShow] = useState(false);
@@ -50,7 +52,7 @@ export const PageHeader: React.FC<TAppPageHeaderProps> = (
 	return <div className={'app-page-header' + ' ' + extraClasses.join(', ')}>
 		<div className={'app-ph-title'}>
 			<div className={'app-ph-caption'}>
-				{hasBack && <BackToCardboxesButton/>}
+				{hasBack && <BackButton returnTo={returnTo}/>}
 				{title}
 			</div>
 			{subtitle && <div className={'app-ph-subtitle'}>{subtitle}</div>}

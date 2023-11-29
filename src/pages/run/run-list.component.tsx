@@ -60,7 +60,7 @@ export const RunList: React.FC<TRunListProps> = ({preOpenId}) => {
 			hasBack={false}
 			noBg={true}
 			title={<>Select a cardbox to run <span className={'badge badge-white'}>{cardboxes.length}</span></>}
-			image={<CardboxScene type={'cards'}/>}
+			image={<CardboxScene type={'run'}/>}
 		/>
 
 		<div className={'run-cardboxes'}>

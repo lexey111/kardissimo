@@ -5,7 +5,7 @@ import {getCardbox} from "../store/data/cardboxes-store.selectors.ts";
 import {useExclusiveHook} from "../components/hooks/useExclusive.hook.tsx";
 import {CardboxHeader} from "./cardbox/cardbox-header.component.tsx";
 
-export const CardboxPage: React.FC = () => {
+export const CardboxPages: React.FC = () => {
 	const params = useParams();
 	const cardboxId = params.cardboxId;
 	const isNew = cardboxId === 'new';
@@ -15,7 +15,7 @@ export const CardboxPage: React.FC = () => {
 	useExclusiveHook();
 
 	if (!isNew && !cardbox) {
-		throw new Error('Cardbox not found');
+		throw new Error('Card Box not found');
 	}
 
 	if (params.cardId && params.cardId !== 'new') {
@@ -29,7 +29,7 @@ export const CardboxPage: React.FC = () => {
 	// mostly - guard
 	return <>
 		<CardboxHeader/>
-		<AppPage title={'Cardbox'}>
+		<AppPage title={'Card Box'}>
 			<Outlet/>
 		</AppPage>
 	</>;

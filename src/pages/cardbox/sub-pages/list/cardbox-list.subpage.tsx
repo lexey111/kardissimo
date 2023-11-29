@@ -14,7 +14,7 @@ export const CardboxesListSubpage: React.FC = () => {
 	}, []);
 
 
-	return <AppPage title={'Cardboxes page'}>
+	return <AppPage title={'Card Boxes'}>
 		<div className={'page-32'}>
 			<PageHeader
 				hasBack={false}

@@ -1,14 +1,15 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Canvas} from "@react-three/fiber";
-import {CardboxObject} from "./cardbox/cardbox-object.component.tsx";
+import {CardboxStandObject} from "./cardbox/cardbox-stand-object.component.tsx";
 import {CardCircleObject} from "./cardbox/card-circle-object.component.tsx";
 import {CardObject} from "./cardbox/card-object.component.tsx";
 import {Stage} from "@react-three/drei";
+import {CardboxCardsObject} from "./cardbox/cardbox-cards-object.component.tsx";
 
 // https://docs.pmnd.rs/react-three-fiber/api/canvas
 
 type TCardboxSceneProps = {
-	type?: 'stand' | 'cards' | 'card'
+	type?: 'stand' | 'run' | 'card' | 'cards'
 	text1?: string
 	text2?: string
 	color1?: string
@@ -22,8 +23,37 @@ export const CardboxScene: React.FC<TCardboxSceneProps> = (
 		type = 'stand',
 		text1, text2, color1, color2, background1, background2
 	}) => {
-	const factor = type === 'cards' ? 2 : 1;
-	const factorLight = type === 'cards' ? 4 : 1;
+	const factor = type === 'run' ? 2 : 1;
+	const factorLight = type === 'run' ? 4 : 1;
+
+	const [visible, setVisible] = useState(false);
+	const destroying = useRef(false);
+
+	useEffect(() => {
+		return () => {
+			destroying.current = true;
+		};
+	}, []);
+
+	useEffect(() => {
+		setVisible((() => false));
+
+		const hndlr = setTimeout(() => {
+			if (destroying.current) {
+				return;
+			}
+			setVisible((() => true));
+		}, 20);
+
+		return () => {
+			clearTimeout(hndlr);
+		}
+	}, [type]);
+
+	if (!visible) {
+		// force rebuild scene
+		return null;
+	}
 
 	return <Canvas
 		shadows
@@ -39,22 +69,33 @@ export const CardboxScene: React.FC<TCardboxSceneProps> = (
 	>
 		<ambientLight intensity={1} color={'#fff'}/>
 
-		{type === 'stand' && <CardboxObject/>}
-		{type === 'cards' && <CardCircleObject/>}
+		{type === 'stand' && <CardboxStandObject/>}
 
-		{type === 'card' && <>
+		{type === 'run' && <CardCircleObject/>}
+
+		{(type === 'card' || type === 'cards') && <>
 			<Stage
-				adjustCamera={1.2} intensity={1} preset="rembrandt"
+				adjustCamera={1.3} intensity={1} preset="rembrandt"
 				// shadows={false}
 				environment="sunset"
 			>
-				<CardObject
+				{type === 'cards' && <CardboxCardsObject
 					text1={text1}
 					text2={text2}
 					color1={color1}
 					color2={color2}
 					background1={background1}
-					background2={background2}/>
+					background2={background2}/>}
+
+				{type === 'card' &&
+					<CardObject
+						text1={text1}
+						text2={text2}
+						color1={color1}
+						color2={color2}
+						background1={background1}
+						background2={background2}/>
+				}
 			</Stage>
 		</>}
 
