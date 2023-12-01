@@ -1,18 +1,21 @@
 import React, {useCallback} from "react";
 import {useParams} from "react-router-dom";
 import {PageNotFound} from "../../../../components/utils/page-not-found.component.tsx";
-import {getCardbox} from "../../../../store/data/cardboxes-store.selectors.ts";
 import {CardList} from "../card/list/card-list.component.tsx";
 import {CardListHeader} from "../card/list/card-list-header.component.tsx";
 import {useCardNavigateHook} from "../../../../components/hooks/useCardNavigate.hook.tsx";
 import {BigAddFloatingButton} from "../../../../components/utils/big-add-floating-button.component.tsx";
 import {CardListAdd} from "../card/list/card-list-add.component.tsx";
 import {CardsNoData} from "./card-list-no-data.component.tsx";
+import {ICardboxState, useCardboxStore} from "../../../../store/data/cardboxes-store.ts";
 
 export const CardboxCards: React.FC = () => {
 	const params = useParams();
-	const cardbox = getCardbox(params.cardboxId);
-	const {goCard} = useCardNavigateHook(cardbox!.id!, 'new');
+	//const cardbox = getCardbox(params.cardboxId);
+	const cardbox = useCardboxStore((state: ICardboxState) => state.cardboxes
+		.find(c => c.id === params.cardboxId));
+
+	const {goCard} = useCardNavigateHook(cardbox?.id, 'new');
 
 	const handleAdd = useCallback((toBottom: boolean = false) => {
 		if (toBottom) {

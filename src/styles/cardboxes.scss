@@ -309,6 +309,16 @@ body.deep-scroll-size {
 	flex-flow: column wrap;
 }
 
+.cardbox-wrapper {
+	.cardbox-created, .cardbox-changed, .cardbox-author, .cardbox-sides {
+		font-size: .9rem;
+	}
+
+	.cardbox-changed {
+		margin-bottom: 2rem;
+	}
+}
+
 @media screen and (max-width: 600px) {
 	.cardbox-card-info {
 		width: 90px; // 180

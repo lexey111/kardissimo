@@ -6,7 +6,12 @@ import {useParams} from "react-router-dom";
 import {FaFileImport} from "react-icons/fa";
 import {IoIosAddCircle} from "react-icons/io";
 import {ImportPreviewDialog, TImportedData} from "./card-import-dialog.component.tsx";
-import {createCard, isCardExists, removeAllCards} from "../../../../store/data/cardboxes-store.actions.ts";
+import {
+	createCard,
+	isCardExists,
+	removeAllCards,
+	updateCardboxStat
+} from "../../../../store/data/cardboxes-store.actions.ts";
 import {customAlphabet, urlAlphabet} from "nanoid";
 import {CSVFileUpload} from "./csv-upload.component.tsx";
 import {ImportMenu} from "./card-import-menu.component.tsx";
@@ -130,7 +135,9 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 				]
 			});
 		});
-		toast('Done. Cards imported: ' + counter, {type: 'info'})
+
+		updateCardboxStat(cardbox.id);
+		toast('Done. Cards imported: ' + counter, {type: 'info'});
 	}, [cardbox]);
 
 	if (!cardbox) {

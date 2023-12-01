@@ -60,6 +60,20 @@ export const CardboxListItem: React.FC<TCardboxItemProps> = React.memo(({id}) =>
 				<div className={'cardbox-author'}><b>by</b> {cardbox.author || 'Unknown'}</div>
 				<div className={'cardbox-sides'}><b>Sides:</b> {cardbox.sides?.map(s => s.name).join(', ')}</div>
 
+				{cardbox.stat?.created_at && <div className={'cardbox-created'}>
+					<b>Created:</b> {new Intl.DateTimeFormat(undefined, {
+					dateStyle: 'long',
+					timeStyle: 'short',
+				}).format(cardbox.stat?.created_at)}
+				</div>}
+
+				{cardbox.stat?.changed_at && <div className={'cardbox-changed'}>
+					<b>Last change:</b> {new Intl.DateTimeFormat(undefined, {
+					dateStyle: 'long',
+					timeStyle: 'short',
+				}).format(cardbox.stat?.changed_at)}
+				</div>}
+
 				<CardboxActions id={cardbox.id!}/>
 			</div>
 		</div>

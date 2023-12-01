@@ -1,5 +1,5 @@
 import {customAlphabet, urlAlphabet} from 'nanoid';
-import {TCard, TCardEnriched, TCardbox} from "./types.ts";
+import {TCard, TCardbox, TCardEnriched} from "./types.ts";
 import {useCardboxStore} from "./cardboxes-store.ts";
 import {defaultSide, getCardbox} from "./cardboxes-store.selectors.ts";
 
@@ -15,6 +15,8 @@ export const createCardbox = (newCardbox: TCardbox) => useCardboxStore.setState(
 	if (!newCardbox.title) {
 		_cardbox.title = 'New cardbox';
 	}
+	_cardbox.stat = {changed_at: new Date(), created_at: new Date()};
+
 	return {cardboxes: [...state.cardboxes, _cardbox]};
 });
 
@@ -84,6 +86,20 @@ export const updateCardbox = (data: TCardbox) => useCardboxStore.setState((state
 		cardboxes: state.cardboxes.map(c => c.id !== data.id
 			? c
 			: {...data})
+	};
+});
+
+export const updateCardboxStat = (cardboxId?: string) => useCardboxStore.setState((state) => {
+	const oldData = state.cardboxes.find(c => c.id === cardboxId);
+	if (!oldData) {
+		return {...state.cardboxes};
+	}
+	return {
+		cardboxes: state.cardboxes.map(c => c.id !== cardboxId
+			? c
+			: {
+				...c, stat: {created_at: c.stat?.created_at || new Date(), changed_at: new Date()}
+			})
 	};
 });
 
