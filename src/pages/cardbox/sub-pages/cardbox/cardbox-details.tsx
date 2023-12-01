@@ -3,23 +3,15 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {CardboxDetailsForm} from "./cardbox-details-form.component.tsx";
 import {TCardbox} from "../../../../store/data/types.ts";
 import {getCardbox} from "../../../../store/data/cardboxes-store.selectors.ts";
-import {useCardNavigateHook} from "../../../../components/hooks/useCardNavigate.hook.tsx";
-import {
-	createCardbox,
-	getDefaultCardbox,
-	updateCardbox
-} from "../../../../store/data/cardboxes-store.actions.ts";
+import {createCardbox, getDefaultCardbox, updateCardbox} from "../../../../store/data/cardboxes-store.actions.ts";
 
-export const CardboxDetailsData: React.FC = () => {
+export const CardboxDetails: React.FC = () => {
 	const navigate = useNavigate();
 	const params = useParams();
 	const cardboxId = params.cardboxId;
 	const isNew = params.cardboxId === 'new';
 
 	const state: TCardbox = isNew ? getDefaultCardbox() : getCardbox(cardboxId)!;
-
-	const {resetPosition} = useCardNavigateHook(cardboxId, '');
-	resetPosition();
 
 	const goCardboxes = () => {
 		navigate('/cardboxes');

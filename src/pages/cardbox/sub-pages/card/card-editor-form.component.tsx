@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {TCard, TCardEnriched, TCardSide, TCardbox} from "../../../../store/data/types.ts";
+import {TCard, TCardbox, TCardEnriched, TCardSide} from "../../../../store/data/types.ts";
 import {CardPreview} from "../../../../components/3d/card-preview-component.tsx";
 import {NavLink} from "react-router-dom";
 import {Button} from "../../../../components/utils/button.component.tsx";
@@ -157,7 +157,11 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 	return <div className={'card-side-editor'}>
 		<div className={'form-editor'}>
 			{cardbox &&
-				<h2>Card of &nbsp; <NavLink to={`/cardboxes/${cardbox.id}/details`}>{cardbox.title}</NavLink></h2>}
+				<h2>{isNew ? 'New card' : 'Card'} of &nbsp;
+					<NavLink
+						to={`/cardboxes/${cardbox.id}/details`}>{cardbox.title}
+					</NavLink>
+				</h2>}
 
 			{state.ownDesign && <div className={'tab-switcher'}>
 				<div className={'pure-button-group'}>

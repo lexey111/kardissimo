@@ -146,6 +146,12 @@ export const CardTable: React.FC<TCardTableProps> = (
 
 		setTimeout(() => {
 			gridRef.current?.api && gridRef.current.api.sizeColumnsToFit();
+			const storedPos = parseInt(localStorage.getItem('_lastCardsScrollPos') || '', 10);
+			localStorage.setItem('_lastCardsScrollPos', '-1');
+
+			if (!isNaN(storedPos) && storedPos !== -1) {
+				document.scrollingElement!.scrollTop = storedPos;
+			}
 		}, 0);
 	}, [gridRef.current, tableViewMode, tableEditMode]);
 
@@ -174,6 +180,7 @@ export const CardTable: React.FC<TCardTableProps> = (
 
 	const processDoubleClick = useCallback((e: any) => {
 		if (readonly) {
+			localStorage.setItem('_lastCardsScrollPos', (document.scrollingElement?.scrollTop || 0).toString());
 			goCard(e.data.id);
 		}
 	}, [goCard, readonly]);

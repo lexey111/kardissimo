@@ -1,12 +1,9 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useLayoutEffect, useState} from "react";
 import {ICardboxState, useCardboxStore} from "../../../../../store/data/cardboxes-store.ts";
 import {useShallow} from "zustand/react/shallow";
-import {CardListAdd} from "./card-list-add.component.tsx";
 import {useSettingsStore} from "../../../../../store/settings/settings-store.ts";
-import {CardsNoData} from "../../cards/card-list-no-data.component.tsx";
 import {CardListItem} from "./card-list-item.component.tsx";
 import {CardTable} from "../table/card-table.component.tsx";
-import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts";
@@ -17,11 +14,7 @@ export type TCardListProps = {
 
 export const CardList: React.FC<TCardListProps> = ({cardboxId}) => {
 
-	const {restorePosition} = useCardNavigateHook(cardboxId!, '');
-
-	useEffect(() => {
-		restorePosition();
-	}, [restorePosition]);
+	const [scrollPos, setScrollPos] = useState<number | undefined>(0);
 
 	const cardIds = useCardboxStore(useShallow((state: ICardboxState) => state.cardboxes
 		.find(c => c.id === cardboxId)?.cards?.map(card => card.id)));
@@ -32,20 +25,37 @@ export const CardList: React.FC<TCardListProps> = ({cardboxId}) => {
 	const currentStyle = useSettingsStore((state) => state.cardListStyle);
 
 	const handleMove = useCallback((dragIndex: number, hoverIndex: number) => {
+		setScrollPos(() => document.scrollingElement?.scrollTop || 0);
 		moveCardTo(cardboxId!, dragIndex, hoverIndex);
 	}, []);
 
+	useLayoutEffect(() => {
+		if (scrollPos && scrollPos !== 0 && document.scrollingElement) {
+
+			setTimeout(() => {
+				document.scrollingElement!.scrollTop = scrollPos;
+				setScrollPos(undefined); // next render
+			}, 0);
+		}
+	}, [scrollPos]);
+
+	useLayoutEffect(() => {
+		const storedPos = parseInt(localStorage.getItem('_lastCardsScrollPos') || '', 10);
+		localStorage.setItem('_lastCardsScrollPos', '-1');
+
+		if (!isNaN(storedPos) && storedPos !== -1) {
+			setScrollPos(storedPos);
+		}
+
+	}, []);
+
 	if (!cardIds || cardIds.length === 0) {
-		return <CardsNoData
-			addButton={<CardListAdd cardboxId={cardboxId}/>}/>;
+		return null;
 	}
 
 	if (currentStyle === 'table') {
 		// table style uses separate component
-		return <>
-			<CardTable cardboxId={cardboxId}/>
-			<CardListAdd cardboxId={cardboxId}/>
-		</>;
+		return <CardTable cardboxId={cardboxId}/>;
 	}
 
 	// list and card styles are serviced by CSS
@@ -63,6 +73,5 @@ export const CardList: React.FC<TCardListProps> = ({cardboxId}) => {
 				/>
 			})}
 		</DndProvider>
-		<CardListAdd cardboxId={cardboxId}/>
 	</div>;
 };

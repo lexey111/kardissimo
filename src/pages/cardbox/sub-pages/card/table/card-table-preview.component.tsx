@@ -7,6 +7,7 @@ export const PreviewCell: React.FC = (props: any) => {
 	const {goCard} = useCardNavigateHook(props.cardboxId!, props.data.id!);
 
 	const handleClick = useCallback(() => {
+		localStorage.setItem('_lastCardsScrollPos', (document.scrollingElement?.scrollTop || 0).toString());
 		goCard();
 	}, [goCard]);
 

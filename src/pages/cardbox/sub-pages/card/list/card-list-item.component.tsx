@@ -48,6 +48,7 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 						: cardboxSide?.textColor) || '#222';
 
 					let needRender = true;
+
 					if (currentStyle === 'cards') {
 						if (selectedSide) {
 							needRender = selectedSide === idx;
@@ -55,9 +56,11 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 							needRender = idx === 0;
 						}
 					}
+
 					if (!needRender) {
 						return null
 					}
+
 					return <CardSide
 						cardboxId={cardboxId}
 						cardId={cardId}

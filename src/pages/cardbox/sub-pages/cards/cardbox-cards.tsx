@@ -6,18 +6,30 @@ import {CardList} from "../card/list/card-list.component.tsx";
 import {CardListHeader} from "../card/list/card-list-header.component.tsx";
 import {useCardNavigateHook} from "../../../../components/hooks/useCardNavigate.hook.tsx";
 import {BigAddFloatingButton} from "../../../../components/utils/big-add-floating-button.component.tsx";
+import {CardListAdd} from "../card/list/card-list-add.component.tsx";
+import {CardsNoData} from "./card-list-no-data.component.tsx";
 
-export const CardboxCardsSubpage: React.FC = () => {
+export const CardboxCards: React.FC = () => {
 	const params = useParams();
 	const cardbox = getCardbox(params.cardboxId);
 	const {goCard} = useCardNavigateHook(cardbox!.id!, 'new');
 
-	const handleAdd = useCallback(() => {
+	const handleAdd = useCallback((toBottom: boolean = false) => {
+		if (toBottom) {
+			localStorage.setItem('_lastCardsScrollPos', (document.scrollingElement?.scrollHeight || 0).toString());
+		} else {
+			localStorage.setItem('_lastCardsScrollPos', (document.scrollingElement?.scrollTop || 0).toString());
+		}
 		goCard();
 	}, [goCard]);
 
 	if (!cardbox || !cardbox.sides) {
 		return <PageNotFound/>;
+	}
+
+	if (!cardbox.cards || cardbox.cards.length === 0) {
+		return <CardsNoData
+			addButton={<CardListAdd cardboxId={cardbox.id} onClick={handleAdd}/>}/>;
 	}
 
 	return <div className={'page-32'}>
@@ -27,6 +39,9 @@ export const CardboxCardsSubpage: React.FC = () => {
 		</p>}
 
 		<CardList cardboxId={cardbox.id}/>
-		{(cardbox?.cards?.length || 0) > 5 && <BigAddFloatingButton onClick={handleAdd} extraHeight={50}/>}
+		{/*default add button*/}
+		<CardListAdd cardboxId={cardbox.id} onClick={handleAdd}/>
+		{/*floating add button*/}
+		{cardbox.cards.length > 5 && <BigAddFloatingButton onClick={() => handleAdd(true)} extraHeight={50}/>}
 	</div>;
 };

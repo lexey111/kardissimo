@@ -11,15 +11,8 @@ export const useCardNavigateHook = (cardboxId?: string, cardId?: string) => {
 		}
 	}, []);
 
-	const key = '_pos_cards_' + cardboxId;
 	const goCard = (_cardId?: string) => {
-		const position = window.document.scrollingElement?.scrollTop;
-
 		const targetId = cardId || _cardId;
-
-		if (typeof position !== 'undefined' && !isNaN(position!)) {
-			localStorage.setItem(key, position!.toFixed());
-		}
 
 		if (cardId === 'new') {
 			navigate(`/cardboxes/${cardboxId}/cards/new`, {preventScrollReset: true});
@@ -29,32 +22,7 @@ export const useCardNavigateHook = (cardboxId?: string, cardId?: string) => {
 		navigate(`/cardboxes/${cardboxId}/cards/${targetId}`, {preventScrollReset: true});
 	};
 
-	const resetPosition = () => {
-		localStorage.removeItem(key);
-	}
-
-	const restorePosition = () => {
-		setTimeout(() => {
-			if (destroying.current) {
-				return;
-			}
-			const position = Number(localStorage.getItem(key));
-
-			if (isNaN(position)) {
-				return;
-			}
-
-			const scrollContainer: any = window.document.scrollingElement;
-			if (scrollContainer || position > 0) {
-				scrollContainer.scrollTop = position;
-			}
-
-		}, 200); // magic number because of animation :(
-	}
-
 	return {
-		goCard,
-		restorePosition,
-		resetPosition
+		goCard
 	}
 };
