@@ -1,13 +1,13 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import {ICardboxState, useCardboxStore} from "../../store/data/cardboxes-store.ts";
 import {useShallow} from "zustand/react/shallow";
-import {PageError} from "../../types.ts";
 import {RunCardboxCard} from "./run-cardbox.card.tsx";
 import {TCardbox} from "../../store/data/types.ts";
 import {CardboxScene} from "../../components/3d/cardbox-scene.component.tsx";
 import {PageHeader} from "../../components/utils/page-header.component.tsx";
 import {RunListDialog} from "./run-list.dialog.tsx";
 import {useNavigate} from "react-router-dom";
+import {RunNoData} from "./run-no-data.component.tsx";
 
 const selector = (state: ICardboxState) => state.cardboxes.filter(c => c.cards && c.cards?.length > 0);
 
@@ -50,16 +50,15 @@ export const RunList: React.FC<TRunListProps> = ({preOpenId}) => {
 		}
 	}, [preOpenId]);
 
-
 	if (!cardboxes || cardboxes.length === 0) {
-		throw new PageError('Unfortunately, there are no cardboxes ready for launch. Please go to the Cardboxes page and fill out at least one.', 'Oops');
+		return <RunNoData/>;
 	}
 
 	return <div className={'run-list'}>
 		<PageHeader
 			hasBack={false}
 			noBg={true}
-			title={<>Select a cardbox to run <span className={'badge badge-white'}>{cardboxes.length}</span></>}
+			title={'Select a card box to run'}
 			image={<CardboxScene type={'run'}/>}
 		/>
 

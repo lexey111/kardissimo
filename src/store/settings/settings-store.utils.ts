@@ -42,6 +42,8 @@ export const assignGlobalStyles = (id: string) => {
 	r!.style.setProperty('--app-background', app?.background); // gradient
 	r!.style.setProperty('--app-text', app?.textColor);
 	r!.style.setProperty('--app-link-color', app?.linkColor);
+	r!.style.setProperty('--app-text-link-color', app?.textLinkColor);
+	r!.style.setProperty('--app-text-link-color-darken', LightenDarkenColor(app!.textLinkColor!, 15));
 	r!.style.setProperty('--app-primary-background', app?.primaryColor); // synonyms
 	r!.style.setProperty('--app-primary-background-darken', LightenDarkenColor(app!.primaryColor!, 15));
 	r!.style.setProperty('--app-background-color', app?.primaryColor);
