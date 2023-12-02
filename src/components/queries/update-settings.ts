@@ -9,8 +9,14 @@ export async function updateSettings(
 		data: Partial<TSettingsState>;
 	}
 ) {
-	const currentSettingsFromServer = await getSettingsByUser(client);
-	const currentSettings = JSON.parse(currentSettingsFromServer.data.data);
+	let currentSettingsFromServer;
+	let currentSettings;
+	try {
+		currentSettingsFromServer = await getSettingsByUser(client);
+		currentSettings = JSON.parse(currentSettingsFromServer.data.data);
+	} catch (e) {
+		currentSettings = {};
+	}
 
 	const newSettings = {...defaultAppState, ...currentSettings, ...params.data};
 

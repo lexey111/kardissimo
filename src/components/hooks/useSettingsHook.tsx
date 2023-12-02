@@ -9,7 +9,6 @@ export const useSettingsQuery = () => {
 	const client = useSupabase();
 	const queryFn = async () => {
 		const data: TUser = queryClient.getQueryData(['auth']) as TUser;
-		console.log('data', data)
 		if (!data?.id) {
 			return {...defaultAppState};
 		}
@@ -22,7 +21,7 @@ export const useSettingsQuery = () => {
 				}
 			)
 			.catch((err: any) => {
-				console.error('Error', err);
+				console.error('Error', err); // may be no settings yet
 				return {...defaultAppState};
 			});
 	};
