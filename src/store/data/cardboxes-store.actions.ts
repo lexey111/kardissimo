@@ -186,11 +186,13 @@ export const removeCard = (cardboxId?: string, cardId?: string) => useCardboxSto
 		return {...state.cardboxes};
 	}
 
-	cardbox.cards = cardbox.cards?.filter(c => c.id !== cardId);
-
 	return {
-		cardboxes: state.cardboxes
-	}
+		cardboxes: state.cardboxes.map(c => c.id !== cardboxId
+			? c
+			: {
+				...c, cards: cardbox.cards?.filter(c => c.id !== cardId)
+			})
+	};
 });
 
 // temp

@@ -1,32 +1,29 @@
 import React, {useCallback, useLayoutEffect, useState} from "react";
-import {ICardboxState, useCardboxStore} from "../../../../../store/data/cardboxes-store.ts";
-import {useShallow} from "zustand/react/shallow";
 import {useSettingsStore} from "../../../../../store/settings/settings-store.ts";
 import {CardListItem} from "./card-list-item.component.tsx";
 import {CardTable} from "../table/card-table.component.tsx";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts";
+import {TCardbox} from "../../../../../store/data/types.ts";
 
 export type TCardListProps = {
-	cardboxId?: string
+	cardbox: TCardbox
 }
 
-export const CardList: React.FC<TCardListProps> = ({cardboxId}) => {
+export const CardList: React.FC<TCardListProps> = ({cardbox}) => {
 
 	const [scrollPos, setScrollPos] = useState<number | undefined>(0);
 
-	const cardIds = useCardboxStore(useShallow((state: ICardboxState) => state.cardboxes
-		.find(c => c.id === cardboxId)?.cards?.map(card => card.id)));
+	const cardIds = cardbox.cards?.map(card => card.id);
 
-	const sides = useCardboxStore(useShallow((state: ICardboxState) => state.cardboxes
-		.find(c => c.id === cardboxId)?.sides));
+	const sides = cardbox.sides;
 
 	const currentStyle = useSettingsStore((state) => state.cardListStyle);
 
 	const handleMove = useCallback((dragIndex: number, hoverIndex: number) => {
 		setScrollPos(() => document.scrollingElement?.scrollTop || 0);
-		moveCardTo(cardboxId!, dragIndex, hoverIndex);
+		moveCardTo(cardbox!.id!, dragIndex, hoverIndex);
 	}, []);
 
 	useLayoutEffect(() => {
@@ -55,7 +52,7 @@ export const CardList: React.FC<TCardListProps> = ({cardboxId}) => {
 
 	if (currentStyle === 'table') {
 		// table style uses separate component
-		return <CardTable cardboxId={cardboxId}/>;
+		return <CardTable cardboxId={cardbox.id}/>;
 	}
 
 	// list and card styles are serviced by CSS
@@ -65,7 +62,7 @@ export const CardList: React.FC<TCardListProps> = ({cardboxId}) => {
 				return <CardListItem
 					key={cardId}
 					index={idx}
-					cardboxId={cardboxId}
+					cardboxId={cardbox.id}
 					handleMove={handleMove}
 					cardId={cardId}
 					sides={sides}

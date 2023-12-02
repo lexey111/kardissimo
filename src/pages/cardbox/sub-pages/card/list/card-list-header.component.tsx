@@ -36,4 +36,4 @@ export const CardListHeader: React.FC<TCardListHeaderProps> = ({cardboxId}) => {
 			<CardListModeSelector sides={sides}/>
 		</div>
 	</div>;
-}
+};

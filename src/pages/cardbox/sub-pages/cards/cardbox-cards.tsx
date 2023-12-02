@@ -41,7 +41,7 @@ export const CardboxCards: React.FC = () => {
 			You can drag and drop cards to reorder.
 		</p>}
 
-		<CardList cardboxId={cardbox.id}/>
+		<CardList cardbox={cardbox}/>
 		{/*default add button*/}
 		<CardListAdd cardboxId={cardbox.id} onClick={handleAdd}/>
 		{/*floating add button*/}
