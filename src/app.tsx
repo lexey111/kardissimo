@@ -1,32 +1,51 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Outlet, ScrollRestoration} from "react-router-dom";
 import {AppMenu} from "./components/app-menu.component.tsx";
 import {AppFooter} from "./components/app-footer.component.tsx";
-import {getSessionAndUser, resetSession} from "./store/auth/auth-store.actions.ts";
-import {useSettingsStore} from "./store/settings/settings-store.ts";
 import {WaitCredentials} from "./components/utils/wait-credentials.component.tsx";
 import {Slide, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useSettingsQuery} from "./components/hooks/useSettingsHook.tsx";
+import {Appearances} from "./resources/appearance.ts";
+import {assignGlobalStyles} from "./store/settings/settings-utils.ts";
+import {useAuthQuery} from "./components/hooks/useAuthHook.tsx";
+
+let lastTheme = localStorage.getItem('lastUsedTheme');
+if (!lastTheme || !Appearances.find(ap => ap.id === lastTheme)) {
+	lastTheme = 'default';
+}
+assignGlobalStyles(lastTheme);
 
 export const App: React.FC = () => {
-	const isBusy = useSettingsStore((state) => state?.busy);
-	const currentStyle = useSettingsStore((state) => state.currentAppearance);
+	const [busy, setBusy] = useState(true);
+	const {data: appState} = useSettingsQuery();
+	const {isLoading: userLoading, data: userData} = useAuthQuery();
 
 	useEffect(() => {
-		try {
-			void getSessionAndUser();
-		} catch (e) {
-			resetSession();
+		console.log('User loading', userLoading)
+		console.log('User data', userData)
+		if (!userLoading) {
+			setBusy(false);
 		}
-	}, []);
+	}, [userLoading, userData]);
+
+	// useEffect(() => {
+	// 	try {
+	// 		void getSessionAndUser();
+	// 		setBusy(false);
+	// 	} catch (e) {
+	// 		resetSession();
+	// 		setBusy(false);
+	// 	}
+	// }, []);
 
 	useEffect(() => {
-		if (!isBusy) {
+		if (!busy) {
 			document.body.classList.add('ready');
 		}
-	}, [isBusy]);
+	}, [busy]);
 
-	if (isBusy) {
+	if (busy) {
 		return <WaitCredentials/>;
 	}
 
@@ -53,7 +72,7 @@ export const App: React.FC = () => {
 			pauseOnFocusLoss
 			draggable
 			pauseOnHover
-			theme={currentStyle === 'grey' || currentStyle === 'dark' ? 'dark' : 'light'}
+			theme={appState?.currentAppearance === 'grey' || appState?.currentAppearance === 'dark' ? 'dark' : 'light'}
 		/>
 	</>;
 };

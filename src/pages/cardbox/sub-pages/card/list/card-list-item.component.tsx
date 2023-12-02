@@ -1,11 +1,12 @@
 import React, {useCallback} from "react";
 import {CardSide} from "../card-side.component.tsx";
 import {CardRemoveButton} from "../card-remove.button.tsx";
-import {TCardListStyle, useSettingsStore} from "../../../../../store/settings/settings-store.ts";
+import {TCardListStyle} from "../../../../../store/settings/settings-types.ts";
 import {TCardboxSide} from "../../../../../store/data/types.ts";
 import {getCard} from "../../../../../store/data/cardboxes-store.selectors.ts";
 import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
 import {DraggableCard} from "./draggable-card.component.tsx";
+import {useSettingsQuery} from "../../../../../components/hooks/useSettingsHook.tsx";
 
 export type TCardListItemProps = {
 	cardboxId?: string
@@ -25,8 +26,8 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 		handleMove,
 		currentStyle
 	}) => {
+	const {isLoading, error, data: appState} = useSettingsQuery();
 
-	const selectedSide = useSettingsStore((state) => state.selectedSide);
 	const cardData = getCard(cardboxId, cardId);
 
 	const {goCard} = useCardNavigateHook(cardboxId!, cardId!);
@@ -34,6 +35,10 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 	const navigateToCard = useCallback(() => {
 		goCard();
 	}, [goCard]);
+
+	if (isLoading || error || !appState) {
+		return null;
+	}
 
 	return <DraggableCard moveCard={handleMove} key={cardId} id={cardId} index={index}>
 		<div className={'card-item'}>
@@ -50,8 +55,8 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 					let needRender = true;
 
 					if (currentStyle === 'cards') {
-						if (selectedSide) {
-							needRender = selectedSide === idx;
+						if (appState.selectedSide) {
+							needRender = appState.selectedSide === idx;
 						} else {
 							needRender = idx === 0;
 						}

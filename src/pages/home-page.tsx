@@ -1,22 +1,33 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {PageHeader} from "../components/utils/page-header.component.tsx";
 import {KardissimoScene} from "../components/presentation/kardissimo-scene.tsx";
 import {Button} from "../components/utils/button.component.tsx";
 import {useNavigate} from "react-router-dom";
-import {IAuthState, useAuthStore} from "../store/auth/auth-store.ts";
-
-const userSelector = (state: IAuthState) => state;
+import {useSettingsQuery} from "../components/hooks/useSettingsHook.tsx";
+import {assignGlobalStyles} from "../store/settings/settings-utils.ts";
+import {defaultAppState} from "../store/settings/settings-types.ts";
+import {useAuthQuery} from "../components/hooks/useAuthHook.tsx";
 
 export const HomePage: React.FC = () => {
 	const navigate = useNavigate();
-	const user = useAuthStore(userSelector);
 
 	const handleLogin = useCallback(() => {
 		navigate('/login');
 	}, []);
 
-	const loggedIn = user.loginData.id && !user.fetching;
+	const {isLoading: userLoading, data: userData} = useAuthQuery();
+	const {isLoading: settingsLoading, error: settingsError, data: settingsData} = useSettingsQuery();
+
+	const loggedIn = !userLoading && !!userData?.id;
+
+	useEffect(() => {
+		if (!settingsData || !loggedIn) {
+			return;
+		}
+		console.log('-------------------', settingsData)
+		assignGlobalStyles(settingsData?.currentAppearance || defaultAppState.currentAppearance);
+	}, [settingsData]);
 
 	return <AppPage title={'Kardissimo'} authOnly={false}>
 		<div className={'jumbo-logo'}>
@@ -32,6 +43,17 @@ export const HomePage: React.FC = () => {
 			{!loggedIn && <>
 				<Button type={'danger'} onClick={handleLogin}>Login</Button>
 			</>}
+			<p>User</p>
+			<pre>{userLoading ? 'user loading' : 'user ready'}</pre>
+			<pre>{JSON.stringify(userData, null, 2)}</pre>
+
+			<h2>Settings</h2>
+			<p>Data</p>
+			<pre>{JSON.stringify(settingsData, null, 2)}</pre>
+			<p>isFetching</p>
+			<pre>{settingsLoading ? 'settings loading' : 'settings ready'}</pre>
+			<p>Error</p>
+			<pre>{JSON.stringify(settingsError, null, 2)}</pre>
 
 			<p>
 				To do that, fill two or six columns in spreadsheet, select values and copy to clipboard with

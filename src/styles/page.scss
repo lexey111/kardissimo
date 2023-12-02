@@ -39,6 +39,22 @@
 	}
 }
 
+.app-inline-spinner {
+	display: flex;
+	flex-flow: row nowrap;
+	@include mixins.center();
+	font-size: 14px;
+
+	svg {
+		width: 1.5rem;
+		height: 1.5rem;
+		margin-right: 8px;
+		animation-name: spin;
+		animation-duration: 1s;
+		animation-iteration-count: infinite;
+	}
+}
+
 a {
 	text-underline-offset: 10px;
 	text-decoration-thickness: 1px;

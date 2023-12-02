@@ -2,17 +2,13 @@ import React, {useCallback, useEffect} from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {Button} from "../components/utils/button.component.tsx";
 import {FaFacebookSquare, FaGoogle} from "react-icons/fa";
-import {IAuthState, useAuthStore} from "../store/auth/auth-store.ts";
 import {useNavigate} from "react-router-dom";
 import {tryLoginWithFB, tryLoginWithGoogle} from "../store/auth/auth-store.actions.ts";
-import {useSettingsStore} from "../store/settings/settings-store.ts";
-
-const userSelector = (state: IAuthState) => state;
+import {useAuthQuery} from "../components/hooks/useAuthHook.tsx";
 
 export const LoginPage: React.FC = () => {
-	const user = useAuthStore(userSelector);
+	const {isLoading: userLoading, data: userData} = useAuthQuery();
 	const navigate = useNavigate();
-	const isBusy = useSettingsStore((state) => state?.busy);
 
 	const handleGoogle = useCallback(() => {
 		void tryLoginWithGoogle();
@@ -23,16 +19,26 @@ export const LoginPage: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		if (user.loginData.id) {
+		//setAuthState({error: ''});
+	}, []);
+
+	useEffect(() => {
+		if (userLoading) {
+			return;
+		}
+
+		if (userData?.id) {
 			navigate('/home');
 		}
-	}, [user.loginData]);
+	}, [userData, userLoading]);
+
+	const showError = !userLoading && !!userData?.error && userData.error.indexOf('401') === -1;
 
 	return <AppPage title={'About page'} authOnly={false}>
 		<div className={'login-buttons'}>
-			{user.fetching || isBusy && <span>Retrieving data...</span>}
+			{userLoading && <span>Retrieving data...</span>}
 
-			{!user.fetching && !user.loginData.id && <>
+			{!userLoading && !userData?.id && <>
 				<h1>Login with social network | other service account</h1>
 				<p>We will only receive your email address and avatar.</p>
 				<p>No spam, no subscriptions, we promise.</p>
@@ -42,8 +48,8 @@ export const LoginPage: React.FC = () => {
 				</div>
 			</>}
 
-			{!user.fetching && user.loginData.error && <><h1>Error</h1>
-				<p>{user.loginData.error}</p>
+			{showError && <><h1>Error</h1>
+				<p>{userData?.error}</p>
 			</>}
 		</div>
 

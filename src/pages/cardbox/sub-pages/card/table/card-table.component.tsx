@@ -4,16 +4,13 @@ import {useShallow} from "zustand/react/shallow";
 import {AgGridReact} from 'ag-grid-react'; // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import {
-	TCardListTableMode,
-	TCardListTableViewMode,
-	useSettingsStore
-} from "../../../../../store/settings/settings-store.ts";
+import {TCardListTableMode, TCardListTableViewMode} from "../../../../../store/settings/settings-types.ts";
 import {PreviewCell} from "./card-table-preview.component.tsx";
 import {RemoveCell} from "./card-table-remove.component.tsx";
 import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
 import {TCardboxSide} from "../../../../../store/data/types.ts";
-import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts"; // Optional theme CSS
+import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts";
+import {useSettingsQuery} from "../../../../../components/hooks/useSettingsHook.tsx"; // Optional theme CSS
 
 export type TCardTableProps = {
 	cardboxId?: string
@@ -110,17 +107,16 @@ export const CardTable: React.FC<TCardTableProps> = (
 
 	const {goCard} = useCardNavigateHook(cardboxId!, '');
 
-	const tableEditMode = useSettingsStore((state) => state.tableEditMode);
-	const tableViewMode = useSettingsStore((state) => state.tableViewMode);
+	const {isLoading, error, data: appState} = useSettingsQuery();
 
-	const [readonly, setReadonly] = useState(tableEditMode === 'readonly');
+	const [readonly, setReadonly] = useState(appState?.tableEditMode === 'readonly');
 
 	const gridRef = useRef<any>(); // Optional - for accessing Grid's API
 
 	const sides = useCardboxStore(useShallow((state: ICardboxState) => state.cardboxes
 		.find(c => c.id === cardboxId)?.sides));
 
-	const [columnDefs, setColumnDefs] = useState(getTableDefs(cardboxId, sides, tableEditMode, tableViewMode));
+	const [columnDefs, setColumnDefs] = useState(getTableDefs(cardboxId, sides, appState?.tableEditMode, appState?.tableViewMode));
 
 	const [sourceIndex, setSourceIndex] = useState(-1);
 
@@ -129,15 +125,15 @@ export const CardTable: React.FC<TCardTableProps> = (
 			return;
 		}
 
-		setReadonly(tableEditMode === 'readonly');
+		setReadonly(appState?.tableEditMode === 'readonly');
 
-		if (tableEditMode === 'readonly') {
+		if (appState?.tableEditMode === 'readonly') {
 			gridRef.current.api.stopEditing();
 		}
 
-		setColumnDefs(getTableDefs(cardboxId, sides, tableEditMode, tableViewMode));
+		setColumnDefs(getTableDefs(cardboxId, sides, appState?.tableEditMode, appState?.tableViewMode));
 
-	}, [gridRef.current, tableEditMode, tableViewMode, sides]);
+	}, [gridRef.current, appState?.tableEditMode, appState?.tableViewMode, sides]);
 
 	useEffect(() => {
 		if (!gridRef.current.api) {
@@ -153,7 +149,7 @@ export const CardTable: React.FC<TCardTableProps> = (
 				document.scrollingElement!.scrollTop = storedPos;
 			}
 		}, 0);
-	}, [gridRef.current, tableViewMode, tableEditMode]);
+	}, [gridRef.current, appState?.tableViewMode, appState?.tableEditMode]);
 
 
 	const defaultColDef = useMemo(() => ({
@@ -194,7 +190,11 @@ export const CardTable: React.FC<TCardTableProps> = (
 		setSourceIndex(() => e.overIndex);
 	}, [setSourceIndex]);
 
-	return <div className={'card-table ' + tableEditMode + ' ' + tableViewMode}>
+	if (isLoading || error || !appState) {
+		return null;
+	}
+
+	return <div className={'card-table ' + appState?.tableEditMode + ' ' + appState?.tableViewMode}>
 		<div className="ag-theme-alpine">
 			<AgGridReact
 				ref={gridRef}

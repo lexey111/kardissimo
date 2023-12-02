@@ -3,19 +3,18 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {FaCirclePlay} from "react-icons/fa6";
 import {HiRectangleStack} from "react-icons/hi2";
 import {AiFillQuestionCircle} from "react-icons/ai";
-import {IAuthState, useAuthStore} from "../store/auth/auth-store.ts";
 import {Button} from "./utils/button.component.tsx";
 import {logout} from "../store/auth/auth-store.actions.ts";
 import {UserAvatar} from "./utils/user-avatar.component.tsx";
 import {AppSettings} from "./settings/app-settings.component.tsx";
-import {useSettingsStore} from "../store/settings/settings-store.ts";
-
-const userSelector = (state: IAuthState) => state;
+import {useSettingsQuery} from "./hooks/useSettingsHook.tsx";
+import {useAuthQuery} from "./hooks/useAuthHook.tsx";
 
 export const AppMenu: React.FC = () => {
 	const navigate = useNavigate();
-	const user = useAuthStore(userSelector);
-	const isBusy = useSettingsStore((state) => state?.busy);
+
+	const {isLoading: userLoading, data: userData} = useAuthQuery();
+	const {isLoading: settingsLoading} = useSettingsQuery();
 
 	const handleLogout = useCallback(() => {
 		void logout();
@@ -25,10 +24,11 @@ export const AppMenu: React.FC = () => {
 		navigate('/login');
 	}, []);
 
-	const loggedIn = user.loginData.id && !user.fetching;
-	if (user.fetching || isBusy) {
+	if (userLoading || settingsLoading) {
 		return null;
 	}
+
+	const loggedIn = !!userData?.id;
 
 	return <nav id='app-menu'>
 		<div className={'app-menu-content'}>
@@ -80,11 +80,11 @@ export const AppMenu: React.FC = () => {
 			</ul>
 
 			{loggedIn && <div className={'user-avatar'} tabIndex={0}>
-				<UserAvatar src={user.loginData.avatar} name={user.loginData.name}/>
+				<UserAvatar src={userData.avatar} name={userData.name}/>
 
 				<div className={'actions'}>
 					<p>
-						Logged in as <b>{user.loginData.name}</b>
+						Logged in as <b>{userData.name}</b>
 					</p>
 					<Button type={'danger'} onClick={handleLogout}>Log out</Button>
 				</div>

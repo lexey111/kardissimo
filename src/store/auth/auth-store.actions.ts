@@ -1,7 +1,6 @@
 import {useAuthStore} from "./auth-store.ts";
 import {supabase} from "../supabase.ts";
-import {loadSettingsFromServer, resetSettings} from "../settings/settings-store.actions.ts";
-
+import {authUpdate} from "./authUpdate.ts";
 
 export const tryLoginWithGoogle = async () => {
 	resetSession(true);
@@ -9,15 +8,20 @@ export const tryLoginWithGoogle = async () => {
 	const {error} = await supabase.auth.signInWithOAuth({provider: 'google'});
 
 	if (error) {
-		useAuthStore.setState(() => {
-			return {fetching: false, loginData: {error: error}};
-		});
-	} else {
-		useAuthStore.setState(() => {
-			return {fetching: false, loginData: {error: null}};
-		});
-		await getSessionAndUser();
+		console.log('Auth Google login error', error);
 	}
+
+	// if (error) {
+	// 	useAuthStore.setState(() => {
+	// 		return {fetching: false, loginData: {error: error}};
+	// 	});
+	// } else {
+	// 	useAuthStore.setState(() => {
+	// 		return {fetching: false, loginData: {error: null}};
+	// 	});
+	// 	await getSessionAndUser();
+	// }
+	authUpdate();
 }
 export const tryLoginWithFB = async () => {
 	resetSession(true);
@@ -25,15 +29,20 @@ export const tryLoginWithFB = async () => {
 	const {error} = await supabase.auth.signInWithOAuth({provider: 'facebook'});
 
 	if (error) {
-		useAuthStore.setState(() => {
-			return {fetching: false, loginData: {error: error}};
-		});
-	} else {
-		useAuthStore.setState(() => {
-			return {fetching: false, loginData: {error: null}};
-		});
-		await getSessionAndUser();
+		console.log('Auth FB login error', error);
 	}
+
+	// if (error) {
+	// 	useAuthStore.setState(() => {
+	// 		return {fetching: false, loginData: {error: error}};
+	// 	});
+	// } else {
+	// 	useAuthStore.setState(() => {
+	// 		return {fetching: false, loginData: {error: null}};
+	// 	});
+	// 	await getSessionAndUser();
+	// }
+	authUpdate();
 }
 
 export const resetSession = (fetching = false) => {
@@ -49,8 +58,7 @@ export const resetSession = (fetching = false) => {
 			}
 		}
 	});
-
-	resetSettings();
+	authUpdate();
 }
 
 export const logout = async () => {
@@ -61,7 +69,7 @@ export const logout = async () => {
 	if (error) {
 		console.log(error);
 	}
-
+	authUpdate();
 	resetSession();
 }
 
@@ -95,8 +103,6 @@ export const getSessionAndUser = async () => {
 			}
 		}
 	});
-
-	await loadSettingsFromServer();
 
 	return user;
 }

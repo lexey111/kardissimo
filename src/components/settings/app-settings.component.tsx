@@ -2,10 +2,12 @@ import React, {useCallback, useEffect, useState} from "react";
 import {HiMiniCog6Tooth} from "react-icons/hi2";
 import {CloseCross} from "../utils/close-cross.component.tsx";
 import {AppearanceSelector} from "./appearance-selector.component.tsx";
-import {setCurrentAppearance} from "../../store/settings/settings-store.actions.ts";
+import {useUpdateSettingsMutation} from "../hooks/useSettingsUpdateHook.tsx";
 
 export const AppSettings: React.FC = () => {
 	const [active, setActive] = useState(false);
+
+	const updateSettingsMutation = useUpdateSettingsMutation();
 
 	const handleEsc = useCallback((e: any) => {
 		if (e.key !== 'Escape') {
@@ -15,7 +17,8 @@ export const AppSettings: React.FC = () => {
 	}, [setActive]);
 
 	const handleApply = useCallback((id: string) => {
-		setCurrentAppearance(id);
+		//setCurrentAppearance(id);
+		updateSettingsMutation.mutate({currentAppearance: id});
 		setActive(false);
 	}, []);
 

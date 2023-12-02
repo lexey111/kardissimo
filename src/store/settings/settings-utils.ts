@@ -34,7 +34,6 @@ export const assignGlobalStyles = (id: string) => {
 	if (!id || !app) {
 		return;
 	}
-
 	Appearances.forEach(app => document.body.classList.remove('theme-' + app.id));
 	document.body.classList.add('theme-' + app.id);
 	localStorage.setItem('lastUsedTheme', app.id);

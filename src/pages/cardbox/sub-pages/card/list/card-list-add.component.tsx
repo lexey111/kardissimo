@@ -1,8 +1,8 @@
 import React, {useCallback} from "react";
-import {useSettingsStore} from "../../../../../store/settings/settings-store.ts";
 import {ICardboxState, useCardboxStore} from "../../../../../store/data/cardboxes-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {BigAddButton} from "../../../../../components/utils/big-add-button.component.tsx";
+import {useSettingsQuery} from "../../../../../components/hooks/useSettingsHook.tsx";
 
 export type TCardListAddProps = {
 	cardboxId?: string
@@ -10,7 +10,7 @@ export type TCardListAddProps = {
 }
 
 export const CardListAdd: React.FC<TCardListAddProps> = ({cardboxId, onClick}) => {
-	const currentStyle = useSettingsStore((state) => state.cardListStyle);
+	const {isLoading, error, data: appState} = useSettingsQuery();
 
 	const sides = useCardboxStore(useShallow((state: ICardboxState) => state.cardboxes
 		.find(c => c.id === cardboxId)?.sides));
@@ -19,13 +19,17 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({cardboxId, onClick}) =
 		onClick();
 	}, [onClick]);
 
-	return <div className={`card-list list-style-${currentStyle}`}>
-		<div className={`card-list-add-${currentStyle}`}>
+	if (isLoading || error || !appState) {
+		return null;
+	}
+
+	return <div className={`card-list list-style-${appState.cardListStyle}`}>
+		<div className={`card-list-add-${appState.cardListStyle}`}>
 			<span></span>
 			<div className={'card-item add'}>
 				<div className={'card-sides'}>
 					{sides?.map((_, idx) => {
-						if (currentStyle === 'cards' && idx > 0) {
+						if (appState.cardListStyle === 'cards' && idx > 0) {
 							return null
 						}
 						return <div key={'new' + idx.toString()} className={'card-side-content'}></div>;

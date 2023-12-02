@@ -1,24 +1,17 @@
 import React from "react";
-import {Appearances} from "../../resources/appearance.ts";
-import {useSettingsStore} from "../../store/settings/settings-store.ts";
+import {TAppAppearance} from "../../resources/appearance.ts";
 
 export type TAppearanceItemProps = {
-	id: string
+	appearance: TAppAppearance
 	onApply: (id: string) => void
+	active: boolean
 }
 
-export const AppearanceItem: React.FC<TAppearanceItemProps> = ({id, onApply}) => {
-	const item = Appearances.find(ap => ap.id === id);
-	const currentAppearance = useSettingsStore((state) => state?.currentAppearance);
-
-	if (!id) {
-		return null;
-	}
-
+export const AppearanceItem: React.FC<TAppearanceItemProps> = ({appearance, active, onApply}) => {
 	return <div
-		className={'appearance-item-wrapper' + (currentAppearance === id ? ' active' : '')}
-		onClick={() => onApply(id)}>
-		<div className={'appearance-item'} style={{background: item?.background}}></div>
-		<div className={'appearance-item-name'}>{item?.name}</div>
+		className={'appearance-item-wrapper' + (active ? ' active' : '')}
+		onClick={() => onApply(appearance.id)}>
+		<div className={'appearance-item'} style={{background: appearance?.background}}></div>
+		<div className={'appearance-item-name'}>{appearance?.name}</div>
 	</div>;
 }
