@@ -21,6 +21,7 @@ const ErrorBoundary: React.FC = () => {
 	return <PageNotFound message={error.message} header={error.header}/>;
 }
 
+
 export const AppRoutes = [
 		{
 			path: '/',

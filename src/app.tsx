@@ -6,20 +6,14 @@ import {WaitCredentials} from "./components/utils/wait-credentials.component.tsx
 import {Slide, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useSettingsQuery} from "./components/hooks/useSettingsHook.tsx";
-import {Appearances} from "./resources/appearance.ts";
-import {assignGlobalStyles} from "./store/settings/settings-utils.ts";
-import {useAuthQuery} from "./components/hooks/useAuthHook.tsx";
+import {useAuthQuery} from "./components/hooks/useAuthHook.ts";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 
-let lastTheme = localStorage.getItem('lastUsedTheme');
-if (!lastTheme || !Appearances.find(ap => ap.id === lastTheme)) {
-	lastTheme = 'default';
-}
-assignGlobalStyles(lastTheme);
 
 export const App: React.FC = () => {
 	const [busy, setBusy] = useState(true);
-	const {data: appState} = useSettingsQuery();
 	const {isLoading: userLoading, data: userData} = useAuthQuery();
+	const {data: appState} = useSettingsQuery();
 
 	useEffect(() => {
 		console.log('User loading', userLoading)
@@ -28,16 +22,6 @@ export const App: React.FC = () => {
 			setBusy(false);
 		}
 	}, [userLoading, userData]);
-
-	// useEffect(() => {
-	// 	try {
-	// 		void getSessionAndUser();
-	// 		setBusy(false);
-	// 	} catch (e) {
-	// 		resetSession();
-	// 		setBusy(false);
-	// 	}
-	// }, []);
 
 	useEffect(() => {
 		if (!busy) {
@@ -51,6 +35,7 @@ export const App: React.FC = () => {
 
 	return <>
 		<AppMenu/>
+
 		<div className="app-page" style={{display: 'flex', width: '100%', height: '100%'}}>
 			<Outlet/>
 		</div>
@@ -60,7 +45,9 @@ export const App: React.FC = () => {
 				return location.pathname;
 			}}
 		/>
+
 		<AppFooter/>
+
 		<ToastContainer
 			position="top-center"
 			autoClose={3000}
@@ -74,5 +61,6 @@ export const App: React.FC = () => {
 			pauseOnHover
 			theme={appState?.currentAppearance === 'grey' || appState?.currentAppearance === 'dark' ? 'dark' : 'light'}
 		/>
+		<ReactQueryDevtools/>
 	</>;
 };

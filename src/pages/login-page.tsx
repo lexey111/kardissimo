@@ -1,36 +1,47 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {Button} from "../components/utils/button.component.tsx";
 import {FaFacebookSquare, FaGoogle} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
-import {tryLoginWithFB, tryLoginWithGoogle} from "../store/auth/auth-store.actions.ts";
-import {useAuthQuery} from "../components/hooks/useAuthHook.tsx";
+import {useAuthLogin, useAuthQuery} from "../components/hooks/useAuthHook.ts";
+import {WaitCredentials} from "../components/utils/wait-credentials.component.tsx";
 
 export const LoginPage: React.FC = () => {
 	const {isLoading: userLoading, data: userData} = useAuthQuery();
 	const navigate = useNavigate();
 
+	const {mutate: login} = useAuthLogin();
+	const [inAttempt, setInAttempt] = useState(false);
+
 	const handleGoogle = useCallback(() => {
-		void tryLoginWithGoogle();
-	}, []);
+		setInAttempt(true);
+		setTimeout(() => {
+			void login('google');
+		}, 200);
+	}, [setInAttempt]);
 
 	const handleFB = useCallback(() => {
-		void tryLoginWithFB();
-	}, []);
+		setInAttempt(true);
+		setTimeout(() => {
+			void login('facebook');
+		}, 200);
+	}, [setInAttempt]);
 
-	useEffect(() => {
-		//setAuthState({error: ''});
-	}, []);
 
 	useEffect(() => {
 		if (userLoading) {
 			return;
 		}
+		setInAttempt(false);
 
 		if (userData?.id) {
 			navigate('/home');
 		}
 	}, [userData, userLoading]);
+
+	if (inAttempt) {
+		return <WaitCredentials text={'Login...'}/>;
+	}
 
 	const showError = !userLoading && !!userData?.error && userData.error.indexOf('401') === -1;
 

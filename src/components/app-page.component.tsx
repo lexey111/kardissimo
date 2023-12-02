@@ -1,10 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {matchRoutes} from "react-router";
 import {AppRoutes} from "../routes.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
-import {IAuthState, useAuthStore} from "../store/auth/auth-store.ts";
-import {getSessionAndUser} from "../store/auth/auth-store.actions.ts";
-import {WaitCredentials} from "./utils/wait-credentials.component.tsx";
+import {useAuthQuery} from "./hooks/useAuthHook.ts";
 
 export type TAppPageProps = {
 	title?: string
@@ -12,29 +10,17 @@ export type TAppPageProps = {
 	children: any
 }
 
-const userSelector = (state: IAuthState) => state;
 export const AppPage: React.FC<TAppPageProps> = ({title, authOnly = true, children}) => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const currentRouteTitle = (matchRoutes(AppRoutes, location)?.pop() as any)?.route?.['handle'];
-	const user = useAuthStore(userSelector);
-	const [authChecked, setAuthChecked] = useState(!authOnly || !!user.loginData.id);
+	const {data: userData} = useAuthQuery();
 
 	useEffect(() => {
-		if (!user.loginData.id && authOnly && authChecked) {
+		if (!userData.id && authOnly) {
 			navigate('/home');
 		}
-	}, [user.loginData, authChecked]);
-
-	useEffect(() => {
-
-		if (authOnly && !authChecked) {
-			(async () => {
-				await getSessionAndUser();
-				setAuthChecked(true);
-			})();
-		}
-	}, []);
+	}, [userData]);
 
 	if (title) {
 		window.document.title = title + (currentRouteTitle ? ' | ' + currentRouteTitle : '');
@@ -43,9 +29,8 @@ export const AppPage: React.FC<TAppPageProps> = ({title, authOnly = true, childr
 	}
 
 	return <div className='app-page-wrapper'>
-		{!authChecked && <WaitCredentials/>}
 		<div className={'app-page-content'}>
-			{authChecked && children}
+			{children}
 		</div>
 	</div>;
 };

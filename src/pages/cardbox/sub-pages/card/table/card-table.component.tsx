@@ -10,7 +10,7 @@ import {RemoveCell} from "./card-table-remove.component.tsx";
 import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
 import {TCardboxSide} from "../../../../../store/data/types.ts";
 import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts";
-import {useSettingsQuery} from "../../../../../components/hooks/useSettingsHook.tsx"; // Optional theme CSS
+import {useSettingsQuery} from "../../../../../components/hooks/useSettingsHook.tsx";
 
 export type TCardTableProps = {
 	cardboxId?: string

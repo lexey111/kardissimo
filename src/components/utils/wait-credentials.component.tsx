@@ -1,6 +1,10 @@
 import {CgSpinner} from "react-icons/cg";
 import React from "react";
 
-export const WaitCredentials: React.FC = () => {
-	return <div className={'app-page-spinner'}><CgSpinner/> Restoring session...</div>;
+type TWaitCredentialsProps = {
+	text?: string
+}
+
+export const WaitCredentials: React.FC<TWaitCredentialsProps> = ({text}) => {
+	return <div className={'app-page-spinner'}><CgSpinner/> {text || 'Restoring session...'}</div>;
 }

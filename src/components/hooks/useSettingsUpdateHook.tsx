@@ -2,7 +2,7 @@ import useSupabase from "./useSupabase.tsx";
 import {TSettingsState} from "../../store/settings/settings-types.ts";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {updateSettings} from "../queries/update-settings.ts";
-import {useAuthQuery} from "./useAuthHook.tsx";
+import {useAuthQuery} from "./useAuthHook.ts";
 
 export const useUpdateSettingsMutation = () => {
 	const client = useSupabase();
@@ -22,21 +22,21 @@ export const useUpdateSettingsMutation = () => {
 		mutationFn,
 		onMutate: async (state) => {
 			// Cancel any outgoing refetches
-			await queryClient.cancelQueries({queryKey: ['settings', 'data'], type: 'active'});
+			await queryClient.cancelQueries({queryKey: ['settings']});
 
 			// Snapshot the previous value
-			const snapshot = queryClient.getQueryData(['settings', 'data']);
+			const snapshot = queryClient.getQueryData(['settings']);
 
 			// Optimistically update to the new value
-			queryClient.setQueryData(['settings', 'data'], (old: TSettingsState) => {
+			queryClient.setQueryData(['settings'], (old: TSettingsState) => {
 				return {...old, ...state};
 			});
 
 			// Return a context object with the snapshotted value
-			return {snapshot: snapshot};
+			return {snapshot};
 		},
 		onSettled: () => {
-			void queryClient.refetchQueries({queryKey: ['settings', 'data'], type: 'active'});
+			void queryClient.refetchQueries({queryKey: ['settings']});
 		}
 	});
 }

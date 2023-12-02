@@ -17,6 +17,7 @@ export type TCardListModeSelectorProps = {
 }
 export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({sides}) => {
 	const {isLoading, error, data: appState} = useSettingsQuery();
+
 	const updateSettingsMutation = useUpdateSettingsMutation();
 	const params = useParams();
 	const cardbox = getCardbox(params.cardboxId);

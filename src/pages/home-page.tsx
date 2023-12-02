@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {useSettingsQuery} from "../components/hooks/useSettingsHook.tsx";
 import {assignGlobalStyles} from "../store/settings/settings-utils.ts";
 import {defaultAppState} from "../store/settings/settings-types.ts";
-import {useAuthQuery} from "../components/hooks/useAuthHook.tsx";
+import {useAuthQuery} from "../components/hooks/useAuthHook.ts";
 
 export const HomePage: React.FC = () => {
 	const navigate = useNavigate();

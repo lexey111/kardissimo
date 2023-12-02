@@ -2,28 +2,30 @@ import useSupabase from "./useSupabase.tsx";
 import {useQuery} from "@tanstack/react-query";
 import {getSettingsByUser} from "../queries/get-settings-by-user.ts";
 import {defaultAppState, TSettingsState} from "../../store/settings/settings-types.ts";
-import {useAuthQuery} from "./useAuthHook.tsx";
+import {queryClient} from "../../query-client.ts";
+import {TUser} from "../../store/auth/auth-types.ts";
 
 export const useSettingsQuery = () => {
 	const client = useSupabase();
-	const queryKey = ['settings', 'data'];
-	const {data: userData} = useAuthQuery();
 	const queryFn = async () => {
-		if (!userData?.id) {
+		const data: TUser = queryClient.getQueryData(['auth']) as TUser;
+		console.log('data', data)
+		if (!data?.id) {
 			return {...defaultAppState};
 		}
 
 		return getSettingsByUser(client)
 			.then(
 				(result: any) => {
+					console.log('fetch settings...')
 					return {...defaultAppState, ...JSON.parse(result.data.data)};
 				}
 			)
 			.catch((err: any) => {
-				console.log('Error', err);
+				console.error('Error', err);
 				return {...defaultAppState};
 			});
 	};
 
-	return useQuery<TSettingsState, any>({queryKey, queryFn, enabled: !!userData?.id});
+	return useQuery<TSettingsState, any>({queryKey: ['settings'], queryFn});
 }

@@ -4,17 +4,17 @@ import {FaCirclePlay} from "react-icons/fa6";
 import {HiRectangleStack} from "react-icons/hi2";
 import {AiFillQuestionCircle} from "react-icons/ai";
 import {Button} from "./utils/button.component.tsx";
-import {logout} from "../store/auth/auth-store.actions.ts";
 import {UserAvatar} from "./utils/user-avatar.component.tsx";
 import {AppSettings} from "./settings/app-settings.component.tsx";
 import {useSettingsQuery} from "./hooks/useSettingsHook.tsx";
-import {useAuthQuery} from "./hooks/useAuthHook.tsx";
+import {useAuthLogout, useAuthQuery} from "./hooks/useAuthHook.ts";
 
 export const AppMenu: React.FC = () => {
 	const navigate = useNavigate();
 
 	const {isLoading: userLoading, data: userData} = useAuthQuery();
 	const {isLoading: settingsLoading} = useSettingsQuery();
+	const {mutate: logout} = useAuthLogout();
 
 	const handleLogout = useCallback(() => {
 		void logout();
