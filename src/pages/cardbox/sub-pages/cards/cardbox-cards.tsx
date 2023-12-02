@@ -8,10 +8,13 @@ import {BigAddFloatingButton} from "../../../../components/utils/big-add-floatin
 import {CardListAdd} from "../card/list/card-list-add.component.tsx";
 import {CardsNoData} from "./card-list-no-data.component.tsx";
 import {ICardboxState, useCardboxStore} from "../../../../store/data/cardboxes-store.ts";
+import {useSettingsQuery} from "../../../../components/hooks/useSettingsHook.tsx";
+import {WaitGlobal} from "../../../../components/utils/wait-global.component.tsx";
 
 export const CardboxCards: React.FC = () => {
 	const params = useParams();
-	//const cardbox = getCardbox(params.cardboxId);
+	const {data: appState} = useSettingsQuery();
+
 	const cardbox = useCardboxStore((state: ICardboxState) => state.cardboxes
 		.find(c => c.id === params.cardboxId));
 
@@ -35,6 +38,13 @@ export const CardboxCards: React.FC = () => {
 			addButton={<CardListAdd cardboxId={cardbox.id} onClick={handleAdd}/>}/>;
 	}
 
+	if (appState?.updating) {
+		return <div className={'page-32'}>
+			<CardListHeader cardboxId={cardbox.id}/>
+			<WaitGlobal text={'Please wait...'}/>
+		</div>;
+	}
+
 	return <div className={'page-32'}>
 		<CardListHeader cardboxId={cardbox.id}/>
 		{cardbox && (cardbox.cards?.length || 0) > 1 && <p className={'tip'}>
@@ -42,9 +52,12 @@ export const CardboxCards: React.FC = () => {
 		</p>}
 
 		<CardList cardbox={cardbox}/>
+
 		{/*default add button*/}
 		<CardListAdd cardboxId={cardbox.id} onClick={handleAdd}/>
+
 		{/*floating add button*/}
-		{cardbox.cards.length > 5 && <BigAddFloatingButton onClick={() => handleAdd(true)} extraHeight={50}/>}
+		{cardbox.cards.length > 5 &&
+			<BigAddFloatingButton onClick={() => handleAdd(true)} extraHeight={50}/>}
 	</div>;
 };

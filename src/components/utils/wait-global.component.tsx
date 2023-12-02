@@ -5,6 +5,6 @@ type TWaitCredentialsProps = {
 	text?: string
 }
 
-export const WaitCredentials: React.FC<TWaitCredentialsProps> = ({text}) => {
+export const WaitGlobal: React.FC<TWaitCredentialsProps> = ({text}) => {
 	return <div className={'app-page-spinner'}><CgSpinner/> {text || 'Restoring session...'}</div>;
 }

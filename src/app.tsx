@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Outlet, ScrollRestoration} from "react-router-dom";
 import {AppMenu} from "./components/app-menu.component.tsx";
 import {AppFooter} from "./components/app-footer.component.tsx";
-import {WaitCredentials} from "./components/utils/wait-credentials.component.tsx";
+import {WaitGlobal} from "./components/utils/wait-global.component.tsx";
 import {Slide, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useSettingsQuery} from "./components/hooks/useSettingsHook.tsx";
@@ -30,7 +30,7 @@ export const App: React.FC = () => {
 	}, [busy]);
 
 	if (busy) {
-		return <WaitCredentials/>;
+		return <WaitGlobal/>;
 	}
 
 	return <>

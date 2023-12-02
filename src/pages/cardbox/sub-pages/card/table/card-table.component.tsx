@@ -8,9 +8,10 @@ import {TCardListTableMode, TCardListTableViewMode} from "../../../../../store/s
 import {PreviewCell} from "./card-table-preview.component.tsx";
 import {RemoveCell} from "./card-table-remove.component.tsx";
 import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
-import {TCardboxSide} from "../../../../../store/data/types.ts";
+import {TCard, TCardboxSide} from "../../../../../store/data/types.ts";
 import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts";
 import {useSettingsQuery} from "../../../../../components/hooks/useSettingsHook.tsx";
+import {WaitInline} from "../../../../../components/utils/wait-inline.component.tsx";
 
 export type TCardTableProps = {
 	cardboxId?: string
@@ -151,7 +152,6 @@ export const CardTable: React.FC<TCardTableProps> = (
 		}, 0);
 	}, [gridRef.current, appState?.tableViewMode, appState?.tableEditMode]);
 
-
 	const defaultColDef = useMemo(() => ({
 		sortable: true,
 		resizable: true,
@@ -166,9 +166,14 @@ export const CardTable: React.FC<TCardTableProps> = (
 
 	}, []);
 
-	const cards = useCardboxStore(useShallow((state: ICardboxState) => state.cardboxes
-		.find(c => c.id === cardboxId)?.cards
-	));
+	const [cards, setCards] = useState<TCard[] | undefined>([]);
+	const [cardsFetched, setCardsFetched] = useState(false);
+
+	useEffect(() => {
+		const cards = useCardboxStore.getState().cardboxes.find(c => c.id === cardboxId)?.cards;
+		setCards(cards);
+		setCardsFetched(true);
+	}, [setCards, setCardsFetched]);
 
 	useEffect(() => {
 		gridRef.current?.api?.setRowData(cards);
@@ -190,7 +195,7 @@ export const CardTable: React.FC<TCardTableProps> = (
 		setSourceIndex(() => e.overIndex);
 	}, [setSourceIndex]);
 
-	if (isLoading || error || !appState) {
+	if (isLoading || error) {
 		return null;
 	}
 
@@ -214,6 +219,8 @@ export const CardTable: React.FC<TCardTableProps> = (
 				enterNavigatesVertically={true}
 				enterNavigatesVerticallyAfterEdit={true}
 			/>
+
+			{!cardsFetched && <div className={'wait-data'}><WaitInline text={'Just a moment...'}/></div>}
 		</div>
 	</div>;
 };

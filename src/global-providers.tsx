@@ -5,7 +5,7 @@ import {Appearances} from "./resources/appearance.ts";
 import {assignGlobalStyles} from "./store/settings/settings-utils.ts";
 import {queryClient} from "./query-client.ts";
 import {useAuthQuery} from "./components/hooks/useAuthHook.ts";
-import {WaitCredentials} from "./components/utils/wait-credentials.component.tsx";
+import {WaitGlobal} from "./components/utils/wait-global.component.tsx";
 
 const router = createBrowserRouter(AppRoutes);
 
@@ -35,7 +35,7 @@ export const GlobalProviders: React.FC = () => {
 	}, [setReady]);
 
 	if (!ready || userLoading) {
-		return <WaitCredentials/>;
+		return <WaitGlobal/>;
 	}
 
 	return <RouterProvider router={router}/>

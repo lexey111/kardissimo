@@ -8,6 +8,7 @@ export type TSettingsState = {
 	tableViewMode: TCardListTableViewMode
 	selectedSide: number
 	currentAppearance: string
+	updating?: boolean
 }
 
 export const defaultAppState: TSettingsState = {
@@ -16,4 +17,5 @@ export const defaultAppState: TSettingsState = {
 	tableViewMode: 'wide',
 	selectedSide: 0,
 	currentAppearance: 'default',
+	updating: false
 };

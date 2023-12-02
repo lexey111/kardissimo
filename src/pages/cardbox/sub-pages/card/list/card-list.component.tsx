@@ -12,7 +12,7 @@ export type TCardListProps = {
 }
 
 export const CardList: React.FC<TCardListProps> = ({cardbox}) => {
-	const {isLoading, error, data: appState} = useSettingsQuery();
+	const {data: appState} = useSettingsQuery();
 
 	const [scrollPos, setScrollPos] = useState<number | undefined>(0);
 
@@ -45,21 +45,17 @@ export const CardList: React.FC<TCardListProps> = ({cardbox}) => {
 
 	}, []);
 
-	if (isLoading || error || !appState) {
-		return null;
-	}
-
 	if (!cardIds || cardIds.length === 0) {
 		return null;
 	}
 
-	if (appState.cardListStyle === 'table') {
+	if (appState?.cardListStyle === 'table') {
 		// table style uses separate component
 		return <CardTable cardboxId={cardbox.id}/>;
 	}
 
 	// list and card styles are serviced by CSS
-	return <div className={`card-list list-style-${appState.cardListStyle}`}>
+	return <div className={`card-list list-style-${appState?.cardListStyle || 'cards'}`}>
 		<DndProvider backend={HTML5Backend}>
 			{cardIds.map((cardId, idx) => {
 				return <CardListItem
@@ -69,7 +65,7 @@ export const CardList: React.FC<TCardListProps> = ({cardbox}) => {
 					handleMove={handleMove}
 					cardId={cardId}
 					sides={sides}
-					currentStyle={appState.cardListStyle}
+					currentStyle={appState?.cardListStyle || 'cards'}
 				/>
 			})}
 		</DndProvider>

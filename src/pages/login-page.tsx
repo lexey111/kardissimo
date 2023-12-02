@@ -4,7 +4,7 @@ import {Button} from "../components/utils/button.component.tsx";
 import {FaFacebookSquare, FaGoogle} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import {useAuthLogin, useAuthQuery} from "../components/hooks/useAuthHook.ts";
-import {WaitCredentials} from "../components/utils/wait-credentials.component.tsx";
+import {WaitGlobal} from "../components/utils/wait-global.component.tsx";
 
 export const LoginPage: React.FC = () => {
 	const {isLoading: userLoading, data: userData} = useAuthQuery();
@@ -40,7 +40,7 @@ export const LoginPage: React.FC = () => {
 	}, [userData, userLoading]);
 
 	if (inAttempt) {
-		return <WaitCredentials text={'Login...'}/>;
+		return <WaitGlobal text={'Login...'}/>;
 	}
 
 	const showError = !userLoading && !!userData?.error && userData.error.indexOf('401') === -1;
