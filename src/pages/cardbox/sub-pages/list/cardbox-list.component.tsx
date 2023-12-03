@@ -16,7 +16,7 @@ export const CardboxList: React.FC = () => {
 			<EmptyCardboxListAdd/>
 			<p className={'no-data-text'}>
 				<span className={'arrow-up'}></span>
-				There are no yet cardbox to display. Please, use the button <IoIosAddCircle/> above to create the
+				There are no yet card boxes to display. Please, use the button <IoIosAddCircle/> above to create the
 				first one.
 			</p>
 		</div>;

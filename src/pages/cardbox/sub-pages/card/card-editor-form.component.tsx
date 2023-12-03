@@ -9,6 +9,7 @@ import {HDivider} from "../../../../components/utils/h-divider.component.tsx";
 import Select from "react-select";
 import {colorSchemaOptions, FontNameOptions, FontSizeOptions} from "../../../../resources/options.ts";
 import {ColorSchemes} from "../../../../resources/colors.ts";
+import {MinScreenWidthContainer} from "../../../../components/utils/min-screen-width-container.tsx";
 
 export type TCardEditorFormProps = {
 	cardbox?: TCardbox
@@ -309,11 +310,13 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 			</fieldset>
 		</div>
 
-		<div className={'card-form-preview'}>
-			<CardPreview
-				card={state}
-				side={side}
-			/>
-		</div>
+		<MinScreenWidthContainer>
+			<div className={'card-form-preview'}>
+				<CardPreview
+					card={state}
+					side={side}
+				/>
+			</div>
+		</MinScreenWidthContainer>
 	</div>;
 };

@@ -10,6 +10,7 @@ import Select from 'react-select'
 import {ColorSchemes} from "../../../../resources/colors.ts";
 import {Switch} from "../../../../components/utils/switch.component.tsx";
 import {colorSchemaOptions, FontNameOptions, FontSizeOptions} from "../../../../resources/options.ts";
+import {MinScreenWidthContainer} from "../../../../components/utils/min-screen-width-container.tsx";
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -324,11 +325,13 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 			</fieldset>
 		</div>
 
-		<div className={'card-form-preview'}>
-			<CardPreview
-				card={facesData}
-				side={side}
-			/>
-		</div>
+		<MinScreenWidthContainer>
+			<div className={'card-form-preview'}>
+				<CardPreview
+					card={facesData}
+					side={side}
+				/>
+			</div>
+		</MinScreenWidthContainer>
 	</div>
 };
