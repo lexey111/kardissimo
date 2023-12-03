@@ -35,7 +35,6 @@ export const useUpdateSettingsMutation = () => {
 			queryClient.setQueryData(['settings'], (old: TSettingsState) => {
 				return {...old, ...state, updating: false};
 			});
-
 			return {snapshot};
 		},
 		onSettled: () => {

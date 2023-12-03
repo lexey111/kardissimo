@@ -3,8 +3,9 @@ import {AppPage} from "../components/app-page.component.tsx";
 import {Button} from "../components/utils/button.component.tsx";
 import {FaFacebookSquare, FaGoogle} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
-import {useAuthLogin, useAuthQuery} from "../store/auth/hooks/useAuthHook.ts";
 import {WaitGlobal} from "../components/utils/wait-global.component.tsx";
+import {useAuthQuery} from "../store/auth/hooks/useAuthHook.ts";
+import {useAuthLogin} from "../store/auth/hooks/useAuthLoginHook.ts";
 
 export const LoginPage: React.FC = () => {
 	const {isLoading: userLoading, data: userData} = useAuthQuery();

@@ -8,26 +8,39 @@ import 'react-toastify/dist/ReactToastify.css';
 import {useSettingsQuery} from "./store/settings/hooks/useSettingsHook.tsx";
 import {useAuthQuery} from "./store/auth/hooks/useAuthHook.ts";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
+import {assignGlobalStyles} from "./store/settings/settings-utils.ts";
+import {defaultAppState} from "./store/settings/settings-types.ts";
 
 
 export const App: React.FC = () => {
 	const [busy, setBusy] = useState(true);
 	const {isLoading: userLoading, data: userData} = useAuthQuery();
-	const {data: appState} = useSettingsQuery();
+	const {isLoading: settingsLoading, data: settingsData} = useSettingsQuery();
 
 	useEffect(() => {
 		console.log('User loading', userLoading)
 		console.log('User data', userData)
-		if (!userLoading) {
+		if (!userLoading && !settingsLoading) {
 			setBusy(false);
 		}
-	}, [userLoading, userData]);
+	}, [userLoading, userData, settingsLoading, settingsData]);
 
 	useEffect(() => {
 		if (!busy) {
 			document.body.classList.add('ready');
 		}
 	}, [busy]);
+
+
+	const loggedIn = !userLoading && !!userData?.id;
+
+	useEffect(() => {
+		if (!settingsData || !loggedIn) {
+			return;
+		}
+		assignGlobalStyles(settingsData?.currentAppearance || defaultAppState.currentAppearance);
+	}, [settingsData]);
+
 
 	if (busy) {
 		return <WaitGlobal/>;
@@ -59,7 +72,7 @@ export const App: React.FC = () => {
 			pauseOnFocusLoss
 			draggable
 			pauseOnHover
-			theme={appState?.currentAppearance === 'grey' || appState?.currentAppearance === 'dark' ? 'dark' : 'light'}
+			theme={settingsData?.currentAppearance === 'grey' || settingsData?.currentAppearance === 'dark' ? 'dark' : 'light'}
 		/>
 		<ReactQueryDevtools/>
 	</>;

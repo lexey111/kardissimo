@@ -7,7 +7,8 @@ import {Button} from "./utils/button.component.tsx";
 import {UserAvatar} from "./utils/user-avatar.component.tsx";
 import {AppSettings} from "./settings/app-settings.component.tsx";
 import {useSettingsQuery} from "../store/settings/hooks/useSettingsHook.tsx";
-import {useAuthLogout, useAuthQuery} from "../store/auth/hooks/useAuthHook.ts";
+import {useAuthQuery} from "../store/auth/hooks/useAuthHook.ts";
+import {useAuthLogout} from "../store/auth/hooks/useAuthLogoutHook.ts";
 
 export const AppMenu: React.FC = () => {
 	const navigate = useNavigate();

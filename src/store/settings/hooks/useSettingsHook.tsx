@@ -26,5 +26,8 @@ export const useSettingsQuery = () => {
 			});
 	};
 
-	return useQuery<TSettingsState, any>({queryKey: ['settings'], queryFn});
+	return useQuery<TSettingsState, any>({
+		queryKey: ['settings'],
+		queryFn,
+	});
 }
