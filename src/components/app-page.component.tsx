@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {matchRoutes} from "react-router";
 import {AppRoutes} from "../routes.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
-import {useAuthQuery} from "./hooks/useAuthHook.ts";
+import {useAuthQuery} from "../store/auth/hooks/useAuthHook.ts";
 
 export type TAppPageProps = {
 	title?: string

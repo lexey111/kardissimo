@@ -6,8 +6,8 @@ import {AiFillQuestionCircle} from "react-icons/ai";
 import {Button} from "./utils/button.component.tsx";
 import {UserAvatar} from "./utils/user-avatar.component.tsx";
 import {AppSettings} from "./settings/app-settings.component.tsx";
-import {useSettingsQuery} from "./hooks/useSettingsHook.tsx";
-import {useAuthLogout, useAuthQuery} from "./hooks/useAuthHook.ts";
+import {useSettingsQuery} from "../store/settings/hooks/useSettingsHook.tsx";
+import {useAuthLogout, useAuthQuery} from "../store/auth/hooks/useAuthHook.ts";
 
 export const AppMenu: React.FC = () => {
 	const navigate = useNavigate();

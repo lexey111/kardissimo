@@ -1,7 +1,7 @@
 import React from "react";
 import {Appearances} from "../../resources/appearance.ts";
 import {AppearanceItem} from "./appearance-item.component.tsx";
-import {useSettingsQuery} from "../hooks/useSettingsHook.tsx";
+import {useSettingsQuery} from "../../store/settings/hooks/useSettingsHook.tsx";
 import {WaitInline} from "../utils/wait-inline.component.tsx";
 
 export type TAppearanceSelectorProps = {

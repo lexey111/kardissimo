@@ -7,10 +7,10 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import {TCardListTableMode, TCardListTableViewMode} from "../../../../../store/settings/settings-types.ts";
 import {PreviewCell} from "./card-table-preview.component.tsx";
 import {RemoveCell} from "./card-table-remove.component.tsx";
-import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
+import {useCardNavigateHook} from "../../../../../hooks/useCardNavigate.hook.tsx";
 import {TCard, TCardboxSide} from "../../../../../store/data/types.ts";
 import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts";
-import {useSettingsQuery} from "../../../../../components/hooks/useSettingsHook.tsx";
+import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 import {WaitInline} from "../../../../../components/utils/wait-inline.component.tsx";
 
 export type TCardTableProps = {

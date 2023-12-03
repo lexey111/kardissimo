@@ -5,8 +5,8 @@ import {AppFooter} from "./components/app-footer.component.tsx";
 import {WaitGlobal} from "./components/utils/wait-global.component.tsx";
 import {Slide, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useSettingsQuery} from "./components/hooks/useSettingsHook.tsx";
-import {useAuthQuery} from "./components/hooks/useAuthHook.ts";
+import {useSettingsQuery} from "./store/settings/hooks/useSettingsHook.tsx";
+import {useAuthQuery} from "./store/auth/hooks/useAuthHook.ts";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 
 

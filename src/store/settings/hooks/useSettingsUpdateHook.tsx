@@ -1,8 +1,8 @@
-import useSupabase from "./useSupabase.tsx";
-import {TSettingsState} from "../../store/settings/settings-types.ts";
+import useSupabase from "../../useSupabase.tsx";
+import {TSettingsState} from "../settings-types.ts";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {updateSettings} from "../queries/update-settings.ts";
-import {TUser} from "../../store/auth/auth-types.ts";
+import {TUser} from "../../auth/auth-types.ts";
 
 export const useUpdateSettingsMutation = () => {
 	const client = useSupabase();

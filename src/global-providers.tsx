@@ -3,8 +3,8 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {AppRoutes} from "./routes.tsx";
 import {Appearances} from "./resources/appearance.ts";
 import {assignGlobalStyles} from "./store/settings/settings-utils.ts";
-import {queryClient} from "./query-client.ts";
-import {useAuthQuery} from "./components/hooks/useAuthHook.ts";
+import {queryClient} from "./store/query-client.ts";
+import {useAuthQuery} from "./store/auth/hooks/useAuthHook.ts";
 import {WaitGlobal} from "./components/utils/wait-global.component.tsx";
 
 const router = createBrowserRouter(AppRoutes);

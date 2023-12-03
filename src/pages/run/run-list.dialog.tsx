@@ -6,7 +6,7 @@ import {TCardbox} from "../../store/data/types.ts";
 import {RadioGroup} from "@headlessui/react";
 import {ImRadioChecked, ImRadioUnchecked} from "react-icons/im";
 import {PiExamFill} from "react-icons/pi";
-import {useScreenSize} from "../../components/hooks/useScreenSize.hook.tsx";
+import {useScreenSize} from "../../hooks/useScreenSize.hook.tsx";
 import Slider from "rc-slider";
 import {FaShuffle} from "react-icons/fa6";
 import {MdOutlineLinearScale} from "react-icons/md";

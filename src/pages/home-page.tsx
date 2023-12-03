@@ -4,10 +4,10 @@ import {PageHeader} from "../components/utils/page-header.component.tsx";
 import {KardissimoScene} from "../components/presentation/kardissimo-scene.tsx";
 import {Button} from "../components/utils/button.component.tsx";
 import {useNavigate} from "react-router-dom";
-import {useSettingsQuery} from "../components/hooks/useSettingsHook.tsx";
+import {useSettingsQuery} from "../store/settings/hooks/useSettingsHook.tsx";
 import {assignGlobalStyles} from "../store/settings/settings-utils.ts";
 import {defaultAppState} from "../store/settings/settings-types.ts";
-import {useAuthQuery} from "../components/hooks/useAuthHook.ts";
+import {useAuthQuery} from "../store/auth/hooks/useAuthHook.ts";
 
 export const HomePage: React.FC = () => {
 	const navigate = useNavigate();

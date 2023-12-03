@@ -1,6 +1,6 @@
-import useSupabase from "./useSupabase.tsx";
+import useSupabase from "../store/useSupabase.tsx";
 import {useQuery} from "@tanstack/react-query";
-import {getCardboxById} from "../queries/get-cardbox-by-id.ts";
+import {getCardboxById} from "../store/queries/get-cardbox-by-id.ts";
 
 function useOrganizationQuery(cardboxId: number) {
 	const client = useSupabase();

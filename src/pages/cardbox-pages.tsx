@@ -2,7 +2,7 @@ import React from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {Outlet, useParams} from "react-router-dom";
 import {getCardbox} from "../store/data/cardboxes-store.selectors.ts";
-import {useExclusiveHook} from "../components/hooks/useExclusive.hook.tsx";
+import {useExclusiveHook} from "../hooks/useExclusive.hook.tsx";
 import {CardboxHeader} from "./cardbox/cardbox-header.component.tsx";
 
 export const CardboxPages: React.FC = () => {

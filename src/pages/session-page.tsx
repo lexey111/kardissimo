@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
-import {useExclusiveHook} from "../components/hooks/useExclusive.hook.tsx";
+import {useExclusiveHook} from "../hooks/useExclusive.hook.tsx";
 import {getCardbox} from "../store/data/cardboxes-store.selectors.ts";
 import {PageError} from "../types.ts";
 import {SessionStage} from "./session/session-stage.tsx";

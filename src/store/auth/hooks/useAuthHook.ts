@@ -1,6 +1,6 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {supabase} from "../../store/supabase.ts";
-import {noUserData, TUser} from "../../store/auth/auth-types.ts";
+import {supabase} from "../../supabase.ts";
+import {noUserData, TUser} from "../auth-types.ts";
 import {queryClient} from "../../query-client.ts";
 
 export const useAuthQuery = () => {

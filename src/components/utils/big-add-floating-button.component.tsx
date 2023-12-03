@@ -1,6 +1,6 @@
 import React from "react";
 import {BigAddButton} from "./big-add-button.component.tsx";
-import {useHeight} from "../hooks/useHeight.hook.tsx";
+import {useHeight} from "../../hooks/useHeight.hook.tsx";
 
 
 export type TAddBigButtonFloatingProps = {

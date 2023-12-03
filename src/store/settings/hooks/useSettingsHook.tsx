@@ -1,9 +1,9 @@
-import useSupabase from "./useSupabase.tsx";
+import useSupabase from "../../useSupabase.tsx";
 import {useQuery} from "@tanstack/react-query";
 import {getSettingsByUser} from "../queries/get-settings-by-user.ts";
-import {defaultAppState, TSettingsState} from "../../store/settings/settings-types.ts";
+import {defaultAppState, TSettingsState} from "../settings-types.ts";
 import {queryClient} from "../../query-client.ts";
-import {TUser} from "../../store/auth/auth-types.ts";
+import {TUser} from "../../auth/auth-types.ts";
 
 export const useSettingsQuery = () => {
 	const client = useSupabase();

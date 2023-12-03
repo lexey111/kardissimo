@@ -3,12 +3,12 @@ import {useParams} from "react-router-dom";
 import {PageNotFound} from "../../../../components/utils/page-not-found.component.tsx";
 import {CardList} from "../card/list/card-list.component.tsx";
 import {CardListHeader} from "../card/list/card-list-header.component.tsx";
-import {useCardNavigateHook} from "../../../../components/hooks/useCardNavigate.hook.tsx";
+import {useCardNavigateHook} from "../../../../hooks/useCardNavigate.hook.tsx";
 import {BigAddFloatingButton} from "../../../../components/utils/big-add-floating-button.component.tsx";
 import {CardListAdd} from "../card/list/card-list-add.component.tsx";
 import {CardsNoData} from "./card-list-no-data.component.tsx";
 import {ICardboxState, useCardboxStore} from "../../../../store/data/cardboxes-store.ts";
-import {useSettingsQuery} from "../../../../components/hooks/useSettingsHook.tsx";
+import {useSettingsQuery} from "../../../../store/settings/hooks/useSettingsHook.tsx";
 import {WaitGlobal} from "../../../../components/utils/wait-global.component.tsx";
 
 export const CardboxCards: React.FC = () => {

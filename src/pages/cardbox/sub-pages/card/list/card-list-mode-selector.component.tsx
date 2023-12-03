@@ -9,8 +9,8 @@ import {Button} from "../../../../../components/utils/button.component.tsx";
 import {CardImport} from "../../cards/card-import.component.tsx";
 import {useParams} from "react-router-dom";
 import {getCardbox} from "../../../../../store/data/cardboxes-store.selectors.ts";
-import {useSettingsQuery} from "../../../../../components/hooks/useSettingsHook.tsx";
-import {useUpdateSettingsMutation} from "../../../../../components/hooks/useSettingsUpdateHook.tsx";
+import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
+import {useUpdateSettingsMutation} from "../../../../../store/settings/hooks/useSettingsUpdateHook.tsx";
 
 export type TCardListModeSelectorProps = {
 	sides?: Array<TCardboxSide>

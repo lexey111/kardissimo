@@ -4,9 +4,9 @@ import {CardRemoveButton} from "../card-remove.button.tsx";
 import {TCardListStyle} from "../../../../../store/settings/settings-types.ts";
 import {TCardboxSide} from "../../../../../store/data/types.ts";
 import {getCard} from "../../../../../store/data/cardboxes-store.selectors.ts";
-import {useCardNavigateHook} from "../../../../../components/hooks/useCardNavigate.hook.tsx";
+import {useCardNavigateHook} from "../../../../../hooks/useCardNavigate.hook.tsx";
 import {DraggableCard} from "./draggable-card.component.tsx";
-import {useSettingsQuery} from "../../../../../components/hooks/useSettingsHook.tsx";
+import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 
 export type TCardListItemProps = {
 	cardboxId?: string

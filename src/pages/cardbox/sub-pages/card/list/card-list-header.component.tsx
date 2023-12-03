@@ -3,7 +3,7 @@ import {CardListModeSelector} from "./card-list-mode-selector.component.tsx";
 import {ICardboxState, useCardboxStore} from "../../../../../store/data/cardboxes-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {getCardbox} from "../../../../../store/data/cardboxes-store.selectors.ts";
-import {useSettingsQuery} from "../../../../../components/hooks/useSettingsHook.tsx";
+import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 
 export type TCardListHeaderProps = {
 	cardboxId?: string

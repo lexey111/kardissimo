@@ -2,7 +2,7 @@ import React, {useCallback} from "react";
 import {ICardboxState, useCardboxStore} from "../../../../../store/data/cardboxes-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {BigAddButton} from "../../../../../components/utils/big-add-button.component.tsx";
-import {useSettingsQuery} from "../../../../../components/hooks/useSettingsHook.tsx";
+import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 
 export type TCardListAddProps = {
 	cardboxId?: string

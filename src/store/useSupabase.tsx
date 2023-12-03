@@ -1,5 +1,5 @@
 import {useMemo} from 'react';
-import {getSupabaseClient} from "../../store/supabase.ts";
+import {getSupabaseClient} from "./supabase.ts";
 
 function useSupabase() {
 	return useMemo(getSupabaseClient, []);
