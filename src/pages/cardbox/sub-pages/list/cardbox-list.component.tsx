@@ -1,17 +1,19 @@
 import React from "react";
-import {ICardboxState, useCardboxStore} from "../../../../store/data/cardboxes-store.ts";
 import {CardboxListItem} from "./cardbox-list.item.component.tsx";
-import {useShallow} from "zustand/react/shallow";
 import {EmptyCardboxListAdd} from "./empty-cardbox-list-add.component.tsx";
 import {CardboxListAddItem} from "./cardbox-list.add-item.component.tsx";
 import {IoIosAddCircle} from "react-icons/io";
-
-const selector = (state: ICardboxState) => state.cardboxes.map(c => c.id);
+import {useCardboxes} from "../../../../store/cardboxes/hooks/useCardboxesHook.tsx";
+import {WaitInline} from "../../../../components/utils/wait-inline.component.tsx";
 
 export const CardboxList: React.FC = () => {
-	const cardboxIds = useCardboxStore(useShallow(selector));
+	const {data, isLoading} = useCardboxes();
 
-	if (!cardboxIds || cardboxIds.length === 0) {
+	if (isLoading) {
+		return <WaitInline text={'Loading data...'}/>;
+	}
+
+	if (!data || data.length === 0) {
 		return <div className={'cardbox-list empty'}>
 			<EmptyCardboxListAdd/>
 			<p className={'no-data-text'}>
@@ -23,9 +25,9 @@ export const CardboxList: React.FC = () => {
 	}
 
 	return <div className={'cardbox-list'}>
-		{cardboxIds.map(cardboxId => {
-			return <div key={cardboxId} className={'cardbox-item'}>
-				<CardboxListItem id={cardboxId!}/>
+		{data.map(cardbox => {
+			return <div key={cardbox.id} className={'cardbox-item'}>
+				<CardboxListItem cardbox={cardbox}/>
 			</div>;
 		})}
 		<CardboxListAddItem/>

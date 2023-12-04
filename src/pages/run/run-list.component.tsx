@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useRef, useState} from "react";
 import {ICardboxState, useCardboxStore} from "../../store/data/cardboxes-store.ts";
 import {useShallow} from "zustand/react/shallow";
 import {RunCardboxCard} from "./run-cardbox.card.tsx";
-import {TCardbox} from "../../store/data/types.ts";
+import {TCardbox} from "../../store/cardboxes/types.ts";
 import {CardboxScene} from "../../components/3d/cardbox-scene.component.tsx";
 import {PageHeader} from "../../components/utils/page-header.component.tsx";
 import {RunListDialog} from "./run-list.dialog.tsx";

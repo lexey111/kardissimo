@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {TCardbox} from "./types.ts";
+import {TCardbox} from "../cardboxes/types.ts";
 
 export type ICardboxState = {
 	cardboxes: Array<TCardbox>

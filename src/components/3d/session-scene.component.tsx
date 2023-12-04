@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import {Canvas} from "@react-three/fiber";
 import {FlatCard} from "./card/flat-card.component.tsx";
-import {TPreparedCard} from "../../store/data/types.ts";
+import {TPreparedCard} from "../../store/cardboxes/types.ts";
 import {animated, Controller} from "@react-spring/three";
 import {easeInOut} from "framer-motion";
 import {useDebouncedResizeHook} from "../../hooks/useDebouncedResize.hook.tsx";

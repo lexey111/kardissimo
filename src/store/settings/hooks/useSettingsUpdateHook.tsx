@@ -4,13 +4,13 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {updateSettings} from "../queries/update-settings.ts";
 import {TUser} from "../../auth/auth-types.ts";
 
-export const useUpdateSettingsMutation = () => {
+export const useSettingsUpdate = () => {
 	const client = useSupabase();
 	const queryClient = useQueryClient();
-	const userData: TUser = queryClient.getQueryData(['auth']) as TUser;
+	const user: TUser = queryClient.getQueryData(['auth']) as TUser;
 
 	const mutationFn = async (settings: Partial<TSettingsState>) => {
-		if (!userData?.id) {
+		if (!user?.id) {
 			return null;
 		}
 
@@ -20,7 +20,7 @@ export const useUpdateSettingsMutation = () => {
 			return {...old, updating: false};
 		});
 
-		return updateSettings(client, {userId: userData.id, data: settings}).then(
+		return updateSettings(client, {userId: user.id, data: settings}).then(
 			(result) => result.data
 		);
 	};

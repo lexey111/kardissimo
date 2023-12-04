@@ -1,13 +1,12 @@
 import {SupabaseClient} from "@supabase/supabase-js";
 
-export function getCardboxById(
+export function getAllCardboxesByUser(
 	client: SupabaseClient,
-	cardboxId: number
+	userId: string
 ) {
 	return client
 		.from('cardboxes')
-		.select()
-		.eq('id', cardboxId)
-		.throwOnError()
-		.single();
+		.select('')
+		.eq('owner', userId)
+		.throwOnError();
 }

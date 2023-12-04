@@ -1,19 +1,19 @@
 import React, {useCallback} from "react";
-import {useCardboxStore} from "../../../../store/data/cardboxes-store.ts";
 import {useNavigate} from "react-router-dom";
+import {TSCardbox} from "../../../../store/cardboxes/types.ts";
+import {getSideColorsBySchema} from "../../../../store/cardboxes/cardboxes-utils.ts";
 import {CardboxActions} from "./cardbox-actions.component.tsx";
 
 export type TCardboxItemProps = {
-	id: string
+	cardbox: TSCardbox
 }
 
-export const CardboxListItem: React.FC<TCardboxItemProps> = React.memo(({id}) => {
-	const cardbox = useCardboxStore((state) => state.cardboxes.find(c => c.id === id));
+export const CardboxListItem: React.FC<TCardboxItemProps> = ({cardbox}) => {
 	const navigate = useNavigate();
 
 	const goCards = useCallback(() => {
-		navigate(`/cardboxes/${id}/cards`);
-	}, [id, navigate]);
+		navigate(`/cardboxes/${cardbox.id}/cards`);
+	}, [cardbox.id, navigate]);
 
 	const handleEnter = useCallback((e: any) => {
 		if (e.key === 'Enter' || e.key === ' ') {
@@ -25,7 +25,8 @@ export const CardboxListItem: React.FC<TCardboxItemProps> = React.memo(({id}) =>
 		return null;
 	}
 
-	const hasCards = cardbox.cards?.length && cardbox.cards.length > 0;
+	const hasCards = false;
+	// const hasCards = cardbox.cards?.length && cardbox.cards.length > 0;
 
 	return <div className={'cardbox-item-content-wrapper'}>
 		<div className={'cardbox-title'}>
@@ -36,46 +37,50 @@ export const CardboxListItem: React.FC<TCardboxItemProps> = React.memo(({id}) =>
 				<div
 					className={'cardbox-pseudo-card' + (!hasCards ? ' single' : '')}
 					style={{
-						background: cardbox?.sides?.[0].color || '#eee',
-						color: cardbox?.sides?.[0].textColor || '#222',
+						background: getSideColorsBySchema(cardbox.side1schema).color || '#eee',
+						color: getSideColorsBySchema(cardbox.side1schema).textColor || '#222',
 					}}
 					tabIndex={0}
 					onKeyDown={handleEnter}
 					onClick={goCards}>
 				<span>
-					{cardbox.cards?.length || 0}
+					{/*{cardbox.cards?.length || 0}*/}
 				</span>
 				</div>
 				{hasCards && <>
 					<div className={'extra-cards'} style={{
-						background: cardbox?.sides?.[0].color || '#eee',
+						background: getSideColorsBySchema(cardbox.side1schema).color || '#eee',
 					}}></div>
 					<div className={'extra-cards second'} style={{
-						background: cardbox?.sides?.[1].color || '#eee',
+						background: getSideColorsBySchema(cardbox.side2schema).color || '#eee',
 					}}></div>
 				</>}
 				{hasCards && <div className={'card-shadow'}></div>}
 			</div>
 			<div className={'cardbox-wrapper'}>
 				<div className={'cardbox-author'}><b>by</b> {cardbox.author || 'Unknown'}</div>
-				<div className={'cardbox-sides'}><b>Sides:</b> {cardbox.sides?.map(s => s.name).join(', ')}</div>
+				<div className={'cardbox-sides'}><b>Sides:</b> {cardbox.side1title}, {cardbox.side2title}</div>
+				{cardbox.description &&
+					<div className={'cardbox-sides'}><b>Description:</b> {cardbox.description}</div>}
 
-				{cardbox.stat?.created_at && <div className={'cardbox-created'}>
-					<b>Created:</b> {new Intl.DateTimeFormat(undefined, {
-					dateStyle: 'long',
-					timeStyle: 'short',
-				}).format(cardbox.stat?.created_at)}
+				{(cardbox.created_at || cardbox.changed_at) && <div className={'cardbox-times'}>
+					{cardbox.created_at && <div className={'cardbox-created'}>
+						<b>Created:</b> {new Intl.DateTimeFormat(undefined, {
+						dateStyle: 'long',
+						timeStyle: 'short',
+					}).format(new Date(cardbox.created_at))}
+					</div>}
+
+					{cardbox.changed_at && <div className={'cardbox-changed'}>
+						<b>Last change:</b> {new Intl.DateTimeFormat(undefined, {
+						dateStyle: 'long',
+						timeStyle: 'short',
+					}).format(new Date(cardbox.changed_at))}
+					</div>}
 				</div>}
 
-				{cardbox.stat?.changed_at && <div className={'cardbox-changed'}>
-					<b>Last change:</b> {new Intl.DateTimeFormat(undefined, {
-					dateStyle: 'long',
-					timeStyle: 'short',
-				}).format(cardbox.stat?.changed_at)}
-				</div>}
-
-				<CardboxActions id={cardbox.id!}/>
+				<CardboxActions cardbox={cardbox}/>
 			</div>
 		</div>
 	</div>;
-}, () => true);
+};

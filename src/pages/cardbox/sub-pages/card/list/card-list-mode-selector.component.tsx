@@ -4,13 +4,13 @@ import {FaGrip, FaTable} from "react-icons/fa6";
 import {RiEditBoxFill} from "react-icons/ri";
 import {AiFillEye} from "react-icons/ai";
 import {TbViewportNarrow, TbViewportWide} from "react-icons/tb";
-import {TCardboxSide} from "../../../../../store/data/types.ts";
+import {TCardboxSide} from "../../../../../store/cardboxes/types.ts";
 import {Button} from "../../../../../components/utils/button.component.tsx";
 import {CardImport} from "../../cards/card-import.component.tsx";
 import {useParams} from "react-router-dom";
 import {getCardbox} from "../../../../../store/data/cardboxes-store.selectors.ts";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
-import {useUpdateSettingsMutation} from "../../../../../store/settings/hooks/useSettingsUpdateHook.tsx";
+import {useSettingsUpdate} from "../../../../../store/settings/hooks/useSettingsUpdateHook.tsx";
 
 export type TCardListModeSelectorProps = {
 	sides?: Array<TCardboxSide>
@@ -18,7 +18,7 @@ export type TCardListModeSelectorProps = {
 export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({sides}) => {
 	const {isLoading, error, data: appState} = useSettingsQuery();
 
-	const updateSettingsMutation = useUpdateSettingsMutation();
+	const updateSettingsMutation = useSettingsUpdate();
 	const params = useParams();
 	const cardbox = getCardbox(params.cardboxId);
 

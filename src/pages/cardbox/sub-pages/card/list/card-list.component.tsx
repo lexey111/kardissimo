@@ -4,7 +4,7 @@ import {CardTable} from "../table/card-table.component.tsx";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts";
-import {TCardbox} from "../../../../../store/data/types.ts";
+import {TCardbox} from "../../../../../store/cardboxes/types.ts";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 
 export type TCardListProps = {

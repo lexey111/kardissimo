@@ -6,6 +6,7 @@ export type TColorSchemeContent = {
 export type TColorScheme = Record<string, TColorSchemeContent>;
 
 export const ColorSchemes: TColorScheme = {
+	'Default': {textColor: '#111', color: '#f2f2f2'},
 	'White and Black': {textColor: '#222', color: '#eee'},
 	'White and Blue': {textColor: '#004491', color: '#eee'},
 	'White and Red': {textColor: '#910033', color: '#eee'},

@@ -8,8 +8,8 @@ import {TUser} from "../../auth/auth-types.ts";
 export const useSettingsQuery = () => {
 	const client = useSupabase();
 	const queryFn = async () => {
-		const data: TUser = queryClient.getQueryData(['auth']) as TUser;
-		if (!data?.id) {
+		const user: TUser = queryClient.getQueryData(['auth']) as TUser;
+		if (!user?.id) {
 			return {...defaultAppState};
 		}
 

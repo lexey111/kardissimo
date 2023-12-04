@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import {getCard, getCardbox} from "../../../../store/data/cardboxes-store.selectors.ts";
 import {useNavigate} from "react-router-dom";
-import {TCard} from "../../../../store/data/types.ts";
+import {TCard} from "../../../../store/cardboxes/types.ts";
 import {CardEditorForm} from "./card-editor-form.component.tsx";
 import {createCard, getDefaultCard, removeCard, updateCard} from "../../../../store/data/cardboxes-store.actions.ts";
 

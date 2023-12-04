@@ -1,16 +1,14 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {Tooltip} from 'react-tooltip';
-import {TCardbox, TCardboxSide} from "../../../../store/data/types.ts";
+import {TSCardbox, TSCardboxKey} from "../../../../store/cardboxes/types.ts";
 import {CardPreview} from "../../../../components/3d/card-preview-component.tsx";
 import {FaGrip} from "react-icons/fa6";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {IoCheckmarkCircle} from "react-icons/io5";
-import {defaultCardbox} from "../../../../store/data/cardboxes-store.selectors.ts";
 import Select from 'react-select'
-import {ColorSchemes} from "../../../../resources/colors.ts";
-import {Switch} from "../../../../components/utils/switch.component.tsx";
 import {colorSchemaOptions, FontNameOptions, FontSizeOptions} from "../../../../resources/options.ts";
 import {MinScreenWidthContainer} from "../../../../components/utils/min-screen-width-container.tsx";
+import {getSideColorsBySchema} from "../../../../store/cardboxes/cardboxes-utils.ts";
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -24,13 +22,14 @@ function validateRequired(value?: string): string | null {
 }
 
 export type TCardboxDetailsFormProps = {
-	initialState: TCardbox
+	initialState: TSCardbox
 	onSubmit: (data: any) => void
 	onCancel: () => void
 	goCards: (data: any) => void
 	isNew: boolean
 }
 
+const sidePlaceholders = ['English', 'Español'];
 
 export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 	{
@@ -40,13 +39,11 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 		goCards,
 		isNew
 	}) => {
-	const [state, setState] = useState(initialState);
-	const initialHash = useMemo(() => JSON.stringify(initialState), [initialState]);
+	const [state, setState] = useState<TSCardbox>(initialState);
 
-	const [touched, setTouched] = useState(false);
 	const [errors, setErrors] = useState<Record<string, string> | null>(null);
 	const [side, setSide] = useState(0);
-	const [useFirst, setUseFirst] = useState(false);
+	// const [useFirst, setUseFirst] = useState(false);
 
 	const hasErrors = errors && Object.keys(errors).length > 0;
 
@@ -70,49 +67,8 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 	}, []);
 
 	const onChangeInput = useCallback((name: string, e: any) => {
-		const value = e.target.value;
+		const value = e?.target?.value || e?.value;
 		setState(state => ({...state, [name]: value}));
-	}, []);
-
-	const onChangeColorSchema = useCallback((index: number, e: any) => {
-		const schemeName = e.value;
-		const scheme = ColorSchemes[schemeName];
-		if (!scheme) {
-			return;
-		}
-
-		setState(state => {
-			const updatedSides = state.sides?.map((side, idx) => {
-				if (idx !== index) {
-					return side;
-				}
-				return {
-					...side,
-					colorSchemaName: schemeName,
-					color: scheme.color,
-					textColor: scheme.textColor
-				}
-			});
-
-			return {...state, sides: updatedSides};
-		});
-	}, []);
-
-	const onChangeSideInput = useCallback((name: string, index: number, e: any) => {
-		const value = e.target
-			? e.target.value
-			: e.value ? e.value : e;
-
-		setState(state => {
-			const updatedSides = state.sides?.map((side, idx) => {
-				if (idx !== index) {
-					return side;
-				}
-				return {...side, [name]: value}
-			});
-
-			return {...state, sides: updatedSides};
-		});
 	}, []);
 
 	useEffect(() => {
@@ -120,9 +76,6 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 	}, [initialState]);
 
 	useEffect(() => {
-		const isTouched = JSON.stringify(state) !== initialHash;
-		setTouched(isTouched);
-
 		const errors: Record<string, string> = {};
 		const badTitle = validateRequired(state.title);
 
@@ -130,45 +83,74 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 			errors.title = badTitle;
 		}
 
-		state?.sides?.forEach((side, idx) => {
-			const badName = validateRequired(side.name);
+		[1, 2].forEach(side => {
+			// @ts-ignore
+			const badName = validateRequired(state[`side${side}title`]);
 			if (badName) {
-				errors['name' + idx] = badName;
+				errors[`side${side}title`] = badName;
 			}
 		});
 
 		if (Object.keys(errors).length > 0) {
-			setErrors(errors);
+			setErrors(() => errors);
 		} else {
-			setErrors(null);
+			setErrors(() => null);
 		}
-	}, [initialHash, state]);
+	}, [initialState, state]);
 
 
-	const titleError = touched && errors?.title;
-	const titleClass = touched
-		? errors?.title ? ' invalid' : ' valid'
-		: '';
+	const titleError = errors?.title;
+	const titleClass = errors?.title ? ' invalid' : ' valid';
 
-	let facesData = {...defaultCardbox, cardboxSides: state.sides}
+	const facesData = {
+		id: 'none', sides: [
+			{
+				header: 'Header',
+				text: 'Hello',
+				footer: 'Footer',
+			},
+			{
+				header: 'encabezamdo de tarjeta',
+				text: '¡Hola!',
+				footer: 'pie de tarjeta',
+			},
+		],
+		cardboxSides: [
+			{
+				name: state.side1title,
+				fontName: state.side1fontName,
+				fontSize: state.side1fontSize,
+				colorSchemaName: state.side1schema,
+				...getSideColorsBySchema(state.side1schema)
+			},
+			{
+				name: state.side2title,
+				fontName: state.side2fontName,
+				fontSize: state.side2fontSize,
+				colorSchemaName: state.side2schema,
+				...getSideColorsBySchema(state.side2schema)
+			},
+		]
+	};
+	// let facesData = {...defaultCardbox, cardboxSides: state.sides};
 
-	if (useFirst && state.cards && state.cards.length > 0) {
-		facesData = {
-			id: 'none', sides: [
-				{
-					header: state.cards?.[0].sides?.[0]?.header || '',
-					text: state.cards?.[0].sides?.[0]?.text || '',
-					footer: state.cards?.[0].sides?.[0]?.footer || '',
-				},
-				{
-					header: state.cards?.[0].sides?.[1]?.header || '',
-					text: state.cards?.[0].sides?.[1]?.text || '',
-					footer: state.cards?.[0].sides?.[1]?.footer || '',
-				},
-			],
-			cardboxSides: state.sides
-		};
-	}
+	// if (useFirst && state.cards && state.cards.length > 0) {
+	// 	facesData = {
+	// 		id: 'none', sides: [
+	// 			{
+	// 				header: state.cards?.[0].sides?.[0]?.header || '',
+	// 				text: state.cards?.[0].sides?.[0]?.text || '',
+	// 				footer: state.cards?.[0].sides?.[0]?.footer || '',
+	// 			},
+	// 			{
+	// 				header: state.cards?.[0].sides?.[1]?.header || '',
+	// 				text: state.cards?.[0].sides?.[1]?.text || '',
+	// 				footer: state.cards?.[0].sides?.[1]?.footer || '',
+	// 			},
+	// 		],
+	// 		cardboxSides: state.sides
+	// 	};
+	// }
 
 	return <div className={'card-side-editor'}>
 		<div className={'form-editor'}>
@@ -209,35 +191,58 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 				</div>
 			</fieldset>
 
-			{state.sides?.map((_side: TCardboxSide, idx: number) => {
-				const name = 'sides[' + idx + '].name';
-				const fontName = 'sides[' + idx + '].fontName';
+			<fieldset>
+				<label htmlFor={'description'}>Description</label>
+				<div className={'field-set'}>
+								<textarea
+									id={'description'} name={'description'}
+									autoComplete="off"
+									value={state.description}
+									onFocus={() => handleFocus(-1)}
+									onChange={(e) => onChangeInput('description', e)}
+									maxLength={256}
+									placeholder="Description"/>
+				</div>
+			</fieldset>
 
-				const sideClass = touched && errors?.['name' + idx] ? ' invalid' : ' valid';
+			{[1, 2].map(sideNumber => {
+				const name = `side${sideNumber}title` as TSCardboxKey;
+				const fontName = `side${sideNumber}fontName` as TSCardboxKey;
+				const fontSizeName = `side${sideNumber}fontSize` as TSCardboxKey;
+				const schemaName = `side${sideNumber}schema` as TSCardboxKey;
 
-				const sideError = touched && errors?.['name' + idx];
+				const sideClass = errors?.[name] ? ' invalid' : ' valid';
+				const sideError = errors?.[name];
 
-				return <div key={name} data-side-idx={idx} className={'side-controls'}>
-					<h3>Side {idx + 1}</h3>
+				return <div key={name} data-side-idx={sideNumber - 1} className={'side-controls'}>
+					<h3>Side {sideNumber}</h3>
 
 					<fieldset className={'required' + sideClass}>
-						<label htmlFor={name}>Name</label>
+						<label htmlFor={name} style={{
+							color: getSideColorsBySchema(state[schemaName] as string).textColor
+						}}>
+							Name
+							<span style={{
+								background: getSideColorsBySchema(state[schemaName] as string).color,
+							}} className={'color-preview'}></span>
+						</label>
 						<div className={'field-set'}>
 							<input
 								id={name} name={name}
-								onFocus={() => handleFocus(idx)}
-								value={_side.name}
-								onChange={(e) => onChangeSideInput('name', idx, e)}
+								onFocus={() => handleFocus(sideNumber - 1)}
+								value={state[name] as string}
+								onChange={(e) => onChangeInput(name, e)}
 								autoComplete="off"
 								maxLength={64} size={30}
-								placeholder="English" type={'text'}/>
+								placeholder={sidePlaceholders[sideNumber - 1]}
+								type={'text'}/>
 
 							{sideError && <div>
-								<a data-tooltip-id={"title-tooltip-" + idx} className={'tooltip-error'}>⚠</a>
+								<a data-tooltip-id={"title-tooltip-" + sideNumber} className={'tooltip-error'}>⚠</a>
 								<Tooltip
-									id={"title-tooltip-" + idx} place={'right'}
+									id={"title-tooltip-" + sideNumber} place={'right'}
 									variant={'error'}>
-									{errors?.['name' + idx]}
+									{errors?.[name]}
 								</Tooltip>
 							</div>}
 						</div>
@@ -255,11 +260,11 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 									options={FontNameOptions}
 									className="react-select-container"
 									classNamePrefix="react-select"
-									onFocus={() => handleFocus(idx)}
+									onFocus={() => handleFocus(sideNumber - 1)}
 									isSearchable={false}
 									placeholder={'Font'}
-									onChange={(e) => onChangeSideInput('fontName', idx, e)}
-									value={FontNameOptions.filter((option: any) => option.value === _side.fontName)}
+									onChange={(e) => onChangeInput(fontName, e)}
+									value={FontNameOptions.filter((option: any) => option.value === state[fontName])}
 								/>
 
 								<div className={'font-size'}>
@@ -268,11 +273,11 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 										menuPlacement="auto"
 										className="react-select-container"
 										classNamePrefix="react-select"
-										onFocus={() => handleFocus(idx)}
+										onFocus={() => handleFocus(sideNumber - 1)}
 										isSearchable={false}
 										placeholder={'Size'}
-										onChange={(e) => onChangeSideInput('fontSize', idx, e)}
-										value={FontSizeOptions.filter((option: any) => option.value === _side.fontSize)}
+										onChange={(e) => onChangeInput(fontSizeName, e)}
+										value={FontSizeOptions.filter((option: any) => option.value === state[fontSizeName])}
 									/>
 								</div>
 							</div>
@@ -280,31 +285,31 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 					</div>
 
 					<fieldset>
-						<label htmlFor={'colorSchema' + idx}>Colors</label>
+						<label htmlFor={schemaName}>Colors</label>
 						<div className={'field-set'}>
 							<Select
-								name={'colorSchema' + idx}
-								inputId={'colorSchema' + idx}
+								name={schemaName}
+								inputId={'colorSchema' + sideNumber}
 								options={colorSchemaOptions}
 								className="react-select-container"
 								menuPlacement="top"
 								classNamePrefix="react-select"
-								onFocus={() => handleFocus(idx)}
+								onFocus={() => handleFocus(sideNumber - 1)}
 								isSearchable={true}
 								placeholder={'Color scheme'}
-								onChange={(e) => onChangeColorSchema(idx, e)}
-								value={colorSchemaOptions.filter((option: any) => option.value === _side.colorSchemaName)}
+								onChange={(e) => onChangeInput(schemaName, e)}
+								value={colorSchemaOptions.filter((option: any) => option.value === state[schemaName])}
 							/>
 						</div>
 					</fieldset>
 				</div>
 			})}
 
-			{(state?.cards?.length || 0) > 0 && <fieldset className={'checkbox-field'}>
-				<span className={'pseudo-label'}></span>
+			{/*<fieldset className={'checkbox-field'}>*/}
+			{/*	<span className={'pseudo-label'}></span>*/}
 
-				<Switch value={useFirst} onChange={setUseFirst} text={'Use texts of card #1 to preview'}/>
-			</fieldset>}
+			{/*	<Switch value={useFirst} onChange={setUseFirst} text={'Use texts of card #1 to preview'}/>*/}
+			{/*</fieldset>*/}
 
 			<fieldset className={'actions'}>
 				{!isNew && <Button
@@ -319,7 +324,7 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 				<Button
 					onClick={() => onSubmit(state)}
 					icon={<IoCheckmarkCircle/>}
-					disabled={hasErrors || (!isNew && !touched)}>
+					disabled={!!hasErrors}>
 					{isNew ? 'Create' : 'Save'}
 				</Button>
 			</fieldset>

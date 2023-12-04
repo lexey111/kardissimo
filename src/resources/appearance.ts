@@ -11,6 +11,9 @@ export type TAppAppearance = {
 	infoColor?: string
 	infoText?: string
 
+	inputBackground?: string
+	inputText?: string
+
 	dangerColor: string
 	dangerText?: string
 
@@ -23,6 +26,8 @@ export const Appearances: Array<TAppAppearance> = [
 		name: 'Default',
 		background: 'linear-gradient(150deg, #569AFF 10.21%, #88DFAB 84.57%)',
 		textColor: '#fff',
+		inputBackground: '#fff',
+		inputText: '#333',
 		linkColor: '#fff',
 		textLinkColor: '#0075ce',
 		primaryColor: '#0075ce',
@@ -37,6 +42,8 @@ export const Appearances: Array<TAppAppearance> = [
 		name: 'Deep Sky',
 		background: 'linear-gradient(10deg, #028dff 10.21%, #092f4f 84.57%)',
 		textColor: '#d3d8ec',
+		inputBackground: '#fff',
+		inputText: '#333',
 		linkColor: '#25d1ea',
 		textLinkColor: '#0667be',
 		primaryColor: '#165786',
@@ -51,6 +58,8 @@ export const Appearances: Array<TAppAppearance> = [
 		name: 'Bright Future',
 		background: 'linear-gradient(150deg, #0067ff 10.21%, #ff0099 84.57%)',
 		textColor: '#e4d4f1',
+		inputBackground: '#fff',
+		inputText: '#333',
 		linkColor: '#fa5ced',
 		textLinkColor: '#a203a0',
 		primaryColor: '#5d00ce',
@@ -67,6 +76,8 @@ export const Appearances: Array<TAppAppearance> = [
 		name: 'Snowflake',
 		background: '#f2f2f2',
 		textColor: '#404950',
+		inputBackground: '#fff',
+		inputText: '#333',
 		linkColor: '#599da6',
 		textLinkColor: '#56859b',
 		primaryColor: '#d7e0e7',
@@ -82,6 +93,8 @@ export const Appearances: Array<TAppAppearance> = [
 		name: 'Wrocław',
 		background: '#757575',
 		textColor: '#ddd',
+		inputBackground: '#dadada',
+		inputText: '#333',
 		linkColor: '#b0bfd2',
 		textLinkColor: '#536879',
 		primaryColor: '#323b44',
@@ -98,6 +111,8 @@ export const Appearances: Array<TAppAppearance> = [
 		name: 'Camisa Negra',
 		background: '#252525',
 		textColor: '#ccc',
+		inputBackground: '#232323',
+		inputText: '#bbb',
 		linkColor: '#85775d',
 		textLinkColor: '#d39a05',
 		primaryColor: '#936606',

@@ -21,6 +21,20 @@ body.theme-snow {
 	}
 }
 
+body.theme-dark {
+	.form-editor {
+		input::placeholder, textarea::placeholder, select::placeholder {
+			color: mixins.whiteTrans(.2);
+		}
+
+		fieldset {
+			&:focus-within {
+				background-color: mixins.blackTrans(0.1);
+			}
+		}
+	}
+}
+
 .form-editor {
 	display: flex;
 	flex-flow: column wrap;
@@ -31,7 +45,7 @@ body.theme-snow {
 	color: var(--app-modal-text);
 
 	input::placeholder, textarea::placeholder, select::placeholder {
-		color: var(--app-placeholder-color)
+		color: var(--app-placeholder-color);
 	}
 
 	h1, h2, h3 {
@@ -73,12 +87,17 @@ body.theme-snow {
 	}
 
 	h3 {
-		font-size: 1rem;
-		font-weight: 300;
-		background-color: mixins.whiteTrans(.4);
+		font-size: .9rem;
+		font-weight: 700;
+		background-color: mixins.whiteTrans(.2);
+		box-shadow: 0 1px 0 mixins.blackTrans(.1), 0 -1px 0 mixins.whiteTrans(.3);
+		justify-content: center;
 		text-align: center;
-		padding: 0;
+		width: auto;
+		//padding: 0 0 4px 1rem;
+		padding: 4px 0;
 		color: var(--app-section-headers-color);
+		margin: 14px 0;
 
 		&.title {
 			margin: 0 0 16px 0;
@@ -86,7 +105,7 @@ body.theme-snow {
 	}
 
 	fieldset {
-		padding: 6px 48px;
+		padding: 4px 48px;
 
 		label, .pseudo-label {
 			width: 6rem;
@@ -96,7 +115,7 @@ body.theme-snow {
 
 fieldset {
 	display: flex;
-	padding: 6px 0;
+	padding: 4px 0;
 	position: relative;
 	flex-flow: row wrap;
 	outline: none;
@@ -106,7 +125,7 @@ fieldset {
 	transition: all .2s ease;
 
 	&.actions {
-		margin: 48px 0 16px 0;
+		margin: 32px 0 12px 0;
 		justify-content: flex-end;
 
 		button {
@@ -134,6 +153,19 @@ fieldset {
 		font-weight: normal;
 		white-space: nowrap;
 		padding-right: 16px;
+		position: relative;
+
+		.color-preview {
+			position: absolute;
+			top: -4px;
+			//right: 32px;
+			bottom: -4px;
+			left: -32px;
+			width: 6rem;
+			z-index: -1;
+			border-radius: 16px;
+			box-shadow: 1px 1px 2px mixins.blackTrans();
+		}
 	}
 
 	&.required label {
@@ -234,7 +266,7 @@ fieldset {
 			color: var(--app-danger-background);
 
 			&::placeholder {
-				color: var(--app-placeholder-error-color);
+				//color: var(--app-placeholder-error-color);
 			}
 		}
 	}
@@ -286,23 +318,25 @@ input[type=text], textarea, select {
 	display: inline-flex;
 	margin: 0;
 	flex-grow: 2;
-	padding: 12px 16px;
+	padding: 9px 16px;
 	border: none;
-	border-bottom: 4px solid rgba(119, 119, 119, 0.1);
+	border-bottom: 2px solid transparent;
 	outline: none;
 	border-radius: 4px;
 	transition: all .4s ease;
+	background-color: var(--app-input-background);
+	color: var(--app-input-text);
 
 	&:focus {
-		box-shadow: 2px 2px 12px mixins.blackTrans(.2);
+		//box-shadow: 2px 2px 12px mixins.blackTrans(.2);
 		border: none;
-		border-bottom: 4px solid var(--app-accent-background);
+		border-bottom: 2px solid var(--app-accent-background);
 		outline: none;
 	}
 }
 
 textarea {
-	height: 4rem;
+	height: 3rem;
 	min-height: 2rem;
 	resize: vertical;
 }
@@ -334,29 +368,30 @@ textarea {
 	margin: 0;
 	width: 100%;
 	box-shadow: none;
+	color: var(--app-input-text);
 
 	.react-select__control {
 		width: 100%;
 		display: flex;
 		border: none;
-		border-bottom: 4px solid rgba(119, 119, 119, 0.1);
+		border-bottom: 2px solid rgba(119, 119, 119, 0.1);
 		outline: none;
 		border-radius: 4px;
 		margin: 0;
-		padding: 3px;
+		padding: 0 3px;
 		box-shadow: none;
 
-		//.react-select__input {
-		//	width: 40px !important;
-		//	color: red;
-		//	border: 1px solid red;
-		//	display: block;
-		//}
+		background-color: var(--app-input-background);
+		color: var(--app-input-text);
+
+		.react-select__single-value {
+			color: var(--app-input-text);
+		}
 
 		&:focus, &:hover, &:focus-within {
-			box-shadow: 2px 2px 12px mixins.blackTrans(.2);
+			//box-shadow: 2px 2px 12px mixins.blackTrans(.2);
 			border: none;
-			border-bottom: 4px solid var(--app-accent-background);
+			border-bottom: 2px solid var(--app-accent-background);
 			outline: none;
 			transition: all 0.4s ease;
 			transform: none;
@@ -369,6 +404,8 @@ textarea {
 	text-align: left;
 	white-space: nowrap;
 	box-shadow: 0 0 20px mixins.blackTrans(.6);
+	color: var(--app-input-text);
+	background-color: var(--app-input-background) !important;
 	//width: auto !important;
 }
 

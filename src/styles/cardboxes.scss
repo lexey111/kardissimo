@@ -310,7 +310,13 @@ body.deep-scroll-size {
 }
 
 .cardbox-wrapper {
-	.cardbox-created, .cardbox-changed, .cardbox-author, .cardbox-sides {
+	.cardbox-times {
+		margin-top: 1rem;
+		font-size: .8rem;
+		border-top: 1px solid mixins.blackTrans();
+	}
+
+	.cardbox-author, .cardbox-sides {
 		font-size: .9rem;
 	}
 

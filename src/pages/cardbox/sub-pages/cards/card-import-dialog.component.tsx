@@ -3,7 +3,7 @@ import {Button} from "../../../../components/utils/button.component.tsx";
 import {Modal} from "../../../../components/utils/modal-component.tsx";
 import {FaTrashCan} from "react-icons/fa6";
 import {AgGridReact} from "ag-grid-react";
-import {TCardboxSide} from "../../../../store/data/types.ts";
+import {TCardboxSide} from "../../../../store/cardboxes/types.ts";
 import Select from "react-select";
 
 const importModes: any = [

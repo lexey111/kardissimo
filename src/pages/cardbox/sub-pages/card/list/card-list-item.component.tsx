@@ -2,7 +2,7 @@ import React, {useCallback} from "react";
 import {CardSide} from "../card-side.component.tsx";
 import {CardRemoveButton} from "../card-remove.button.tsx";
 import {TCardListStyle} from "../../../../../store/settings/settings-types.ts";
-import {TCardboxSide} from "../../../../../store/data/types.ts";
+import {TCardboxSide} from "../../../../../store/cardboxes/types.ts";
 import {getCard} from "../../../../../store/data/cardboxes-store.selectors.ts";
 import {useCardNavigateHook} from "../../../../../hooks/useCardNavigate.hook.tsx";
 import {DraggableCard} from "./draggable-card.component.tsx";

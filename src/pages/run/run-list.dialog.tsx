@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {Button} from "../../components/utils/button.component.tsx";
 import {Modal} from "../../components/utils/modal-component.tsx";
 import {FaArrowLeft, FaPlayCircle} from "react-icons/fa";
-import {TCardbox} from "../../store/data/types.ts";
+import {TCardbox} from "../../store/cardboxes/types.ts";
 import {RadioGroup} from "@headlessui/react";
 import {ImRadioChecked, ImRadioUnchecked} from "react-icons/im";
 import {PiExamFill} from "react-icons/pi";

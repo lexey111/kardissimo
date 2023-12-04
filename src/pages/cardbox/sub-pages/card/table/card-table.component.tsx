@@ -8,7 +8,7 @@ import {TCardListTableMode, TCardListTableViewMode} from "../../../../../store/s
 import {PreviewCell} from "./card-table-preview.component.tsx";
 import {RemoveCell} from "./card-table-remove.component.tsx";
 import {useCardNavigateHook} from "../../../../../hooks/useCardNavigate.hook.tsx";
-import {TCard, TCardboxSide} from "../../../../../store/data/types.ts";
+import {TCard, TCardboxSide} from "../../../../../store/cardboxes/types.ts";
 import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 import {WaitInline} from "../../../../../components/utils/wait-inline.component.tsx";
