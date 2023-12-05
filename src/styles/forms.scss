@@ -158,13 +158,13 @@ fieldset {
 		.color-preview {
 			position: absolute;
 			top: -4px;
-			//right: 32px;
+			right: 40px;
 			bottom: -4px;
-			left: -32px;
-			width: 6rem;
+			left: -24px;
+			//width: 6rem;
 			z-index: -1;
 			border-radius: 16px;
-			box-shadow: 1px 1px 2px mixins.blackTrans();
+			box-shadow: 0 1px 2px mixins.blackTrans(), inset 0 0 0 1px mixins.whiteTrans();
 		}
 	}
 
@@ -289,15 +289,24 @@ fieldset {
 	justify-content: center;
 	right: -36px;
 	top: 50%;
-	margin-top: -14px;
+	transform: translateY(-50%);
 	background: var(--app-danger-background);
 	color: var(--app-danger-text);
+	box-shadow: 0 1px 4px mixins.blackTrans(.4);
 	border-radius: 100%;
-	width: 20px;
-	height: 20px;
+	width: 29px;
+	height: 29px;
 	line-height: 1;
-	padding: 4px;
-	font-size: 16px;
+	font-size: 17px;
+	text-decoration: none;
+	&:before {
+		content: '⚠';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		font-size: 17px;
+		transform: translateY(-50%) translateX(-50%);
+	}
 }
 
 label, .pseudo-label {

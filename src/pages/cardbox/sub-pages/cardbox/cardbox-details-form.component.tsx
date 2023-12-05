@@ -105,9 +105,9 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 	const facesData = {
 		id: 'none', sides: [
 			{
-				header: 'Header',
-				text: 'Hello',
-				footer: 'Footer',
+				header: 'header',
+				text: 'Hello!',
+				footer: 'footer',
 			},
 			{
 				header: 'encabezamdo de tarjeta',
@@ -167,7 +167,7 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 						onChange={(e) => onChangeInput('title', e)}
 						placeholder="My first cardbox" required/>
 					{titleError && <div>
-						<a data-tooltip-id="title-tooltip" className={'tooltip-error'}>⚠</a>
+						<a data-tooltip-id="title-tooltip" className={'tooltip-error'}></a>
 						<Tooltip
 							id="title-tooltip" place={'right'}
 							variant={'error'}>
@@ -218,13 +218,8 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 					<h3>Side {sideNumber}</h3>
 
 					<fieldset className={'required' + sideClass}>
-						<label htmlFor={name} style={{
-							color: getSideColorsBySchema(state[schemaName] as string).textColor
-						}}>
+						<label htmlFor={name}>
 							Name
-							<span style={{
-								background: getSideColorsBySchema(state[schemaName] as string).color,
-							}} className={'color-preview'}></span>
 						</label>
 						<div className={'field-set'}>
 							<input
@@ -238,7 +233,7 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 								type={'text'}/>
 
 							{sideError && <div>
-								<a data-tooltip-id={"title-tooltip-" + sideNumber} className={'tooltip-error'}>⚠</a>
+								<a data-tooltip-id={"title-tooltip-" + sideNumber} className={'tooltip-error'}></a>
 								<Tooltip
 									id={"title-tooltip-" + sideNumber} place={'right'}
 									variant={'error'}>
@@ -285,7 +280,14 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 					</div>
 
 					<fieldset>
-						<label htmlFor={schemaName}>Colors</label>
+						<label htmlFor={schemaName} style={{
+							color: getSideColorsBySchema(state[schemaName] as string).textColor
+						}}>
+							Colors
+							<span style={{
+								background: getSideColorsBySchema(state[schemaName] as string).color,
+							}} className={'color-preview'}></span>
+						</label>
 						<div className={'field-set'}>
 							<Select
 								name={schemaName}
@@ -326,6 +328,7 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 					icon={<IoCheckmarkCircle/>}
 					disabled={!!hasErrors}>
 					{isNew ? 'Create' : 'Save'}
+					{hasErrors && <a href='#' className={'tooltip-error'}></a>}
 				</Button>
 			</fieldset>
 		</div>
