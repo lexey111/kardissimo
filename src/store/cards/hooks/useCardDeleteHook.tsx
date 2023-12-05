@@ -9,7 +9,11 @@ export const useCardDelete = (cardboxId: number) => {
 
 	const mutationFn = async (cardId: number) => {
 		return deleteCard(client, {cardId}).then(
-			(result) => result.data
+			(result) => {
+
+				void queryClient.refetchQueries({queryKey: ['cardboxes']});
+				return result.data;
+			}
 		);
 	};
 

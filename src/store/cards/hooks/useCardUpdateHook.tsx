@@ -18,6 +18,9 @@ export const useCardUpdate = (cardboxId: number) => {
 			(result) => {
 				void queryClient.cancelQueries({queryKey: ['cards', cardboxId]});
 				void queryClient.refetchQueries({queryKey: ['cards', cardboxId]});
+				if (data.id === 0) {
+					void queryClient.refetchQueries({queryKey: ['cardboxes']});
+				}
 
 				return result.data;
 			}
