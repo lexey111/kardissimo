@@ -1,5 +1,5 @@
 import {customAlphabet, urlAlphabet} from 'nanoid';
-import {TCard, TCardbox, TCardEnriched} from "../cardboxes/types.ts";
+import {TCard, TCardbox, TCardEnriched} from "../cardboxes/types-cardbox.ts";
 import {useCardboxStore} from "./cardboxes-store.ts";
 import {defaultSide, getCardbox} from "./cardboxes-store.selectors.ts";
 

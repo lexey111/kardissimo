@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import {useNavigate} from "react-router-dom";
-import {TSCardbox} from "../../../../store/cardboxes/types.ts";
+import {TSCardbox} from "../../../../store/cardboxes/types-cardbox.ts";
 import {getSideColorsBySchema} from "../../../../store/cardboxes/cardboxes-utils.ts";
 import {CardboxActions} from "./cardbox-actions.component.tsx";
 
@@ -25,10 +25,9 @@ export const CardboxListItem: React.FC<TCardboxItemProps> = ({cardbox}) => {
 		return null;
 	}
 
-	const hasCards = false;
-	// const hasCards = cardbox.cards?.length && cardbox.cards.length > 0;
+	const hasCards = cardbox.cards_count > 0;
 
-	return <div className={'cardbox-item-content-wrapper'}>
+	return <div className={'cardbox-item-content-wrapper' + (cardbox.id === 0? ' unstable' : '')}>
 		<div className={'cardbox-title'}>
 			<span>{cardbox.title}</span>
 		</div>
@@ -44,7 +43,7 @@ export const CardboxListItem: React.FC<TCardboxItemProps> = ({cardbox}) => {
 					onKeyDown={handleEnter}
 					onClick={goCards}>
 				<span>
-					{/*{cardbox.cards?.length || 0}*/}
+					{cardbox.cards_count}
 				</span>
 				</div>
 				{hasCards && <>

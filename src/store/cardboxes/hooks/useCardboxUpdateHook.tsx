@@ -1,7 +1,7 @@
 import useSupabase from "../../useSupabase.tsx";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {TUser} from "../../auth/auth-types.ts";
-import {TSCardbox} from "../types.ts";
+import {TSCardbox} from "../types-cardbox.ts";
 import {updateOrCreateCardbox} from "../queries/update-cardbox.ts";
 
 export const useCardboxUpdate = () => {
@@ -14,22 +14,34 @@ export const useCardboxUpdate = () => {
 			return null;
 		}
 
-		return updateOrCreateCardbox(client, {userId: user.id, data: cardbox}).then(
-			(result) => result.data
-		);
+		return updateOrCreateCardbox(client, {userId: user.id, data: cardbox})
+			.then(
+				(result) => {
+					if (cardbox.id === -1 || cardbox.id === 0) {
+						void queryClient.cancelQueries({queryKey: ['cardboxes']});
+						void queryClient.refetchQueries({queryKey: ['cardboxes']});
+					}
+					return result.data;
+				}
+			);
 	};
 
 	return useMutation({
 		mutationFn,
 		onMutate: async (state) => {
 			await queryClient.cancelQueries({queryKey: ['cardboxes']});
-
 			const snapshot = queryClient.getQueryData(['cardboxes']);
 
 			queryClient.setQueryData(['cardboxes'], (old: Array<TSCardbox>) => {
-				return old.map(c => c.id === state.id ? state : c);
+				if (old.find(c => c.id === state.id)) {
+					return old.map(c => c.id === state.id ? state : c);
+				}
+				return [...old, state];
 			});
+
 			return {snapshot};
+		},
+		onSuccess: () => {
 		},
 		onError: () => {
 			void queryClient.refetchQueries({queryKey: ['cardboxes']});

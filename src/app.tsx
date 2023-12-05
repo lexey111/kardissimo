@@ -9,7 +9,7 @@ import {useSettingsQuery} from "./store/settings/hooks/useSettingsHook.tsx";
 import {useAuthQuery} from "./store/auth/hooks/useAuthHook.ts";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {assignGlobalStyles} from "./store/settings/settings-utils.ts";
-import {defaultAppState} from "./store/settings/settings-types.ts";
+import {defaultAppState} from "./store/settings/types-settings.ts";
 
 
 export const App: React.FC = () => {
@@ -18,8 +18,6 @@ export const App: React.FC = () => {
 	const {isLoading: settingsLoading, data: settingsData} = useSettingsQuery();
 
 	useEffect(() => {
-		console.log('User loading', userLoading)
-		console.log('User data', userData)
 		if (!userLoading && !settingsLoading) {
 			setBusy(false);
 		}

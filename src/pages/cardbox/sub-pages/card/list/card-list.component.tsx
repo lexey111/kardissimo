@@ -4,25 +4,25 @@ import {CardTable} from "../table/card-table.component.tsx";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts";
-import {TCardbox} from "../../../../../store/cardboxes/types.ts";
+import {TSCardbox} from "../../../../../store/cardboxes/types-cardbox.ts";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
+import {useCards} from "../../../../../store/cards/hooks/useCardsHook.tsx";
+import {WaitInline} from "../../../../../components/utils/wait-inline.component.tsx";
+import {PageNotFound} from "../../../../../components/utils/page-not-found.component.tsx";
 
 export type TCardListProps = {
-	cardbox: TCardbox
+	cardbox: TSCardbox
 }
 
 export const CardList: React.FC<TCardListProps> = ({cardbox}) => {
-	const {data: appState} = useSettingsQuery();
+	const {data: appState, isLoading} = useSettingsQuery();
+	const {data: cards, isLoading: isCardsLoading} = useCards(cardbox.id);
 
 	const [scrollPos, setScrollPos] = useState<number | undefined>(0);
 
-	const cardIds = cardbox.cards?.map(card => card.id);
-
-	const sides = cardbox.sides;
-
 	const handleMove = useCallback((dragIndex: number, hoverIndex: number) => {
 		setScrollPos(() => document.scrollingElement?.scrollTop || 0);
-		moveCardTo(cardbox!.id!, dragIndex, hoverIndex);
+		moveCardTo(cardbox.id, dragIndex, hoverIndex);
 	}, []);
 
 	useLayoutEffect(() => {
@@ -45,26 +45,32 @@ export const CardList: React.FC<TCardListProps> = ({cardbox}) => {
 
 	}, []);
 
-	if (!cardIds || cardIds.length === 0) {
-		return null;
+	if (isLoading || isCardsLoading) {
+		return <WaitInline text={'Loading data...'}/>;
+	}
+
+	if (!cards) {
+		return <PageNotFound message={`Cards for box #${cardbox.id} not found`}/>;
 	}
 
 	if (appState?.cardListStyle === 'table') {
 		// table style uses separate component
-		return <CardTable cardboxId={cardbox.id}/>;
+		return <CardTable
+			cardboxId={cardbox.id}
+			sides={[cardbox.side1title, cardbox.side2title]}
+			cards={cards}/>;
 	}
 
 	// list and card styles are serviced by CSS
 	return <div className={`card-list list-style-${appState?.cardListStyle || 'cards'}`}>
 		<DndProvider backend={HTML5Backend}>
-			{cardIds.map((cardId, idx) => {
+			{cards.map((card, idx) => {
 				return <CardListItem
-					key={cardId}
+					card={card}
+					cardbox={cardbox}
+					key={card.id}
 					index={idx}
-					cardboxId={cardbox.id}
 					handleMove={handleMove}
-					cardId={cardId}
-					sides={sides}
 					currentStyle={appState?.cardListStyle || 'cards'}
 				/>
 			})}

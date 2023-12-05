@@ -4,33 +4,30 @@ import {FaGrip, FaTable} from "react-icons/fa6";
 import {RiEditBoxFill} from "react-icons/ri";
 import {AiFillEye} from "react-icons/ai";
 import {TbViewportNarrow, TbViewportWide} from "react-icons/tb";
-import {TCardboxSide} from "../../../../../store/cardboxes/types.ts";
+import {TSCardbox, TSCardboxKey} from "../../../../../store/cardboxes/types-cardbox.ts";
 import {Button} from "../../../../../components/utils/button.component.tsx";
 import {CardImport} from "../../cards/card-import.component.tsx";
-import {useParams} from "react-router-dom";
-import {getCardbox} from "../../../../../store/data/cardboxes-store.selectors.ts";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 import {useSettingsUpdate} from "../../../../../store/settings/hooks/useSettingsUpdateHook.tsx";
 
 export type TCardListModeSelectorProps = {
-	sides?: Array<TCardboxSide>
+	cardbox: TSCardbox
 }
-export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({sides}) => {
+export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({cardbox}) => {
 	const {isLoading, error, data: appState} = useSettingsQuery();
 
 	const updateSettingsMutation = useSettingsUpdate();
-	const params = useParams();
-	const cardbox = getCardbox(params.cardboxId);
 
 	if (isLoading || error || !appState) {
 		return null;
 	}
 
 	return <div className={'list-mode-selector'}>
-		{(cardbox?.cards?.length || 0) > 10 && <div className={'lm-amount'}>
-			{cardbox?.cards?.length || ''}
+		{cardbox.cards_count > 10 && <div className={'lm-amount'}>
+			{cardbox.cards_count}
 		</div>}
-		{appState.cardListStyle === 'table' && (cardbox?.cards?.length || 0) > 0 &&
+
+		{appState.cardListStyle === 'table' && cardbox.cards_count > 0 &&
 			<div className={'table-mode-selector'}>
 				<div className={'pure-button-group'}>
 					<Button
@@ -62,21 +59,21 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({side
 				onClick={() => updateSettingsMutation.mutate({cardListStyle: 'table'})}/>
 		</div>
 
-		{appState.cardListStyle === 'cards' && (cardbox?.cards?.length || 0) > 0 &&
+		{appState.cardListStyle === 'cards' && cardbox.cards_count > 0 &&
 			<div className={'card-side-selector'}>
 				<div className={'pure-button-group'}>
-					{sides?.map((side, idx) => {
+					{[1, 2].map((side, idx) => {
 						return <Button
-							key={side.name + idx.toString()}
+							key={idx.toString()}
 							pressed={appState.selectedSide === idx}
 							onClick={() => updateSettingsMutation.mutate({selectedSide: idx})}>
-							{side.name}
+							{cardbox[`side${side}title` as TSCardboxKey]}
 						</Button>
 					})}
 				</div>
 			</div>}
 
-		{appState.cardListStyle === 'table' && (cardbox?.cards?.length || 0) > 0 &&
+		{appState.cardListStyle === 'table' && cardbox.cards_count > 0 &&
 			<div className={'table-wide-selector'}>
 				<div className={'pure-button-group'}>
 					<Button

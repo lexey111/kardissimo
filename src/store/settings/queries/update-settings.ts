@@ -1,5 +1,5 @@
 import {SupabaseClient} from "@supabase/supabase-js";
-import {defaultAppState, TSettingsState} from "../settings-types.ts";
+import {defaultAppState, TSettingsState} from "../types-settings.ts";
 import {getSettingsByUser} from "./get-settings-by-user.ts";
 
 export async function updateSettings(

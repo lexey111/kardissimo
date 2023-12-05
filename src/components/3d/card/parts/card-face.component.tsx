@@ -3,7 +3,7 @@ import React from "react";
 import {Text} from "@react-three/drei";
 import {CardSurface} from "./card-surface.component.tsx";
 import {cardThickness} from "./card-utils.ts";
-import {TPreparedSide} from "../../../../store/cardboxes/types.ts";
+import {TPreparedSide} from "../../../../store/cardboxes/types-cardbox.ts";
 
 export type TCardFaceProps = {
 	face: TPreparedSide

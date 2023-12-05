@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {TCard, TCardbox, TCardEnriched, TCardSide} from "../../../../store/cardboxes/types.ts";
+import React, {useCallback, useEffect, useRef, useState} from "react";
+import {TSCardbox, TSCardboxKey} from "../../../../store/cardboxes/types-cardbox.ts";
 import {CardPreview} from "../../../../components/3d/card-preview-component.tsx";
 import {NavLink} from "react-router-dom";
 import {Button} from "../../../../components/utils/button.component.tsx";
@@ -8,13 +8,14 @@ import {Switch} from "../../../../components/utils/switch.component.tsx";
 import {HDivider} from "../../../../components/utils/h-divider.component.tsx";
 import Select from "react-select";
 import {colorSchemaOptions, FontNameOptions, FontSizeOptions} from "../../../../resources/options.ts";
-import {ColorSchemes} from "../../../../resources/colors.ts";
 import {MinScreenWidthContainer} from "../../../../components/utils/min-screen-width-container.tsx";
+import {TSCard, TSCardKey} from "../../../../store/cards/types-card.ts";
+import {getSideColorsBySchema} from "../../../../store/cardboxes/cardboxes-utils.ts";
 
 export type TCardEditorFormProps = {
-	cardbox?: TCardbox
-	initialState: TCardEnriched
-	onSubmit: (data: any) => void
+	cardbox: TSCardbox
+	initialState: TSCard
+	onSubmit: (data: TSCard) => void
 	onCancel: () => void
 	isNew: boolean
 }
@@ -28,8 +29,6 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 		isNew
 	}) => {
 	const [state, setState] = useState(initialState);
-	const initialHash = useMemo(() => JSON.stringify(initialState), [initialState]);
-	const [touched, setTouched] = useState(false);
 	const [side, setSide] = useState(0);
 
 	const destroying = useRef(false);
@@ -38,90 +37,9 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 		setSide(idx);
 	}, []);
 
-
-	const handleOwnDesign = useCallback((value: boolean) => {
-		setState((state: any) => {
-			return {...state, ownDesign: value};
-		});
-	}, []);
-
-	const onChangeSideInput = useCallback((name: string, index: number, e: any) => {
-		const value = e.target ? e.target.value : e;
-
-		setState((state: any) => {
-			const updatedSides = (state as TCard).sides?.map((side, idx) => {
-				if (idx !== index) {
-					return side;
-				}
-				return {...side, [name]: value}
-			});
-
-			return {...state, sides: updatedSides};
-		});
-	}, []);
-
-	const onChangeColorSchema = useCallback((index: number, e: any) => {
-		const schemeName = e.value;
-		const scheme = ColorSchemes[schemeName];
-		if (!scheme) {
-			return;
-		}
-		setState(state => {
-			const updatedSides = state.sides?.map((side, idx) => {
-				if (idx !== index) {
-					return side;
-				}
-				return {
-					...side,
-					appearance: {
-						...side.appearance,
-						colorSchemaName: schemeName,
-						color: scheme.color,
-						textColor: scheme.textColor
-					}
-				}
-			});
-
-			return {...state, sides: updatedSides};
-		});
-	}, []);
-
-	const onChangeSideFontName = useCallback((index: number, e: any) => {
-		setState(state => {
-			const updatedSides = state.sides?.map((side, idx) => {
-				if (idx !== index) {
-					return side;
-				}
-				return {
-					...side,
-					appearance: {
-						...side.appearance,
-						fontName: e.value
-					}
-				}
-			});
-
-			return {...state, sides: updatedSides};
-		});
-	}, []);
-
-	const onChangeSideFontSize = useCallback((index: number, e: any) => {
-		setState(state => {
-			const updatedSides = state.sides?.map((side, idx) => {
-				if (idx !== index) {
-					return side;
-				}
-				return {
-					...side,
-					appearance: {
-						...side.appearance,
-						fontSize: e.value
-					}
-				}
-			});
-
-			return {...state, sides: updatedSides};
-		});
+	const onChangeInput = useCallback((name: string, e: any) => {
+		const value = e?.target?.value || e?.value || e;
+		setState(state => ({...state, [name]: value}));
 	}, []);
 
 	useEffect(() => {
@@ -133,12 +51,6 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 	useEffect(() => {
 		setState(() => initialState);
 	}, [initialState]);
-
-	useEffect(() => {
-		const isTouched = JSON.stringify(state) !== initialHash;
-		setTouched(isTouched);
-	}, [initialHash, state]);
-
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -153,7 +65,37 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 		}, 200);
 	}, []);
 
-	const saveDisabled = !touched || (state?.sides?.some(side => !side.header && !side.text && !side.footer));
+	const saveDisabled = (!state.side1header && !state.side1text && !state.side1footer) || (!state.side2header && !state.side2text && !state.side2footer);
+	const facesData = {
+		id: 'none', sides: [
+			{
+				header: state.side1header,
+				text: state.side1text,
+				footer: state.side1footer
+			},
+			{
+				header: state.side2header,
+				text: state.side2text,
+				footer: state.side2footer
+			},
+		],
+		cardboxSides: [
+			{
+				name: cardbox.side1title,
+				fontName: state.hasOwnDesign ? state.side1fontName : cardbox.side1fontName,
+				fontSize: state.hasOwnDesign ? state.side1fontSize : cardbox.side1fontSize,
+				colorSchemaName: state.hasOwnDesign ? state.side1schema : cardbox.side1schema,
+				...getSideColorsBySchema(state.hasOwnDesign ? state.side1schema : cardbox.side1schema)
+			},
+			{
+				name: cardbox.side2title,
+				fontName: state.hasOwnDesign ? state.side2fontName : cardbox.side2fontName,
+				fontSize: state.hasOwnDesign ? state.side2fontSize : cardbox.side2fontSize,
+				colorSchemaName: state.hasOwnDesign ? state.side2schema : cardbox.side2schema,
+				...getSideColorsBySchema(state.hasOwnDesign ? state.side2schema : cardbox.side2schema)
+			},
+		]
+	};
 
 	return <div className={'card-side-editor'}>
 		<div className={'form-editor'}>
@@ -164,74 +106,60 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 					</NavLink>
 				</h2>}
 
-			{state.ownDesign && <div className={'tab-switcher'}>
-				<div className={'pure-button-group'}>
-					{state.sides?.map((_, idx: number) => {
-						return <Button
-							key={idx}
-							pressed={side === idx} onClick={() => setSide(() => idx)}>
-							{state.cardboxSides?.[idx].name}
-						</Button>
-					})}
-				</div>
-			</div>}
-
-			{state.sides?.map((_side: TCardSide, idx: number) => {
+			{[1, 2].map((_, idx: number) => {
 				const fontName = 'sides[' + idx + '].fontName';
-				if (state.ownDesign && idx !== side) {
-					return null;
-				}
 
 				return <div key={idx.toString()}>
-					{!state.ownDesign && <h3 className={idx === 0 ? 'title' : ''}>Side {idx + 1}: &nbsp;
-						<b>{state.cardboxSides?.[idx].name}</b>
-					</h3>}
+					<h3 className={idx === 0 ? 'title' : ''}>Side {idx + 1}: &nbsp;
+						<b>{cardbox[`side${idx + 1}title` as TSCardboxKey] as string}</b>
+					</h3>
 
 					<fieldset>
-						{state.ownDesign && <label htmlFor={`sides[${idx}].header`}>Header</label>}
+						{state.hasOwnDesign && <label htmlFor={`side${idx + 1}header`}>Header</label>}
 						<div className={'field-set'}>
 							<input
-								id={`sides[${idx}].header`} name={`sides[${idx}].header`}
+								id={`sides[${idx}].header`} name={`side${idx + 1}header`}
 								autoComplete="off"
 								maxLength={128} size={30}
 								onFocus={() => handleFocus(idx)}
-								value={_side.header}
-								onChange={(e) => onChangeSideInput('header', idx, e)}
+								value={state[`side${idx + 1}header` as TSCardKey] as string}
+								onChange={(e) => onChangeInput(`side${idx + 1}header`, e)}
 								placeholder="Top text"
 								type={'text'}/>
 						</div>
 					</fieldset>
 
 					<fieldset>
-						{state.ownDesign && <label htmlFor={`sides[${idx}].text`}>Text</label>}
+						{state.hasOwnDesign && <label htmlFor={`side${idx + 1}text`}>Text</label>}
 						<div className={'field-set'}>
 								<textarea
-									id={`sides[${idx}].text`} name={`sides[${idx}].text`}
+									className={state.hasOwnDesign ? '' : 'big-textarea'}
+									id={`sides[${idx}].text`} name={`side${idx + 1}text`}
 									autoComplete="off"
-									value={_side.text}
+									value={state[`side${idx + 1}text` as TSCardKey] as string}
 									onFocus={() => handleFocus(idx)}
-									onChange={(e) => onChangeSideInput('text', idx, e)}
+									onChange={(e) => onChangeInput(`side${idx + 1}text`, e)}
 									maxLength={256}
 									placeholder="Main text"/>
 						</div>
 					</fieldset>
 
 					<fieldset>
-						{state.ownDesign && <label htmlFor={`sides[${idx}].footer`}>Footer</label>}
+						{state.hasOwnDesign && <label htmlFor={`side${idx + 1}footer`}>Footer</label>}
 						<div className={'field-set'}>
 							<input
-								id={`sides[${idx}].footer`} name={`sides[${idx}].footer`}
+								id={`sides[${idx}].footer`} name={`side${idx + 1}footer`}
 								autoComplete="off"
-								value={_side.footer}
+								value={state[`side${idx + 1}footer` as TSCardKey] as string}
 								onFocus={() => handleFocus(idx)}
-								onChange={(e) => onChangeSideInput('footer', idx, e)}
+								onChange={(e) => onChangeInput(`side${idx + 1}footer`, e)}
 								maxLength={128} size={30}
 								placeholder="Bottom text"
 								type={'text'}/>
 						</div>
 					</fieldset>
 
-					{state.ownDesign && <>
+					{state.hasOwnDesign && <div className={'appearance-controls'}>
 						<div className={'field-row-set'}>
 							<fieldset>
 								<label htmlFor={fontName}>Font</label>
@@ -247,8 +175,8 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 										onFocus={() => handleFocus(idx)}
 										isSearchable={false}
 										placeholder={'Font'}
-										onChange={(e) => onChangeSideFontName(idx, e)}
-										value={FontNameOptions.filter((option: any) => option.value === _side.appearance?.fontName)}
+										onChange={(e) => onChangeInput(`side${idx + 1}fontName`, e)}
+										value={FontNameOptions.filter((option: any) => option.value === state[`side${idx + 1}fontName` as TSCardKey])}
 									/>
 
 									<div className={'font-size'}>
@@ -260,8 +188,8 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 											onFocus={() => handleFocus(idx)}
 											isSearchable={false}
 											placeholder={'Size'}
-											onChange={(e) => onChangeSideFontSize(idx, e)}
-											value={FontSizeOptions.filter((option: any) => option.value === _side.appearance?.fontSize)}
+											onChange={(e) => onChangeInput(`side${idx + 1}fontSize`, e)}
+											value={FontSizeOptions.filter((option: any) => option.value === state[`side${idx + 1}fontSize` as TSCardKey])}
 										/>
 									</div>
 								</div>
@@ -281,20 +209,20 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 									onFocus={() => handleFocus(idx)}
 									isSearchable={true}
 									placeholder={'Color scheme'}
-									onChange={(e) => onChangeColorSchema(idx, e)}
-									value={colorSchemaOptions.filter((option: any) => option.value === _side.appearance?.colorSchemaName)}
+									onChange={(e) => onChangeInput(`side${idx + 1}schema`, e)}
+									value={colorSchemaOptions.filter((option: any) => option.value === state[`side${idx + 1}schema` as TSCardKey])}
 								/>
 							</div>
 						</fieldset>
-					</>}
+					</div>}
 
 				</div>;
 			})}
 			<fieldset className={'actions'}>
 				<Switch
-					value={state.ownDesign}
+					value={state.hasOwnDesign}
 					boldOnFocus={false}
-					onChange={handleOwnDesign}
+					onChange={(e) => onChangeInput('hasOwnDesign', e)}
 					text={'Own design'}/>
 
 				<HDivider width={'32px'}/>
@@ -313,7 +241,7 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 		<MinScreenWidthContainer>
 			<div className={'card-form-preview'}>
 				<CardPreview
-					card={state}
+					card={facesData}
 					side={side}
 				/>
 			</div>

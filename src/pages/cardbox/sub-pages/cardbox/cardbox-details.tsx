@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import {useNavigate, useParams} from 'react-router-dom';
 import {CardboxDetailsForm} from "./cardbox-details-form.component.tsx";
-import {TSCardbox} from "../../../../store/cardboxes/types.ts";
+import {TSCardbox} from "../../../../store/cardboxes/types-cardbox.ts";
 import {getDefaultSCardbox} from "../../../../store/cardboxes/cardboxes-utils.ts";
 import {useCardboxUpdate} from "../../../../store/cardboxes/hooks/useCardboxUpdateHook.tsx";
 import {useCardboxes} from "../../../../store/cardboxes/hooks/useCardboxesHook.tsx";

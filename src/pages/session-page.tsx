@@ -7,7 +7,7 @@ import {PageError} from "../types.ts";
 import {SessionStage} from "./session/session-stage.tsx";
 import {BackToRunButton} from "./run/back-to-run.button.component.tsx";
 import {SceneInfoButton} from "./run/scene-info.button.component.tsx";
-import {TCardSide, TCardbox, TCardboxSide, TPreparedCard, TPreparedCards} from "../store/cardboxes/types.ts";
+import {TCardSide, TCardbox, TCardboxSide, TPreparedCard, TPreparedCards} from "../store/cardboxes/types-cardbox.ts";
 import {Fonts} from "../resources/fonts.ts";
 
 function getDirectOrder(id: string, sides: Array<TCardSide>, cardboxSides: Array<TCardboxSide>): TPreparedCard {

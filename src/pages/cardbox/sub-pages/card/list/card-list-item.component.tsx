@@ -1,36 +1,33 @@
 import React, {useCallback} from "react";
 import {CardSide} from "../card-side.component.tsx";
 import {CardRemoveButton} from "../card-remove.button.tsx";
-import {TCardListStyle} from "../../../../../store/settings/settings-types.ts";
-import {TCardboxSide} from "../../../../../store/cardboxes/types.ts";
-import {getCard} from "../../../../../store/data/cardboxes-store.selectors.ts";
+import {TCardListStyle} from "../../../../../store/settings/types-settings.ts";
+import {TSCardbox} from "../../../../../store/cardboxes/types-cardbox.ts";
 import {useCardNavigateHook} from "../../../../../hooks/useCardNavigate.hook.tsx";
 import {DraggableCard} from "./draggable-card.component.tsx";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
+import {TSCard} from "../../../../../store/cards/types-card.ts";
+import {getSideColorsBySchema} from "../../../../../store/cardboxes/cardboxes-utils.ts";
 
 export type TCardListItemProps = {
-	cardboxId?: string
-	sides?: Array<TCardboxSide>
+	cardbox: TSCardbox
+	card: TSCard
 	currentStyle: TCardListStyle
 	index: number
-	cardId: string
 	handleMove: (dragIndex: number, hoverIndex: number) => void
 }
 
 export const CardListItem: React.FC<TCardListItemProps> = (
 	{
-		cardboxId,
-		cardId,
-		sides,
+		cardbox,
+		card,
 		index,
 		handleMove,
 		currentStyle
 	}) => {
 	const {isLoading, error, data: appState} = useSettingsQuery();
 
-	const cardData = getCard(cardboxId, cardId);
-
-	const {goCard} = useCardNavigateHook(cardboxId!, cardId!);
+	const {goCard} = useCardNavigateHook(cardbox.id, card.id);
 
 	const navigateToCard = useCallback(() => {
 		goCard();
@@ -40,17 +37,15 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 		return null;
 	}
 
-	return <DraggableCard moveCard={handleMove} key={cardId} id={cardId} index={index}>
-		<div className={'card-item'}>
-			<div className={'card-sides'}>
-				{sides?.map((cardboxSide, idx) => {
-					const sideColor = (cardData?.ownDesign
-						? cardData.sides?.[idx]?.appearance?.color
-						: cardboxSide?.color) || '#fff';
+	const schema1 = getSideColorsBySchema(card.hasOwnDesign ? card.side1schema : cardbox.side1schema);
+	const schema2 = getSideColorsBySchema(card.hasOwnDesign ? card.side2schema : cardbox.side2schema);
 
-					const sideText = (cardData?.ownDesign
-						? cardData.sides?.[idx]?.appearance?.textColor
-						: cardboxSide?.textColor) || '#222';
+	return <DraggableCard moveCard={handleMove} key={card.id} id={card.id} index={index}>
+		<div className={'card-item' + ( card.id === 0 ? ' unstable' : '')}>
+			<div className={'card-sides'}>
+				{[1, 2].map((_, idx) => {
+					const sideColor = idx === 0 ? schema1.color : schema2.color;
+					const sideText = idx === 0 ? schema1.textColor : schema2.textColor;
 
 					let needRender = true;
 
@@ -67,17 +62,16 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 					}
 
 					return <CardSide
-						cardboxId={cardboxId}
-						cardId={cardId}
+						card={card}
 						sideIdx={idx}
 						background={sideColor}
 						onClick={navigateToCard}
 						color={sideText}
-						key={cardId + idx.toString()}/>
+						key={'card' + card.id + idx.toString()}/>
 				})}
 
 				<div className={'card-actions'}>
-					<CardRemoveButton cardboxId={cardboxId} cardId={cardId}/>
+					<CardRemoveButton cardboxId={cardbox.id} cardId={card.id}/>
 				</div>
 			</div>
 		</div>

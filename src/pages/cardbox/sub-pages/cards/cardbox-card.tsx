@@ -5,9 +5,11 @@ import {CardEditorData} from "../card/card-editor.data.tsx";
 export const CardboxCard: React.FC = () => {
 	const params = useParams();
 	const isNew = params.cardId === 'new';
+	const cardboxId = isNaN(parseInt(params.cardboxId || '', 10)) ? -1 : parseInt(params.cardboxId || '', 10);
+	const cardId = isNaN(parseInt(params.cardId || '', 10)) ? -1 : parseInt(params.cardId || '', 10);
 
 	return <CardEditorData
-		cardboxId={params.cardboxId}
+		cardboxId={cardboxId}
 		isNew={isNew}
-		cardId={params.cardId}/>;
+		cardId={cardId}/>;
 };

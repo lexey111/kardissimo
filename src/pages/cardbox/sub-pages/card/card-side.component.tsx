@@ -1,9 +1,8 @@
 import React from "react";
-import {getCard} from "../../../../store/data/cardboxes-store.selectors.ts";
+import {TSCard, TSCardKey} from "../../../../store/cards/types-card.ts";
 
 export type TCardAddProps = {
-	cardboxId?: string
-	cardId?: string
+	card: TSCard
 	sideIdx?: number
 	color?: string
 	background?: string
@@ -12,14 +11,14 @@ export type TCardAddProps = {
 
 export const CardSide: React.FC<TCardAddProps> = (
 	{
-		cardboxId,
-		cardId, color, background,
+		card,
+		color,
+		background,
 		onClick,
 		sideIdx = 0
 	}) => {
-	const cardData = getCard(cardboxId, cardId);
 
-	if (!cardData || !cardData.sides || cardData.sides.length < sideIdx - 1) {
+	if (!card) {
 		return <div className={'card-not-found'}>
 			Card not found
 		</div>;
@@ -35,8 +34,8 @@ export const CardSide: React.FC<TCardAddProps> = (
 	}
 
 	return <div className={'card-side-content'} style={styles} onClick={onClick}>
-		<div className={'card-header'}>{cardData.sides[sideIdx].header}</div>
-		<div className={'card-word'}>{cardData.sides[sideIdx].text}</div>
-		<div className={'card-footer'}>{cardData.sides[sideIdx].footer}</div>
+		<div className={'card-header'}>{card[`side${sideIdx + 1}header` as TSCardKey] as string}</div>
+		<div className={'card-text'}>{card[`side${sideIdx + 1}text` as TSCardKey] as string}</div>
+		<div className={'card-footer'}>{card[`side${sideIdx + 1}footer` as TSCardKey] as string}</div>
 	</div>;
 };

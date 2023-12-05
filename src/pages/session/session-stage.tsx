@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {MdRotateRight} from "react-icons/md";
-import {TPreparedCards} from "../../store/cardboxes/types.ts";
+import {TPreparedCards} from "../../store/cardboxes/types-cardbox.ts";
 import {SessionScene} from "../../components/3d/session-scene.component.tsx";
 import {FaArrowLeft, FaArrowRight} from "react-icons/fa6";
 import {Tooltip} from "react-tooltip";

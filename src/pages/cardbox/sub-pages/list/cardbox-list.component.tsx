@@ -25,7 +25,7 @@ export const CardboxList: React.FC = () => {
 	}
 
 	return <div className={'cardbox-list'}>
-		{data.map(cardbox => {
+		{data?.map(cardbox => {
 			return <div key={cardbox.id} className={'cardbox-item'}>
 				<CardboxListItem cardbox={cardbox}/>
 			</div>;

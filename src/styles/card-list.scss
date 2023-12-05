@@ -19,6 +19,11 @@
 			opacity: 1;
 		}
 	}
+
+	&.unstable {
+		opacity: .2;
+		pointer-events: none;
+	}
 }
 
 

@@ -1,29 +1,27 @@
 import React, {useCallback, useEffect} from "react";
-import {getCard, getCardbox} from "../../../../store/data/cardboxes-store.selectors.ts";
 import {useNavigate} from "react-router-dom";
-import {TCard} from "../../../../store/cardboxes/types.ts";
 import {CardEditorForm} from "./card-editor-form.component.tsx";
-import {createCard, getDefaultCard, removeCard, updateCard} from "../../../../store/data/cardboxes-store.actions.ts";
+import {useCardbox} from "../../../../store/cardboxes/hooks/useCardboxHook.tsx";
+import {useCard} from "../../../../store/cards/hooks/useCardHook.tsx";
+import {WaitInline} from "../../../../components/utils/wait-inline.component.tsx";
+import {PageNotFound} from "../../../../components/utils/page-not-found.component.tsx";
+import {TSCard} from "../../../../store/cards/types-card.ts";
+import {useCardUpdate} from "../../../../store/cards/hooks/useCardUpdateHook.tsx";
 
 export type TCardEditorProps = {
-	cardboxId?: string
-	cardId?: string
+	cardboxId: number
+	cardId: number
 	isNew: boolean
 }
 
 export const CardEditorData: React.FC<TCardEditorProps> = ({cardboxId, cardId, isNew = false}) => {
 	const navigate = useNavigate();
-	const cardData = isNew ? getDefaultCard(cardboxId) : getCard(cardboxId, cardId);
-	const cardbox = getCardbox(cardboxId);
+
+	const {data: cardbox, isLoading: isCardboxLoading} = useCardbox(cardboxId);
+	const {data: cardData, isLoading} = useCard(cardboxId, cardId);
+	const cardMutation = useCardUpdate(cardboxId);
 
 	const handleBack = useCallback(() => {
-		if (isNew) {
-			// delete the card first
-			removeCard(cardboxId, cardId);
-			navigate(`/cardboxes/${cardboxId}/cards`);
-			return;
-		}
-
 		navigate(`/cardboxes/${cardboxId}/cards`);
 	}, [cardId, cardboxId, isNew, navigate]);
 
@@ -41,32 +39,26 @@ export const CardEditorData: React.FC<TCardEditorProps> = ({cardboxId, cardId, i
 		}
 	}, [handleEsc]);
 
-	const handleSubmit = useCallback((data: TCard) => {
-		if (isNew) {
-			createCard(cardboxId!, {
-				id: data.id,
-				ownDesign: data.ownDesign,
-				sides: data.sides
-			});
-
-			navigate(`/cardboxes/${cardboxId}/cards`);
-		}
-		// to filter ['names']
-		updateCard(cardboxId, {
-			id: data.id,
-			ownDesign: data.ownDesign,
-			sides: data.sides
-		});
+	const handleSubmit = useCallback((data: TSCard) => {
+		cardMutation.mutate(data);
 		navigate(`/cardboxes/${cardboxId}/cards`);
 	}, [cardboxId, isNew, navigate]);
 
+	if (isLoading || isCardboxLoading) {
+		return <WaitInline text={'Loading data...'}/>;
+	}
+
+	if (!cardbox) {
+		return <PageNotFound message={`Card box #${cardboxId} not found`}/>;
+	}
+
 	if (!cardData) {
-		return null;
+		return <PageNotFound message={`Card #${cardId} not found`}/>;
 	}
 
 	return <CardEditorForm
 		cardbox={cardbox}
-		initialState={cardData!}
+		initialState={cardData}
 		onCancel={handleBack}
 		isNew={isNew}
 		onSubmit={handleSubmit}/>

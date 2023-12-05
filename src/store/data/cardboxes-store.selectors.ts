@@ -1,5 +1,5 @@
 import {useCardboxStore} from "./cardboxes-store.ts";
-import {TCardEnriched, TCardboxSide} from "../cardboxes/types.ts";
+import {TCardEnriched, TCardboxSide} from "../cardboxes/types-cardbox.ts";
 import {Fonts} from "../../resources/fonts.ts";
 import {ColorSchemes} from "../../resources/colors.ts";
 

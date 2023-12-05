@@ -1,23 +1,22 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {ICardboxState, useCardboxStore} from "../../../../../store/data/cardboxes-store.ts";
-import {useShallow} from "zustand/react/shallow";
 import {AgGridReact} from 'ag-grid-react'; // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import {TCardListTableMode, TCardListTableViewMode} from "../../../../../store/settings/settings-types.ts";
+import {TCardListTableMode, TCardListTableViewMode} from "../../../../../store/settings/types-settings.ts";
 import {PreviewCell} from "./card-table-preview.component.tsx";
 import {RemoveCell} from "./card-table-remove.component.tsx";
 import {useCardNavigateHook} from "../../../../../hooks/useCardNavigate.hook.tsx";
-import {TCard, TCardboxSide} from "../../../../../store/cardboxes/types.ts";
 import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
-import {WaitInline} from "../../../../../components/utils/wait-inline.component.tsx";
+import {TSCard} from "../../../../../store/cards/types-card.ts";
 
 export type TCardTableProps = {
-	cardboxId?: string
+	cardboxId: number
+	sides: Array<string>
+	cards: Array<TSCard>
 }
 
-function getTableDefs(cardboxId?: string, sides?: Array<TCardboxSide>, tableEditMode?: TCardListTableMode, tableViewMode?: TCardListTableViewMode) {
+function getTableDefs(cardboxId: number, sides?: Array<string>, tableEditMode?: TCardListTableMode, tableViewMode?: TCardListTableViewMode) {
 	const result = [];
 
 	const previewColumn: any = {
@@ -48,47 +47,48 @@ function getTableDefs(cardboxId?: string, sides?: Array<TCardboxSide>, tableEdit
 	};
 
 	if (tableViewMode === 'wide') {
-		result.push(...(sides || []).map((side, idx) => {
-			return {
-				headerName: side.name,
-				editable: false, sortable: false, resizable: false, filter: '',
-				children: [
-					{
-						field: `sides.${idx}.header`,
-						headerName: 'Header',
-						editable: tableEditMode === 'editable',
-						wrapText: true,
-						autoHeight: true,
-						filter: true,
-						//hide: tableViewMode === 'narrow'
-					},
-					{
-						field: `sides.${idx}.text`,
-						headerName: 'Text',
-						editable: tableEditMode === 'editable',
-						wrapText: true,
-						autoHeight: true,
-						filter: true,
-					},
-					{
-						field: `sides.${idx}.footer`,
-						headerName: 'Footer',
-						editable: tableEditMode === 'editable',
-						wrapText: true,
-						autoHeight: true,
-						filter: true,
-						// hide: tableViewMode === 'narrow'
-					}]
-			};
-		}));
+		result.push(...(sides || [])
+			.map((side, idx) => {
+				return {
+					headerName: side,
+					editable: false, sortable: false, resizable: false, filter: '',
+					children: [
+						{
+							field: `side${idx + 1}header`,
+							headerName: 'Header',
+							editable: tableEditMode === 'editable',
+							wrapText: true,
+							autoHeight: true,
+							filter: true,
+							//hide: tableViewMode === 'narrow'
+						},
+						{
+							field: `side${idx + 1}text`,
+							headerName: 'Text',
+							editable: tableEditMode === 'editable',
+							wrapText: true,
+							autoHeight: true,
+							filter: true,
+						},
+						{
+							field: `side${idx + 1}footer`,
+							headerName: 'Footer',
+							editable: tableEditMode === 'editable',
+							wrapText: true,
+							autoHeight: true,
+							filter: true,
+							// hide: tableViewMode === 'narrow'
+						}]
+				};
+			}));
 
 		result[0].children.splice(0, 0, previewColumn);
 		result[sides!.length - 1].children.push(deleteColumn);
 	} else {
 		result.push(...(sides || []).map((side, idx) => {
 			return {
-				field: `sides.${idx}.text`,
-				headerName: side.name,
+				field: `side${idx + 1}text`,
+				headerName: side,
 				editable: tableEditMode === 'editable',
 				filter: true,
 			};
@@ -104,18 +104,17 @@ function getTableDefs(cardboxId?: string, sides?: Array<TCardboxSide>, tableEdit
 export const CardTable: React.FC<TCardTableProps> = (
 	{
 		cardboxId,
+		sides,
+		cards,
 	}) => {
 
-	const {goCard} = useCardNavigateHook(cardboxId!, '');
+	const {goCard} = useCardNavigateHook(cardboxId, '');
 
 	const {isLoading, error, data: appState} = useSettingsQuery();
 
 	const [readonly, setReadonly] = useState(appState?.tableEditMode === 'readonly');
 
 	const gridRef = useRef<any>(); // Optional - for accessing Grid's API
-
-	const sides = useCardboxStore(useShallow((state: ICardboxState) => state.cardboxes
-		.find(c => c.id === cardboxId)?.sides));
 
 	const [columnDefs, setColumnDefs] = useState(getTableDefs(cardboxId, sides, appState?.tableEditMode, appState?.tableViewMode));
 
@@ -166,15 +165,6 @@ export const CardTable: React.FC<TCardTableProps> = (
 
 	}, []);
 
-	const [cards, setCards] = useState<TCard[] | undefined>([]);
-	const [cardsFetched, setCardsFetched] = useState(false);
-
-	useEffect(() => {
-		const cards = useCardboxStore.getState().cardboxes.find(c => c.id === cardboxId)?.cards;
-		setCards(cards);
-		setCardsFetched(true);
-	}, [setCards, setCardsFetched]);
-
 	useEffect(() => {
 		gridRef.current?.api?.setRowData(cards);
 	}, [cards?.length]);
@@ -188,7 +178,7 @@ export const CardTable: React.FC<TCardTableProps> = (
 
 	const handleDrag = useCallback((e: any) => {
 		const endIndex = e.overIndex;
-		moveCardTo(cardboxId!, sourceIndex, endIndex)
+		moveCardTo(cardboxId, sourceIndex, endIndex)
 	}, [sourceIndex]);
 
 	const handleDragEnter = useCallback((e: any) => {
@@ -219,8 +209,6 @@ export const CardTable: React.FC<TCardTableProps> = (
 				enterNavigatesVertically={true}
 				enterNavigatesVerticallyAfterEdit={true}
 			/>
-
-			{!cardsFetched && <div className={'wait-data'}><WaitInline text={'Just a moment...'}/></div>}
 		</div>
 	</div>;
 };

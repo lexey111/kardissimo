@@ -1,6 +1,6 @@
 import useSupabase from "../../useSupabase.tsx";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {TSCardbox} from "../types.ts";
+import {TSCardbox} from "../types-cardbox.ts";
 import {deleteCardbox} from "../queries/delete-cardbox.ts";
 
 export const useCardboxDelete = () => {

@@ -5,7 +5,7 @@ import {BigAddButton} from "../../../../../components/utils/big-add-button.compo
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 
 export type TCardListAddProps = {
-	cardboxId?: string
+	cardboxId?: string | number
 	onClick: () => void;
 }
 

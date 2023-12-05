@@ -1,5 +1,5 @@
 import useSupabase from "../../useSupabase.tsx";
-import {TSettingsState} from "../settings-types.ts";
+import {defaultAppState, TSettingsState} from "../types-settings.ts";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {updateSettings} from "../queries/update-settings.ts";
 import {TUser} from "../../auth/auth-types.ts";
@@ -16,10 +16,6 @@ export const useSettingsUpdate = () => {
 
 		await queryClient.cancelQueries({queryKey: ['settings']});
 
-		queryClient.setQueryData(['settings'], (old: TSettingsState) => {
-			return {...old, updating: false};
-		});
-
 		return updateSettings(client, {userId: user.id, data: settings}).then(
 			(result) => result.data
 		);
@@ -33,11 +29,11 @@ export const useSettingsUpdate = () => {
 			const snapshot = queryClient.getQueryData(['settings']);
 
 			queryClient.setQueryData(['settings'], (old: TSettingsState) => {
-				return {...old, ...state, updating: false};
+				return {...defaultAppState, ...old, ...state};
 			});
 			return {snapshot};
 		},
-		onSettled: () => {
+		onError: () => {
 			void queryClient.refetchQueries({queryKey: ['settings']});
 		}
 	});

@@ -1,21 +1,23 @@
 import React, {useCallback, useState} from "react";
-import {removeCard} from "../../../../store/data/cardboxes-store.actions.ts";
 import {FaTrashCan} from "react-icons/fa6";
 import {Modal} from "../../../../components/utils/modal-component.tsx";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {FaArrowLeft} from "react-icons/fa";
+import {useCardDelete} from "../../../../store/cards/hooks/useCardDeleteHook.tsx";
 
 export type TCardRemoveProps = {
-	cardboxId?: string
-	cardId: string
+	cardboxId: number
+	cardId: number
 }
 
 export const CardRemoveButton: React.FC<TCardRemoveProps> = ({cardboxId, cardId}) => {
 	const [isOpen, setIsOpen] = useState(false);
 
+	const deleteCardMutation = useCardDelete(cardboxId);
+
 	const handleRemove = useCallback(() => {
 		setIsOpen(false);
-		removeCard(cardboxId, cardId);
+		deleteCardMutation.mutate(cardId);
 	}, [cardId, cardboxId]);
 
 	return <>

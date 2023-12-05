@@ -3,12 +3,11 @@ import {Canvas} from "@react-three/fiber";
 
 import {OrbitControls, Stage} from "@react-three/drei";
 import {Preview3DCard} from "./card/preview-3d-card.component.tsx";
-import {TCardEnriched} from "../../store/cardboxes/types.ts";
 import {Fonts} from "../../resources/fonts.ts";
 import {createPortal} from "react-dom";
 
 export type TCardPreviewProps = {
-	card: TCardEnriched
+	card: any
 	side: number
 	delay?: number
 	disablePreview?: boolean

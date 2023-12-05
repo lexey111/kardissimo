@@ -249,6 +249,12 @@ body.deep-scroll-size {
 	width: 100%;
 	border-radius: 20px;
 	flex-flow: column nowrap;
+	transition: all .4s ease;
+
+	&.unstable {
+		opacity: .2;
+		pointer-events: none;
+	}
 }
 
 .cardbox-title {

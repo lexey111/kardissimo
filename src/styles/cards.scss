@@ -75,7 +75,7 @@
 	}
 
 	color: #2b566e;
-	.card-header, .card-word, .card-footer {
+	.card-header, .card-text, .card-footer {
 		display: flex;
 		border: 1px dashed mixins.blackTrans(.12);
 		width: 100%;
@@ -95,7 +95,7 @@
 		font-weight: 300;
 	}
 
-	.card-word {
+	.card-text {
 		margin: 16px 0;
 		font-size: .8rem;
 		flex-grow: 2;

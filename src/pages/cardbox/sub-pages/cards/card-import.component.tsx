@@ -1,7 +1,6 @@
 import React, {useCallback, useState} from "react";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {toast} from "react-toastify";
-import {getCardbox} from "../../../../store/data/cardboxes-store.selectors.ts";
 import {useParams} from "react-router-dom";
 import {FaFileImport} from "react-icons/fa";
 import {IoIosAddCircle} from "react-icons/io";
@@ -16,6 +15,8 @@ import {customAlphabet, urlAlphabet} from "nanoid";
 import {CSVFileUpload} from "./csv-upload.component.tsx";
 import {ImportMenu} from "./card-import-menu.component.tsx";
 import Papa from 'papaparse';
+import {useCardbox} from "../../../../store/cardboxes/hooks/useCardboxHook.tsx";
+import {WaitInline} from "../../../../components/utils/wait-inline.component.tsx";
 
 const nanoid = customAlphabet(urlAlphabet, 16);
 
@@ -74,7 +75,9 @@ function parseRawStrings(str: string) {
 
 export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 	const params = useParams();
-	const cardbox = getCardbox(params.cardboxId);
+	const cardboxId = isNaN(parseInt(params.cardboxId || '', 10)) ? -1 : parseInt(params.cardboxId || '', 10);
+
+	const {data: cardbox, error: cardboxError, isLoading: isCardboxLoading} = useCardbox(cardboxId);
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [importedData, setImportedData] = useState<any>(null);
@@ -114,20 +117,20 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 		}
 
 		if (params.mode === 'replace') {
-			removeAllCards(cardbox.id);
+			removeAllCards(cardboxId);
 		}
 
 		let counter = 0;
 		data.forEach(item => {
 			if (params.mode === 'merge') {
-				if (isCardExists(cardbox.id, item.text0)) {
+				if (isCardExists(cardboxId, item.text0)) {
 					return;
 				}
 			}
 
 			counter++;
 
-			createCard(cardbox!.id, {
+			createCard(cardboxId, {
 				id: nanoid(),
 				sides: [
 					{text: item.text0, header: item.header0, footer: item.footer0},
@@ -136,15 +139,19 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 			});
 		});
 
-		updateCardboxStat(cardbox.id);
+		updateCardboxStat(cardboxId);
 		toast('Done. Cards imported: ' + counter, {type: 'info'});
 	}, [cardbox]);
 
-	if (!cardbox) {
+	if (isCardboxLoading) {
+		return <WaitInline text={'Loading data...'}/>;
+	}
+
+	if (cardboxError || !cardbox) {
 		return null;
 	}
 
-	if (collapsed && (cardbox?.cards?.length || 0) === 0) {
+	if (collapsed && (cardbox.cards_count || 0) === 0) {
 		return null
 	}
 
@@ -161,10 +168,10 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 
 			<ImportPreviewDialog
 				isOpen={isOpen}
-				hasRecords={(cardbox.cards?.length || 0) > 0}
+				hasRecords={cardbox.cards_count > 0}
 				setIsOpen={setIsOpen}
 				handleProcess={handleProcess}
-				sides={cardbox.sides}
+				sides={[cardbox.side1title, cardbox.side2title]}
 				data={importedData}/>
 		</div>;
 	}
@@ -211,10 +218,10 @@ export const CardImport: React.FC<TCardListNoDataProps> = ({collapsed}) => {
 
 		<ImportPreviewDialog
 			isOpen={isOpen}
-			hasRecords={(cardbox.cards?.length || 0) > 0}
+			hasRecords={cardbox.cards_count > 0}
 			setIsOpen={setIsOpen}
 			handleProcess={handleProcess}
-			sides={cardbox.sides}
+			sides={[cardbox.side1title, cardbox.side2title]}
 			data={importedData}/>
 	</div>;
 };

@@ -3,7 +3,6 @@ import {Button} from "../../../../components/utils/button.component.tsx";
 import {Modal} from "../../../../components/utils/modal-component.tsx";
 import {FaTrashCan} from "react-icons/fa6";
 import {AgGridReact} from "ag-grid-react";
-import {TCardboxSide} from "../../../../store/cardboxes/types.ts";
 import Select from "react-select";
 
 const importModes: any = [
@@ -12,7 +11,7 @@ const importModes: any = [
 	{value: 'replace', label: 'Remove all existing cards and add these instead'},
 ];
 
-function getTableDefs(data: any, sides: Array<TCardboxSide>): any {
+function getTableDefs(data: any, sides: Array<string>): any {
 	const result: any = [];
 
 	if (!data) {
@@ -39,7 +38,7 @@ function getTableDefs(data: any, sides: Array<TCardboxSide>): any {
 	sides.forEach((side, idx) => {
 		if (Object.keys(data[0]).length < 6) {
 			result.push({
-				headerName: side?.name || '#' + (idx + 1),
+				headerName: side || '#' + (idx + 1),
 				editable: true, sortable: false, resizable: true, filter: '',
 				field: 'text' + (idx),
 			});
@@ -47,7 +46,7 @@ function getTableDefs(data: any, sides: Array<TCardboxSide>): any {
 
 		if (Object.keys(data[0]).length >= 6) {
 			result.push({
-				headerName: side?.name || '#' + (idx + 1),
+				headerName: side || '#' + (idx + 1),
 				editable: false, sortable: false, resizable: false, filter: '',
 				children: [
 					{
@@ -106,7 +105,7 @@ export type TPreviewDialogProps = {
 	hasRecords: boolean
 	handleProcess: (data?: Array<TImportedData>, params?: any) => void
 	data: Array<TImportedData>
-	sides?: Array<TCardboxSide>
+	sides?: Array<string>
 }
 
 export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = (
@@ -141,7 +140,7 @@ export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = (
 
 		setImportMode(hasRecords ? 'merge' : 'add');
 		setLocalData(() => data);
-		setColumnDefs(getTableDefs(data, sides || [{name: '#1'}, {name: '#2'}]));
+		setColumnDefs(getTableDefs(data, sides || ['Side #1', 'Side #2']));
 		setSelectionLength(data?.length || 0);
 	}, [data]);
 

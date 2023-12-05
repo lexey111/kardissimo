@@ -2,15 +2,18 @@ import {CardboxScene} from "../../components/3d/cardbox-scene.component.tsx";
 import {PageHeader} from "../../components/utils/page-header.component.tsx";
 import React from "react";
 import {useParams} from "react-router-dom";
-import {getCardbox} from "../../store/data/cardboxes-store.selectors.ts";
+import {useCardbox} from "../../store/cardboxes/hooks/useCardboxHook.tsx";
+import {getSideColorsBySchema} from "../../store/cardboxes/cardboxes-utils.ts";
 
 type TSubPageMode = 'stand' | 'cards' | 'card';
 
 export const CardboxHeader: React.FC = () => {
 	const params = useParams();
-	const cardboxId = params.cardboxId;
-	const isNew = cardboxId === 'new';
-	const cardbox = isNew ? null : getCardbox(cardboxId);
+	const cardboxId = isNaN(parseInt(params.cardboxId || '', 10)) ? -1 : parseInt(params.cardboxId || '', 10);
+
+	const {data: cardbox, error: cardboxError, isLoading: isCardboxLoading} = useCardbox(cardboxId);
+
+	const isNew = params.cardboxId === 'new';
 
 	let mode: TSubPageMode = 'stand';
 	if (params['*']?.indexOf('details') !== -1) {
@@ -23,15 +26,25 @@ export const CardboxHeader: React.FC = () => {
 		mode = 'card';
 	}
 
+	if (isCardboxLoading || cardboxError) {
+		return null;
+	}
+
 	if (!isNew && !cardbox) {
 		return null;
 	}
-	const color1 = cardbox?.sides?.[0]?.textColor;
-	const color2 = cardbox?.sides?.[1]?.textColor;
-	const background1 = cardbox?.sides?.[0]?.color;
-	const background2 = cardbox?.sides?.[1]?.color;
-	const text1 = cardbox?.sides?.[0]?.name;
-	const text2 = cardbox?.sides?.[1]?.name;
+
+	const schema1 = getSideColorsBySchema(cardbox?.side1schema);
+	const schema2 = getSideColorsBySchema(cardbox?.side2schema);
+
+	const color1 = schema1.textColor;
+	const color2 = schema2.textColor;
+
+	const background1 = schema1.color;
+	const background2 = schema2.color;
+
+	const text1 = 'English';
+	const text2 = 'Español';
 
 	return <PageHeader
 		hasBack={true}

@@ -5,8 +5,8 @@ export function getAllCardboxesByUser(
 	userId: string
 ) {
 	return client
-		.from('cardboxes')
-		.select('')
+		.from('cardboxes_count')
+		.select()
 		.eq('owner', userId)
 		.throwOnError();
 }

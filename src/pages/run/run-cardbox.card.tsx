@@ -1,5 +1,5 @@
 import React from "react";
-import {TCardbox} from "../../store/cardboxes/types.ts";
+import {TCardbox} from "../../store/cardboxes/types-cardbox.ts";
 import {Button} from "../../components/utils/button.component.tsx";
 import {FaPlay} from "react-icons/fa6";
 

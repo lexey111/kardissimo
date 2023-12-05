@@ -5,7 +5,7 @@ import {FaGrip, FaPlay, FaTrashCan} from "react-icons/fa6";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {FaArrowLeft, FaCog} from "react-icons/fa";
 import {useCardboxDelete} from "../../../../store/cardboxes/hooks/useCardboxDeleteHook.tsx";
-import {TSCardbox} from "../../../../store/cardboxes/types.ts";
+import {TSCardbox} from "../../../../store/cardboxes/types-cardbox.ts";
 
 export type TCardboxActionsProps = {
 	cardbox: TSCardbox

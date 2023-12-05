@@ -7,18 +7,18 @@ import {useCardNavigateHook} from "../../../../hooks/useCardNavigate.hook.tsx";
 import {BigAddFloatingButton} from "../../../../components/utils/big-add-floating-button.component.tsx";
 import {CardListAdd} from "../card/list/card-list-add.component.tsx";
 import {CardsNoData} from "./card-list-no-data.component.tsx";
-import {ICardboxState, useCardboxStore} from "../../../../store/data/cardboxes-store.ts";
-import {useSettingsQuery} from "../../../../store/settings/hooks/useSettingsHook.tsx";
-import {WaitGlobal} from "../../../../components/utils/wait-global.component.tsx";
+import {useCards} from "../../../../store/cards/hooks/useCardsHook.tsx";
+import {WaitInline} from "../../../../components/utils/wait-inline.component.tsx";
+import {useCardbox} from "../../../../store/cardboxes/hooks/useCardboxHook.tsx";
 
 export const CardboxCards: React.FC = () => {
 	const params = useParams();
-	const {data: appState} = useSettingsQuery();
+	const cardboxId = isNaN(parseInt(params.cardboxId || '', 10)) ? -1 : parseInt(params.cardboxId || '', 10);
 
-	const cardbox = useCardboxStore((state: ICardboxState) => state.cardboxes
-		.find(c => c.id === params.cardboxId));
+	const {data: cardboxData, error: cardboxError, isLoading: isCardboxLoading} = useCardbox(cardboxId);
+	const {data: cardsData, isLoading} = useCards(cardboxId);
 
-	const {goCard} = useCardNavigateHook(cardbox?.id, 'new');
+	const {goCard} = useCardNavigateHook(cardboxId, 'new');
 
 	const handleAdd = useCallback((toBottom: boolean = false) => {
 		if (toBottom) {
@@ -29,35 +29,36 @@ export const CardboxCards: React.FC = () => {
 		goCard();
 	}, [goCard]);
 
-	if (!cardbox || !cardbox.sides) {
+	if (isLoading || isCardboxLoading) {
+		return <WaitInline text={'Loading data...'}/>;
+	}
+
+	if (cardboxError || !cardboxData) {
+		return <PageNotFound message={`Card box #${cardboxId} not found`}/>;
+	}
+
+	if (!cardsData || !cardboxData) {
 		return <PageNotFound/>;
 	}
 
-	if (!cardbox.cards || cardbox.cards.length === 0) {
+	if (cardsData.length === 0) {
 		return <CardsNoData
-			addButton={<CardListAdd cardboxId={cardbox.id} onClick={handleAdd}/>}/>;
-	}
-
-	if (appState?.updating) {
-		return <div className={'page-32'}>
-			<CardListHeader cardboxId={cardbox.id}/>
-			<WaitGlobal text={'Please wait...'}/>
-		</div>;
+			addButton={<CardListAdd cardboxId={cardboxId} onClick={handleAdd}/>}/>;
 	}
 
 	return <div className={'page-32'}>
-		<CardListHeader cardboxId={cardbox.id}/>
-		{cardbox && (cardbox.cards?.length || 0) > 1 && <p className={'tip'}>
-			You can drag and drop cards to reorder.
+		<CardListHeader cardbox={cardboxData}/>
+		{cardsData.length > 1 && <p className={'tip'}>
+			You can drag and drop cards to reorder them.
 		</p>}
 
-		<CardList cardbox={cardbox}/>
+		<CardList cardbox={cardboxData}/>
 
 		{/*default add button*/}
-		<CardListAdd cardboxId={cardbox.id} onClick={handleAdd}/>
+		<CardListAdd cardboxId={cardboxId} onClick={handleAdd}/>
 
 		{/*floating add button*/}
-		{cardbox.cards.length > 5 &&
+		{cardsData.length > 5 &&
 			<BigAddFloatingButton onClick={() => handleAdd(true)} extraHeight={50}/>}
 	</div>;
 };

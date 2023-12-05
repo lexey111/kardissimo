@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import {Tooltip} from 'react-tooltip';
-import {TSCardbox, TSCardboxKey} from "../../../../store/cardboxes/types.ts";
+import {TSCardbox, TSCardboxKey} from "../../../../store/cardboxes/types-cardbox.ts";
 import {CardPreview} from "../../../../components/3d/card-preview-component.tsx";
 import {FaGrip} from "react-icons/fa6";
 import {Button} from "../../../../components/utils/button.component.tsx";
@@ -9,6 +9,7 @@ import Select from 'react-select'
 import {colorSchemaOptions, FontNameOptions, FontSizeOptions} from "../../../../resources/options.ts";
 import {MinScreenWidthContainer} from "../../../../components/utils/min-screen-width-container.tsx";
 import {getSideColorsBySchema} from "../../../../store/cardboxes/cardboxes-utils.ts";
+import {Switch} from "../../../../components/utils/switch.component.tsx";
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -43,7 +44,6 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 
 	const [errors, setErrors] = useState<Record<string, string> | null>(null);
 	const [side, setSide] = useState(0);
-	// const [useFirst, setUseFirst] = useState(false);
 
 	const hasErrors = errors && Object.keys(errors).length > 0;
 
@@ -67,7 +67,7 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 	}, []);
 
 	const onChangeInput = useCallback((name: string, e: any) => {
-		const value = e?.target?.value || e?.value;
+		const value = e?.target?.value || e?.value || e;
 		setState(state => ({...state, [name]: value}));
 	}, []);
 
@@ -132,25 +132,6 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 			},
 		]
 	};
-	// let facesData = {...defaultCardbox, cardboxSides: state.sides};
-
-	// if (useFirst && state.cards && state.cards.length > 0) {
-	// 	facesData = {
-	// 		id: 'none', sides: [
-	// 			{
-	// 				header: state.cards?.[0].sides?.[0]?.header || '',
-	// 				text: state.cards?.[0].sides?.[0]?.text || '',
-	// 				footer: state.cards?.[0].sides?.[0]?.footer || '',
-	// 			},
-	// 			{
-	// 				header: state.cards?.[0].sides?.[1]?.header || '',
-	// 				text: state.cards?.[0].sides?.[1]?.text || '',
-	// 				footer: state.cards?.[0].sides?.[1]?.footer || '',
-	// 			},
-	// 		],
-	// 		cardboxSides: state.sides
-	// 	};
-	// }
 
 	return <div className={'card-side-editor'}>
 		<div className={'form-editor'}>
@@ -306,6 +287,12 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 					</fieldset>
 				</div>
 			})}
+
+			<fieldset className={'checkbox-field'}>
+				<span className={'pseudo-label'}></span>
+
+				<Switch value={state.public} onChange={(e) => onChangeInput('public', e)} text={'Make public'}/>
+			</fieldset>
 
 			{/*<fieldset className={'checkbox-field'}>*/}
 			{/*	<span className={'pseudo-label'}></span>*/}

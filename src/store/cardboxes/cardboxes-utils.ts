@@ -1,4 +1,4 @@
-import {TSCardbox} from "./types.ts";
+import {TSCardbox} from "./types-cardbox.ts";
 import {ColorSchemes} from "../../resources/colors.ts";
 import {Fonts} from "../../resources/fonts.ts";
 
@@ -7,8 +7,8 @@ export const defaultSchema = Object.keys(ColorSchemes)[0];
 export const secondDefaultSchema = Object.keys(ColorSchemes)[1];
 export const defaultFont = Object.keys(Fonts)[0];
 
-export const getSideColorsBySchema = (schemaName: string) => {
-	const schema = ColorSchemes[schemaName] || defaultSchema;
+export const getSideColorsBySchema = (schemaName?: string) => {
+	const schema = ColorSchemes[schemaName || ''] || defaultSchema;
 
 	return {...schema};
 }
@@ -39,5 +39,6 @@ export const getDefaultSCardbox = (): TSCardbox => {
 		side1fontName: defaultFont,
 		side2fontName: Object.keys(Fonts)[0],
 
+		cards_count: 0
 	};
 }
