@@ -1,12 +1,14 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {FaFileCsv} from "react-icons/fa";
+import {subscribe, unsubscribe} from "../../../../subscribe.ts";
 
 export type TCSVFileUploadProps = {
 	handleFile: (text: string) => void
+	showButton?: boolean
 }
 
-export const CSVFileUpload: React.FC<TCSVFileUploadProps> = ({handleFile}) => {
+export const CSVFileUpload: React.FC<TCSVFileUploadProps> = ({handleFile, showButton = true}) => {
 	const hiddenFileInput = useRef<any>(null);
 
 	const handleClick = () => {
@@ -24,11 +26,18 @@ export const CSVFileUpload: React.FC<TCSVFileUploadProps> = ({handleFile}) => {
 		reader.readAsText(event.target.files[0]);
 		event.target.value = null
 	};
+	useEffect(() => {
+		subscribe('cards-import-csv', handleClick);
+
+		return () => {
+			unsubscribe('cards-import-csv', handleClick);
+		}
+	}, [handleFile]);
 
 	return <>
-		<Button type={'primary'} onClick={handleClick} icon={<FaFileCsv/>}>
+		{showButton && <Button type={'primary'} onClick={handleClick} icon={<FaFileCsv/>}>
 			Import from CSV file...
-		</Button>
+		</Button>}
 		<input
 			type="file"
 			accept="text/csv"

@@ -1,16 +1,24 @@
 import {Menu} from '@headlessui/react'
 import React from "react";
-import {FaFileImport} from "react-icons/fa";
+import {FaFileImport, FaRegClipboard} from "react-icons/fa";
+import {Button} from "../../../../components/utils/button.component.tsx";
+import {publish} from "../../../../subscribe.ts";
+import {PiFileCsvBold} from "react-icons/pi";
 
-export type TImportMenuProps = {
-	children: any
-};
-
-export const ImportMenu: React.FC<TImportMenuProps> = ({children}) => {
+export const ImportMenu: React.FC = () => {
 	return <Menu>
 		<Menu.Button className={'pure-button pure-button-ghost button-menu'}><FaFileImport/> Import...</Menu.Button>
 		<Menu.Items className={'dropdown-menu'}>
-			{children}
+			<Menu.Item>
+				<a href="#" onClick={() => publish('cards-import-clipboard', null)}>
+					<FaRegClipboard/> Import from clipboard...
+				</a>
+			</Menu.Item>
+			<Menu.Item>
+				<a href="#" onClick={() => publish('cards-import-csv', null)}>
+					<PiFileCsvBold/> Import from .CSV file...
+				</a>
+			</Menu.Item>
 		</Menu.Items>
 	</Menu>;
 }

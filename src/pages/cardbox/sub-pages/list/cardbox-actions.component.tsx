@@ -42,7 +42,7 @@ export const CardboxActions: React.FC<TCardboxActionsProps> = ({cardbox}) => {
 			onClose={() => setIsOpen(false)}
 			title={'Remove cardbox'}
 			description={<>This will permanently delete the cardbox <b>"{cardbox?.title}"</b> which
-				includes <b>{(cardbox?.cardsCount || 0)}</b> cards.</>}
+				includes <b>{(cardbox?.cards_count || 0)}</b> cards.</>}
 			body={<p>
 				Are you sure you want to remove this cardbox? All of your cards of this
 				cardbox
@@ -63,7 +63,7 @@ export const CardboxActions: React.FC<TCardboxActionsProps> = ({cardbox}) => {
 				<Button
 					onClick={() => goRun(cardbox.id)}
 					icon={<FaPlay/>}
-					disabled={(cardbox.cardsCount || 0) < 2}
+					disabled={(cardbox.cards_count || 0) < 2}
 					type='success'>
 					Run
 				</Button>
@@ -73,7 +73,7 @@ export const CardboxActions: React.FC<TCardboxActionsProps> = ({cardbox}) => {
 				</Button>
 
 				<Button onClick={() => goCards(cardbox.id)} icon={<FaGrip/>}>
-					Cards {(cardbox.cardsCount || 0) > 0 ? ' (' + cardbox.cardsCount + ')' : ''}
+					Cards {(cardbox.cards_count || 0) > 0 ? ' (' + cardbox.cards_count + ')' : ''}
 				</Button>
 			</div>
 

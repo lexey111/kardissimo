@@ -6,9 +6,9 @@ import {AiFillEye} from "react-icons/ai";
 import {TbViewportNarrow, TbViewportWide} from "react-icons/tb";
 import {TSCardbox, TSCardboxKey} from "../../../../../store/cardboxes/types-cardbox.ts";
 import {Button} from "../../../../../components/utils/button.component.tsx";
-import {CardImport} from "../../cards/card-import.component.tsx";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 import {useSettingsUpdate} from "../../../../../store/settings/hooks/useSettingsUpdateHook.tsx";
+import {ImportMenu} from "../../cards/card-import-menu.component.tsx";
 
 export type TCardListModeSelectorProps = {
 	cardbox: TSCardbox
@@ -88,6 +88,6 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({card
 				</div>
 			</div>}
 
-		<CardImport collapsed={true}/>
+		<ImportMenu/>
 	</div>;
 };

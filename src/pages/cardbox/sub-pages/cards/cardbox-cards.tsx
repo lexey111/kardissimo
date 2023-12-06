@@ -10,6 +10,7 @@ import {CardsNoData} from "./card-list-no-data.component.tsx";
 import {useCards} from "../../../../store/cards/hooks/useCardsHook.tsx";
 import {WaitInline} from "../../../../components/utils/wait-inline.component.tsx";
 import {useCardbox} from "../../../../store/cardboxes/hooks/useCardboxHook.tsx";
+import {CardImport} from "./card-import.component.tsx";
 
 export const CardboxCards: React.FC = () => {
 	const params = useParams();
@@ -42,8 +43,7 @@ export const CardboxCards: React.FC = () => {
 	}
 
 	if (cardsData.length === 0) {
-		return <CardsNoData
-			addButton={<CardListAdd cardboxId={cardboxId} onClick={handleAdd}/>}/>;
+		return <CardsNoData onCreate={handleAdd}/>;
 	}
 
 	return <div className={'page-32'}>
@@ -53,6 +53,8 @@ export const CardboxCards: React.FC = () => {
 		</p>}
 
 		<CardList cardbox={cardboxData}/>
+
+		<CardImport/>
 
 		{/*default add button*/}
 		<CardListAdd cardboxId={cardboxId} onClick={handleAdd}/>

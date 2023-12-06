@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect, useRef} from "react";
 
-export const useCardNavigateHook = (cardboxId?: number, cardId?: number) => {
+export const useCardNavigateHook = (cardboxId?: number, cardId?: number | string) => {
 	const navigate = useNavigate();
 	const destroying = useRef(false);
 
