@@ -8,6 +8,7 @@ import {DraggableCard} from "./draggable-card.component.tsx";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 import {TSCard} from "../../../../../store/cards/types-card.ts";
 import {getSideColorsBySchema} from "../../../../../store/cardboxes/cardboxes-utils.ts";
+import {publish} from "../../../../../subscribe.ts";
 
 export type TCardListItemProps = {
 	cardbox: TSCardbox
@@ -33,6 +34,12 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 		goCard();
 	}, [goCard]);
 
+	const handleDelete = useCallback((e: any) => {
+		if (e.key === 'Delete' || e.key === 'Backspace') {
+			publish('card-delete', card.id)
+		}
+	}, []);
+
 	if (isLoading || error || !appState) {
 		return null;
 	}
@@ -41,7 +48,7 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 	const schema2 = getSideColorsBySchema(card.hasOwnDesign ? card.side2schema : cardbox.side2schema);
 
 	return <DraggableCard moveCard={handleMove} key={card.id} id={card.id} index={index}>
-		<div className={'card-item' + ( card.id === 0 ? ' unstable' : '')}>
+		<div className={'card-item' + (card.id === 0 ? ' unstable' : '')} tabIndex={0} onKeyDown={handleDelete}>
 			<div className={'card-sides'}>
 				{[1, 2].map((_, idx) => {
 					const sideColor = idx === 0 ? schema1.color : schema2.color;
@@ -71,7 +78,7 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 				})}
 
 				<div className={'card-actions'}>
-					<CardRemoveButton cardboxId={cardbox.id} cardId={card.id}/>
+					<CardRemoveButton cardId={card.id}/>
 				</div>
 			</div>
 		</div>

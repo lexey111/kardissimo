@@ -20,7 +20,7 @@ export const CardImportHelp: React.FC = () => {
 			</p>
 		</div>
 		<div className={'text'}>
-			<h2>Comma-separated values (CSV)</h2>
+			<h2>Comma-separated values (CSV) files</h2>
 			<img src="/import2.png" alt="Screenshot" className={'image-right'}/>
 			<p>
 				However, you can store your data in a <kbd>.CSV</kbd> file and import them.

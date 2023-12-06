@@ -9,6 +9,6 @@ export type TCardRemoveCellProps = {
 
 export const RemoveCell: React.FC<TCardRemoveCellProps> = (props: any) => {
 	return <div className={'table-button-column danger'}>
-		<CardRemoveButton cardId={props.data.id} cardboxId={props.cardboxId}/>
+		<CardRemoveButton cardId={props.data.id}/>
 	</div>;
 }

@@ -7,10 +7,11 @@ import {CardImportHelp} from "./card-import-help.component.tsx";
 import {publish} from "../../../../subscribe.ts";
 
 export type TCardListNoDataProps = {
+	cardboxId: number
 	onCreate: () => void
 }
 
-export const CardsNoData: React.FC<TCardListNoDataProps> = ({onCreate}) => {
+export const CardsNoData: React.FC<TCardListNoDataProps> = ({onCreate, cardboxId}) => {
 	return <div className={'margin-center empty-list'}>
 		<div className={'three-column-import'}>
 			<div>
@@ -42,6 +43,7 @@ export const CardsNoData: React.FC<TCardListNoDataProps> = ({onCreate}) => {
 		</div>
 
 		<CardImportHelp/>
-		<CardImport/>
+
+		<CardImport cardboxId={cardboxId}/>
 	</div>;
 };

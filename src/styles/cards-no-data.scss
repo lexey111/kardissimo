@@ -85,7 +85,7 @@
 
 		&:hover, &:focus-within {
 			opacity: 1;
-			box-shadow: 0 2px 2px mixins.blackTrans(), inset 0 0 120px mixins.whiteTrans();
+			box-shadow: 0 2px 2px mixins.blackTrans(), inset 0 0 20px mixins.whiteTrans(), inset 0 0 120px mixins.whiteTrans();
 		}
 
 		&:after {

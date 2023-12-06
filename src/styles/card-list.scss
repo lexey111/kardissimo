@@ -7,6 +7,7 @@
 
 .card-item {
 	position: relative;
+	border-radius: 20px;
 
 	&:hover {
 		.card-side-content {
@@ -18,6 +19,11 @@
 		.card-actions {
 			opacity: 1;
 		}
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 0 4px var(--app-accent-background), 2px 4px 6px mixins.blackTrans(0.3);
 	}
 
 	&.unstable {

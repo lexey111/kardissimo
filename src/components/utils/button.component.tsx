@@ -5,7 +5,7 @@ export type TButtonProps = {
 	disabled?: boolean
 	pressed?: boolean
 	size?: 'sm' | 'md' | 'lg' | 'xl'
-	variant?: 'full-width' | 'margin-right' | 'white-ring' | 'align-left'
+	variant?: 'full-width' | 'margin-right' | 'white-ring' | 'align-left' | 'nokeyboard'
 	icon?: JSX.Element
 	onClick: () => void
 	children?: any
@@ -107,6 +107,7 @@ export const Button: React.FC<TButtonProps> = (
 	return <button
 		className={'pure-button' + (classNames.length ? ' ' + classNames.join(' ') : '')}
 		disabled={disabled}
+		tabIndex={variant === 'nokeyboard' ? -1 : 0}
 		onClick={onClick}>
 		{icon}
 		{type !== 'round' && <span className={'button-text'}>{children}</span>}

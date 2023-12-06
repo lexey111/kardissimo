@@ -3,6 +3,7 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {TUser} from "../../auth/auth-types.ts";
 import {TSCardbox} from "../types-cardbox.ts";
 import {updateOrCreateCardbox} from "../queries/update-cardbox.ts";
+import {toast} from "react-toastify";
 
 export const useCardboxUpdate = () => {
 	const client = useSupabase();
@@ -43,7 +44,8 @@ export const useCardboxUpdate = () => {
 		},
 		onSuccess: () => {
 		},
-		onError: () => {
+		onError: (error) => {
+			toast('Error on updating card box: ' + error.message, {type: 'error'})
 			void queryClient.refetchQueries({queryKey: ['cardboxes']});
 		}
 	});

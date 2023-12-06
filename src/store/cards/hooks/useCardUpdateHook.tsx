@@ -3,8 +3,9 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {TUser} from "../../auth/auth-types.ts";
 import {updateOrCreateCard} from "../queries/update-card.ts";
 import {TSCard} from "../types-card.ts";
+import {toast} from "react-toastify";
 
-export const useCardUpdate = (cardboxId: number) => {
+export const useCardUpdate = (cardboxId: number, updateImmediately = true) => {
 	const client = useSupabase();
 	const queryClient = useQueryClient();
 	const user: TUser = queryClient.getQueryData(['auth']) as TUser;
@@ -16,12 +17,13 @@ export const useCardUpdate = (cardboxId: number) => {
 
 		return updateOrCreateCard(client, {cardboxId, data}).then(
 			(result) => {
-				void queryClient.cancelQueries({queryKey: ['cards', cardboxId]});
-				void queryClient.refetchQueries({queryKey: ['cards', cardboxId]});
-				if (data.id === 0) {
-					void queryClient.refetchQueries({queryKey: ['cardboxes']});
+				if (updateImmediately) {
+					void queryClient.cancelQueries({queryKey: ['cards', cardboxId]});
+					void queryClient.refetchQueries({queryKey: ['cards', cardboxId]});
+					if (data.id === 0) {
+						void queryClient.refetchQueries({queryKey: ['cardboxes']});
+					}
 				}
-
 				return result.data;
 			}
 		);
@@ -46,7 +48,8 @@ export const useCardUpdate = (cardboxId: number) => {
 		onSettled: () => {
 			// update individual query?
 		},
-		onError: () => {
+		onError: (error) => {
+			toast('Error on updating card: ' + error.message, {type: 'error'})
 			void queryClient.refetchQueries({queryKey: ['cards', cardboxId]});
 		}
 	});

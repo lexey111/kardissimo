@@ -1,21 +1,15 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {toast} from "react-toastify";
-import {useParams} from "react-router-dom";
 import {ImportPreviewDialog, TImportedData} from "./card-import-dialog.component.tsx";
-import {
-	createCard,
-	isCardExists,
-	removeAllCards,
-	updateCardboxStat
-} from "../../../../store/data/cardboxes-store.actions.ts";
-import {customAlphabet, urlAlphabet} from "nanoid";
 import {CSVFileUpload} from "./csv-upload.component.tsx";
 import Papa from 'papaparse';
 import {useCardbox} from "../../../../store/cardboxes/hooks/useCardboxHook.tsx";
-import {WaitInline} from "../../../../components/utils/wait-inline.component.tsx";
 import {subscribe, unsubscribe} from "../../../../subscribe.ts";
-
-const nanoid = customAlphabet(urlAlphabet, 16);
+import {useCards} from "../../../../store/cards/hooks/useCardsHook.tsx";
+import {TSCard} from "../../../../store/cards/types-card.ts";
+import {useCardUpdate} from "../../../../store/cards/hooks/useCardUpdateHook.tsx";
+import {getDefaultSCard} from "../../../../store/cards/cards-utils.ts";
+import {useCardsForceRefresh} from "../../../../store/cards/hooks/useCardsRefresh.tsx";
 
 function trimText64(str: string): string {
 	const result = str.trim();
@@ -66,11 +60,25 @@ function parseRawStrings(str: string) {
 		.map((data: any, idx: number) => ({_num: idx + 1, _checked: true, ...data}))
 }
 
-export const CardImport: React.FC = () => {
-	const params = useParams();
-	const cardboxId = isNaN(parseInt(params.cardboxId || '', 10)) ? -1 : parseInt(params.cardboxId || '', 10);
+function isCardExists(cards?: Array<TSCard>, text?: string) {
+	if (!cards || !text) {
+		return false;
+	}
+	const searchValue = (text || '').toLocaleUpperCase();
+	return cards.find(card => card.side1text.toLocaleUpperCase() === searchValue);
+}
+
+export type TCardImportProps = {
+	cardboxId: number
+}
+
+export const CardImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 
 	const {data: cardbox, error: cardboxError, isLoading: isCardboxLoading} = useCardbox(cardboxId);
+	const {data: cards, isLoading: isCardsLoading} = useCards(cardboxId);
+
+	const cardMutation = useCardUpdate(cardboxId, false);
+	const forceCardsRefresh = useCardsForceRefresh(cardboxId);
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [importedData, setImportedData] = useState<any>(null);
@@ -106,49 +114,57 @@ export const CardImport: React.FC = () => {
 	}, [handleClipboardImport, handleLoadCSV]);
 
 
-	const handleProcess = useCallback((data?: Array<TImportedData>, params?: any) => {
+	const handleProcess = useCallback(async (data?: Array<TImportedData>, params?: any) => {
 		setIsOpen(false);
 		if (!data || data.length === 0) {
 			toast('Sorry, nothing to import.', {type: 'error'})
 			return;
 		}
 		if (!cardbox) {
-			toast('Sorry, cardbox not found.', {type: 'error'})
+			toast('Sorry, Card box not found.', {type: 'error'})
 			return;
 		}
 
 		if (params.mode === 'replace') {
-			removeAllCards(cardboxId);
+			if (cardbox.cards_count > 0) {
+				console.log('remove all cards')
+			}
+			//removeAllCards(cardboxId);
 		}
 
 		let counter = 0;
-		data.forEach(item => {
+		await Promise.all(data.map(item => {
 			if (params.mode === 'merge') {
-				if (isCardExists(cardboxId, item.text0)) {
-					return;
+				if (isCardExists(cards, item.text0)) {
+					return Promise.resolve();
 				}
 			}
 
 			counter++;
-
-			createCard(cardboxId, {
-				id: nanoid(),
-				sides: [
-					{text: item.text0, header: item.header0, footer: item.footer0},
-					{text: item.text1, header: item.header1, footer: item.footer1},
-				]
+			console.log('apply', item.text0, counter);
+			return cardMutation.mutate({
+				...getDefaultSCard(cardboxId),
+				side1text: item.text0 || '',
+				side1header: item.header0 || '',
+				side1footer: item.footer0 || '',
+				side2text: item.text1 || '',
+				side2header: item.header1 || '',
+				side2footer: item.footer1 || ''
 			});
-		});
-
-		updateCardboxStat(cardboxId);
+		}));
+		console.log('update ALL...')
+		setTimeout(() => {
+			forceCardsRefresh();
+		}, 100);
+		// updateCardboxStat(cardboxId);
 		toast('Done. Cards imported: ' + counter, {type: 'info'});
-	}, [cardbox]);
+	}, [cardbox, cards]);
 
-	if (isCardboxLoading) {
-		return <WaitInline text={'Loading data...'}/>;
+	if (isCardboxLoading || isCardsLoading) {
+		return null;
 	}
 
-	if (cardboxError || !cardbox) {
+	if (cardboxError || !cardbox || !cards) {
 		return null;
 	}
 

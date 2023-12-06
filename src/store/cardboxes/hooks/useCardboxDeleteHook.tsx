@@ -2,6 +2,7 @@ import useSupabase from "../../useSupabase.tsx";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {TSCardbox} from "../types-cardbox.ts";
 import {deleteCardbox} from "../queries/delete-cardbox.ts";
+import {toast} from "react-toastify";
 
 export const useCardboxDelete = () => {
 	const client = useSupabase();
@@ -25,7 +26,8 @@ export const useCardboxDelete = () => {
 			});
 			return {snapshot};
 		},
-		onError: () => {
+		onError: (error) => {
+			toast('Error on removing card box: ' + error.message, {type: 'error'})
 			void queryClient.refetchQueries({queryKey: ['cardboxes']});
 		}
 	});

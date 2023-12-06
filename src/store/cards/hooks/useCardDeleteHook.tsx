@@ -2,6 +2,7 @@ import useSupabase from "../../useSupabase.tsx";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {deleteCard} from "../queries/delete-card.ts";
 import {TSCard} from "../types-card.ts";
+import {toast} from "react-toastify";
 
 export const useCardDelete = (cardboxId: number) => {
 	const client = useSupabase();
@@ -10,7 +11,6 @@ export const useCardDelete = (cardboxId: number) => {
 	const mutationFn = async (cardId: number) => {
 		return deleteCard(client, {cardId}).then(
 			(result) => {
-
 				void queryClient.refetchQueries({queryKey: ['cardboxes']});
 				return result.data;
 			}
@@ -29,7 +29,8 @@ export const useCardDelete = (cardboxId: number) => {
 			});
 			return {snapshot};
 		},
-		onError: () => {
+		onError: (error) => {
+			toast('Error on removing card: ' + error.message, {type: 'error'})
 			void queryClient.refetchQueries({queryKey: ['cards', cardboxId]});
 		}
 	});
