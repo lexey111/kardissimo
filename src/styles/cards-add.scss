@@ -18,12 +18,8 @@
 	}
 }
 
-.empty-list {
-	max-width: 960px;
-	margin: 0 auto 2rem;
-}
-
 .card-list-add-list {
+	margin-top: 16px;
 	.card-sides {
 		.card-side-content {
 			border-radius: 0;
@@ -40,18 +36,6 @@
 			margin-left: 0;
 			border-radius: 0 20px 20px 0;
 		}
-	}
-}
-
-.empty-list .card-list-add-cards {
-	height: 200px;
-
-	.card-sides {
-		align-items: stretch;
-		align-content: stretch;
-		margin: 0 auto;
-		width: 150px;
-		height: 200px;
 	}
 }
 
@@ -79,10 +63,6 @@
 			}
 		}
 	}
-}
-
-.empty-list .card-list-add-table {
-	max-width: 760px;
 }
 
 .card-list-add-table {
@@ -125,12 +105,12 @@
 	@include mixins.card();
 }
 
-
 .cards-import {
 	position: relative;
 	@include mixins.center();
-	padding: 16px 28px;
-	margin-top: 32px;
+	max-width: 960px;
+	//padding: 16px 28px;
+	margin: 32px auto;
 	display: block;
 	float: none;
 
@@ -160,6 +140,7 @@
 			border: 8px solid mixins.whiteTrans(.7);
 			float: left;
 			width: 60%;
+			max-width: 100%;
 			margin-bottom: 32px;
 			border-radius: 20px;
 			margin-right: 32px;

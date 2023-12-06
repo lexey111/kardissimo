@@ -13,6 +13,10 @@
 	position: relative;
 	box-shadow: 0 0 0 1px mixins.whiteTrans(.8);
 
+	&.center {
+		@include mixins.absolute-center();
+	}
+
 	svg {
 		transition: all .2s ease;
 		padding: 0;

@@ -12,7 +12,7 @@ export type TCardListNoDataProps = {
 }
 
 export const CardsNoData: React.FC<TCardListNoDataProps> = ({onCreate, cardboxId}) => {
-	return <div className={'margin-center empty-list'}>
+	return <div className={'page-32'}>
 		<div className={'three-column-import'}>
 			<div>
 				<h3>Create first card</h3>

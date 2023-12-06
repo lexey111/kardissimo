@@ -12,7 +12,7 @@ export const CardboxListAddItem: React.FC = () => {
 	return <div className={'cardbox-item create-cardbox'}>
 		<div className={'cardbox-item-content-wrapper'}>
 			<div className={'cardbox-item-content'}>
-				<BigAddButton onClick={addCardbox}/>
+				<BigAddButton onClick={addCardbox} center/>
 			</div>
 		</div>
 	</div>;

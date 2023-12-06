@@ -10,6 +10,6 @@ export const EmptyCardboxListAdd: React.FC = () => {
 	}, []);
 
 	return <div className={'cardbox-list-add'}>
-		<BigAddButton onClick={handleAdd}/>
+		<BigAddButton onClick={handleAdd} center/>
 	</div>;
 };

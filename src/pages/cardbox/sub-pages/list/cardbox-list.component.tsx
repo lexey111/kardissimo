@@ -30,6 +30,7 @@ export const CardboxList: React.FC = () => {
 				<CardboxListItem cardbox={cardbox}/>
 			</div>;
 		})}
+
 		<CardboxListAddItem/>
 	</div>;
 };

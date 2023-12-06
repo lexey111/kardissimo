@@ -64,7 +64,7 @@ export const CardboxCards: React.FC = () => {
 		<CardRemove cardboxId={cardboxId}/>
 
 		{/* default add button */}
-		<CardListAdd cardboxId={cardboxId} onClick={handleAdd}/>
+		<CardListAdd onClick={handleAdd}/>
 
 		{/* floating add button */}
 		{cardsData.length > 5 && <BigAddFloatingButton onClick={() => handleAdd(true)} extraHeight={50}/>}

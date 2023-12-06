@@ -1,19 +1,13 @@
 import React, {useCallback} from "react";
-import {ICardboxState, useCardboxStore} from "../../../../../store/data/cardboxes-store.ts";
-import {useShallow} from "zustand/react/shallow";
 import {BigAddButton} from "../../../../../components/utils/big-add-button.component.tsx";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 
 export type TCardListAddProps = {
-	cardboxId?: string | number
 	onClick: () => void;
 }
 
-export const CardListAdd: React.FC<TCardListAddProps> = ({cardboxId, onClick}) => {
+export const CardListAdd: React.FC<TCardListAddProps> = ({onClick}) => {
 	const {isLoading, error, data: appState} = useSettingsQuery();
-
-	const sides = useCardboxStore(useShallow((state: ICardboxState) => state.cardboxes
-		.find(c => c.id === cardboxId)?.sides));
 
 	const handleAdd = useCallback(() => {
 		onClick();
@@ -28,14 +22,14 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({cardboxId, onClick}) =
 			<span></span>
 			<div className={'card-item add'}>
 				<div className={'card-sides'}>
-					{sides?.map((_, idx) => {
+					{[1, 2].map((_, idx) => {
 						if (appState.cardListStyle === 'cards' && idx > 0) {
 							return null
 						}
 						return <div key={'new' + idx.toString()} className={'card-side-content'}></div>;
 					})}
 				</div>
-				<BigAddButton onClick={handleAdd}/>
+				<BigAddButton onClick={handleAdd} center/>
 			</div>
 			<span></span>
 		</div>

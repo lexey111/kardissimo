@@ -11,7 +11,7 @@ export const RunNoData: React.FC = () => {
 			title={'There are no ready to run card boxes yet'}
 			image={<CardboxScene type={'run'}/>}
 		/>
-		<div className={'margin-center empty-list'}>
+		<div className={'page-32'}>
 			<div className={'cards-import'}>
 				<h1>Oops</h1>
 				<p>
