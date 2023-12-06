@@ -22,6 +22,7 @@ export const useCardUpdate = (cardboxId: number, updateImmediately = true) => {
 					void queryClient.refetchQueries({queryKey: ['cards', cardboxId]});
 					if (data.id === 0) {
 						void queryClient.refetchQueries({queryKey: ['cardboxes']});
+						void queryClient.refetchQueries({queryKey: ['cardbox', cardboxId]});
 					}
 				}
 				return result.data;
@@ -50,6 +51,8 @@ export const useCardUpdate = (cardboxId: number, updateImmediately = true) => {
 		},
 		onError: (error) => {
 			toast('Error on updating card: ' + error.message, {type: 'error'})
+			void queryClient.refetchQueries({queryKey: ['cardboxes']});
+			void queryClient.refetchQueries({queryKey: ['cardbox', cardboxId]});
 			void queryClient.refetchQueries({queryKey: ['cards', cardboxId]});
 		}
 	});

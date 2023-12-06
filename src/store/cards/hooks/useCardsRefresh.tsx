@@ -5,7 +5,10 @@ export const useCardsForceRefresh = (cardboxId: number) => {
 
 	return () => {
 		console.log('Refresh cards...', cardboxId);
+		void queryClient.cancelQueries({queryKey: ['cardboxes']});
 		void queryClient.cancelQueries({queryKey: ['cards', cardboxId]});
+
 		void queryClient.refetchQueries({queryKey: ['cards', cardboxId]});
+		void queryClient.refetchQueries({queryKey: ['cardboxes']});
 	}
 }

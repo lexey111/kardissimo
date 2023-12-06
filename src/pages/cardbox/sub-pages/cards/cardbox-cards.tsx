@@ -49,20 +49,24 @@ export const CardboxCards: React.FC = () => {
 
 	return <div className={'page-32'}>
 		<CardListHeader cardbox={cardboxData}/>
+
 		{cardsData.length > 1 && <p className={'tip'}>
 			You can drag and drop cards to reorder them.
 		</p>}
 
+		{/* dispatch table/list */}
 		<CardList cardbox={cardboxData}/>
 
+		{/* event handler for imports */}
 		<CardImport cardboxId={cardboxId}/>
+
+		{/* event handler for delete */}
 		<CardRemove cardboxId={cardboxId}/>
 
-		{/*default add button*/}
+		{/* default add button */}
 		<CardListAdd cardboxId={cardboxId} onClick={handleAdd}/>
 
-		{/*floating add button*/}
-		{cardsData.length > 5 &&
-			<BigAddFloatingButton onClick={() => handleAdd(true)} extraHeight={50}/>}
+		{/* floating add button */}
+		{cardsData.length > 5 && <BigAddFloatingButton onClick={() => handleAdd(true)} extraHeight={50}/>}
 	</div>;
 };

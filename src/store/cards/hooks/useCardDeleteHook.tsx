@@ -12,6 +12,7 @@ export const useCardDelete = (cardboxId: number) => {
 		return deleteCard(client, {cardId}).then(
 			(result) => {
 				void queryClient.refetchQueries({queryKey: ['cardboxes']});
+				void queryClient.refetchQueries({queryKey: ['cardbox', cardboxId]});
 				return result.data;
 			}
 		);
@@ -31,6 +32,8 @@ export const useCardDelete = (cardboxId: number) => {
 		},
 		onError: (error) => {
 			toast('Error on removing card: ' + error.message, {type: 'error'})
+			void queryClient.refetchQueries({queryKey: ['cardboxes']});
+			void queryClient.refetchQueries({queryKey: ['cardbox', cardboxId]});
 			void queryClient.refetchQueries({queryKey: ['cards', cardboxId]});
 		}
 	});

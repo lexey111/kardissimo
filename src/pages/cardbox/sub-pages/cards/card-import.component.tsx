@@ -10,6 +10,7 @@ import {TSCard} from "../../../../store/cards/types-card.ts";
 import {useCardUpdate} from "../../../../store/cards/hooks/useCardUpdateHook.tsx";
 import {getDefaultSCard} from "../../../../store/cards/cards-utils.ts";
 import {useCardsForceRefresh} from "../../../../store/cards/hooks/useCardsRefresh.tsx";
+import {useCardDeleteAll} from "../../../../store/cards/hooks/useCardDeleteAllHook.tsx";
 
 function trimText64(str: string): string {
 	const result = str.trim();
@@ -78,6 +79,7 @@ export const CardImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 	const {data: cards, isLoading: isCardsLoading} = useCards(cardboxId);
 
 	const cardMutation = useCardUpdate(cardboxId, false);
+	const cardsRemoveAllMutation = useCardDeleteAll(cardboxId);
 	const forceCardsRefresh = useCardsForceRefresh(cardboxId);
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -126,10 +128,7 @@ export const CardImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 		}
 
 		if (params.mode === 'replace') {
-			if (cardbox.cards_count > 0) {
-				console.log('remove all cards')
-			}
-			//removeAllCards(cardboxId);
+			await cardsRemoveAllMutation.mutateAsync();
 		}
 
 		let counter = 0;
@@ -141,8 +140,7 @@ export const CardImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 			}
 
 			counter++;
-			console.log('apply', item.text0, counter);
-			return cardMutation.mutate({
+			return cardMutation.mutateAsync({
 				...getDefaultSCard(cardboxId),
 				side1text: item.text0 || '',
 				side1header: item.header0 || '',
@@ -152,11 +150,11 @@ export const CardImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 				side2footer: item.footer1 || ''
 			});
 		}));
-		console.log('update ALL...')
+
 		setTimeout(() => {
 			forceCardsRefresh();
 		}, 100);
-		// updateCardboxStat(cardboxId);
+
 		toast('Done. Cards imported: ' + counter, {type: 'info'});
 	}, [cardbox, cards]);
 

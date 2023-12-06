@@ -34,9 +34,12 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 		goCard();
 	}, [goCard]);
 
-	const handleDelete = useCallback((e: any) => {
+	const handleKeys = useCallback((e: any) => {
 		if (e.key === 'Delete' || e.key === 'Backspace') {
 			publish('card-delete', card.id)
+		}
+		if (e.key === 'Enter' || e.key === ' ') {
+			goCard();
 		}
 	}, []);
 
@@ -48,7 +51,7 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 	const schema2 = getSideColorsBySchema(card.hasOwnDesign ? card.side2schema : cardbox.side2schema);
 
 	return <DraggableCard moveCard={handleMove} key={card.id} id={card.id} index={index}>
-		<div className={'card-item' + (card.id === 0 ? ' unstable' : '')} tabIndex={0} onKeyDown={handleDelete}>
+		<div className={'card-item' + (card.id === 0 ? ' unstable' : '')} tabIndex={0} onKeyDown={handleKeys}>
 			<div className={'card-sides'}>
 				{[1, 2].map((_, idx) => {
 					const sideColor = idx === 0 ? schema1.color : schema2.color;
