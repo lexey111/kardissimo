@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {CardsImport} from "./cards-import.component.tsx";
 import {BigAddButton} from "../../../../components/utils/big-add-button.component.tsx";
 import {FaRegClipboard} from "react-icons/fa";
@@ -12,6 +12,28 @@ export type TCardListNoDataProps = {
 }
 
 export const CardsNoData: React.FC<TCardListNoDataProps> = ({onCreate, cardboxId}) => {
+	const [dragActive, setDragActive] = React.useState(false);
+
+	const handleDrag = useCallback((e: any) => {
+		e.preventDefault();
+		e.stopPropagation();
+		if (e.type === 'dragenter' || e.type === 'dragover') {
+			setDragActive(true);
+		} else if (e.type === 'dragleave') {
+			setDragActive(false);
+		}
+	}, [setDragActive]);
+
+	const handleDrop = useCallback((e: any) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setDragActive(false);
+
+		if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+			publish('cards-import-drop', e.dataTransfer.files[0]);
+		}
+	}, []);
+
 	return <div className={'page-32'}>
 		<div className={'three-column-import'}>
 			<div>
@@ -31,16 +53,22 @@ export const CardsNoData: React.FC<TCardListNoDataProps> = ({onCreate, cardboxId
 				</div>
 				<h4>Read below how it works</h4>
 			</div>
-			<div>
+			<div
+				onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}
+				className={dragActive ? 'drag-active' : ''}>
 				<h3>Import from .CSV</h3>
 				<div className={'add-button-container'}>
 					<BigAddButton
 						onClick={() => publish('cards-import-csv', null)}
 						icon={<PiFileCsvBold/>}/>
 				</div>
-				<h4>Read below how it works</h4>
+				<h4>Click or drag-n-drop a .CSV file</h4>
 			</div>
 		</div>
+
+		<p>
+			Drag active {dragActive ? 'yes' : 'no'}
+		</p>
 
 		<CardsImportHelp/>
 

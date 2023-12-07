@@ -88,6 +88,14 @@
 			box-shadow: 0 2px 2px mixins.blackTrans(), inset 0 0 20px mixins.whiteTrans(), inset 0 0 120px mixins.whiteTrans();
 		}
 
+		&.drag-active {
+			background: var(--app-primary-background);
+			color: var(--app-text);
+			h3, h4 {
+				color: var(--app-text);
+			}
+		}
+
 		&:after {
 			content: 'OR';
 			position: absolute;

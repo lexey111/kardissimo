@@ -24,13 +24,27 @@ export const CSVFileUpload: React.FC<TCSVFileUploadProps> = ({handleFile, showBu
 		};
 
 		reader.readAsText(event.target.files[0]);
-		event.target.value = null
+		event.target.value = null;
 	};
+
+	const handleDrop = (event: any) => {
+		const reader = new FileReader();
+
+		reader.onload = async (e: any) => {
+			const text = (e.target.result);
+			handleFile(text);
+		};
+
+		reader.readAsText(event.detail);
+	};
+
 	useEffect(() => {
 		subscribe('cards-import-csv', handleClick);
+		subscribe('cards-import-drop', handleDrop);
 
 		return () => {
 			unsubscribe('cards-import-csv', handleClick);
+			unsubscribe('cards-import-drop', handleDrop);
 		}
 	}, [handleFile]);
 

@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {CardsImportDialog, TImportedData} from "./cards-import-dialog.component.tsx";
-import {CSVFileUpload} from "./csv-upload.component.tsx";
+import {CSVFileUpload} from "./csv-file-upload.component.tsx";
 import Papa from 'papaparse';
 import {useCardbox} from "../../../../store/cardboxes/hooks/useCardboxHook.tsx";
 import {subscribe, unsubscribe} from "../../../../subscribe.ts";
@@ -87,9 +87,15 @@ export const CardsImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 
 	const handleImport = useCallback((text: string) => {
 		setImportedData(null);
-		const parsedData = parseRawStrings(text);
+		let parsedData: any = null;
+		try {
+			parsedData = parseRawStrings(text);
+		} catch {
+			toast('Sorry, cannot parse content.', {type: 'error'})
+			return; // !
+		}
 
-		if (parsedData.length > 0) {
+		if (!parsedData || parsedData?.length > 0) {
 			setImportedData(parsedData);
 			setIsOpen(true);
 		} else {
