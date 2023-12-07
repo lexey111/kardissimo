@@ -67,7 +67,7 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 	}, []);
 
 	const onChangeInput = useCallback((name: string, e: any) => {
-		const value = e?.target?.value || e?.value || e;
+		const value = e?.target?.value || e?.value || (e.target ? '' : e);
 		setState(state => ({...state, [name]: value}));
 	}, []);
 
@@ -291,7 +291,23 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 			<fieldset className={'checkbox-field'}>
 				<span className={'pseudo-label'}></span>
 
-				<Switch value={state.public} onChange={(e) => onChangeInput('public', e)} text={'Make public'}/>
+				<div className={'field-set'}>
+					<Switch value={state.public} onChange={(e) => onChangeInput('public', e)} text={'Make public'}/>
+					<a data-tooltip-id={"tooltip-public"} className={'tooltip-info'}></a>
+					<Tooltip
+						id={"tooltip-public"} place={'right'}
+						variant={'info'}>
+						<h4>Publicity</h4>
+						<p>
+							You can have three level of publicity:
+						</p>
+						<ul>
+							<li>Private, only you can use and change</li>
+							<li>Public, you set a list of users who can use</li>
+							<li>Public, anyone can use</li>
+						</ul>
+					</Tooltip>
+				</div>
 			</fieldset>
 
 			{/*<fieldset className={'checkbox-field'}>*/}

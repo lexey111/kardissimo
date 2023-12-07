@@ -280,7 +280,7 @@ fieldset {
 	flex-flow: row nowrap;
 }
 
-.tooltip-error {
+.tooltip-error, .tooltip-info {
 	position: absolute;
 	display: flex;
 	flex-flow: row nowrap;
@@ -307,6 +307,16 @@ fieldset {
 		left: 50%;
 		font-size: 17px;
 		transform: translateY(-50%) translateX(-50%);
+	}
+}
+
+.tooltip-info {
+	background: #005fa9;
+	color: #fff;
+
+	&:before {
+		content: '?';
+		font-size: .9rem;
 	}
 }
 
