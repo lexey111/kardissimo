@@ -8,7 +8,7 @@ import {TSCardbox, TSCardboxKey} from "../../../../../store/cardboxes/types-card
 import {Button} from "../../../../../components/utils/button.component.tsx";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 import {useSettingsUpdate} from "../../../../../store/settings/hooks/useSettingsUpdateHook.tsx";
-import {ImportMenu} from "../../cards/card-import-menu.component.tsx";
+import {CardsImportMenu} from "../../cards/cards-import-menu.component.tsx";
 
 export type TCardListModeSelectorProps = {
 	cardbox: TSCardbox
@@ -88,6 +88,6 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({card
 				</div>
 			</div>}
 
-		<ImportMenu/>
+		<CardsImportMenu/>
 	</div>;
 };

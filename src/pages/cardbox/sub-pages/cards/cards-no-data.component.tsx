@@ -1,9 +1,9 @@
 import React from "react";
-import {CardImport} from "./card-import.component.tsx";
+import {CardsImport} from "./cards-import.component.tsx";
 import {BigAddButton} from "../../../../components/utils/big-add-button.component.tsx";
 import {FaRegClipboard} from "react-icons/fa";
 import {PiFileCsvBold} from "react-icons/pi";
-import {CardImportHelp} from "./card-import-help.component.tsx";
+import {CardsImportHelp} from "./cards-import-help.component.tsx";
 import {publish} from "../../../../subscribe.ts";
 
 export type TCardListNoDataProps = {
@@ -42,8 +42,8 @@ export const CardsNoData: React.FC<TCardListNoDataProps> = ({onCreate, cardboxId
 			</div>
 		</div>
 
-		<CardImportHelp/>
+		<CardsImportHelp/>
 
-		<CardImport cardboxId={cardboxId}/>
+		<CardsImport cardboxId={cardboxId}/>
 	</div>;
 };

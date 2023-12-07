@@ -5,7 +5,7 @@ import {FaqPage} from "./pages/faq-page.tsx";
 import {CardboxesListSubpage} from "./pages/cardbox/sub-pages/list/cardbox-list.subpage.tsx";
 import {CardboxPages} from "./pages/cardbox-pages.tsx";
 import {CardboxCards} from "./pages/cardbox/sub-pages/cards/cardbox-cards.tsx";
-import {CardboxCard} from "./pages/cardbox/sub-pages/cards/cardbox-card.tsx";
+import {CardboxCard} from "./pages/cardbox/sub-pages/card/cardbox-card.tsx";
 import {App} from "./app.tsx";
 import {useRouteError} from "react-router";
 import {PageNotFound} from "./components/utils/page-not-found.component.tsx";

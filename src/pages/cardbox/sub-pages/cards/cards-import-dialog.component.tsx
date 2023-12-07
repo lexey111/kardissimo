@@ -108,7 +108,7 @@ export type TPreviewDialogProps = {
 	sides?: Array<string>
 }
 
-export const ImportPreviewDialog: React.FC<TPreviewDialogProps> = (
+export const CardsImportDialog: React.FC<TPreviewDialogProps> = (
 	{
 		isOpen,
 		setIsOpen,

@@ -4,7 +4,7 @@ import {FaFileImport, FaRegClipboard} from "react-icons/fa";
 import {publish} from "../../../../subscribe.ts";
 import {PiFileCsvBold} from "react-icons/pi";
 
-export const ImportMenu: React.FC = () => {
+export const CardsImportMenu: React.FC = () => {
 	return <Menu>
 		<Menu.Button className={'pure-button pure-button-ghost button-menu'}><FaFileImport/> Import...</Menu.Button>
 		<Menu.Items className={'dropdown-menu'}>

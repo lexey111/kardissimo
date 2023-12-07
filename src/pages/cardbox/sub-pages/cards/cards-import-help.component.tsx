@@ -1,6 +1,6 @@
 import React from "react";
 
-export const CardImportHelp: React.FC = () => {
+export const CardsImportHelp: React.FC = () => {
 
 	return <div className={'cards-import'}>
 		<h2>Importing data from Clipboard</h2>

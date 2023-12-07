@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {toast} from "react-toastify";
-import {ImportPreviewDialog, TImportedData} from "./card-import-dialog.component.tsx";
+import {CardsImportDialog, TImportedData} from "./cards-import-dialog.component.tsx";
 import {CSVFileUpload} from "./csv-upload.component.tsx";
 import Papa from 'papaparse';
 import {useCardbox} from "../../../../store/cardboxes/hooks/useCardboxHook.tsx";
@@ -73,7 +73,7 @@ export type TCardImportProps = {
 	cardboxId: number
 }
 
-export const CardImport: React.FC<TCardImportProps> = ({cardboxId}) => {
+export const CardsImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 
 	const {data: cardbox, error: cardboxError, isLoading: isCardboxLoading} = useCardbox(cardboxId);
 	const {data: cards, isLoading: isCardsLoading} = useCards(cardboxId);
@@ -167,7 +167,7 @@ export const CardImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 	}
 
 	return <>
-		<ImportPreviewDialog
+		<CardsImportDialog
 			isOpen={isOpen}
 			hasRecords={cardbox.cards_count > 0}
 			setIsOpen={setIsOpen}

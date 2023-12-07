@@ -6,11 +6,11 @@ import {CardListHeader} from "../card/list/card-list-header.component.tsx";
 import {useCardNavigateHook} from "../../../../hooks/useCardNavigate.hook.tsx";
 import {BigAddFloatingButton} from "../../../../components/utils/big-add-floating-button.component.tsx";
 import {CardListAdd} from "../card/list/card-list-add.component.tsx";
-import {CardsNoData} from "./card-list-no-data.component.tsx";
+import {CardsNoData} from "./cards-no-data.component.tsx";
 import {useCards} from "../../../../store/cards/hooks/useCardsHook.tsx";
 import {WaitInline} from "../../../../components/utils/wait-inline.component.tsx";
 import {useCardbox} from "../../../../store/cardboxes/hooks/useCardboxHook.tsx";
-import {CardImport} from "./card-import.component.tsx";
+import {CardsImport} from "./cards-import.component.tsx";
 import {CardRemove} from "../card/card-remove.component.tsx";
 
 export const CardboxCards: React.FC = () => {
@@ -58,7 +58,7 @@ export const CardboxCards: React.FC = () => {
 		<CardList cardbox={cardboxData}/>
 
 		{/* event handler for imports */}
-		<CardImport cardboxId={cardboxId}/>
+		<CardsImport cardboxId={cardboxId}/>
 
 		{/* event handler for delete */}
 		<CardRemove cardboxId={cardboxId}/>
