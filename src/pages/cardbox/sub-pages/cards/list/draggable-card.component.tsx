@@ -52,8 +52,6 @@ export const DraggableCard: React.FC<CardProps> = ({id, children, index, moveCar
 			if (dragIndex === hoverIndex) {
 				return;
 			}
-			console.log('drag item', item.id)
-			console.log('drop item', id)
 			moveCard(Number(item.id), id);
 		}
 	})

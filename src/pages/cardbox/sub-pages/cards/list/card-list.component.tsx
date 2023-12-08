@@ -74,10 +74,12 @@ export const CardList: React.FC<TCardListProps> = ({cardbox, onAdd}) => {
 
 	if (appState?.cardListStyle === 'table') {
 		// table style uses separate component
-		return <><CardTable
-			cardboxId={cardbox.id}
-			sides={[cardbox.side1title, cardbox.side2title]}
-			cards={cards}/>
+		return <>
+			<CardTable
+				cardboxId={cardbox.id}
+				sides={[cardbox.side1title, cardbox.side2title]}
+				handleMove={handleMove}
+				cards={cards}/>
 
 			{/* default add button */}
 			<CardListAdd onClick={onAdd}/>

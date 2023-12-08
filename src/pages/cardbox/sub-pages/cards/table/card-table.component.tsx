@@ -2,107 +2,16 @@ import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {AgGridReact} from 'ag-grid-react'; // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import {TCardListTableMode, TCardListTableViewMode} from "../../../../../store/settings/types-settings.ts";
-import {PreviewCell} from "./card-table-preview.component.tsx";
-import {RemoveCell} from "./card-table-remove.component.tsx";
 import {useCardNavigateHook} from "../../../../../hooks/useCardNavigate.hook.tsx";
-import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 import {TSCard} from "../../../../../store/cards/types-card.ts";
+import {getTableDefs} from "./table-utils.ts";
 
 export type TCardTableProps = {
 	cardboxId: number
 	sides: Array<string>
 	cards: Array<TSCard>
-}
-
-function getTableDefs(cardboxId: number, sides?: Array<string>, tableEditMode?: TCardListTableMode, tableViewMode?: TCardListTableViewMode) {
-	const result = [];
-
-	const previewColumn: any = {
-		field: '_preview',
-		headerName: '',
-		rowDrag: true,
-		width: 80,
-		maxWidth: 80,
-		minWidth: 80,
-		editable: false, sortable: false, resizable: false, filter: '',
-		cellRenderer: PreviewCell,
-		cellRendererParams: {
-			cardboxId: cardboxId
-		}
-	};
-
-	const deleteColumn: any = {
-		field: '_delete',
-		headerName: '',
-		width: 60,
-		maxWidth: 60,
-		minWidth: 60,
-		editable: false, sortable: false, resizable: false, filter: '',
-		cellRenderer: RemoveCell,
-		cellRendererParams: {
-			cardboxId: cardboxId
-		}
-	};
-
-	if (tableViewMode === 'wide') {
-		result.push(...(sides || [])
-			.map((side, idx) => {
-				return {
-					headerName: side,
-					editable: false, sortable: false, resizable: false, filter: '',
-					children: [
-						{
-							field: `side${idx + 1}header`,
-							headerName: 'Header',
-							editable: tableEditMode === 'editable',
-							wrapText: true,
-							autoHeight: true,
-							filter: true,
-							sortable: false
-							//hide: tableViewMode === 'narrow'
-						},
-						{
-							field: `side${idx + 1}text`,
-							headerName: 'Text',
-							editable: tableEditMode === 'editable',
-							wrapText: true,
-							sortable: false,
-							autoHeight: true,
-							filter: true,
-						},
-						{
-							field: `side${idx + 1}footer`,
-							headerName: 'Footer',
-							editable: tableEditMode === 'editable',
-							wrapText: true,
-							sortable: false,
-							autoHeight: true,
-							filter: true,
-							// hide: tableViewMode === 'narrow'
-						}]
-				};
-			}));
-
-		result[0].children.splice(0, 0, previewColumn);
-		result[sides!.length - 1].children.push(deleteColumn);
-	} else {
-		result.push(...(sides || []).map((side, idx) => {
-			return {
-				field: `side${idx + 1}text`,
-				headerName: side,
-				editable: tableEditMode === 'editable',
-				sortable: false,
-				filter: true,
-			};
-		}));
-
-		result.splice(0, 0, previewColumn);
-		result.push(deleteColumn);
-	}
-
-	return result;
+	handleMove: (dragIndex: number, hoverIndex: number) => void
 }
 
 export const CardTable: React.FC<TCardTableProps> = (
@@ -110,6 +19,7 @@ export const CardTable: React.FC<TCardTableProps> = (
 		cardboxId,
 		sides,
 		cards,
+		handleMove
 	}) => {
 
 	const {goCard} = useCardNavigateHook(cardboxId, '');
@@ -122,7 +32,7 @@ export const CardTable: React.FC<TCardTableProps> = (
 
 	const [columnDefs, setColumnDefs] = useState(getTableDefs(cardboxId, sides, appState?.tableEditMode, appState?.tableViewMode));
 
-	const [sourceIndex, setSourceIndex] = useState(-1);
+	const [sourceDragId, setSourceDragId] = useState(-1);
 
 	useEffect(() => {
 		if (!gridRef.current.api) {
@@ -180,14 +90,22 @@ export const CardTable: React.FC<TCardTableProps> = (
 		}
 	}, [goCard, readonly]);
 
-	const handleDrag = useCallback((e: any) => {
-		const endIndex = e.overIndex;
-		moveCardTo(cardboxId, sourceIndex, endIndex)
-	}, [sourceIndex]);
+	const handleDragEnd = useCallback((e: any) => {
+		const endId = e.overNode.data.id;
+		handleMove(sourceDragId, endId);
+
+	}, [sourceDragId]);
 
 	const handleDragEnter = useCallback((e: any) => {
-		setSourceIndex(() => e.overIndex);
-	}, [setSourceIndex]);
+		setSourceDragId(() => e.node.data.id);
+	}, [setSourceDragId]);
+
+	const getRowClass = useCallback((params: any) => {
+		if (params.node.data.unstable === true) {
+			return 'unstable';
+		}
+		return '';
+	}, []);
 
 	if (isLoading || error) {
 		return null;
@@ -201,11 +119,12 @@ export const CardTable: React.FC<TCardTableProps> = (
 				rowData={cards}
 				columnDefs={columnDefs as any}
 				defaultColDef={defaultColDef}
-				animateRows={true}
+				animateRows={false}
 				rowSelection={'single'}
-				onRowDragEnd={handleDrag}
+				onRowDragEnd={handleDragEnd}
 				onRowDragEnter={handleDragEnter}
-				rowDragManaged={true}
+				rowDragManaged={false}
+				getRowClass={getRowClass}
 				//suppressCellFocus={readonly}
 				enableCellEditingOnBackspace={true}
 				onRowDoubleClicked={processDoubleClick}
