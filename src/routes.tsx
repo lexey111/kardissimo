@@ -2,17 +2,17 @@ import React from "react";
 
 import {HomePage} from "./pages/home-page.tsx";
 import {FaqPage} from "./pages/faq-page.tsx";
-import {CardboxesListSubpage} from "./pages/cardbox/sub-pages/cardbox/list/cardbox-list.subpage.tsx";
+import {CardboxesListSubpage} from "./pages/cardbox/cardbox/list/cardbox-list.subpage.tsx";
 import {CardboxPages} from "./pages/cardbox-pages.tsx";
-import {CardboxCards} from "./pages/cardbox/sub-pages/cards/cardbox-cards.tsx";
-import {CardboxCard} from "./pages/cardbox/sub-pages/card/cardbox-card.tsx";
+import {CardboxCards} from "./pages/cardbox/cards/cardbox-cards.tsx";
+import {CardboxCard} from "./pages/cardbox/cards/card/cardbox-card.tsx";
 import {App} from "./app.tsx";
 import {useRouteError} from "react-router";
 import {PageNotFound} from "./components/utils/page-not-found.component.tsx";
 import {RunPage} from "./pages/run-page.tsx";
 import {SessionPage} from "./pages/session-page.tsx";
 import {LoginPage} from "./pages/login-page.tsx";
-import {CardboxDetails} from "./pages/cardbox/sub-pages/cardbox/cardbox-details.tsx";
+import {CardboxDetails} from "./pages/cardbox/cardbox/cardbox-details.tsx";
 
 const ErrorBoundary: React.FC = () => {
 	const error = useRouteError();

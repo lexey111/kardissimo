@@ -3,6 +3,53 @@
 .card-list {
 	padding: 0;
 	margin: 0 auto;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: stretch;
+	justify-content: center;
+	max-width: unset;
+
+	.card-list-headers {
+		display: none;
+	}
+
+	.card-item {
+		margin: 8px 8px 16px 8px;
+		position: relative;
+
+		&.unstable {
+			opacity: .5 !important;
+
+			.card-sides {
+				filter: grayscale(1) blur(2px);
+				opacity: .5;
+			}
+		}
+	}
+
+	.card-sides {
+		display: flex;
+		min-width: 140px;
+		max-width: 140px;
+		width: 140px;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+
+		.card-side-content {
+			border-radius: 20px;
+			max-width: 120px;
+			width: 100%;
+		}
+	}
+
+	.card-actions {
+		div {
+			margin: 4px;
+			width: 32px;
+			height: 32px;
+		}
+	}
 }
 
 .list-mode-selector {
@@ -65,7 +112,6 @@ body.deep-scroll-size {
 	}
 }
 
-@import "cards-card-view";
 @import "cards-table-view";
 @import "cards-list-view";
 @import "cards-no-data";

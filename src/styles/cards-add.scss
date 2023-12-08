@@ -79,11 +79,16 @@
 
 .card-list-add-table {
 	display: flex;
-	max-width: 50%;
-	margin: 0 auto 2rem;
+	margin: 0 auto;
+	width: 100%;
 
 	.card-sides {
+		border-radius: 0 !important;
+		box-shadow: none !important;
+
 		.card-side-content {
+			border-radius: 0 !important;
+			box-shadow: none !important;
 			min-height: 166px;
 			padding: 0;
 			margin: 0;

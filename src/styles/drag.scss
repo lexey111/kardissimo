@@ -45,3 +45,38 @@
 		}
 	}
 }
+
+.list-style-table {
+	.drag-wrapper {
+		&.over {
+			.card-side-content {
+				box-shadow: none;
+			}
+
+			&:after {
+				left: -8px;
+				right: -8px;
+				top: -7px;
+				bottom: unset;
+				height: 2px;
+				width: 100%;
+			}
+
+			&.drag-back {
+				transform-origin: bottom center;
+				transform: translateY(8px) scaleY(.8);
+			}
+
+			&.drag-forward {
+				transform-origin: top center;
+				transform: translateY(-8px) scaleY(.8);
+
+				&:after {
+					top: unset;
+					bottom: -9px;
+				}
+			}
+		}
+
+	}
+}
