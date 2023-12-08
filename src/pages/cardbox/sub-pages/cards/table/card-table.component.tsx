@@ -60,6 +60,7 @@ function getTableDefs(cardboxId: number, sides?: Array<string>, tableEditMode?: 
 							wrapText: true,
 							autoHeight: true,
 							filter: true,
+							sortable: false
 							//hide: tableViewMode === 'narrow'
 						},
 						{
@@ -67,6 +68,7 @@ function getTableDefs(cardboxId: number, sides?: Array<string>, tableEditMode?: 
 							headerName: 'Text',
 							editable: tableEditMode === 'editable',
 							wrapText: true,
+							sortable: false,
 							autoHeight: true,
 							filter: true,
 						},
@@ -75,6 +77,7 @@ function getTableDefs(cardboxId: number, sides?: Array<string>, tableEditMode?: 
 							headerName: 'Footer',
 							editable: tableEditMode === 'editable',
 							wrapText: true,
+							sortable: false,
 							autoHeight: true,
 							filter: true,
 							// hide: tableViewMode === 'narrow'
@@ -90,6 +93,7 @@ function getTableDefs(cardboxId: number, sides?: Array<string>, tableEditMode?: 
 				field: `side${idx + 1}text`,
 				headerName: side,
 				editable: tableEditMode === 'editable',
+				sortable: false,
 				filter: true,
 			};
 		}));
