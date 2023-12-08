@@ -18,6 +18,21 @@
 		background-color: mixins.whiteTrans(.7);
 	}
 
+	.ag-paging-panel {
+		color: var(--app-text);
+
+		.ag-icon {
+			color: var(--app-text);
+		}
+
+		.ag-disabled {
+			.ag-icon {
+				color: var(--app-text);
+				opacity: .5;
+			}
+		}
+	}
+
 	// TODO: use main theme variables
 	.ag-theme-alpine {
 		--ag-background-color: #f1f1e9;
