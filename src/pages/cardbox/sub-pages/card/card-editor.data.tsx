@@ -7,6 +7,7 @@ import {WaitInline} from "../../../../components/utils/wait-inline.component.tsx
 import {PageNotFound} from "../../../../components/utils/page-not-found.component.tsx";
 import {TSCard} from "../../../../store/cards/types-card.ts";
 import {useCardUpdate} from "../../../../store/cards/hooks/useCardUpdateHook.tsx";
+import {useCards} from "../../../../store/cards/hooks/useCardsHook.tsx";
 
 export type TCardEditorProps = {
 	cardboxId: number
@@ -18,7 +19,9 @@ export const CardEditorData: React.FC<TCardEditorProps> = ({cardboxId, cardId, i
 	const navigate = useNavigate();
 
 	const {data: cardbox, isLoading: isCardboxLoading} = useCardbox(cardboxId);
+	const {data: cards, isLoading: isCardsLoading} = useCards(cardboxId);
 	const {data: cardData, isLoading} = useCard(cardboxId, cardId);
+
 	const cardMutation = useCardUpdate(cardboxId);
 
 	const handleBack = useCallback(() => {
@@ -40,11 +43,16 @@ export const CardEditorData: React.FC<TCardEditorProps> = ({cardboxId, cardId, i
 	}, [handleEsc]);
 
 	const handleSubmit = useCallback((data: TSCard) => {
+		if (data.id === 0) {
+			const maxIndex = cards!.reduce((prev, current) => Math.max(prev, current.cards_order), 0);
+			data.cards_order = maxIndex + 1;
+		}
+
 		cardMutation.mutate(data);
 		navigate(`/cardboxes/${cardboxId}/cards`);
 	}, [cardboxId, isNew, navigate]);
 
-	if (isLoading || isCardboxLoading) {
+	if (isLoading || isCardboxLoading || isCardsLoading) {
 		return <WaitInline text={'Loading data...'}/>;
 	}
 
@@ -52,7 +60,7 @@ export const CardEditorData: React.FC<TCardEditorProps> = ({cardboxId, cardId, i
 		return <PageNotFound message={`Card box #${cardboxId} not found`}/>;
 	}
 
-	if (!cardData) {
+	if (!cardData || !cards) {
 		return <PageNotFound message={`Card #${cardId} not found`}/>;
 	}
 

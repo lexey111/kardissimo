@@ -133,8 +133,11 @@ export const CardsImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 			return;
 		}
 
+		let maxIndex = cards!.reduce((prev, current) => Math.max(prev, current.cards_order), 0);
+
 		if (params.mode === 'replace') {
 			await cardsRemoveAllMutation.mutateAsync();
+			maxIndex = 0;
 		}
 
 		let counter = 0;
@@ -146,6 +149,8 @@ export const CardsImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 			}
 
 			counter++;
+			maxIndex++;
+
 			return cardMutation.mutateAsync({
 				...getDefaultSCard(cardboxId),
 				side1text: item.text0 || '',
@@ -153,7 +158,8 @@ export const CardsImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 				side1footer: item.footer0 || '',
 				side2text: item.text1 || '',
 				side2header: item.header1 || '',
-				side2footer: item.footer1 || ''
+				side2footer: item.footer1 || '',
+				cards_order: maxIndex
 			});
 		}));
 

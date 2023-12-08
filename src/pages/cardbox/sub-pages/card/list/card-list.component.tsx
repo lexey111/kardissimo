@@ -3,12 +3,13 @@ import {CardListItem} from "./card-list-item.component.tsx";
 import {CardTable} from "../table/card-table.component.tsx";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
-import {moveCardTo} from "../../../../../store/data/cardboxes-store.selectors.ts";
 import {TSCardbox} from "../../../../../store/cardboxes/types-cardbox.ts";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 import {useCards} from "../../../../../store/cards/hooks/useCardsHook.tsx";
 import {WaitInline} from "../../../../../components/utils/wait-inline.component.tsx";
 import {PageNotFound} from "../../../../../components/utils/page-not-found.component.tsx";
+import {toast} from "react-toastify";
+import {useCardMove} from "../../../../../store/cards/hooks/useCardMoveHook.tsx";
 
 export type TCardListProps = {
 	cardbox: TSCardbox
@@ -20,10 +21,26 @@ export const CardList: React.FC<TCardListProps> = ({cardbox}) => {
 
 	const [scrollPos, setScrollPos] = useState<number | undefined>(0);
 
-	const handleMove = useCallback((dragIndex: number, hoverIndex: number) => {
+	const moveMutation = useCardMove(cardbox.id);
+
+	const handleMove = useCallback(async (dragId: number, targetId: number) => {
 		setScrollPos(() => document.scrollingElement?.scrollTop || 0);
-		moveCardTo(cardbox.id, dragIndex, hoverIndex);
-	}, []);
+		console.log('move', dragId, '->', targetId);
+		const from = cards?.find(c => c.id === dragId);
+		const to = cards?.find(c => c.id === targetId);
+
+		if (!from || !to) {
+			toast('Error on moving the card: card not found', {type: 'error'})
+			return;
+		}
+
+		await moveMutation.mutateAsync({
+			fromId: from.id,
+			fromOrder: from.cards_order,
+			toId: to.id,
+			toOrder: to.cards_order
+		});
+	}, [cards]);
 
 	useLayoutEffect(() => {
 		if (scrollPos && scrollPos !== 0 && document.scrollingElement) {

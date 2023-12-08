@@ -9,5 +9,6 @@ export function getAllCardsByBox(
 		.from('cards')
 		.select()
 		.eq('box_id', cardboxId)
+		.order('cards_order', {ascending: true})
 		.throwOnError();
 }

@@ -1,5 +1,5 @@
 import React, {useCallback} from "react";
-import {CardSide} from "../card-side.component.tsx";
+import {CardListSide} from "./card-list-side.component.tsx";
 import {CardRemoveButton} from "../card-remove.button.tsx";
 import {TCardListStyle} from "../../../../../store/settings/types-settings.ts";
 import {TSCardbox} from "../../../../../store/cardboxes/types-cardbox.ts";
@@ -51,7 +51,7 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 	const schema2 = getSideColorsBySchema(card.hasOwnDesign ? card.side2schema : cardbox.side2schema);
 
 	return <DraggableCard moveCard={handleMove} key={card.id} id={card.id} index={index}>
-		<div className={'card-item' + (card.id === 0 ? ' unstable' : '')} tabIndex={0} onKeyDown={handleKeys}>
+		<div className={'card-item' + ((card.id === 0 || card.unstable) ? ' unstable' : '')} tabIndex={0} onKeyDown={handleKeys}>
 			<div className={'card-sides'}>
 				{[1, 2].map((_, idx) => {
 					const sideColor = idx === 0 ? schema1.color : schema2.color;
@@ -71,7 +71,7 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 						return null
 					}
 
-					return <CardSide
+					return <CardListSide
 						card={card}
 						sideIdx={idx}
 						background={sideColor}

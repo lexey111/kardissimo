@@ -66,10 +66,6 @@ export const CardsNoData: React.FC<TCardListNoDataProps> = ({onCreate, cardboxId
 			</div>
 		</div>
 
-		<p>
-			Drag active {dragActive ? 'yes' : 'no'}
-		</p>
-
 		<CardsImportHelp/>
 
 		<CardsImport cardboxId={cardboxId}/>

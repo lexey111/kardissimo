@@ -5,7 +5,7 @@ import {useDrag, useDrop} from 'react-dnd'
 export interface CardProps {
 	id: any
 	index: number
-	moveCard: (dragIndex: number, hoverIndex: number) => void
+	moveCard: (dragId: number, targetId: number) => void
 	children: any
 }
 
@@ -52,7 +52,9 @@ export const DraggableCard: React.FC<CardProps> = ({id, children, index, moveCar
 			if (dragIndex === hoverIndex) {
 				return;
 			}
-			moveCard(dragIndex, hoverIndex);
+			console.log('drag item', item.id)
+			console.log('drop item', id)
+			moveCard(Number(item.id), id);
 		}
 	})
 

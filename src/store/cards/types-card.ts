@@ -18,6 +18,7 @@ create table
     side2schema character varying null,
     "side2fontSize" character varying null,
     "side2fontName" character varying null,
+    cards_order bigint not null
     constraint cards_pkey primary key (id)
   ) tablespace pg_default;
 */
@@ -48,6 +49,9 @@ export type TSCard = {
 
 	side1fontName: string
 	side2fontName: string
+
+	cards_order: number
+	unstable?: boolean
 }
 
 export type TSCardKey = keyof TSCard;
