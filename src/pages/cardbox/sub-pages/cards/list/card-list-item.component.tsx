@@ -84,6 +84,7 @@ export const CardListItem: React.FC<TCardListItemProps> = (
 					<CardRemoveButton cardId={card.id}/>
 				</div>
 			</div>
+			<div className={'card-index'}>{index + 1}</div>
 		</div>
 	</DraggableCard>;
 };

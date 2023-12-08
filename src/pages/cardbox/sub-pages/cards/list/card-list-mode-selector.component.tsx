@@ -8,7 +8,7 @@ import {TSCardbox, TSCardboxKey} from "../../../../../store/cardboxes/types-card
 import {Button} from "../../../../../components/utils/button.component.tsx";
 import {useSettingsQuery} from "../../../../../store/settings/hooks/useSettingsHook.tsx";
 import {useSettingsUpdate} from "../../../../../store/settings/hooks/useSettingsUpdateHook.tsx";
-import {CardsImportMenu} from "../../cards/cards-import-menu.component.tsx";
+import {CardsImportMenu} from "../import/cards-import-menu.component.tsx";
 
 export type TCardListModeSelectorProps = {
 	cardbox: TSCardbox

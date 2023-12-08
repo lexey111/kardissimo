@@ -17,15 +17,13 @@ export const CardListHeader: React.FC<TCardListHeaderProps> = ({cardbox}) => {
 
 	const showSideNames = appState.cardListStyle === 'list';
 
-	return <div className={'card-list'}>
-		<div className={'card-sides-header'}>
-			{showSideNames && [1, 2].map((side, idx) => {
-				return <div className={'card-side-name'} key={idx.toString()}>
-					{cardbox[`side${side}title` as TSCardboxKey] as string}
-				</div>
-			})}
+	return <div className={'card-sides-header'}>
+		{showSideNames && [1, 2].map((side, idx) => {
+			return <div className={'card-side-name'} key={idx.toString()}>
+				{cardbox[`side${side}title` as TSCardboxKey] as string}
+			</div>
+		})}
 
-			<CardListModeSelector cardbox={cardbox}/>
-		</div>
+		<CardListModeSelector cardbox={cardbox}/>
 	</div>;
 };

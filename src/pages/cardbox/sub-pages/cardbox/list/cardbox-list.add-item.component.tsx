@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import {useNavigate} from "react-router-dom";
-import {BigAddButton} from "../../../../components/utils/big-add-button.component.tsx";
+import {BigAddButton} from "../../../../../components/utils/big-add-button.component.tsx";
 
 export const CardboxListAddItem: React.FC = () => {
 	const navigate = useNavigate();

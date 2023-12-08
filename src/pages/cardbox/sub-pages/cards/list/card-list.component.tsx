@@ -10,12 +10,14 @@ import {WaitInline} from "../../../../../components/utils/wait-inline.component.
 import {PageNotFound} from "../../../../../components/utils/page-not-found.component.tsx";
 import {toast} from "react-toastify";
 import {useCardMove} from "../../../../../store/cards/hooks/useCardMoveHook.tsx";
+import {CardListAdd} from "./card-list-add.component.tsx";
 
 export type TCardListProps = {
 	cardbox: TSCardbox
+	onAdd: () => void
 }
 
-export const CardList: React.FC<TCardListProps> = ({cardbox}) => {
+export const CardList: React.FC<TCardListProps> = ({cardbox, onAdd}) => {
 	const {data: appState, isLoading} = useSettingsQuery();
 	const {data: cards, isLoading: isCardsLoading} = useCards(cardbox.id);
 
@@ -72,10 +74,14 @@ export const CardList: React.FC<TCardListProps> = ({cardbox}) => {
 
 	if (appState?.cardListStyle === 'table') {
 		// table style uses separate component
-		return <CardTable
+		return <><CardTable
 			cardboxId={cardbox.id}
 			sides={[cardbox.side1title, cardbox.side2title]}
-			cards={cards}/>;
+			cards={cards}/>
+
+			{/* default add button */}
+			<CardListAdd onClick={onAdd}/>
+		</>;
 	}
 
 	// list and card styles are serviced by CSS
@@ -92,5 +98,8 @@ export const CardList: React.FC<TCardListProps> = ({cardbox}) => {
 				/>
 			})}
 		</DndProvider>
+
+		{/* default add button */}
+		<CardListAdd onClick={onAdd}/>
 	</div>;
 };

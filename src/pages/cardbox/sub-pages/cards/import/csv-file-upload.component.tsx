@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
-import {Button} from "../../../../components/utils/button.component.tsx";
+import {Button} from "../../../../../components/utils/button.component.tsx";
 import {FaFileCsv} from "react-icons/fa";
-import {subscribe, unsubscribe} from "../../../../subscribe.ts";
+import {subscribe, unsubscribe} from "../../../../../subscribe.ts";
 
 export type TCSVFileUploadProps = {
 	handleFile: (text: string) => void

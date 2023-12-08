@@ -5,34 +5,6 @@
 	margin: 0 auto;
 }
 
-.card-item {
-	position: relative;
-	border-radius: 20px;
-
-	&:hover {
-		.card-side-content {
-			//transform: translateY(-1px);
-			background: mixins.whiteTrans(.9);
-			box-shadow: 2px 4px 6px mixins.blackTrans(0.3);
-		}
-
-		.card-actions {
-			opacity: 1;
-		}
-	}
-
-	&:focus {
-		outline: none;
-		box-shadow: 0 0 0 4px var(--app-accent-background), 2px 4px 6px mixins.blackTrans(0.3);
-	}
-
-	&.unstable {
-		opacity: .2;
-		pointer-events: none;
-	}
-}
-
-
 .list-mode-selector {
 	z-index: 2;
 	font-size: .8rem;
@@ -98,3 +70,4 @@ body.deep-scroll-size {
 @import "cards-list-view";
 @import "cards-no-data";
 @import "cards-add";
+@import "cards-import";

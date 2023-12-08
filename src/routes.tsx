@@ -2,7 +2,7 @@ import React from "react";
 
 import {HomePage} from "./pages/home-page.tsx";
 import {FaqPage} from "./pages/faq-page.tsx";
-import {CardboxesListSubpage} from "./pages/cardbox/sub-pages/list/cardbox-list.subpage.tsx";
+import {CardboxesListSubpage} from "./pages/cardbox/sub-pages/cardbox/list/cardbox-list.subpage.tsx";
 import {CardboxPages} from "./pages/cardbox-pages.tsx";
 import {CardboxCards} from "./pages/cardbox/sub-pages/cards/cardbox-cards.tsx";
 import {CardboxCard} from "./pages/cardbox/sub-pages/card/cardbox-card.tsx";

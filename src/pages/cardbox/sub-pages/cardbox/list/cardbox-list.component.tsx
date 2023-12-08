@@ -3,8 +3,8 @@ import {CardboxListItem} from "./cardbox-list.item.component.tsx";
 import {EmptyCardboxListAdd} from "./empty-cardbox-list-add.component.tsx";
 import {CardboxListAddItem} from "./cardbox-list.add-item.component.tsx";
 import {IoIosAddCircle} from "react-icons/io";
-import {useCardboxes} from "../../../../store/cardboxes/hooks/useCardboxesHook.tsx";
-import {WaitInline} from "../../../../components/utils/wait-inline.component.tsx";
+import {useCardboxes} from "../../../../../store/cardboxes/hooks/useCardboxesHook.tsx";
+import {WaitInline} from "../../../../../components/utils/wait-inline.component.tsx";
 
 export const CardboxList: React.FC = () => {
 	const {data, isLoading} = useCardboxes();

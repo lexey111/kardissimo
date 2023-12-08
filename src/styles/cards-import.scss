@@ -1,0 +1,94 @@
+@use 'mixins';
+
+.cards-import {
+	position: relative;
+	@include mixins.center();
+	max-width: 960px;
+	//padding: 16px 28px;
+	margin: 32px auto;
+	display: block;
+	float: none;
+
+	a {
+		text-underline-offset: 4px;
+		color: var(--app-text-link-color);
+
+		&:hover {
+			text-underline-offset: 2px;
+			color: var(--app-text-link-color-darken);
+		}
+	}
+
+	h1 {
+		padding: 0;
+		margin: 0 0 16px 0;
+	}
+
+	.text {
+		text-align: left;
+		display: block;
+		float: none;
+		overflow: hidden;
+		padding: 4px;
+
+		img {
+			border: 8px solid mixins.whiteTrans(.7);
+			float: left;
+			width: 60%;
+			max-width: 100%;
+			margin-bottom: 32px;
+			border-radius: 20px;
+			margin-right: 32px;
+		}
+
+		img.image-right {
+			margin: 0 0 0 32px;
+			float: right;
+		}
+	}
+
+	p {
+		line-height: 1.6rem;
+		text-align: left;
+		margin-bottom: 1rem;
+	}
+}
+
+.import-actions {
+	float: none;
+	width: 100%;
+	margin-top: 32px;
+	padding: 4px 0;
+	overflow: hidden;
+
+	button {
+		margin: 0 4px;
+	}
+}
+
+.dropdown-menu {
+	position: absolute;
+	right: 0;
+	top: 100%;
+	transform: translateY(2px);
+	display: flex;
+	flex-flow: column wrap;
+	outline: none;
+
+	@include mixins.card();
+	color: var(--app-card-text);
+	border-radius: 8px 0 8px 8px;
+	padding: 8px;
+
+	a {
+		text-decoration: none;
+		color: var(--app-card-text);
+		padding: 8px 16px;
+		border-radius: 2px;
+
+		&:hover, &:focus {
+			background: var(--app-primary-background);
+			color: var(--app-primary-color);
+		}
+	}
+}

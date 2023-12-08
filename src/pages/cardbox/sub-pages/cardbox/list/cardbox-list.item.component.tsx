@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import {useNavigate} from "react-router-dom";
-import {TSCardbox} from "../../../../store/cardboxes/types-cardbox.ts";
-import {getSideColorsBySchema} from "../../../../store/cardboxes/cardboxes-utils.ts";
+import {TSCardbox} from "../../../../../store/cardboxes/types-cardbox.ts";
+import {getSideColorsBySchema} from "../../../../../store/cardboxes/cardboxes-utils.ts";
 import {CardboxActions} from "./cardbox-actions.component.tsx";
 
 export type TCardboxItemProps = {

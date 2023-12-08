@@ -84,35 +84,6 @@ body.deep-scroll-size {
 	cursor: pointer;
 	transform: translateX(-50%);
 
-	.add-some-item {
-		&:before {
-			content: '';
-			display: block;
-			z-index: -1;
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background: mixins.whiteTrans(.5);
-			border-radius: 100%;
-		}
-	}
-
-	&:before {
-		content: '';
-		display: block;
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: mixins.whiteTrans(.5);
-		z-index: -1;
-		border-radius: 100%;
-		box-shadow: 0 2px 4px mixins.blackTrans(.2);
-	}
-
 	&:hover {
 		&:before {
 			box-shadow: 1px 2px 6px mixins.blackTrans(.3);

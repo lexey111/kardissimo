@@ -1,9 +1,9 @@
 import React, {useCallback} from "react";
-import {CardsImport} from "./cards-import.component.tsx";
+import {CardsImport} from "./import/cards-import.component.tsx";
 import {BigAddButton} from "../../../../components/utils/big-add-button.component.tsx";
 import {FaRegClipboard} from "react-icons/fa";
 import {PiFileCsvBold} from "react-icons/pi";
-import {CardsImportHelp} from "./cards-import-help.component.tsx";
+import {CardsImportHelp} from "./import/cards-import-help.component.tsx";
 import {publish} from "../../../../subscribe.ts";
 
 export type TCardListNoDataProps = {

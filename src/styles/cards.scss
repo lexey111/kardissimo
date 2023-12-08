@@ -1,5 +1,32 @@
 @use 'mixins';
 
+.card-item {
+	position: relative;
+	border-radius: 20px;
+
+	&:hover {
+		.card-side-content {
+			//transform: translateY(-1px);
+			background: mixins.whiteTrans(.9);
+			box-shadow: 2px 4px 6px mixins.blackTrans(0.3);
+		}
+
+		.card-actions {
+			opacity: 1;
+		}
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 0 4px var(--app-accent-background), 2px 4px 6px mixins.blackTrans(0.3);
+	}
+
+	&.unstable {
+		opacity: .2;
+		pointer-events: none;
+	}
+}
+
 .card-sides, .card-sides-header {
 	width: auto;
 	flex-flow: row wrap;
@@ -30,6 +57,17 @@
 	border-radius: 20px;
 	margin: 0 0 32px 0;
 	grid-row-gap: 0;
+}
+
+.card-index {
+	text-align: center;
+	font-size: .8rem;
+	position: absolute;
+	bottom: -20px;
+	color: var(--app-text);
+	opacity: .7;
+	left: 0;
+	right: 0;
 }
 
 .card-actions {
@@ -75,6 +113,7 @@
 	}
 
 	color: #2b566e;
+
 	.card-header, .card-text, .card-footer {
 		display: flex;
 		border: 1px dashed mixins.blackTrans(.12);

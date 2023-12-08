@@ -17,8 +17,7 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({onClick}) => {
 		return null;
 	}
 
-	return <div className={`card-list list-style-${appState.cardListStyle}`}>
-		<div className={`card-list-add-${appState.cardListStyle}`}>
+	return <div className={`card-list-add-${appState.cardListStyle}`}>
 			<span></span>
 			<div className={'card-item add'}>
 				<div className={'card-sides'}>
@@ -30,8 +29,8 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({onClick}) => {
 					})}
 				</div>
 				<BigAddButton onClick={handleAdd} center/>
+				<div className={'card-index'}></div>
 			</div>
 			<span></span>
-		</div>
-	</div>;
+		</div>;
 };

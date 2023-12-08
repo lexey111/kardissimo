@@ -1,11 +1,11 @@
 import React, {useCallback, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {Modal} from "../../../../components/utils/modal-component.tsx";
+import {Modal} from "../../../../../components/utils/modal-component.tsx";
 import {FaGrip, FaPlay, FaTrashCan} from "react-icons/fa6";
-import {Button} from "../../../../components/utils/button.component.tsx";
+import {Button} from "../../../../../components/utils/button.component.tsx";
 import {FaArrowLeft, FaCog} from "react-icons/fa";
-import {useCardboxDelete} from "../../../../store/cardboxes/hooks/useCardboxDeleteHook.tsx";
-import {TSCardbox} from "../../../../store/cardboxes/types-cardbox.ts";
+import {useCardboxDelete} from "../../../../../store/cardboxes/hooks/useCardboxDeleteHook.tsx";
+import {TSCardbox} from "../../../../../store/cardboxes/types-cardbox.ts";
 
 export type TCardboxActionsProps = {
 	cardbox: TSCardbox

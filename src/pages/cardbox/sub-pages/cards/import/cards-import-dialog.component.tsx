@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import {Button} from "../../../../components/utils/button.component.tsx";
-import {Modal} from "../../../../components/utils/modal-component.tsx";
+import {Button} from "../../../../../components/utils/button.component.tsx";
+import {Modal} from "../../../../../components/utils/modal-component.tsx";
 import {FaTrashCan} from "react-icons/fa6";
 import {AgGridReact} from "ag-grid-react";
 import Select from "react-select";

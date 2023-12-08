@@ -3,7 +3,6 @@
 .card-item.add {
 	width: 100%;
 	position: relative;
-	margin: 0 auto 2rem;
 
 	.card-sides {
 		width: 100%;
@@ -11,18 +10,31 @@
 
 		.card-side-content {
 			cursor: default;
-			padding: 32px 0;
-			height: 64px;
 			@include mixins.newcard();
 		}
 	}
 }
 
 .card-list-add-list {
-	margin-top: 16px;
+	display: flex;
+	min-width: 280px;
+	max-width: 280px;
+	width: 280px;
+
 	.card-sides {
+		min-height: 166px;
+		min-width: 140px;
+		max-width: 140px;
+		width: 140px;
+		padding: 0;
+		margin: 0;
+
 		.card-side-content {
 			border-radius: 0;
+			position: relative;
+			width: 100%;
+			padding: 0;
+			margin: 0;
 		}
 
 		.card-side-content:first-child {
@@ -40,16 +52,16 @@
 }
 
 .card-list-add-cards {
-	padding: 0 0 16px 0;
 	display: flex;
-	min-height: 160px;
+	width: auto;
 
 	.card-item.add {
-		height: 100%;
+		align-self: stretch;
 
 		.card-sides {
 			align-items: stretch;
 			align-content: stretch;
+			min-height: 166px;
 			height: 100%;
 
 			.card-side-content {
@@ -67,11 +79,15 @@
 
 .card-list-add-table {
 	display: flex;
-	max-width: 100%;
+	max-width: 50%;
 	margin: 0 auto 2rem;
 
 	.card-sides {
 		.card-side-content {
+			min-height: 166px;
+			padding: 0;
+			margin: 0;
+
 			&:before {
 				content: '';
 				position: absolute;
@@ -101,107 +117,6 @@
 	}
 }
 
-.cards {
-	@include mixins.card();
-}
-
-.cards-import {
-	position: relative;
-	@include mixins.center();
-	max-width: 960px;
-	//padding: 16px 28px;
-	margin: 32px auto;
-	display: block;
-	float: none;
-
-	a {
-		text-underline-offset: 4px;
-		color: var(--app-text-link-color);
-
-		&:hover {
-			text-underline-offset: 2px;
-			color: var(--app-text-link-color-darken);
-		}
-	}
-
-	h1 {
-		padding: 0;
-		margin: 0 0 16px 0;
-	}
-
-	.text {
-		text-align: left;
-		display: block;
-		float: none;
-		overflow: hidden;
-		padding: 4px;
-
-		img {
-			border: 8px solid mixins.whiteTrans(.7);
-			float: left;
-			width: 60%;
-			max-width: 100%;
-			margin-bottom: 32px;
-			border-radius: 20px;
-			margin-right: 32px;
-		}
-
-		img.image-right {
-			margin: 0 0 0 32px;
-			float: right;
-		}
-	}
-
-	p {
-		line-height: 1.6rem;
-		text-align: left;
-		margin-bottom: 1rem;
-	}
-}
-
-.import-actions {
-	float: none;
-	width: 100%;
-	margin-top: 32px;
-	padding: 4px 0;
-	overflow: hidden;
-
-	button {
-		margin: 0 4px;
-	}
-}
-
-.action-row {
-	margin-left: 28px;
-
-	button {
-		height: 28px !important;
-	}
-}
-
-.dropdown-menu {
-	position: absolute;
-	right: 0;
-	top: 100%;
-	transform: translateY(2px);
-	display: flex;
-	flex-flow: column wrap;
-	outline: none;
-
-	@include mixins.card();
-	color: var(--app-card-text);
-	border-radius: 8px 0 8px 8px;
-	padding: 8px;
-
-	a {
-		text-decoration: none;
-		color: var(--app-card-text);
-		padding: 8px 16px;
-		border-radius: 2px;
-
-		&:hover, &:focus {
-			background: var(--app-primary-background);
-			color: var(--app-primary-color);
-		}
-	}
-}
+//.cards {
+//	@include mixins.card();
+//}

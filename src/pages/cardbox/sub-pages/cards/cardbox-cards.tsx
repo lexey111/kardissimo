@@ -1,17 +1,16 @@
 import React, {useCallback} from "react";
 import {useParams} from "react-router-dom";
 import {PageNotFound} from "../../../../components/utils/page-not-found.component.tsx";
-import {CardList} from "../card/list/card-list.component.tsx";
-import {CardListHeader} from "../card/list/card-list-header.component.tsx";
+import {CardList} from "./list/card-list.component.tsx";
+import {CardListHeader} from "./list/card-list-header.component.tsx";
 import {useCardNavigateHook} from "../../../../hooks/useCardNavigate.hook.tsx";
 import {BigAddFloatingButton} from "../../../../components/utils/big-add-floating-button.component.tsx";
-import {CardListAdd} from "../card/list/card-list-add.component.tsx";
 import {CardsNoData} from "./cards-no-data.component.tsx";
 import {useCards} from "../../../../store/cards/hooks/useCardsHook.tsx";
 import {WaitInline} from "../../../../components/utils/wait-inline.component.tsx";
 import {useCardbox} from "../../../../store/cardboxes/hooks/useCardboxHook.tsx";
-import {CardsImport} from "./cards-import.component.tsx";
-import {CardRemove} from "../card/card-remove.component.tsx";
+import {CardsImport} from "./import/cards-import.component.tsx";
+import {CardRemove} from "./card-remove.component.tsx";
 
 export const CardboxCards: React.FC = () => {
 	const params = useParams();
@@ -55,16 +54,13 @@ export const CardboxCards: React.FC = () => {
 		</p>}
 
 		{/* dispatch table/list */}
-		<CardList cardbox={cardboxData}/>
+		<CardList cardbox={cardboxData} onAdd={handleAdd}/>
 
 		{/* event handler for imports */}
 		<CardsImport cardboxId={cardboxId}/>
 
 		{/* event handler for delete */}
 		<CardRemove cardboxId={cardboxId}/>
-
-		{/* default add button */}
-		<CardListAdd onClick={handleAdd}/>
 
 		{/* floating add button */}
 		{cardsData.length > 5 && <BigAddFloatingButton onClick={() => handleAdd(true)} extraHeight={50}/>}

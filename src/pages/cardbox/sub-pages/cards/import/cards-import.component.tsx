@@ -3,14 +3,14 @@ import {toast} from "react-toastify";
 import {CardsImportDialog, TImportedData} from "./cards-import-dialog.component.tsx";
 import {CSVFileUpload} from "./csv-file-upload.component.tsx";
 import Papa from 'papaparse';
-import {useCardbox} from "../../../../store/cardboxes/hooks/useCardboxHook.tsx";
-import {subscribe, unsubscribe} from "../../../../subscribe.ts";
-import {useCards} from "../../../../store/cards/hooks/useCardsHook.tsx";
-import {TSCard} from "../../../../store/cards/types-card.ts";
-import {useCardUpdate} from "../../../../store/cards/hooks/useCardUpdateHook.tsx";
-import {getDefaultSCard} from "../../../../store/cards/cards-utils.ts";
-import {useCardsForceRefresh} from "../../../../store/cards/hooks/useCardsRefresh.tsx";
-import {useCardDeleteAll} from "../../../../store/cards/hooks/useCardDeleteAllHook.tsx";
+import {useCardbox} from "../../../../../store/cardboxes/hooks/useCardboxHook.tsx";
+import {subscribe, unsubscribe} from "../../../../../subscribe.ts";
+import {useCards} from "../../../../../store/cards/hooks/useCardsHook.tsx";
+import {TSCard} from "../../../../../store/cards/types-card.ts";
+import {useCardUpdate} from "../../../../../store/cards/hooks/useCardUpdateHook.tsx";
+import {getDefaultSCard} from "../../../../../store/cards/cards-utils.ts";
+import {useCardsForceRefresh} from "../../../../../store/cards/hooks/useCardsRefresh.tsx";
+import {useCardDeleteAll} from "../../../../../store/cards/hooks/useCardDeleteAllHook.tsx";
 
 function trimText64(str: string): string {
 	const result = str.trim();
