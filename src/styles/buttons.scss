@@ -258,7 +258,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	}
 
 	&[aria-expanded="true"] {
-		color: var(--app-text);
+		color: var(--app-primary-color);
 		background-color: var(--app-primary-background);
 	}
 }
@@ -287,7 +287,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 }
 
 .pure-button-primary, .pure-button-danger {
-	color: var(--app-text);
+	color: var(--app-primary-color);
 
 	&:focus, &:hover {
 		box-shadow: 0 1px 2px mixins.blackTrans(.4);
@@ -296,6 +296,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 
 .pure-button-primary {
 	background-color: var(--app-primary-background);
+	color: var(--app-primary-color);
 }
 
 .pure-button-danger {

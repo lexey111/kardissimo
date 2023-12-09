@@ -34,10 +34,9 @@
 
 
 .data-preview {
-	//width: 100%;
-	.ag-theme-alpine {
-		//
-	}
+	min-width: 100%;
+	display: flex;
+	flex-flow: column  nowrap;
 }
 
 .wait-data {

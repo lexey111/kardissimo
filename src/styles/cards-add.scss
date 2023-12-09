@@ -17,9 +17,15 @@
 
 .card-list-add-list {
 	display: flex;
-	min-width: 280px;
-	max-width: 280px;
-	width: 280px;
+	width: auto;
+
+	.card-item.add {
+		margin: 8px !important;
+		min-width: 280px;
+		max-width: 280px;
+		width: 280px;
+		height: 166px;
+	}
 
 	.card-sides {
 		min-height: 166px;
@@ -78,9 +84,21 @@
 }
 
 .card-list-add-table {
+	min-height: 166px;
 	display: flex;
-	margin: 0 auto;
-	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: -4px;
+	right: -4px;
+	transform: translateY(100%);
+	margin-bottom: -8px;
+
+	.card-item.add {
+		background: mixins.whiteTrans(.1);
+		border-radius: 0 0 20px 20px;
+		overflow: hidden;
+	}
+
 
 	.card-sides {
 		border-radius: 0 !important;

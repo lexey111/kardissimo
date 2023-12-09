@@ -6,6 +6,7 @@ export type TAppAppearance = {
 	linkColor?: string
 	textLinkColor?: string
 	primaryColor: string
+	primaryText: string
 	accentColor: string
 
 	infoColor?: string
@@ -31,6 +32,7 @@ export const Appearances: Array<TAppAppearance> = [
 		linkColor: '#fff',
 		textLinkColor: '#0075ce',
 		primaryColor: '#0075ce',
+		primaryText: '#fff',
 		accentColor: '#ffbd0e',
 		dangerColor: '#FF005B',
 		successColor: '#01a628',
@@ -47,6 +49,7 @@ export const Appearances: Array<TAppAppearance> = [
 		linkColor: '#25d1ea',
 		textLinkColor: '#0667be',
 		primaryColor: '#165786',
+		primaryText: '#b1d1ec',
 		accentColor: '#89e7d9',
 		dangerColor: '#e1128e',
 		successColor: '#12e594',
@@ -63,6 +66,7 @@ export const Appearances: Array<TAppAppearance> = [
 		linkColor: '#fa5ced',
 		textLinkColor: '#a203a0',
 		primaryColor: '#5d00ce',
+		primaryText: '#ccb1ec',
 		accentColor: '#ff00f1',
 		dangerText: '#e8c9c9',
 		dangerColor: '#ff0000',
@@ -81,6 +85,7 @@ export const Appearances: Array<TAppAppearance> = [
 		linkColor: '#599da6',
 		textLinkColor: '#56859b',
 		primaryColor: '#d7e0e7',
+		primaryText: '#30454f',
 		accentColor: '#b6b6b6',
 		dangerColor: '#c93030',
 		dangerText: '#e8c9c9',
@@ -98,6 +103,7 @@ export const Appearances: Array<TAppAppearance> = [
 		linkColor: '#b0bfd2',
 		textLinkColor: '#536879',
 		primaryColor: '#323b44',
+		primaryText: '#abb6c0',
 		accentColor: '#655e56',
 		dangerColor: '#a2013a',
 		dangerText: '#e8c9c9',
@@ -116,6 +122,7 @@ export const Appearances: Array<TAppAppearance> = [
 		linkColor: '#85775d',
 		textLinkColor: '#d39a05',
 		primaryColor: '#a98700',
+		primaryText: '#fcf8ac',
 		accentColor: '#03bb90',
 		dangerColor: '#ff4400',
 		successColor: '#7c9d16',

@@ -1,8 +1,7 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {Modal} from "../../../../components/utils/modal-component.tsx";
 import {FaTrashCan} from "react-icons/fa6";
-import {AgGridReact} from "ag-grid-react";
 import Select from "react-select";
 
 const importModes: any = [
@@ -10,82 +9,6 @@ const importModes: any = [
 	{value: 'merge', label: 'Add only new cards (by text on side #1)'},
 	{value: 'replace', label: 'Remove all existing cards and add these instead'},
 ];
-
-function getTableDefs(data: any, sides: Array<string>): any {
-	const result: any = [];
-
-	if (!data) {
-		return result;
-	}
-
-	result.push({
-		field: '_num',
-		headerName: '#',
-		width: 60,
-		editable: false, sortable: false, resizable: false, filter: '',
-	});
-
-	result.push({
-		field: '_checked',
-		headerName: '?',
-		width: 50,
-		cellStyle: {
-			align: 'center'
-		},
-		editable: true, sortable: false, resizable: false, filter: '',
-	});
-
-	sides.forEach((side, idx) => {
-		if (Object.keys(data[0]).length < 6) {
-			result.push({
-				headerName: side || '#' + (idx + 1),
-				editable: true, sortable: false, resizable: true, filter: '',
-				field: 'text' + (idx),
-			});
-		}
-
-		if (Object.keys(data[0]).length >= 6) {
-			result.push({
-				headerName: side || '#' + (idx + 1),
-				editable: false, sortable: false, resizable: false, filter: '',
-				children: [
-					{
-						headerName: 'Header',
-						editable: true,
-						sortable: false,
-						resizable: true,
-						wrapText: true,
-						autoHeight: true,
-						filter: '',
-						field: 'header' + (idx)
-					},
-					{
-						headerName: 'Text',
-						editable: true,
-						sortable: false,
-						resizable: true,
-						wrapText: true,
-						autoHeight: true,
-						filter: '',
-						field: 'text' + (idx)
-					},
-					{
-						headerName: 'Footer',
-						editable: true,
-						sortable: false,
-						resizable: true,
-						wrapText: true,
-						autoHeight: true,
-						filter: '',
-						field: 'footer' + (idx)
-					}
-				]
-			});
-		}
-	});
-
-	return result;
-}
 
 export type TImportedData = {
 	text0: string
@@ -117,22 +40,13 @@ export const CardsImportDialog: React.FC<TPreviewDialogProps> = (
 		data,
 		sides
 	}) => {
-	const gridRef = useRef<any>(); // Optional - for accessing Grid's API
-	const [columnDefs, setColumnDefs] = useState(null);
 	const [localData, setLocalData] = useState<Array<TImportedData>>();
-
-	const [selectionLength, setSelectionLength] = useState(0);
-	const handleSelection = useCallback(() => {
-		setSelectionLength(() => localData?.filter(d => d._checked).length || 0);
-	}, [localData]);
 
 	const [importMode, setImportMode] = useState(hasRecords ? 'merge' : 'add');
 
 	useEffect(() => {
 		if (!data || !data.length) {
 			setLocalData(void 0);
-			setColumnDefs(null);
-			setSelectionLength(0);
 			setImportMode(hasRecords ? 'merge' : 'add');
 
 			return;
@@ -140,46 +54,69 @@ export const CardsImportDialog: React.FC<TPreviewDialogProps> = (
 
 		setImportMode(hasRecords ? 'merge' : 'add');
 		setLocalData(() => data);
-		setColumnDefs(getTableDefs(data, sides || ['Side #1', 'Side #2']));
-		setSelectionLength(data?.length || 0);
 	}, [data]);
 
 	const doImport = useCallback(() => {
-		gridRef.current.api.stopEditing();
 
-		handleProcess(localData?.filter?.((d: any) => d._checked), {
+		handleProcess(localData, {
 			mode: importMode
 		});
 	}, [localData, importMode]);
 
 	return <Modal
 		open={isOpen}
-		type={Object.keys(data?.[0] || {}).length < 6 ? 'normal' : 'wide'}
+		type={'wide'}
 		onClose={() => setIsOpen(false)}
 		title={'Import data'}
-		body={<>
-			<p className={'inform'}>
-				Tip: the data is editable. You can also select/deselect entries and change values.
-			</p>
-			<div className={'data-preview'}>
-				<div className="ag-theme-alpine">
-					<AgGridReact
-						ref={gridRef}
-						domLayout={'autoHeight'}
-						rowData={localData}
-						columnDefs={columnDefs as any}
-						animateRows={false}
-						rowSelection={'single'}
-						enableCellEditingOnBackspace={true}
-						onCellValueChanged={handleSelection}
-						// onGridReady={handleReady}
-						enterNavigatesVertically={true}
-						enterNavigatesVerticallyAfterEdit={true}
-					/>
+		body={<div className={'data-preview'}>
+			<div className={'card-list list-style-table table-wide'}>
+				<div className={'card-list-headers'}>
+					<div className={'clh-header-row sides'}>
+						<div className={'clh-side'}>
+							{sides?.[0] || 'Side #1'}
+						</div>
+						<div className={'clh-side'}>
+							{sides?.[1] || 'Side #2'}
+						</div>
+					</div>
+					<div className={'clh-header-row'}>
+						<div className={'clh-side'}>
+							<span>Header</span>
+							<span>Text</span>
+							<span>Footer</span>
+						</div>
+						<div className={'clh-side'}>
+							<span>Header</span>
+							<span>Text</span>
+							<span>Footer</span>
+						</div>
+					</div>
 				</div>
+				{localData?.map((record, idx) => {
+					return <div className={'card-item'} key={'_record_' + idx}>
+						<div className={'card-sides'}>
 
+							<div className={'card-side'}>
+								<div className={'card-side-content'}>
+									<div className={'card-header'}>{record.header0}</div>
+									<div className={'card-text'}>{record.text0}</div>
+									<div className={'card-footer'}>{record.footer0}</div>
+								</div>
+							</div>
+
+							<div className={'card-side'}>
+								<div className={'card-side-content'}>
+									<div className={'card-header'}>{record.header1}</div>
+									<div className={'card-text'}>{record.text1}</div>
+									<div className={'card-footer'}>{record.footer1}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				})}
 			</div>
-		</>}
+		</div>
+		}
 		actions={<>
 			<div className={'dialog-switches'}>
 				<Select
@@ -200,9 +137,9 @@ export const CardsImportDialog: React.FC<TPreviewDialogProps> = (
 			<Button type={'secondary'} onClick={() => setIsOpen(false)}>Cancel</Button>
 
 			<Button
-				disabled={selectionLength === 0}
+				disabled={(localData?.length || 0) === 0}
 				type={'primary'} icon={<FaTrashCan/>}
-				onClick={doImport}>Import ({selectionLength})</Button>
+				onClick={doImport}>Import ({localData?.length || 0})</Button>
 		</>}
 	/>
 }

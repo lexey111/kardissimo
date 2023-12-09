@@ -71,22 +71,8 @@ export const CardList: React.FC<TCardListProps> = ({cardbox, onAdd}) => {
 		return <PageNotFound message={`Cards for box #${cardbox.id} not found`}/>;
 	}
 
-	if (appState?.cardListStyle === 'table') {
-		// table style uses separate component
-		// return <>
-		// 	<CardTable
-		// 		cardboxId={cardbox.id}
-		// 		sides={[cardbox.side1title, cardbox.side2title]}
-		// 		handleMove={handleMove}
-		// 		cards={cards}/>
-		//
-		// 	{/* default add button */}
-		// 	<CardListAdd onClick={onAdd}/>
-		// </>;
-	}
-
-	// list and card styles are serviced by CSS
-	return <div className={`card-list list-style-${appState?.cardListStyle || 'cards'} table-${appState?.tableViewMode || 'wide'}`}>
+	return <div
+		className={`card-list list-style-${appState?.cardListStyle || 'cards'} table-${appState?.tableViewMode || 'wide'}`}>
 		<div className={'card-list-headers'}>
 			<div className={'clh-header-row sides'}>
 				<div className={'clh-side'}>

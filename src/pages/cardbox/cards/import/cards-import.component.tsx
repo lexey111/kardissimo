@@ -58,7 +58,7 @@ function parseRawStrings(str: string) {
 		};
 	})
 		.filter(Boolean)
-		.map((data: any, idx: number) => ({_num: idx + 1, _checked: true, ...data}))
+		.map((data: any, idx: number) => ({_num: idx + 1, ...data}))
 }
 
 function isCardExists(cards?: Array<TSCard>, text?: string) {

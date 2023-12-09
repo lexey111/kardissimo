@@ -18,7 +18,6 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({onClick}) => {
 	}
 
 	return <div className={`card-list-add-${appState.cardListStyle}`}>
-			<span></span>
 			<div className={'card-item add'}>
 				<div className={'card-sides'}>
 					{[1, 2].map((_, idx) => {
@@ -29,8 +28,6 @@ export const CardListAdd: React.FC<TCardListAddProps> = ({onClick}) => {
 					})}
 				</div>
 				<BigAddButton onClick={handleAdd} center/>
-				<div className={'card-index'}></div>
 			</div>
-			<span></span>
 		</div>;
 };

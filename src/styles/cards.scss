@@ -37,6 +37,12 @@
 	position: relative;
 }
 
+.card-side {
+	width: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+}
+
 .card-sides-header {
 	height: 48px;
 	margin-bottom: 16px;
@@ -118,6 +124,7 @@
 		display: flex;
 		border: 1px dashed mixins.blackTrans(.12);
 		width: 100%;
+		max-width: 100%;
 		min-height: 2rem;
 		border-radius: 6px;
 		align-items: center;
@@ -126,12 +133,12 @@
 		max-height: 80px;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		font-weight: 200;
 	}
 
 	.card-header {
 		margin-bottom: auto;
 		font-size: .7rem;
-		font-weight: 300;
 	}
 
 	.card-text {
@@ -145,7 +152,6 @@
 	.card-footer {
 		margin-top: auto;
 		font-size: .7rem;
-		font-weight: 300;
 	}
 
 }
