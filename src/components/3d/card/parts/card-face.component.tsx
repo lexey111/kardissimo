@@ -3,7 +3,7 @@ import React from "react";
 import {Text} from "@react-three/drei";
 import {CardSurface} from "./card-surface.component.tsx";
 import {cardThickness} from "./card-utils.ts";
-import {TPreparedSide} from "../../../../store/cardboxes/types-cardbox.ts";
+import {TPreparedSide} from "../../../../store/cards/types-card-face.ts";
 
 export type TCardFaceProps = {
 	face: TPreparedSide
@@ -36,7 +36,7 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const {id: _1, fontSize: _2, ...headerProps} = props.face;
+	const {fontSize: _1, ...headerProps} = props.face;
 	headerProps.text = props.face.header || '';
 	// @ts-ignore
 	headerProps['fontSize'] = fontSize * .7;

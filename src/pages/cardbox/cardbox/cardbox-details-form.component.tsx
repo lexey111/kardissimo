@@ -10,6 +10,7 @@ import {colorSchemaOptions, FontNameOptions, FontSizeOptions} from "../../../res
 import {MinScreenWidthContainer} from "../../../components/utils/min-screen-width-container.tsx";
 import {getSideColorsBySchema} from "../../../store/cardboxes/cardboxes-utils.ts";
 import {Switch} from "../../../components/utils/switch.component.tsx";
+import {TFacesData} from "../../../store/cards/types-card-face.ts";
 
 function validateRequired(value?: string): string | null {
 	if (!value || !value.trim()) {
@@ -102,8 +103,8 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 	const titleError = errors?.title;
 	const titleClass = errors?.title ? ' invalid' : ' valid';
 
-	const facesData = {
-		id: 'none', sides: [
+	const facesData: TFacesData = {
+		sides: [
 			{
 				header: 'header',
 				text: 'Hello!',

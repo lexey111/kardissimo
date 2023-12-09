@@ -1,5 +1,6 @@
 import {ColorSchemes} from "../../resources/colors.ts";
 import {Fonts} from "../../resources/fonts.ts";
+import {TFontSize} from "../types-common.ts";
 
 export type TCardFace = {
 	text: string
@@ -31,3 +32,24 @@ export const defaultSide = {
 	fontSize: 'M',
 	textColor: ColorSchemes[Object.keys(ColorSchemes)[0]].textColor
 };
+
+
+export type TFacesData = {
+	sides: [{ header: string, text: string, footer: string }, { header: string, text: string, footer: string }]
+	cardboxSides: [{
+		color: string,
+		textColor: string,
+		name: string,
+		fontName: string,
+		fontSize: TFontSize,
+		colorSchemaName: string
+	}, {
+		color: string,
+		textColor: string,
+		name: string,
+		fontName: string,
+		fontSize: TFontSize,
+		colorSchemaName: string
+	}]
+}
+export type TPreparedSide = TCardFace;

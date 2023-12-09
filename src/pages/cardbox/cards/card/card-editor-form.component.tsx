@@ -11,6 +11,7 @@ import {colorSchemaOptions, FontNameOptions, FontSizeOptions} from "../../../../
 import {MinScreenWidthContainer} from "../../../../components/utils/min-screen-width-container.tsx";
 import {TSCard, TSCardKey} from "../../../../store/cards/types-card.ts";
 import {getSideColorsBySchema} from "../../../../store/cardboxes/cardboxes-utils.ts";
+import {TFacesData} from "../../../../store/cards/types-card-face.ts";
 
 export type TCardEditorFormProps = {
 	cardbox: TSCardbox
@@ -66,8 +67,8 @@ export const CardEditorForm: React.FC<TCardEditorFormProps> = (
 	}, []);
 
 	const saveDisabled = (!state.side1header && !state.side1text && !state.side1footer) || (!state.side2header && !state.side2text && !state.side2footer);
-	const facesData = {
-		id: 'none', sides: [
+	const facesData: TFacesData = {
+		sides: [
 			{
 				header: state.side1header,
 				text: state.side1text,

@@ -27,5 +27,7 @@ export const getDefaultSCard = (cardboxId: number): TSCard => {
 
 		side1fontName: defaultFont,
 		side2fontName: Object.keys(Fonts)[0],
+
+		cards_order: 0
 	};
 }

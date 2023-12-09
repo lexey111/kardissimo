@@ -5,9 +5,10 @@ import {OrbitControls, Stage} from "@react-three/drei";
 import {Preview3DCard} from "./card/preview-3d-card.component.tsx";
 import {Fonts} from "../../resources/fonts.ts";
 import {createPortal} from "react-dom";
+import {TFacesData} from "../../store/cards/types-card-face.ts";
 
 export type TCardPreviewProps = {
-	card: any
+	card: TFacesData
 	side: number
 	delay?: number
 	disablePreview?: boolean
@@ -60,25 +61,10 @@ export const CardPreview: React.FC<TCardPreviewProps> = (
 	}
 
 	const faces = card.sides.map((side, idx) => {
-		let color = card.cardboxSides?.[idx].color;
-		let textColor = card.cardboxSides?.[idx].textColor;
-		let fontSize = card.cardboxSides?.[idx].fontSize;
-		let fontName = card.cardboxSides?.[idx].fontName;
-
-		if (card.ownDesign) {
-			if (side.appearance?.color) {
-				color = side.appearance?.color;
-			}
-			if (side.appearance?.textColor) {
-				textColor = side.appearance?.textColor;
-			}
-			if (side.appearance?.fontSize) {
-				fontSize = side.appearance?.fontSize;
-			}
-			if (side.appearance?.fontName) {
-				fontName = side.appearance?.fontName;
-			}
-		}
+		const color = card.cardboxSides?.[idx].color;
+		const textColor = card.cardboxSides?.[idx].textColor;
+		const fontSize = card.cardboxSides?.[idx].fontSize;
+		const fontName = card.cardboxSides?.[idx].fontName;
 
 		return {
 			text: side.text || '',
