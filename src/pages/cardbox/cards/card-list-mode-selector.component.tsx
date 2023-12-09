@@ -7,6 +7,7 @@ import {Button} from "../../../components/utils/button.component.tsx";
 import {useSettingsQuery} from "../../../store/settings/hooks/useSettingsHook.tsx";
 import {useSettingsUpdate} from "../../../store/settings/hooks/useSettingsUpdateHook.tsx";
 import {CardsImportMenu} from "./import/cards-import-menu.component.tsx";
+import {MinScreenWidthContainer} from "../../../components/utils/min-screen-width-container.tsx";
 
 export type TCardListModeSelectorProps = {
 	cardbox: TSCardbox
@@ -56,20 +57,22 @@ export const CardListModeSelector: React.FC<TCardListModeSelectorProps> = ({card
 				</div>
 			</div>}
 
-		{appState.cardListStyle === 'table' && cardbox.cards_count > 0 &&
-			<div className={'table-wide-selector'}>
-				<div className={'pure-button-group'}>
-					<Button
-						icon={<TbViewportWide/>}
-						pressed={appState.tableViewMode === 'wide'}
-						onClick={() => updateSettingsMutation.mutate({tableViewMode: 'wide'})}>Wide</Button>
+		<MinScreenWidthContainer minScreenWidth={800}>
+			{appState.cardListStyle === 'table' && cardbox.cards_count > 0 &&
+				<div className={'table-wide-selector'}>
+					<div className={'pure-button-group'}>
+						<Button
+							icon={<TbViewportWide/>}
+							pressed={appState.tableViewMode === 'wide'}
+							onClick={() => updateSettingsMutation.mutate({tableViewMode: 'wide'})}>Wide</Button>
 
-					<Button
-						icon={<TbViewportNarrow/>}
-						pressed={appState.tableViewMode === 'narrow'}
-						onClick={() => updateSettingsMutation.mutate({tableViewMode: 'narrow'})}>Narrow</Button>
-				</div>
-			</div>}
+						<Button
+							icon={<TbViewportNarrow/>}
+							pressed={appState.tableViewMode === 'narrow'}
+							onClick={() => updateSettingsMutation.mutate({tableViewMode: 'narrow'})}>Narrow</Button>
+					</div>
+				</div>}
+		</MinScreenWidthContainer>
 
 		<CardsImportMenu/>
 	</div>;

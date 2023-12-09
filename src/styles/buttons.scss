@@ -278,6 +278,14 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	}
 }
 
+@media screen and (max-width: 600px) {
+	.button-menu {
+		span {
+			display: none;
+		}
+	}
+}
+
 .pure-button-primary, .pure-button-danger {
 	color: var(--app-text);
 
