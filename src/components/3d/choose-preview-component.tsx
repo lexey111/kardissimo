@@ -8,12 +8,16 @@ export type TChoosePreviewProps = {
 	total: number
 	amount: number
 	delay?: number
+	side?: string
+	mode?: string
 }
 
 export const ChoosePreview: React.FC<TChoosePreviewProps> = (
 	{
 		total,
 		amount,
+		side,
+		mode,
 		delay = 0
 	}) => {
 
@@ -58,7 +62,7 @@ export const ChoosePreview: React.FC<TChoosePreviewProps> = (
 					polar={[-Math.PI / 3, Math.PI / 3]}
 					azimuth={[-Math.PI / 1.4, Math.PI / 2]}>
 
-					<ChooseChunkSize amount={amount} total={total}/>
+					<ChooseChunkSize amount={amount} total={total} side={side || 'Random'} mode={mode || 'Random'}/>
 				</PresentationControls>
 			</Stage>
 

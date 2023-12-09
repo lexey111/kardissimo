@@ -178,6 +178,9 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCardbox, ha
 	const showOrderSelector = ((pieceType === 'exact' || advanced) && cardCount > 2) || (cardCount <= 10);
 	const showAdvanced = cardCount >= 20;
 
+	const sideText = (currentCardbox[`side${side + 1}title` as TSCardboxKey] as string || 'Random') + ' side';
+	const modeText = advanced ? 'Fine selection' : pieceType === 'random' ? 'Random set' : 'Chunk ' + (startIndex + 1) + '...' + (startIndex + chunkSize < cardCount ? startIndex + chunkSize : cardCount);
+
 	return <Modal
 		open={isOpen}
 		type={'normal'}
@@ -191,6 +194,8 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCardbox, ha
 			<ChoosePreview
 				total={cardCount}
 				delay={500}
+				mode={modeText}
+				side={sideText}
 				amount={advanced ? rangeState.value[1] - rangeState.value[0] + 1 : chunkSize}/>
 		</div>}
 		body={<div className={'run-dialog-content'}>
