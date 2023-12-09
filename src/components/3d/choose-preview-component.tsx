@@ -10,6 +10,7 @@ export type TChoosePreviewProps = {
 	delay?: number
 	side?: string
 	mode?: string
+	isRandom: boolean
 }
 
 export const ChoosePreview: React.FC<TChoosePreviewProps> = (
@@ -18,6 +19,7 @@ export const ChoosePreview: React.FC<TChoosePreviewProps> = (
 		amount,
 		side,
 		mode,
+		isRandom,
 		delay = 0
 	}) => {
 
@@ -58,11 +60,13 @@ export const ChoosePreview: React.FC<TChoosePreviewProps> = (
 				<PresentationControls
 					config={{mass: 2, tension: 500}}
 					snap={{mass: 4, tension: 1500}}
-					rotation={[0, -Math.PI / 4, 0]}
+					rotation={[0, -Math.PI / 5, 0]}
 					polar={[-Math.PI / 3, Math.PI / 3]}
 					azimuth={[-Math.PI / 1.4, Math.PI / 2]}>
 
-					<ChooseChunkSize amount={amount} total={total} side={side || 'Random'} mode={mode || 'Random'}/>
+					<ChooseChunkSize
+						amount={amount} total={total} side={side || 'Random'} mode={mode || 'Random'}
+						isRandom={isRandom}/>
 				</PresentationControls>
 			</Stage>
 

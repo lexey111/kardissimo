@@ -205,6 +205,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCardbox, ha
 				delay={500}
 				mode={modeText}
 				side={sideText}
+				isRandom={(!advanced && pieceType === 'random') || (order === 'random')}
 				amount={amount}/>
 		</div>}
 		body={<div className={'run-dialog-content'}>

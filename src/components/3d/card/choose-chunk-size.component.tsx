@@ -7,16 +7,17 @@ export type TChoose3DCard = {
 	total: number
 	side: string
 	mode: string
+	isRandom: boolean
 };
 
-export const ChooseChunkSize: React.FC<TChoose3DCard> = ({total, amount, side, mode}) => {
+export const ChooseChunkSize: React.FC<TChoose3DCard> = ({total, amount, side, mode, isRandom}) => {
 	const cardsNumber = 16;
 	const percent10 = (amount / total) * cardsNumber;
 
 	const min = Math.round(cardsNumber / 2 - percent10 / 2);
 	const max = Math.round(cardsNumber / 2 + percent10 / 2);
 
-	const cards = ['#0f7cf5'];
+	const cards = [];
 	for (let i = 0; i < cardsNumber; i++) {
 		if (i >= min && i < max) {
 			cards.push('#ffb700');
@@ -29,6 +30,11 @@ export const ChooseChunkSize: React.FC<TChoose3DCard> = ({total, amount, side, m
 		cards[Math.round(cardsNumber / 2)] = '#ffb700'; // at least 1
 	}
 
+	if (isRandom) {
+		cards.sort(() => Math.random() > 0.5 ? 1 : -1);
+	}
+
+	cards.splice(0, 0, '#0f7cf5');
 	cards.push('#0f7cf5');
 
 	return <group scale={[.9, .9, .9]}>
