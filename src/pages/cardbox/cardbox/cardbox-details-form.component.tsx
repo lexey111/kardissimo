@@ -310,12 +310,6 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 				</div>
 			</fieldset>
 
-			{/*<fieldset className={'checkbox-field'}>*/}
-			{/*	<span className={'pseudo-label'}></span>*/}
-
-			{/*	<Switch value={useFirst} onChange={setUseFirst} text={'Use texts of card #1 to preview'}/>*/}
-			{/*</fieldset>*/}
-
 			<fieldset className={'actions'}>
 				{!isNew && <Button
 					type={'secondary'}
@@ -331,7 +325,7 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 					icon={<IoCheckmarkCircle/>}
 					disabled={!!hasErrors}>
 					{isNew ? 'Create' : 'Save'}
-					{hasErrors && <a href='#' className={'tooltip-error'}></a>}
+					{hasErrors && <span className={'tooltip-error-ex'}></span>}
 				</Button>
 			</fieldset>
 		</div>

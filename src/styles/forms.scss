@@ -280,7 +280,7 @@ fieldset {
 	flex-flow: row nowrap;
 }
 
-.tooltip-error, .tooltip-info {
+.tooltip-error, .tooltip-info, .tooltip-error-ex {
 	position: absolute;
 	display: flex;
 	flex-flow: row nowrap;
@@ -290,9 +290,7 @@ fieldset {
 	right: -36px;
 	top: 50%;
 	transform: translateY(-50%);
-	background: var(--app-danger-background);
 	color: var(--app-danger-text);
-	box-shadow: 0 1px 4px mixins.blackTrans(.4);
 	border-radius: 100%;
 	width: 29px;
 	height: 29px;
@@ -300,23 +298,61 @@ fieldset {
 	font-size: 17px;
 	text-decoration: none;
 
+	&:hover {
+		&:before {
+			transform: translateY(-50%) translateX(-50%) scale(1.5);
+		}
+	}
+
 	&:before {
-		content: '⚠';
+		transition: all .2s ease;
+		background: var(--app-danger-background);
+		content: '';
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		font-size: 17px;
+		width: 9px;
+		box-shadow: 0 1px 2px mixins.blackTrans();
+		height: 9px;
+		border-radius: 100%;
 		transform: translateY(-50%) translateX(-50%);
 	}
 }
 
-.tooltip-info {
+.tooltip-error-ex {
+	background: none !important;
+	&:before {
+		content: '⚠' !important;
+		font-size: 1.3rem !important;
+		background: none !important;
+		box-shadow: none;
+		font-weight: bold;
+		color: var(--app-danger-background);
+	}
+}
+
+.tooltip-info, .tooltip-error-ex {
 	background: #005fa9;
 	color: #fff;
 
+	&:hover {
+		&:before {
+			transform: none;
+			font-size: 1.2rem;
+		}
+	}
+
 	&:before {
 		content: '?';
+		display: flex;
+		@include mixins.center();
 		font-size: .9rem;
+		background: none;
+		width: 29px;
+		height: 29px;
+		top: 0;
+		left: 0;
+		transform: none;
 	}
 }
 
