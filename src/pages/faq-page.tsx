@@ -6,148 +6,117 @@ export const FaqPage: React.FC = () => {
 	return <AppPage title={'FAQ'} authOnly={false}>
 		<p>&nbsp;</p>
 		<PageHeader
-			title={'Frequently asked questions'}
-			subtitle={'What that is and what for and how to deal with it'}
+			title={'About page'}
+			subtitle={'Some hidden wisdom'}
 		/>
-		<div className={'page-32'}>
+		<div className={'page-32 page-960'}>
 
-			<ul>
-				<li>Zustand</li>
-				<li>ThreeJS</li>
-				<li>drei, troika text</li>
-				<li>Tooltip</li>
-				<li>React</li>
-				<li>Vite</li>
-				<li>Framer motion</li>
-				<li>Typescript</li>
-			</ul>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda commodi consequatur dolor
-				esse inventore, ipsam laudantium nostrum odit officiis placeat quia quibusdam recusandae repellat rerum
-				similique tempora ullam voluptates.
+			<h1>The project</h1>
+			<p>
+				This site was created as a side project to touch on some libraries and technologies that I am not used
+				to.
 			</p>
-			<p>Aliquam beatae blanditiis consequuntur corporis deleniti distinctio dolorem dolorum ducimus eligendi
-				excepturi facere impedit ipsum, iste molestiae nemo nesciunt perferendis possimus quae rem sed vero
-				voluptates voluptatibus! Eos, magni quas.
+			<p>
+				<b>3D text</b> with <b>ThreeJS</b> comes first, then <b>Zustand</b> as state manager instead of my
+				usual <b>MobX</b>, then <b>Supabase</b> as Cloud DB instead GCP/AWS solutions, and, of course, <b>React
+				Query</b> to make state and cache.
 			</p>
-			<p>Ab aspernatur commodi consequuntur dolor doloribus eligendi esse est expedita id ipsam maiores,
-				molestias nostrum numquam officia officiis qui quia quo ratione reprehenderit repudiandae rerum unde,
-				voluptas. Eos, sit, suscipit.
+
+			<p>
+				The second goal was to create a flash card storage and runner engine to help me learn Spanish.
 			</p>
-			<p>Ab accusamus adipisci animi aperiam architecto asperiores dignissimos distinctio eaque excepturi labore
-				maxime minus molestias nihil non nostrum, officiis pariatur perferendis placeat quasi quod ratione rerum
-				totam velit vero voluptas?
+
+			<p>
+				That's basically it.
 			</p>
-			<p>Aliquid architecto aut consequatur consequuntur dicta dolorem doloremque eaque earum exercitationem
-				illum ipsam, numquam recusandae repellendus saepe temporibus! Corporis dolorum eveniet fugiat iste
-				itaque iusto quo ratione repudiandae totam voluptate?
+
+			<p>
+				Enjoy!
 			</p>
-			<p>Asperiores deserunt id incidunt minus mollitia recusandae tempore. Aperiam ex explicabo incidunt odit
-				pariatur sunt tenetur. Asperiores cupiditate et facilis ipsam maxime placeat ullam. Alias distinctio
-				maiores perferendis quas rem!
+
+			<p>
+				&copy; 2023-2024 Oleksii Koshkin aka Lexey111
 			</p>
-			<p>Accusamus dolorum ducimus nam quas vel. Ab assumenda distinctio dolorem earum esse explicabo fugit
-				maiores maxime molestias nesciunt nobis non odio, repudiandae sed, temporibus unde, voluptas! Assumenda
-				harum hic similique?
+
+			<h1>Technology stack</h1>
+			<div className={'packages-container'}>
+				<a className={'used-packages'} href="https://react.dev/" target={'_blank'}>React</a>
+
+				<a className={'used-packages'} href="https://reactrouter.com/en/main" target={'_blank'}>React router</a>
+
+				<a className={'used-packages'} href="https://tanstack.com/" target={'_blank'}>React query</a>
+
+				<a className={'used-packages'} href="https://supabase.com" target={'_blank'}>Supabase</a>
+
+				<a className={'used-packages'} href="https://react-icons.github.io/react-icons" target={'_blank'}>React
+					icons</a>
+
+				<a className={'used-packages'} href="https://headlessui.com/" target={'_blank'}>Headless UI</a>
+
+				<a className={'used-packages'} href="https://threejs.org/" target={'_blank'}>ThreeJS</a>
+
+				<a
+					className={'used-packages'} href="https://protectwise.github.io/troika/troika-three-text/"
+					target={'_blank'}>Troika 3D text</a>
+
+				<a className={'used-packages'} href="https://github.com/pmndrs/drei" target={'_blank'}>Drei 3D</a>
+
+				<a
+					className={'used-packages'} href="https://docs.pmnd.rs/react-three-fiber"
+					target={'_blank'}>React Three Fiber</a>
+
+				<a
+					className={'used-packages'} href="https://docs.pmnd.rs/react-three-fiber"
+					target={'_blank'}>React Three Fiber</a>
+
+				<a className={'used-packages'} href="https://www.framer.com/motion/" target={'_blank'}>Framer motion</a>
+
+				<a className={'used-packages'} href="https://www.papaparse.com/" target={'_blank'}>Papa Parse</a>
+
+				<a className={'used-packages'} href="https://react-select.com/" target={'_blank'}>React Select</a>
+
+				<a
+					className={'used-packages'} href="https://github.com/schrodinger/rc-slider"
+					target={'_blank'}>RC Slider</a>
+
+				<a
+					className={'used-packages'} href="https://react-tooltip.com/docs/getting-started"
+					target={'_blank'}>React tooltip</a>
+
+				<a className={'used-packages'} href="https://www.typescriptlang.org/" target={'_blank'}>Typescript</a>
+
+				<a className={'used-packages'} href="https://vitejs.dev/" target={'_blank'}>Vite</a>
+
+				<a className={'used-packages'} href="https://eslint.org/" target={'_blank'}>ESLint</a>
+
+				<a className={'used-packages'} href="https://sass-lang.com/" target={'_blank'}>SASS</a>
+			</div>
+
+			<h1>Packages used but later removed</h1>
+
+			<div className={'packages-container'}>
+				<a className={'removed-packages'} href="https://github.com/pmndrs/zustand" target={'_blank'}>Zustand</a>
+
+				<a className={'removed-packages'} href="https://formik.org/" target={'_blank'}>Formik</a>
+
+				<a className={'removed-packages'} href="https://casesandberg.github.io/react-color/d" target={'_blank'}>React
+					color picker</a>
+
+			</div>
+			<p>
+				<b>Zustand</b> – nice state manager, but it has no sense with Supabase + React Query.
 			</p>
-			<p>Commodi dolor eaque esse in itaque, labore laboriosam maxime odio perspiciatis praesentium quod,
-				ratione suscipit tempore vel velit, veritatis vitae. Alias culpa, eos ex id minima optio reprehenderit
-				tempore vel.
+
+			<p>
+				<b>Formik</b> - I spent too much time struggling with the library during complex validations. Despite
+				the fact that it later turned out that I didn’t need such validations at all, the library was removed
+				and replaced with simple, understandable code.
 			</p>
-			<p>Alias dignissimos dolor error fugit illum quis quos, sequi. Architecto esse inventore sequi! Assumenda
-				blanditiis, cum deserunt ea et eum, maxime nemo possimus, quae quaerat quasi suscipit tempora tenetur
-				voluptatem!
+
+			<p>
+				<b>React color picker</b> – not as flexible as I would like, but color schemes have replaced it anyway.
 			</p>
-			<p>Ab adipisci aliquam animi asperiores atque blanditiis consequuntur eos hic in maiores nam, optio quam
-				quis sunt tempora totam voluptate? Ab accusantium ducimus est ipsam libero nulla officia, suscipit
-				velit.
-			</p>
-			<p>Deserunt dolorem earum eligendi fugiat ipsa necessitatibus nihil, repellat saepe suscipit tempora!
-				Animi aperiam asperiores ea est exercitationem, labore modi molestias nostrum obcaecati officiis
-				quisquam rem soluta suscipit tempore totam.
-			</p>
-			<p>Blanditiis ipsa nemo odit quidem rem similique sit tempora tenetur ut vel. Asperiores at aut
-				consequatur ducimus hic laboriosam maxime molestias odit quasi ut. Cum dolor maxime quo quos veritatis?
-			</p>
-			<p>Aperiam assumenda consequuntur cumque dicta ea excepturi ipsum iure magnam nostrum nulla placeat,
-				possimus quisquam quo repellat velit veritatis vitae. Alias at beatae facilis fuga labore porro quia ut
-				voluptate?
-			</p>
-			<p>Adipisci beatae delectus eaque ex magnam mollitia obcaecati quidem ullam. Autem deleniti dolorem
-				dolorum eaque excepturi fugiat, itaque iure minima nostrum obcaecati officia placeat, provident quo
-				suscipit voluptatum. Magnam, molestiae!
-			</p>
-			<p>Aspernatur consequatur cumque deleniti dolor dolore dolores eaque esse est eveniet expedita, laboriosam
-				officiis quaerat, reiciendis saepe tempora! Accusantium alias aspernatur corporis earum iste modi
-				pariatur quam quidem sequi tempore!
-			</p>
-			<p>Assumenda autem corporis doloribus et eum expedita explicabo harum id inventore itaque iusto labore
-				laboriosam magni modi natus officiis, perspiciatis praesentium rem sit sunt temporibus voluptas
-				voluptatem! Deleniti natus, quod?
-			</p>
-			<p>Accusantium, amet culpa cupiditate distinctio, doloremque doloribus et ex harum optio placeat quaerat
-				quas quis quod unde velit voluptas voluptatem voluptatum! Ab ad doloribus eligendi enim eveniet
-				obcaecati perferendis quae!
-			</p>
-			<p>Aliquid aperiam architecto aspernatur consequatur consequuntur corporis cum doloremque, doloribus
-				eveniet facere fuga illum inventore ipsum laudantium magni minus necessitatibus officiis quasi
-				reprehenderit saepe, sequi sunt veritatis, vero vitae voluptatem?
-			</p>
-			<p>Corporis doloremque odit quod reprehenderit sapiente, veritatis. Consequatur debitis eius illum iure
-				neque praesentium quam recusandae ut voluptatibus? A aliquam at debitis delectus optio perspiciatis
-				quidem quisquam sequi suscipit tempora!
-			</p>
-			<p>Adipisci at consequuntur corporis debitis dignissimos doloremque dolores doloribus earum, eligendi,
-				harum ipsam iste maxime minima modi mollitia natus neque nulla odio officiis pariatur quaerat qui quidem
-				rem ullam voluptates?
-			</p>
-			<p>Ipsa, rerum sapiente. Accusamus aliquid id ipsa mollitia nisi odit officia qui rem tempora voluptas! Ab
-				animi assumenda, deleniti fugiat laboriosam obcaecati officia possimus quia repellendus, rerum sit
-				voluptatibus? Quia!
-			</p>
-			<p>A ad amet aspernatur, consequatur distinctio doloremque excepturi explicabo facere fuga hic impedit
-				inventore laboriosam maxime non optio perspiciatis placeat quasi qui recusandae rem sint tempora, ullam
-				veritatis voluptate, voluptatum.
-			</p>
-			<p>Architecto at, eligendi facilis inventore laboriosam libero magnam optio quas, quisquam reiciendis
-				reprehenderit sint sit, temporibus vero voluptatum. Dignissimos dolorem doloremque explicabo, inventore
-				ipsum maiores modi perspiciatis quis recusandae repudiandae?
-			</p>
-			<p>Dolor eveniet maxime odit quas. Adipisci enim optio tempora. Ab at consequuntur laudantium perferendis
-				qui! Accusamus commodi doloribus enim, eos fugiat ipsa laboriosam mollitia necessitatibus nihil possimus
-				sit soluta sunt.
-			</p>
-			<p>Animi aperiam at consequatur consequuntur culpa dolores enim, ex ipsa maiores nesciunt nisi non
-				officia, quas qui quis rem sed velit voluptatem. Aut autem necessitatibus porro? Itaque laboriosam neque
-				repudiandae.
-			</p>
-			<p>Aliquid amet aspernatur beatae blanditiis consequuntur dolor dolores dolorum ea eligendi excepturi
-				harum illo iste iure mollitia nobis numquam porro quo ratione, recusandae saepe sit sunt ullam unde
-				velit voluptatem!
-			</p>
-			<p>Adipisci cum dolores doloribus eligendi enim fugiat illum ipsam laborum non qui quisquam repudiandae
-				sed soluta vero, voluptates. Aperiam, dolorem suscipit? Aliquam deserunt dolor exercitationem ipsam
-				molestias provident quod reiciendis!
-			</p>
-			<p>Doloremque eligendi excepturi, fugit harum, ipsam laudantium, minima molestias neque quo quod sed
-				velit? Consectetur culpa illo maxime modi odio qui quia, quos ratione. Consequuntur hic odit possimus
-				quod repellendus.
-			</p>
-			<p>Aliquid asperiores at consectetur corporis culpa, delectus deserunt eius esse, fuga harum iste iusto
-				mollitia nemo obcaecati, odio optio quidem repudiandae similique veritatis vero vitae voluptate
-				voluptatem. Dolorum, explicabo, reprehenderit!
-			</p>
-			<p>Accusamus adipisci consequatur distinctio, ducimus, earum, facere illo minus molestiae neque pariatur
-				quidem similique soluta? Debitis delectus odio repudiandae. Architecto, eius laboriosam molestias odit
-				reprehenderit sapiente sunt. Architecto, reiciendis repellendus.
-			</p>
-			<p>Cum explicabo iusto obcaecati, odio quos rerum sequi vero. Aliquid autem beatae deleniti dignissimos
-				enim eos, expedita fugit incidunt, ipsum labore molestias non suscipit vel? Animi delectus harum
-				reprehenderit tenetur.
-			</p>
-			<p>Ad at cumque dolorem nemo nisi perferendis provident, ratione veniam veritatis voluptatum. Accusantium
-				ad amet blanditiis dolores eaque earum impedit ipsa magnam nam, nihil odit officia qui repudiandae sit
-				ut!
-			</p>
+
 		</div>
 	</AppPage>;
 };

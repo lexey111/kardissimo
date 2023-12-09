@@ -136,6 +136,45 @@ p.inform {
 	box-sizing: border-box;
 }
 
+.page-960 {
+	max-width: 960px;
+}
+
+.packages-container {
+	padding: 16px;
+	background: mixins.blackTrans(.2);
+	border-radius: 20px;
+}
+
+.removed-packages, .used-packages {
+	background: var(--app-danger-background);
+	color: var(--app-danger-text);
+	font-size: .9rem;
+	font-weight: 300;
+	padding: 6px 20px;
+	margin: 8px;
+	border-radius: 16px;
+	width: auto;
+	display: inline-block;
+	box-shadow:  0 0 0 1px mixins.whiteTrans(.9), 0 2px 8px rgba(255, 0, 127, 0.4);
+	text-underline-offset: 2px;
+	transition: all .2s ease;
+
+	&:focus {
+		outline: none;
+	}
+
+	&:hover {
+		transform: scale(1.05);
+	}
+}
+
+.used-packages {
+	background: var(--app-success-background);
+	color: var(--app-success-text);
+	box-shadow:  0 0 0 1px mixins.whiteTrans(.9), 0 2px 8px rgba(4, 185, 13, 0.4);
+}
+
 @media screen and (max-width: 600px) {
 	.page-32 {
 		border-width: 16px;

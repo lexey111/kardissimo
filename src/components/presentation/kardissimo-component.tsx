@@ -136,7 +136,7 @@ export const KardissimoComponent: React.FC = () => {
 		}
 	});
 
-	return <group ref={ref}>
+	return <group ref={ref} scale={[.3, .3, .3]}>
 		<group ref={logoRef}>
 			<SVGLogo material={logoMaterial} shift={-20}/>
 			<SVGLogo material={kMaterial} shift={20}/>
