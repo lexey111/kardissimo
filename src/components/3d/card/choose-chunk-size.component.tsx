@@ -26,7 +26,7 @@ export const ChooseChunkSize: React.FC<TChoose3DCard> = ({total, amount, side, m
 	}
 
 	if (!cards.includes('#ffb700')) {
-		cards[Math.round(cardsNumber / 2)] = '#ffb700'; // at leas 1
+		cards[Math.round(cardsNumber / 2)] = '#ffb700'; // at least 1
 	}
 
 	cards.push('#0f7cf5');
