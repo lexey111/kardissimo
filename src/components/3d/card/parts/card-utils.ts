@@ -1,5 +1,5 @@
 import {Fonts} from "../../../../resources/fonts.ts";
-import {TCardFaceProp} from "../../../../store/data/card-types.ts";
+import {TCardFaceProp} from "../../../../store/cards/types-card-face.ts";
 
 export const cardWidth = 200;
 export const cardHeight = 300;

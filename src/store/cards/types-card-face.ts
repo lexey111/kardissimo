@@ -1,5 +1,3 @@
-import {TPreparedCard} from "../cardboxes/types-cardbox.ts";
-
 export type TCardFace = {
 	text: string
 	header?: string
@@ -18,10 +16,8 @@ export type TCardFace = {
 export type TCardFaceProp = Pick<TCardFace, 'text'> & (Partial<Omit<TCardFace, 'text'>>);
 
 export type TCardProps = {
-	faces: TPreparedCard
+	faces: any
 	active?: boolean
 	side?: number
 	onSetSide?: (side: number) => void
 };
-
-export type TExtendedCardProps = TCardFace & { font: string };

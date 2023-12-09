@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import {TCardProps} from "../../../store/data/card-types.ts";
+import {TCardProps} from "../../../store/cards/types-card-face.ts";
 import {cardThickness, getFaceParameters} from "./parts/card-utils.ts";
 import {CardFace} from "./parts/card-face.component.tsx";
 import {animated, config, useSpring} from '@react-spring/three';
