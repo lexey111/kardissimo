@@ -2,35 +2,39 @@ import React, {useEffect, useState} from "react";
 import {RunList} from "./run/run-list.component.tsx";
 import {AppPage} from "../components/app-page.component.tsx";
 import {useSearchParams} from "react-router-dom";
-import {ICardboxState, useCardboxStore} from "../store/data/cardboxes-store.ts";
-import {useShallow} from "zustand/react/shallow";
 import {toast} from 'react-toastify';
+import {useCardboxes} from "../store/cardboxes/hooks/useCardboxesHook.tsx";
+import {WaitInline} from "../components/utils/wait-inline.component.tsx";
 
-const selector = (state: ICardboxState) => state.cardboxes.filter(c => c.cards && c.cards?.length > 0);
 
 export const RunPage: React.FC = () => {
 	const [searchParams] = useSearchParams();
 	const id = searchParams?.get('id');
-	const cardboxes = useCardboxStore(useShallow(selector));
-	const [openDialogWith, setOpenDialogWith] = useState('');
+	const cardboxId = parseInt(id || '', 10);
+	const {data: cardboxes, isLoading} = useCardboxes();
+	const [openDialogWith, setOpenDialogWith] = useState(-1);
 
 	useEffect(() => {
 		if (!id || id === 'null') {
 			return;
 		}
-		const targetCardbox = cardboxes.find(c => c.id === id);
+		const targetCardbox = cardboxes?.find(c => c.id === cardboxId);
 
-		if (!targetCardbox || (targetCardbox.cards?.length || 0) < 2) {
+		if (!targetCardbox || (targetCardbox.cards_count || 0) < 2) {
 			// reset parameters
-			toast('Cardbox not found or not ready to run', {
+			toast('Card box not found or not ready to run', {
 				type: 'error',
 				autoClose: 3000,
 			});
 		} else {
-			setOpenDialogWith(id);
+			setOpenDialogWith(cardboxId);
 		}
 		window.history.replaceState({}, document.title, '/run');
 	}, [id]);
+
+	if (isLoading) {
+		return <WaitInline text={'Loading data...'}/>;
+	}
 
 	return <AppPage title={'Run'}>
 		<div className={'page-32'}>

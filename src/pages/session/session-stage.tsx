@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {MdRotateRight} from "react-icons/md";
-import {TPreparedCards} from "../../store/cardboxes/types-cardbox.ts";
 import {SessionScene} from "../../components/3d/session-scene.component.tsx";
 import {FaArrowLeft, FaArrowRight} from "react-icons/fa6";
 import {Tooltip} from "react-tooltip";
@@ -8,7 +7,7 @@ import {IoIosCheckmarkCircle} from "react-icons/io";
 import {Button} from "../../components/utils/button.component.tsx";
 
 export type TSessionSceneProps = {
-	cards: TPreparedCards
+	cards: unknown
 	onDone: () => void
 	side: number
 }

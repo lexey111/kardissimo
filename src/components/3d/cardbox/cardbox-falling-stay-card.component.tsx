@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {animated, config, useSpring} from '@react-spring/three';
 import {FlatCard} from "../card/flat-card.component.tsx";
-import {defaultSide} from "../../../store/data/cardboxes-store.selectors.ts";
+import {defaultSide} from "../../../store/cards/types-card-face.ts";
 
 export const CardboxFallingStayCard: React.FC = () => {
 	const [falling, setFalling] = useState(false);
@@ -54,7 +54,12 @@ export const CardboxFallingStayCard: React.FC = () => {
 		<FlatCard
 			active={false}
 			faces={[
-				{text: '"Hello, World"\nCard box', header: 'English', footer: 'Español', ...defaultSide, color: '#ffaf00'},
+				{
+					text: '"Hello, World"\nCard box',
+					header: 'English',
+					footer: 'Español', ...defaultSide,
+					color: '#ffaf00'
+				},
 				{text: '¡Hola, Mundo!', ...defaultSide, color: '#00b2ff'},
 			]}/>
 	</animated.mesh>;

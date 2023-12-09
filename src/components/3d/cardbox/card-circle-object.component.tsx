@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import {useFrame} from "@react-three/fiber";
 import {FlatCard} from "../card/flat-card.component.tsx";
-import {defaultSide} from "../../../store/data/cardboxes-store.selectors.ts";
+import {defaultSide} from "../../../store/cards/types-card-face.ts";
 
 const rotations = [
 	0,

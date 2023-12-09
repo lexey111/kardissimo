@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {Button} from "../../components/utils/button.component.tsx";
 import {Modal} from "../../components/utils/modal-component.tsx";
 import {FaArrowLeft, FaPlayCircle} from "react-icons/fa";
-import {TCardbox} from "../../store/cardboxes/types-cardbox.ts";
+import {TSCardbox, TSCardboxKey} from "../../store/cardboxes/types-cardbox.ts";
 import {RadioGroup} from "@headlessui/react";
 import {ImRadioChecked, ImRadioUnchecked} from "react-icons/im";
 import {PiExamFill} from "react-icons/pi";
@@ -16,7 +16,7 @@ import {ChoosePreview} from "../../components/3d/choose-preview-component.tsx";
 import {Switch} from "../../components/utils/switch.component.tsx";
 
 export type TRunListDialogProps = {
-	currentCardbox: TCardbox
+	currentCardbox: TSCardbox
 	isOpen: boolean
 	handleRun: (data: {
 		order: 'random' | 'linear',
@@ -45,7 +45,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCardbox, ha
 		value: [0, 10],
 	});
 
-	const cardCount = currentCardbox?.cards?.length || 0;
+	const cardCount = currentCardbox?.cards_count || 0;
 
 	const {show} = useScreenSize(1100);
 
@@ -296,12 +296,12 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCardbox, ha
 				<fieldset>
 					<label>Card side to show first: </label>
 					<RadioGroup value={side} onChange={setSide} className={'run-radiogroup radiogroup-row'}>
-						{currentCardbox?.sides?.map((side, idx) => {
+						{[1, 2].map((side, idx) => {
 							return <RadioGroup.Option value={idx} key={idx}>
 								{({checked}) => (
 									<span className={checked ? 'radio-checked' : ''}>
 									{checked ? <ImRadioChecked/> : <ImRadioUnchecked/>}
-										{side.name}
+										{currentCardbox[`side${side}title` as TSCardboxKey] as string}
 								</span>
 								)}
 							</RadioGroup.Option>

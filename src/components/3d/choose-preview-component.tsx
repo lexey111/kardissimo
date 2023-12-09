@@ -47,8 +47,8 @@ export const ChoosePreview: React.FC<TChoosePreviewProps> = (
 		>
 
 			<Stage
-				adjustCamera={.9} intensity={1} preset="rembrandt"
-				// shadows={false}
+				adjustCamera={1} intensity={1} preset="rembrandt"
+				shadows={false}
 				environment="city"
 			>
 				<PresentationControls
@@ -57,6 +57,7 @@ export const ChoosePreview: React.FC<TChoosePreviewProps> = (
 					rotation={[0, -Math.PI / 4, 0]}
 					polar={[-Math.PI / 3, Math.PI / 3]}
 					azimuth={[-Math.PI / 1.4, Math.PI / 2]}>
+
 					<ChooseChunkSize amount={amount} total={total}/>
 				</PresentationControls>
 			</Stage>

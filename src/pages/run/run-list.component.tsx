@@ -1,26 +1,24 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import {ICardboxState, useCardboxStore} from "../../store/data/cardboxes-store.ts";
-import {useShallow} from "zustand/react/shallow";
 import {RunCardboxCard} from "./run-cardbox.card.tsx";
-import {TCardbox} from "../../store/cardboxes/types-cardbox.ts";
+import {TSCardbox} from "../../store/cardboxes/types-cardbox.ts";
 import {CardboxScene} from "../../components/3d/cardbox-scene.component.tsx";
 import {PageHeader} from "../../components/utils/page-header.component.tsx";
 import {RunListDialog} from "./run-list.dialog.tsx";
 import {useNavigate} from "react-router-dom";
 import {RunNoData} from "./run-no-data.component.tsx";
+import {useCardboxes} from "../../store/cardboxes/hooks/useCardboxesHook.tsx";
+import {WaitInline} from "../../components/utils/wait-inline.component.tsx";
 
-const selector = (state: ICardboxState) => state.cardboxes.filter(c => c.cards && c.cards?.length > 0);
 
 export type TRunListProps = {
-	preOpenId?: string;
+	preOpenId?: number;
 }
-
 export const RunList: React.FC<TRunListProps> = ({preOpenId}) => {
 	const navigate = useNavigate();
-	const cardboxes = useCardboxStore(useShallow(selector));
 	const [open, setOpen] = useState(false);
+	const {data: cardboxes, isLoading} = useCardboxes();
 
-	const currentCardbox = useRef<TCardbox>();
+	const currentCardbox = useRef<TSCardbox>();
 
 	const handleRun = useCallback((data: {
 		order: 'random' | 'linear',
@@ -33,8 +31,8 @@ export const RunList: React.FC<TRunListProps> = ({preOpenId}) => {
 		navigate(`/session/${currentCardbox.current?.id}?order=${data.order}&chunk=${data.chunk}&side=${data.side}&from=${data.from}&to=${data.to}`);
 	}, [open]);
 
-	const handleOpen = useCallback((id: string) => {
-		currentCardbox.current = cardboxes.find(c => c.id === id);
+	const handleOpen = useCallback((id: number) => {
+		currentCardbox.current = cardboxes?.find(c => c.id === id);
 		if (currentCardbox.current) {
 			setOpen(true);
 		}
@@ -49,6 +47,10 @@ export const RunList: React.FC<TRunListProps> = ({preOpenId}) => {
 			handleOpen(preOpenId);
 		}
 	}, [preOpenId]);
+
+	if (isLoading) {
+		return <WaitInline text={'Loading data...'}/>;
+	}
 
 	if (!cardboxes || cardboxes.length === 0) {
 		return <RunNoData/>;

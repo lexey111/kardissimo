@@ -28,9 +28,9 @@ export const ChooseChunkSize: React.FC<TChoose3DCard> = ({total, amount}) => {
 	}
 
 	cards.push('#0f7cf5');
-	const text = {text: amount !== total ? amount + '/' + total : 'All'};
+	const text = {text: amount !== total ? amount + '/' + total: 'All ' + total};
 
-	return <group>
+	return <group scale={[.9, .9, .9]}>
 		<Text
 			position-z={1.1}
 			position-y={0}

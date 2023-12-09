@@ -2,12 +2,10 @@ import React, {useCallback, useEffect, useState} from "react";
 import {AppPage} from "../components/app-page.component.tsx";
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {useExclusiveHook} from "../hooks/useExclusive.hook.tsx";
-import {getCardbox} from "../store/data/cardboxes-store.selectors.ts";
 import {PageError} from "../types.ts";
 import {SessionStage} from "./session/session-stage.tsx";
 import {BackToRunButton} from "./run/back-to-run.button.component.tsx";
 import {SceneInfoButton} from "./run/scene-info.button.component.tsx";
-import {TCardSide, TCardbox, TCardboxSide, TPreparedCard, TPreparedCards} from "../store/cardboxes/types-cardbox.ts";
 import {Fonts} from "../resources/fonts.ts";
 
 function getDirectOrder(id: string, sides: Array<TCardSide>, cardboxSides: Array<TCardboxSide>): TPreparedCard {
@@ -172,10 +170,10 @@ export const SessionPage: React.FC = () => {
 			throw new PageError('Unfortunately, there is no cardbox with given ID.', 'Oops');
 		}
 		if (!cardbox.cards) {
-			throw new PageError('Unfortunately, cardbox is not ready to start yet.', 'Empty cardbox');
+			throw new PageError('Unfortunately, card box is not ready to start yet.', 'Empty cardbox');
 		}
 		if (!cardbox.sides) {
-			throw new PageError('Unfortunately, cardbox is not ready to start yet.', 'Wrong Sides');
+			throw new PageError('Unfortunately, card box is not ready to start yet.', 'Wrong Sides');
 		}
 
 		if (isNaN(from) || isNaN(to) || isNaN(side) || from > to || from < 0 || to < 0 || to >= cardbox.cards!.length) {

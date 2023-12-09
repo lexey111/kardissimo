@@ -1,3 +1,6 @@
+import {ColorSchemes} from "../../resources/colors.ts";
+import {Fonts} from "../../resources/fonts.ts";
+
 export type TCardFace = {
 	text: string
 	header?: string
@@ -20,4 +23,11 @@ export type TCardProps = {
 	active?: boolean
 	side?: number
 	onSetSide?: (side: number) => void
+};
+
+export const defaultSide = {
+	color: ColorSchemes[Object.keys(ColorSchemes)[0]].color,
+	fontName: Object.keys(Fonts)[0],
+	fontSize: 'M',
+	textColor: ColorSchemes[Object.keys(ColorSchemes)[0]].textColor
 };
