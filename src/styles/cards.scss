@@ -21,10 +21,12 @@
 		box-shadow: 0 0 0 4px var(--app-accent-background), 2px 4px 6px mixins.blackTrans(0.3);
 	}
 
-	&.unstable {
-		opacity: .2;
-		pointer-events: none;
-	}
+}
+
+.unstable {
+	pointer-events: none;
+	opacity: .5 !important;
+	filter: grayscale(1) blur(2px);
 }
 
 .card-sides, .card-sides-header {

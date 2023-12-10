@@ -34,15 +34,17 @@ export const useCardboxUpdate = () => {
 			const snapshot = queryClient.getQueryData(['cardboxes']);
 
 			queryClient.setQueryData(['cardboxes'], (old: Array<TSCardbox>) => {
+				console.log('unsrabl')
 				if (old.find(c => c.id === state.id)) {
-					return old.map(c => c.id === state.id ? state : c);
+					return old.map(c => c.id === state.id ? {...state, unstable: true} : c);
 				}
-				return [...old, state];
+				return [...old, {...state, unstable: true}];
 			});
 
 			return {snapshot};
 		},
 		onSuccess: () => {
+			void queryClient.refetchQueries({queryKey: ['cardboxes']});
 		},
 		onError: (error) => {
 			toast('Error on updating card box: ' + error.message, {type: 'error'})

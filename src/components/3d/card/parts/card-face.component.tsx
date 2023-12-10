@@ -62,7 +62,6 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 	const footerProps = {...safeFace, fontSize: fontSize * .7, text: safeFace.footer};
 	const textProps = {...safeFace, fontSize: fontSize, text: safeFace.text};
 
-	console.log('text', textProps)
 	return <group
 		position-z={props.positionZ}
 		rotation={props.rotation}

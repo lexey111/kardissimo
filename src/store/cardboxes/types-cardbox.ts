@@ -50,6 +50,7 @@ export type TSCardbox = {
 	side2fontName: string
 
 	cards_count: number
+	unstable?: boolean
 }
 
 export type TSCardboxKey = keyof TSCardbox;

@@ -7,6 +7,7 @@ export function getAllCardboxesByUser(
 	return client
 		.from('cardboxes_count')
 		.select()
+		.order('title')
 		.eq('owner', userId)
 		.throwOnError();
 }

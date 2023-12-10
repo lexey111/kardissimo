@@ -17,15 +17,6 @@
 	.card-item {
 		margin: 8px 8px 16px 8px;
 		position: relative;
-
-		&.unstable {
-			opacity: .5 !important;
-
-			.card-sides {
-				filter: grayscale(1) blur(2px);
-				opacity: .5;
-			}
-		}
 	}
 
 	.card-sides {
