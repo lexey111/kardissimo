@@ -2,14 +2,33 @@ import React from "react";
 
 import {Text} from "@react-three/drei";
 import {CardSurface} from "./card-surface.component.tsx";
-import {cardThickness} from "./card-utils.ts";
-import {TPreparedSide} from "../../../../store/cards/types-card-face.ts";
+import {cardThickness, DefaultValues} from "./card-utils.ts";
+import {TCardFace, TPreparedSide} from "../../../../store/cards/types-card-face.ts";
 
 export type TCardFaceProps = {
 	face: TPreparedSide
 	positionZ: number
 	rotation: any
 }
+
+function getSafeValues(values: TCardFace): TCardFace {
+	return {
+		...DefaultValues,
+		text: values.text,
+		header: values.header,
+		footer: values.footer,
+		fontName: values.fontName,
+		font: values.font,
+		fontSize: values.fontSize,
+		color: values.color,
+		textColor: values.textColor,
+		textAlign: values.textAlign,
+		maxWidth: values.maxWidth,
+		lineHeight: values.lineHeight,
+		letterSpacing: values.letterSpacing
+	}
+}
+
 export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 	let fontSize = 21; // M
 
@@ -35,21 +54,13 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 		fontSize = 42;
 	}
 
+	const safeFace = getSafeValues(props.face);
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const {fontSize: _1, ...headerProps} = props.face;
-	headerProps.text = props.face.header || '';
-	// @ts-ignore
-	headerProps['fontSize'] = fontSize * .7;
+	//const {fontSize: _1, id: _2, ...headerProps} = props.face;
 
-	const footerProps = {...headerProps};
-	footerProps.text = props.face.footer || '';
-	// @ts-ignore
-	footerProps['fontSize'] = fontSize * .7;
-
-	const textProps = {...headerProps};
-	textProps.text = props.face.text || '';
-	// @ts-ignore
-	textProps['fontSize'] = fontSize;
+	const headerProps = {...safeFace, fontSize: fontSize * .7, text: safeFace.header};
+	const footerProps = {...safeFace, fontSize: fontSize * .7, text: safeFace.footer};
+	const textProps = {...safeFace, fontSize: fontSize, text: safeFace.text};
 
 	return <group
 		position-z={props.positionZ}

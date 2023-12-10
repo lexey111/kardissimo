@@ -86,11 +86,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCardbox, ha
 		}
 
 		if (cardCount > 0 && cardCount < chunkSize) {
-			if (cardCount >= 5) {
-				setChunkSize(5);
-			} else {
-				setChunkSize(cardCount);
-			}
+			setChunkSize(cardCount);
 		}
 	}, [currentCardbox, chunkSize, cardCount]);
 
@@ -182,13 +178,17 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCardbox, ha
 	const modeText = advanced
 		? 'Fine selection'
 		: pieceType === 'random'
-			? 'Random set'
+			? order === 'linear'
+				? 'One by one' : 'Random set'
 			: 'Cards ' + (startIndex + 1) + '...' + (startIndex + chunkSize < cardCount ? startIndex + chunkSize : cardCount);
 
 	// {startIndex + 1}...{startIndex + chunkSize < cardCount ? startIndex + chunkSize : cardCount}
-	const amount = advanced
-		? rangeState.value[1] - rangeState.value[0] + 1
-		: (startIndex + chunkSize < cardCount ? startIndex + chunkSize : cardCount) - startIndex// chunkSize;
+	let amount = 0;
+	if (advanced) {
+		amount = rangeState.value[1] - rangeState.value[0] + 1;
+	} else {
+		amount = (startIndex + chunkSize < cardCount ? startIndex + chunkSize : cardCount) - startIndex// chunkSize;
+	}
 
 	return <Modal
 		open={isOpen}

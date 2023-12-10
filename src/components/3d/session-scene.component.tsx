@@ -6,6 +6,7 @@ import {easeInOut} from "framer-motion";
 import {useDebouncedResizeHook} from "../../hooks/useDebouncedResize.hook.tsx";
 import {SessionClouds} from "./session-clouds.component.tsx";
 import {Stage} from "@react-three/drei";
+import {TPreparedCard} from "../../pages/session/types-session.ts";
 
 // https://docs.pmnd.rs/react-three-fiber/api/canvas
 // https://github.com/pmndrs/drei#screenspace

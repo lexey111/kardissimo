@@ -92,6 +92,17 @@ export const FaqPage: React.FC = () => {
 				<a className={'used-packages'} href="https://sass-lang.com/" target={'_blank'}>SASS</a>
 			</div>
 
+			<p>
+				While all the other libraries are just very useful and non-replaceable, <b>Supabase</b> and <b>React
+				Query</b> are pieces of art in terms of overall architecture.
+			</p>
+
+			<p>
+				With these you can get rid of dedicated state management and have a sort of virtual state directly from
+				the database. It's a game changer; at least I was able to complete replace <b>Zustand</b> with such
+				pair.
+			</p>
+
 			<h1>Packages used but later removed</h1>
 
 			<div className={'packages-container'}>
@@ -99,12 +110,21 @@ export const FaqPage: React.FC = () => {
 
 				<a className={'removed-packages'} href="https://formik.org/" target={'_blank'}>Formik</a>
 
+				<a className={'removed-packages'} href="hhttps://www.ag-grid.com/" target={'_blank'}>AG Grid</a>
+
 				<a className={'removed-packages'} href="https://casesandberg.github.io/react-color/d" target={'_blank'}>React
 					color picker</a>
 
 			</div>
 			<p>
 				<b>Zustand</b> – nice state manager, but it has no sense with Supabase + React Query.
+			</p>
+
+			<p>
+				<b>AG Grid</b> – I just don't need all this functionality. In addition, AG Grid is not performant
+				enough, especially in auto-height mode without pagination. The latency is very noticeable when rendering
+				even 100 elements compared to a simple table... sure, it's very powerful, but the overhead is too much
+				for my needs.
 			</p>
 
 			<p>

@@ -5,9 +5,10 @@ import {FaArrowLeft, FaArrowRight} from "react-icons/fa6";
 import {Tooltip} from "react-tooltip";
 import {IoIosCheckmarkCircle} from "react-icons/io";
 import {Button} from "../../components/utils/button.component.tsx";
+import {TPreparedCards} from "./types-session.ts";
 
 export type TSessionSceneProps = {
-	cards: unknown
+	cards: TPreparedCards
 	onDone: () => void
 	side: number
 }
