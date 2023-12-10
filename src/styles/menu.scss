@@ -72,6 +72,7 @@ body.theme-snow {
 		font-weight: 200;
 		position: relative;
 		z-index: 2;
+		margin-right: auto;
 
 		&:before {
 			content: '';
@@ -93,7 +94,7 @@ body.theme-snow {
 			height: 48px !important;
 			border-radius: 8px;
 			fill: var(--app-text);
-			transform: rotate(10deg);
+			transform: rotate(15deg);
 			transition: all .2s ease;
 			position: absolute;
 			right: 16px;
@@ -115,7 +116,7 @@ body.theme-snow {
 			right: 22px;
 			width: 40px;
 			height: 40px;
-			transform: rotate(5deg);
+			transform: rotate(-10deg);
 			z-index: 0;
 			overflow: hidden;
 			box-shadow: 0 2px 2px mixins.blackTrans(.2);
@@ -127,7 +128,10 @@ body.theme-snow {
 				left: -8px;
 				right: -8px;
 				bottom: -8px;
-				background: var(--app-background);
+				//background: var(--app-background);
+				background: mixins.blackTrans(.9);
+				opacity: .2;
+				transition: all .2s ease;
 				box-shadow: inset 0 2px 20px mixins.blackTrans(.4);
 			}
 
@@ -139,13 +143,15 @@ body.theme-snow {
 
 			svg {
 				opacity: 1;
-				transform: rotate(15deg);
+				//transform: rotate(15deg);
 			}
 
 			i {
-				transform: rotate(-10deg);
+				//transform: rotate(-10deg);
 
 				&:before {
+					background: var(--app-background);
+					opacity: 1;
 					animation: rotate-bg infinite 5s linear;
 				}
 			}
@@ -157,11 +163,6 @@ body.theme-snow {
 				box-shadow: 0 0 0 2px var(--app-accent-background);
 			}
 		}
-	}
-
-	.faq {
-		margin-right: auto;
-		margin-left: 16px;
 	}
 
 	ul {
@@ -404,6 +405,7 @@ body.theme-snow {
 		width: 100%;
 		margin: 0 32px;
 		font-weight: 200;
+		cursor: default;
 
 		span {
 			margin-left: auto;
