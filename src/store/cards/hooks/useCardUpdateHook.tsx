@@ -44,6 +44,10 @@ export const useCardUpdate = (cardboxId: number, updateImmediately = true) => {
 				return [...old, state];
 			});
 
+			queryClient.setQueryData(['cardboxes'], (old: TSCard[]) => {
+				return old.map(c => c.id === state.box_id ? {...state, changed_at: new Date()} : c);
+			});
+
 			return {snapshot};
 		},
 		onSettled: () => {

@@ -17,8 +17,6 @@ export async function updateOrCreateCardbox(
 		rest.id = params.data.id;
 	}
 
-	rest.changed_at = new Date();
-
 	return client
 		.from('cardboxes')
 		.upsert({...rest, owner: params.userId})

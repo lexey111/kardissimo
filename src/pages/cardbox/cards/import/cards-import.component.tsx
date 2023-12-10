@@ -167,7 +167,7 @@ export const CardsImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 			forceCardsRefresh();
 		}, 100);
 
-		toast('Done. Cards imported: ' + counter, {type: 'info'});
+		toast('Done. Imported card(s): ' + counter, {type: 'info'});
 	}, [cardbox, cards]);
 
 	if (isCardboxLoading || isCardsLoading) {
