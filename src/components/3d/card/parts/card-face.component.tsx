@@ -62,34 +62,38 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 	const footerProps = {...safeFace, fontSize: fontSize * .7, text: safeFace.footer};
 	const textProps = {...safeFace, fontSize: fontSize, text: safeFace.text};
 
+	console.log('text', textProps)
 	return <group
 		position-z={props.positionZ}
 		rotation={props.rotation}
 	>
 		{props.face.header && <Text
 			position-z={cardThickness / 2 + 0.5}
-			position-y={120}
+			position-y={130}
 			{...headerProps}
-			color={props.face.textColor}
+			color={textProps.textColor}
+			clipRect={[-95, -20, 95, 20]}
 			anchorX={'center'}
-			anchorY="top"> </Text>}
+			anchorY="top">{textProps.header}</Text>}
 
 		<Text
 			position-z={cardThickness / 2 + 0.5}
 			{...textProps}
 			position-y={5}
 			fontSize={fontSize}
-			color={props.face.textColor}
+			color={textProps.textColor}
+			clipRect={[-95, -100, 95, 100]}
 			anchorX={'center'}
-			anchorY="middle"> </Text>
+			anchorY="middle">{textProps.text}</Text>
 
 		{props.face.footer && <Text
 			position-z={cardThickness / 2 + 0.5}
-			position-y={-120}
+			position-y={-130}
 			{...footerProps}
-			color={props.face.textColor}
+			clipRect={[-95, -20, 95, 20]}
+			color={textProps.textColor}
 			anchorX={'center'}
-			anchorY="bottom"> </Text>}
+			anchorY="bottom">{textProps.footer}</Text>}
 
 		<CardSurface color={props.face.color!} positionZ={0}/>
 	</group>;
