@@ -142,10 +142,30 @@ p.inform {
 	max-width: 960px;
 }
 
+.page-two-columns {
+	column-count: 2;
+	column-gap: 64px;
+
+	h1 {
+		font-size: 3rem;
+		background: var(--app-card-background);
+		color: var(--app-card-text);
+		margin: 0;
+		padding: 32px;
+		border-radius: 20px;
+	}
+
+	h2 {
+		font-size: 2rem;
+		margin-top: 4rem;
+	}
+}
+
 .packages-container {
 	padding: 16px;
 	background: mixins.blackTrans(.2);
 	border-radius: 20px;
+	display: inline-block;
 }
 
 .removed-packages, .used-packages {
@@ -158,7 +178,7 @@ p.inform {
 	border-radius: 16px;
 	width: auto;
 	display: inline-block;
-	box-shadow:  0 0 0 1px mixins.whiteTrans(.9), 0 2px 8px rgba(255, 0, 127, 0.4);
+	box-shadow: 0 0 0 1px mixins.whiteTrans(.9), 0 2px 8px rgba(255, 0, 127, 0.4);
 	text-underline-offset: 2px;
 	transition: all .2s ease;
 
@@ -174,7 +194,7 @@ p.inform {
 .used-packages {
 	background: var(--app-success-background);
 	color: var(--app-success-text);
-	box-shadow:  0 0 0 1px mixins.whiteTrans(.9), 0 2px 8px rgba(4, 185, 13, 0.4);
+	box-shadow: 0 0 0 1px mixins.whiteTrans(.9), 0 2px 8px rgba(4, 185, 13, 0.4);
 }
 
 @media screen and (max-width: 600px) {

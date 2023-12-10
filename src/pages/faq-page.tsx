@@ -9,7 +9,7 @@ export const FaqPage: React.FC = () => {
 			title={'About page'}
 			subtitle={'Some hidden wisdom'}
 		/>
-		<div className={'page-32 page-960'}>
+		<div className={'page-32 page-960 page-two-columns'}>
 
 			<h1>The project</h1>
 			<p>
@@ -38,7 +38,7 @@ export const FaqPage: React.FC = () => {
 				&copy; 2023-2024 Oleksii Koshkin aka Lexey111
 			</p>
 
-			<h1>Technology stack</h1>
+			<h2>Technology stack</h2>
 			<div className={'packages-container'}>
 				<a className={'used-packages'} href="https://react.dev/" target={'_blank'}>React</a>
 
@@ -107,7 +107,7 @@ export const FaqPage: React.FC = () => {
 				pair.
 			</p>
 
-			<h1>Packages used but later removed</h1>
+			<h2>Packages used but later removed</h2>
 
 			<div className={'packages-container'}>
 				<a className={'removed-packages'} href="https://github.com/pmndrs/zustand" target={'_blank'}>Zustand</a>
