@@ -11,6 +11,7 @@ import {useCardUpdate} from "../../../../store/cards/hooks/useCardUpdateHook.tsx
 import {getDefaultSCard} from "../../../../store/cards/cards-utils.ts";
 import {useCardsForceRefresh} from "../../../../store/cards/hooks/useCardsRefresh.tsx";
 import {useCardDeleteAll} from "../../../../store/cards/hooks/useCardDeleteAllHook.tsx";
+import {WaitGlobal} from "../../../../components/utils/wait-global.component.tsx";
 
 function trimText64(str: string): string {
 	const result = str.trim();
@@ -85,6 +86,8 @@ export const CardsImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [importedData, setImportedData] = useState<any>(null);
 
+	const [importString, setImportString] = useState('');
+
 	const handleImport = useCallback((text: string) => {
 		setImportedData(null);
 		let parsedData: any = null;
@@ -128,10 +131,13 @@ export const CardsImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 			toast('Sorry, nothing to import.', {type: 'error'})
 			return;
 		}
+
 		if (!cardbox) {
 			toast('Sorry, Card box not found.', {type: 'error'})
 			return;
 		}
+
+		setImportString('Importing data...');
 
 		let maxIndex = cards!.reduce((prev, current) => Math.max(prev, current.cards_order), 0);
 
@@ -150,6 +156,7 @@ export const CardsImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 
 			counter++;
 			maxIndex++;
+			setImportString(`Importing data (${counter} / ${data.length})...`);
 
 			return cardMutation.mutateAsync({
 				...getDefaultSCard(cardboxId),
@@ -165,10 +172,11 @@ export const CardsImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 
 		setTimeout(() => {
 			forceCardsRefresh();
+			setImportString('');
 		}, 100);
 
 		toast('Done. Imported card(s): ' + counter, {type: 'info'});
-	}, [cardbox, cards]);
+	}, [cardbox, cards, setImportString]);
 
 	if (isCardboxLoading || isCardsLoading) {
 		return null;
@@ -177,8 +185,8 @@ export const CardsImport: React.FC<TCardImportProps> = ({cardboxId}) => {
 	if (cardboxError || !cardbox || !cards) {
 		return null;
 	}
-
 	return <>
+		{importString && <WaitGlobal text={importString}/>}
 		<CardsImportDialog
 			isOpen={isOpen}
 			hasRecords={cardbox.cards_count > 0}

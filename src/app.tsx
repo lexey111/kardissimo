@@ -62,7 +62,7 @@ export const App: React.FC = () => {
 		<ToastContainer
 			position="top-center"
 			autoClose={3000}
-			hideProgressBar={true}
+			hideProgressBar={false}
 			newestOnTop={false}
 			transition={Slide}
 			closeOnClick

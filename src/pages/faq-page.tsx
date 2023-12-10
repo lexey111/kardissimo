@@ -83,6 +83,10 @@ export const FaqPage: React.FC = () => {
 					className={'used-packages'} href="https://react-tooltip.com/docs/getting-started"
 					target={'_blank'}>React tooltip</a>
 
+				<a
+					className={'used-packages'} href="https://fkhadra.github.io/react-toastify/introduction"
+					target={'_blank'}>React toastify</a>
+
 				<a className={'used-packages'} href="https://www.typescriptlang.org/" target={'_blank'}>Typescript</a>
 
 				<a className={'used-packages'} href="https://vitejs.dev/" target={'_blank'}>Vite</a>

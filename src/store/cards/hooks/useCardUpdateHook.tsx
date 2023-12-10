@@ -4,6 +4,7 @@ import {TUser} from "../../auth/auth-types.ts";
 import {updateOrCreateCard} from "../queries/update-card.ts";
 import {TSCard} from "../types-card.ts";
 import {toast} from "react-toastify";
+import {TSCardbox} from "../../cardboxes/types-cardbox.ts";
 
 export const useCardUpdate = (cardboxId: number, updateImmediately = true) => {
 	const client = useSupabase();
@@ -44,8 +45,8 @@ export const useCardUpdate = (cardboxId: number, updateImmediately = true) => {
 				return [...old, state];
 			});
 
-			queryClient.setQueryData(['cardboxes'], (old: TSCard[]) => {
-				return old.map(c => c.id === state.box_id ? {...state, changed_at: new Date()} : c);
+			queryClient.setQueryData(['cardboxes'], (old: TSCardbox[]) => {
+				return old?.map(c => c.id === state.box_id ? {...state, changed_at: new Date()} : c);
 			});
 
 			return {snapshot};
