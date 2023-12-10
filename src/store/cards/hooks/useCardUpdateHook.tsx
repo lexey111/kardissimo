@@ -39,7 +39,7 @@ export const useCardUpdate = (cardboxId: number, updateImmediately = true) => {
 
 			queryClient.setQueryData(['cards', cardboxId], (old: TSCard[]) => {
 				if (old.find(c => c.id === state.id)) {
-					return old.map(c => c.id === state.id ? state : c);
+					return old.map(c => c.id === state.id ? {...state, unstable: true} : c);
 				}
 				return [...old, state];
 			});
