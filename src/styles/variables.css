@@ -1,7 +1,9 @@
 :root {
 	--app-background: linear-gradient(150deg, #569AFF 10.21%, #88DFAB 84.57%);
+	--app-dark-background: linear-gradient(110deg, #304a81 10.21%, #0c456b 84.57%);
+	--app-dark-background-solid: #002133;
 	--app-background-color: #0075ce;
-	--app-dark-background: #184c72;
+
 	--app-success-background: #01a628;
 	--app-success-text: #fff;
 
@@ -32,4 +34,8 @@
 	--app-danger-background: #FF005B;
 	--app-danger-background-darken: #cc024b;
 	--app-danger-text: #fff;
+
+
+	--app-menu-height: 56px;
+	--app-footer-height: 32px;
 }

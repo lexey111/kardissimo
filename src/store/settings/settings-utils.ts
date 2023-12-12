@@ -49,6 +49,9 @@ export const assignGlobalStyles = (id: string) => {
 	r!.style.setProperty('--app-primary-background-darken', LightenDarkenColor(app!.primaryColor!, 15));
 	r!.style.setProperty('--app-background-color', app?.primaryColor);
 
+	r!.style.setProperty('--app-dark-background', app?.darkBackground);
+	r!.style.setProperty('--app-dark-background-solid', app?.darkBackgroundSolid);
+
 	r!.style.setProperty('--app-success-background', app?.successColor);
 	r!.style.setProperty('--app-success-text', app?.successText || '#fff');
 

@@ -62,6 +62,17 @@ export const AppMenu: React.FC = () => {
 						</NavLink>
 					</li>
 
+					<div className={'user-avatar'} tabIndex={0}>
+						<UserAvatar src={userData.avatar} name={userData.name}/>
+
+						<div className={'actions'}>
+							<p>
+								Logged in as <b>{userData.name}</b>
+							</p>
+							<Button type={'danger'} onClick={handleLogout}>Log out</Button>
+						</div>
+					</div>
+
 					<li className={'icon-only'}>
 						<AppSettings/>
 					</li>
@@ -71,17 +82,6 @@ export const AppMenu: React.FC = () => {
 					<Button type={'danger'} onClick={handleLogin}>Login</Button>
 				</li>}
 			</ul>
-
-			{loggedIn && <div className={'user-avatar'} tabIndex={0}>
-				<UserAvatar src={userData.avatar} name={userData.name}/>
-
-				<div className={'actions'}>
-					<p>
-						Logged in as <b>{userData.name}</b>
-					</p>
-					<Button type={'danger'} onClick={handleLogout}>Log out</Button>
-				</div>
-			</div>}
 		</div>
 	</nav>;
 };

@@ -2,6 +2,8 @@ export type TAppAppearance = {
 	id: string,
 	name: string
 	background: string
+	darkBackground: string
+	darkBackgroundSolid: string
 	textColor: string
 	linkColor?: string
 	textLinkColor?: string
@@ -26,6 +28,8 @@ export const Appearances: Array<TAppAppearance> = [
 		id: 'default',
 		name: 'Default',
 		background: 'linear-gradient(150deg, #569AFF 10.21%, #88DFAB 84.57%)',
+		darkBackground: 'linear-gradient(110deg, #324262 10.21%, #1a2825 84.57%)',
+		darkBackgroundSolid: '#0b252f',
 		textColor: '#fff',
 		inputBackground: '#fff',
 		inputText: '#333',
@@ -43,6 +47,8 @@ export const Appearances: Array<TAppAppearance> = [
 		id: 'sky',
 		name: 'Deep Sky',
 		background: 'linear-gradient(10deg, #028dff 10.21%, #092f4f 84.57%)',
+		darkBackground: 'linear-gradient(170deg, #0667be 10.21%, #0667be 84.57%)',
+		darkBackgroundSolid: '#023649',
 		textColor: '#d3d8ec',
 		inputBackground: '#fff',
 		inputText: '#333',
@@ -60,6 +66,8 @@ export const Appearances: Array<TAppAppearance> = [
 		id: 'bright',
 		name: 'Bright Future',
 		background: 'linear-gradient(150deg, #0067ff 10.21%, #ff0099 84.57%)',
+		darkBackground: 'linear-gradient(110deg, #5d00ce 10.21%, #092f4f 84.57%)',
+		darkBackgroundSolid: '#005472',
 		textColor: '#e4d4f1',
 		inputBackground: '#fff',
 		inputText: '#333',
@@ -79,6 +87,8 @@ export const Appearances: Array<TAppAppearance> = [
 		id: 'snow',
 		name: 'Snowflake',
 		background: '#f2f2f2',
+		darkBackground: 'linear-gradient(110deg, #b6b6b6 10.21%, #fff 84.57%)',
+		darkBackgroundSolid: '#545c60',
 		textColor: '#404950',
 		inputBackground: '#fff',
 		inputText: '#333',
@@ -97,6 +107,8 @@ export const Appearances: Array<TAppAppearance> = [
 		id: 'grey',
 		name: 'Wrocław',
 		background: '#757575',
+		darkBackground: 'linear-gradient(110deg, #323b44 10.21%, #09090b 84.57%)',
+		darkBackgroundSolid: '#464646',
 		textColor: '#ddd',
 		inputBackground: '#dadada',
 		inputText: '#333',
@@ -116,6 +128,8 @@ export const Appearances: Array<TAppAppearance> = [
 		id: 'dark',
 		name: 'Camisa Negra',
 		background: '#252525',
+		darkBackground: 'linear-gradient(120deg, #555 10.21%, #333 84.57%)',
+		darkBackgroundSolid: '#1e2c33',
 		textColor: '#ccc',
 		inputBackground: '#232323',
 		inputText: '#bbb',

@@ -15,6 +15,7 @@ body.theme-snow {
 	position: relative;
 	overflow: hidden;
 	z-index: 1;
+	border-radius: 20px 20px 0 0;
 
 	&:before {
 		content: '';
@@ -48,7 +49,7 @@ body.theme-snow {
 	align-content: center;
 	justify-items: center;
 	position: relative;
-	margin-left: -100px;
+	margin-left: 0;
 
 	& > div {
 		position: relative;
