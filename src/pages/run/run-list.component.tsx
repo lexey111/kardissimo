@@ -7,7 +7,7 @@ import {RunListDialog} from "./run-list.dialog.tsx";
 import {useNavigate} from "react-router-dom";
 import {RunNoData} from "./run-no-data.component.tsx";
 import {useCardboxes} from "../../store/cardboxes/hooks/useCardboxesHook.tsx";
-import {WaitInline} from "../../components/utils/wait-inline.component.tsx";
+import {WaitGlobal} from "../../components/utils/wait-global.component.tsx";
 
 
 export type TRunListProps = {
@@ -49,7 +49,7 @@ export const RunList: React.FC<TRunListProps> = ({preOpenId}) => {
 	}, [preOpenId]);
 
 	if (isLoading) {
-		return <WaitInline text={'Loading data...'}/>;
+		return <WaitGlobal text={'Loading data...'}/>;
 	}
 
 	if (!cardboxes || cardboxes.length === 0) {

@@ -88,9 +88,11 @@ body.theme-snow {
 				left: -8px;
 				right: -8px;
 				bottom: -8px;
-				//background: var(--app-background);
-				background: mixins.blackTrans(.9);
-				opacity: .2;
+				background: var(--app-background);
+				//background: mixins.blackTrans(.9);
+				background: var(--app-background);
+				opacity: 1;
+				animation: rotate-bg infinite 5s linear;
 				transition: all .2s ease;
 				box-shadow: inset 0 2px 20px mixins.blackTrans(.4);
 			}

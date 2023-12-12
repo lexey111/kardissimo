@@ -4,7 +4,7 @@ import {AppPage} from "../components/app-page.component.tsx";
 import {useSearchParams} from "react-router-dom";
 import {toast} from 'react-toastify';
 import {useCardboxes} from "../store/cardboxes/hooks/useCardboxesHook.tsx";
-import {WaitInline} from "../components/utils/wait-inline.component.tsx";
+import {WaitGlobal} from "../components/utils/wait-global.component.tsx";
 
 
 export const RunPage: React.FC = () => {
@@ -33,7 +33,7 @@ export const RunPage: React.FC = () => {
 	}, [id]);
 
 	if (isLoading) {
-		return <WaitInline text={'Loading data...'}/>;
+		return <WaitGlobal text={'Loading data...'}/>;
 	}
 
 	return <AppPage title={'Run'}>

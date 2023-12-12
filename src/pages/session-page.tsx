@@ -14,6 +14,7 @@ import {TCardSide, TPreparedCard, TPreparedCards} from "./session/types-session.
 import {TSCardbox, TSCardboxKey} from "../store/cardboxes/types-cardbox.ts";
 import {TSCard} from "../store/cards/types-card.ts";
 import {getSideColorsBySchema} from "../store/cardboxes/cardboxes-utils.ts";
+import {WaitGlobal} from "../components/utils/wait-global.component.tsx";
 
 function getDirectOrder(id: number, sides: Array<TCardSide>): TPreparedCard {
 	const result = [];
@@ -190,7 +191,7 @@ export const SessionPage: React.FC = () => {
 	}
 
 	if (isLoading || isCardboxLoading) {
-		return <WaitInline text={'Loading data...'}/>;
+		return <WaitGlobal text={'Loading data...'}/>;
 	}
 
 	if (cardboxError || !cardbox) {

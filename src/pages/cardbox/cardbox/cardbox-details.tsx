@@ -5,8 +5,8 @@ import {TSCardbox} from "../../../store/cardboxes/types-cardbox.ts";
 import {getDefaultSCardbox} from "../../../store/cardboxes/cardboxes-utils.ts";
 import {useCardboxUpdate} from "../../../store/cardboxes/hooks/useCardboxUpdateHook.tsx";
 import {useCardboxes} from "../../../store/cardboxes/hooks/useCardboxesHook.tsx";
-import {WaitInline} from "../../../components/utils/wait-inline.component.tsx";
 import {PageError} from "../../../types.ts";
+import {WaitGlobal} from "../../../components/utils/wait-global.component.tsx";
 
 export const CardboxDetails: React.FC = () => {
 	const navigate = useNavigate();
@@ -38,7 +38,7 @@ export const CardboxDetails: React.FC = () => {
 	}, [cardboxId, isNew, navigate]);
 
 	if (isLoading) {
-		return <WaitInline text={'Loading data...'}/>;
+		return <WaitGlobal text={'Loading data...'}/>;
 	}
 
 	if (!state) {

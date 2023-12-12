@@ -7,10 +7,10 @@ import {useCardNavigateHook} from "../../../hooks/useCardNavigate.hook.tsx";
 import {BigAddFloatingButton} from "../../../components/utils/big-add-floating-button.component.tsx";
 import {CardsNoData} from "./cards-no-data.component.tsx";
 import {useCards} from "../../../store/cards/hooks/useCardsHook.tsx";
-import {WaitInline} from "../../../components/utils/wait-inline.component.tsx";
 import {useCardbox} from "../../../store/cardboxes/hooks/useCardboxHook.tsx";
 import {CardsImport} from "./import/cards-import.component.tsx";
 import {CardRemove} from "./card-remove.component.tsx";
+import {WaitGlobal} from "../../../components/utils/wait-global.component.tsx";
 
 export const CardboxCards: React.FC = () => {
 	const params = useParams();
@@ -31,7 +31,7 @@ export const CardboxCards: React.FC = () => {
 	}, [goCard]);
 
 	if (isLoading || isCardboxLoading) {
-		return <WaitInline text={'Loading data...'}/>;
+		return <WaitGlobal text={'Loading data...'}/>;
 	}
 
 	if (cardboxError || !cardboxData) {

@@ -3,11 +3,11 @@ import {useNavigate} from "react-router-dom";
 import {CardEditorForm} from "./card-editor-form.component.tsx";
 import {useCardbox} from "../../../../store/cardboxes/hooks/useCardboxHook.tsx";
 import {useCard} from "../../../../store/cards/hooks/useCardHook.tsx";
-import {WaitInline} from "../../../../components/utils/wait-inline.component.tsx";
 import {PageNotFound} from "../../../../components/utils/page-not-found.component.tsx";
 import {TSCard} from "../../../../store/cards/types-card.ts";
 import {useCardUpdate} from "../../../../store/cards/hooks/useCardUpdateHook.tsx";
 import {useCards} from "../../../../store/cards/hooks/useCardsHook.tsx";
+import {WaitGlobal} from "../../../../components/utils/wait-global.component.tsx";
 
 export type TCardEditorProps = {
 	cardboxId: number
@@ -53,7 +53,7 @@ export const CardEditorData: React.FC<TCardEditorProps> = ({cardboxId, cardId, i
 	}, [cardboxId, isNew, navigate]);
 
 	if (isLoading || isCardboxLoading || isCardsLoading) {
-		return <WaitInline text={'Loading data...'}/>;
+		return <WaitGlobal text={'Loading data...'}/>;
 	}
 
 	if (!cardbox) {

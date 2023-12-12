@@ -25,11 +25,20 @@ body.exclusive-lock {
 	}
 
 	.app-page-header {
-		margin-bottom: 16px;
-		margin-top: -56px;
+		margin-bottom: 0;
+		margin-top: -74px;
+
+		.go-back {
+			transform: scale(.7);
+			margin-right: 8px;
+		}
 
 		.app-ph-title {
 			animation: none;
+		}
+
+		.app-ph-image {
+			margin-top: calc(.7 * var(--app-menu-height));
 		}
 
 		.app-ph-caption {

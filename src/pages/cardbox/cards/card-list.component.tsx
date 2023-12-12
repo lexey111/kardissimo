@@ -5,11 +5,11 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {TSCardbox} from "../../../store/cardboxes/types-cardbox.ts";
 import {useSettingsQuery} from "../../../store/settings/hooks/useSettingsHook.tsx";
 import {useCards} from "../../../store/cards/hooks/useCardsHook.tsx";
-import {WaitInline} from "../../../components/utils/wait-inline.component.tsx";
 import {PageNotFound} from "../../../components/utils/page-not-found.component.tsx";
 import {toast} from "react-toastify";
 import {useCardMove} from "../../../store/cards/hooks/useCardMoveHook.tsx";
 import {CardListAdd} from "./card-list-add.component.tsx";
+import {WaitGlobal} from "../../../components/utils/wait-global.component.tsx";
 
 export type TCardListProps = {
 	cardbox: TSCardbox
@@ -64,7 +64,7 @@ export const CardList: React.FC<TCardListProps> = ({cardbox, onAdd}) => {
 	}, []);
 
 	if (isLoading || isCardsLoading) {
-		return <WaitInline text={'Loading data...'}/>;
+		return <WaitGlobal text={'Loading data...'}/>;
 	}
 
 	if (!cards) {
