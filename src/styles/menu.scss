@@ -120,6 +120,20 @@ body.theme-snow {
 
 		}
 
+		a:hover {
+			svg {
+				transform: rotate(15deg) scale(1.1);
+			}
+
+			i {
+				&:before {
+					background: var(--app-background);
+					opacity: 1;
+					animation: rotate-bg infinite 5s linear;
+				}
+			}
+		}
+
 		a:focus {
 			i {
 				box-shadow: 0 0 0 2px var(--app-accent-background);
@@ -397,8 +411,6 @@ body.theme-snow {
 					}
 
 					&.menu-logo {
-						margin: 0;
-
 						i, svg {
 							right: 0;
 						}

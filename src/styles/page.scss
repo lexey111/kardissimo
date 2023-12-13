@@ -7,7 +7,7 @@
 	box-sizing: border-box;
 	min-height: 100vh;
 	flex-flow: column nowrap;
-	padding: 0 8px;
+	padding: 0;
 	z-index: 1;
 }
 
@@ -108,11 +108,17 @@
 	.page-32 {
 		border-width: 16px;
 	}
+	body {
+		padding: 0 8px !important;
+	}
 }
 
 @media screen and (max-width: 400px) {
 	.page-32 {
 		border-width: 8px;
+	}
+	body {
+		padding: 0;
 	}
 }
 

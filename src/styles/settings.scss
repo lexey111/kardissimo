@@ -35,6 +35,7 @@
 	}
 
 	.app-settings-container {
+		@include mixins.card();
 		opacity: 0;
 		pointer-events: none;
 		position: fixed;
@@ -43,8 +44,8 @@
 		right: 0;
 		width: 400px;
 		visibility: collapse;
-		background: #fff;
-		backdrop-filter: blur(10px);
+		//background: #fff;
+		//backdrop-filter: blur(10px);
 		padding: 16px;
 
 		box-shadow: -16px 0 32px mixins.blackTrans(),
