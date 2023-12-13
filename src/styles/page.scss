@@ -12,9 +12,9 @@
 }
 
 .app-page {
-	// menu + (page + footer)
 	order: 2;
 	display: flex;
+	margin-top: var(--app-menu-height);
 	flex-grow: 2;
 	flex-shrink: 2;
 	flex-flow: column nowrap;

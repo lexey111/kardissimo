@@ -33,9 +33,8 @@ export const AppMenu: React.FC = () => {
 	return <nav id='app-menu'>
 		<div className={'app-menu-content'}>
 			<ul>
-				<li className={'menu-logo home'}>
+				<li className={'menu-logo'}>
 					<NavLink to="/home">
-						<span>Kardissimo</span>
 						<i></i>
 						<svg viewBox="0 0 1024 1024">
 							<path
@@ -47,41 +46,44 @@ export const AppMenu: React.FC = () => {
 						</svg>
 					</NavLink>
 				</li>
-
-				{loggedIn && <>
-					<li>
-						<NavLink to="/run">
-							<FaCirclePlay/>
-							<span>Run</span>
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/cardboxes">
-							<HiRectangleStack/>
-							<span>Card boxes</span>
-						</NavLink>
-					</li>
-
-					<div className={'user-avatar'} tabIndex={0}>
-						<UserAvatar src={userData.avatar} name={userData.name}/>
-
-						<div className={'actions'}>
-							<p>
-								Logged in as <b>{userData.name}</b>
-							</p>
-							<Button type={'danger'} onClick={handleLogout}>Log out</Button>
-						</div>
-					</div>
-
-					<li className={'icon-only'}>
-						<AppSettings/>
-					</li>
-				</>}
-
-				{!loggedIn && <li className={'login'}>
-					<Button type={'danger'} onClick={handleLogin}>Login</Button>
-				</li>}
 			</ul>
+			{loggedIn && <ul>
+				<li>
+					<NavLink to="/run">
+						<FaCirclePlay/>
+						<span>Run</span>
+					</NavLink>
+				</li>
+				<li>
+					<NavLink to="/cardboxes">
+						<HiRectangleStack/>
+						<span>Card boxes</span>
+					</NavLink>
+				</li>
+			</ul>}
+
+			{loggedIn && <ul>
+				<div className={'user-avatar'} tabIndex={0}>
+					<UserAvatar src={userData.avatar} name={userData.name}/>
+
+					<div className={'actions'}>
+						<p>
+							Logged in as <b>{userData.name}</b>
+						</p>
+						<Button type={'danger'} onClick={handleLogout}>Log out</Button>
+					</div>
+				</div>
+
+				<li className={'icon-only'}>
+					<AppSettings/>
+				</li>
+			</ul>}
+
+			{!loggedIn && <ul>
+				<li className={'login'}>
+					<Button type={'danger'} onClick={handleLogin}>Login</Button>
+				</li>
+			</ul>}
 		</div>
 	</nav>;
 };

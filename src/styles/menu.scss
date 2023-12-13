@@ -12,71 +12,76 @@ body.theme-snow {
 
 #app-menu {
 	display: flex;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
 	order: 0;
-	z-index: 10;
-	flex-flow: row wrap;
-	width: 100%;
+	z-index: 0;
 	height: var(--app-menu-height);
-	justify-content: flex-end;
-	align-items: center;
-	align-content: center;
-	justify-items: center;
-	margin: 0;
+	padding: 0 64px;
 	flex-grow: 0;
 	flex-shrink: 0;
 	max-height: 2000px; // for transition
 	transition: all .2s ease;
 
+	&:focus-within {
+		z-index: 10;
+		background: var(--app-dark-background);
+		box-shadow: 0 2px 20px mixins.blackTrans(.6);
+	}
+
 	.app-menu-content {
-		display: flex;
+		display: grid;
+		grid-template-columns: 90px 10fr 120px;
+		box-sizing: border-box;
 		width: 100%;
-		justify-content: flex-end;
+		justify-content: center;
 		flex-flow: row nowrap;
 		align-items: center;
-		padding: 0 16px;
 	}
 
 	.menu-logo {
 		color: mixins.whiteTrans(1);
 		display: flex;
-		text-transform: uppercase;
-		font-weight: 200;
 		position: relative;
-		z-index: 2;
-		margin-right: auto;
-
-		span {
-			margin-right: 64px;
-		}
+		padding: 0;
+		margin: 0;
 
 		svg {
 			width: 48px !important;
 			height: 48px !important;
 			border-radius: 8px;
 			fill: var(--app-text);
-			transform: rotate(15deg);
+			transform: rotate(15deg) translateX(-50%) translateY(-50%);
 			transition: all .2s ease;
 			position: absolute;
-			right: 16px;
+			padding-top: 8px;
+			left: 50%;
+			top: 50%;
 			z-index: 2;
 		}
 
 		svg.shadowk {
 			fill: mixins.blackTrans(.2);
-			padding-left: 4px;
+			padding-left: 2px;
+			opacity: .7;
+			filter: blur(2px);
 			z-index: 1;
 		}
 
 		i {
-			border-radius: 8px;
+			border-radius: 11px;
 			transition: all .2s ease;
 			content: '';
 			display: block;
 			position: absolute;
-			right: 22px;
+			left: 50%;
+			top: 50%;
 			width: 40px;
 			height: 40px;
-			transform: rotate(-10deg);
+			transform: translateX(-50%) translateY(-50%) rotate(-10deg);
+			margin-left: 6px;
 			z-index: 0;
 			overflow: hidden;
 			box-shadow: 0 2px 2px mixins.blackTrans(.2);
@@ -89,7 +94,6 @@ body.theme-snow {
 				right: -8px;
 				bottom: -8px;
 				background: var(--app-background);
-				//background: mixins.blackTrans(.9);
 				background: var(--app-background);
 				opacity: 1;
 				animation: rotate-bg infinite 5s linear;
@@ -105,12 +109,9 @@ body.theme-snow {
 
 			svg {
 				opacity: 1;
-				//transform: rotate(15deg);
 			}
 
 			i {
-				//transform: rotate(-10deg);
-
 				&:before {
 					background: var(--app-background);
 					opacity: 1;
@@ -122,7 +123,13 @@ body.theme-snow {
 
 		a:hover {
 			svg {
-				transform: rotate(15deg) scale(1.1);
+				transform: rotate(15deg) translateX(-50%) translateY(-50%) scale(1.1);
+			}
+
+			svg.shadowk {
+				transform: rotate(15deg) translateX(-50%) translateY(-50%) scale(1.0);
+				filter: blur(3px);
+				padding-left: 3px;
 			}
 
 			i {
@@ -143,13 +150,19 @@ body.theme-snow {
 
 	ul {
 		display: flex;
-		height: 48px;
+		height: var(--app-menu-height);
 		margin: 0;
 		padding: 0;
 		flex-flow: row nowrap;
-		width: 100%;
 		align-items: center;
+		justify-content: center;
 		list-style: none;
+
+		&:nth-child(1) {
+			align-items: flex-start;
+			justify-content: flex-start;
+			margin-left: -32px;
+		}
 
 		li {
 			margin: 0 8px 0 0;
@@ -164,16 +177,21 @@ body.theme-snow {
 			a {
 				text-decoration: none;
 				color: var(--app-text);
-				padding: 8px 16px;
-				border-radius: 12px;
-				transition: all .4s ease;
+				padding: 0 16px;
+				border-radius: 24px;
+				transition: all .2s ease;
 				outline: none;
 				height: 32px;
 				display: flex;
 				@include mixins.center();
 
 				&:hover, &.active {
-					background: mixins.blackTrans(.4);
+					box-shadow: 0 0 0 2px var(--app-accent-background);
+				}
+
+				&.active {
+					background: var(--app-accent-background);
+					color: var(--app-accent-text);
 				}
 
 				&:focus {

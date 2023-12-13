@@ -95,7 +95,7 @@ export const CardPreview: React.FC<TCardPreviewProps> = (
 
 				<Stage
 					adjustCamera={.9} intensity={6} preset="rembrandt"
-					shadows={{type: 'contact', color: 'skyblue', colorBlend: 2, opacity: 1}}
+					shadows={false}
 					environment="city"
 				>
 					{fullScreen && <OrbitControls/>}

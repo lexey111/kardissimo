@@ -26,19 +26,14 @@ body.exclusive-lock {
 
 	.app-page-header {
 		margin-bottom: 0;
-		margin-top: -74px;
-
-		.go-back {
-			transform: scale(.7);
-			margin-right: 8px;
-		}
+		margin-top: -70px;
 
 		.app-ph-title {
 			animation: none;
 		}
 
 		.app-ph-image {
-			margin-top: calc(.7 * var(--app-menu-height));
+			margin-top: calc(.5 * var(--app-menu-height));
 		}
 
 		.app-ph-caption {

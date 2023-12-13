@@ -62,6 +62,7 @@ export const assignGlobalStyles = (id: string) => {
 	r!.style.setProperty('--app-input-text', app?.inputText || '#000');
 
 	r!.style.setProperty('--app-accent-background', app?.accentColor);
+	r!.style.setProperty('--app-accent-text', app?.accentText);
 	r!.style.setProperty('--app-accent-background-darken', LightenDarkenColor(app!.accentColor!, -20));
 
 	r!.style.setProperty('--app-danger-background', app?.dangerColor);
