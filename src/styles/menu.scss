@@ -309,7 +309,7 @@ body.theme-snow {
 	height: var(--app-menu-height -16px);
 	@include mixins.center();
 	align-self: center;
-	border: 3px solid mixins.whiteTrans(.8);
+	border: 2px solid mixins.whiteTrans(.8);
 	border-radius: 100%;
 	cursor: pointer;
 	display: flex;
@@ -360,8 +360,9 @@ body.theme-snow {
 	}
 
 	&:focus, &:focus-within {
-		border-color: #ffbd0e;
+		border-color: var(--app-accent-background);
 		outline: none;
+		box-shadow: none !important;
 		transform: scale(1.1);
 
 		.actions {
@@ -373,7 +374,7 @@ body.theme-snow {
 	}
 
 	&:hover {
-		transform: scale(1.1);
+		box-shadow: 0 0 0 2px var(--app-accent-background);
 	}
 }
 

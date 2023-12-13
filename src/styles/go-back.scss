@@ -32,12 +32,13 @@
 		outline: none;
 
 		&:before {
-			background: mixins.whiteTrans(.7);
+			background: var(--app-accent-background);
+			color: var(--app-accent-text);
 			transform: scale(1.05);
 		}
 
 		color: var(--app-primary-background);
 		transform: scale(1.2);
-		box-shadow: 1px 1px 2px mixins.blackTrans(0.1);
+		//box-shadow: 1px 1px 2px mixins.blackTrans(0.1);
 	}
 }
