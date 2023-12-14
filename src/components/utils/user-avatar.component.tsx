@@ -4,8 +4,9 @@ import {CgSpinner} from "react-icons/cg";
 export type TUserAvatarProps = {
 	src?: string
 	name?: string
+	onClick?: () => void
 }
-export const UserAvatar: React.FC<TUserAvatarProps> = ({src, name}) => {
+export const UserAvatar: React.FC<TUserAvatarProps> = ({src, name, onClick}) => {
 	const [loaded, setLoaded] = useState(false);
 	const [error, setError] = useState(false);
 
@@ -19,7 +20,9 @@ export const UserAvatar: React.FC<TUserAvatarProps> = ({src, name}) => {
 		setError(true);
 	}, [loaded, error]);
 
-	return <div className={'avatar-container' + (loaded ? ' loaded' : '') + (error ? ' fallback' : '')}>
+	return <div
+		className={'avatar-container' + (loaded ? ' loaded' : '') + (error ? ' fallback' : '')}
+		onClick={onClick}>
 		<img src={src} onLoad={handleLoaded} onError={handleError} referrerPolicy="no-referrer"/>
 		<div className={'avatar-fallback'}>{name?.substring(0, 1).toUpperCase()}</div>
 		{!loaded && !error && <div className={'avatar-wait spin'}><CgSpinner/></div>}

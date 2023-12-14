@@ -10,6 +10,7 @@ import {useAuthQuery} from "./store/auth/hooks/useAuthHook.ts";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {assignGlobalStyles} from "./store/settings/settings-utils.ts";
 import {defaultAppState} from "./store/settings/types-settings.ts";
+import {ProfileActions} from "./components/utils/profile-actions.component.tsx";
 
 
 export const App: React.FC = () => {
@@ -79,6 +80,7 @@ export const App: React.FC = () => {
 		/>
 
 		<AppFooter/>
+		<ProfileActions/>
 
 		<ToastContainer
 			position="top-center"

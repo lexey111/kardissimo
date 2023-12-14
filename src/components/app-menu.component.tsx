@@ -7,17 +7,16 @@ import {UserAvatar} from "./utils/user-avatar.component.tsx";
 import {AppSettings} from "./settings/app-settings.component.tsx";
 import {useSettingsQuery} from "../store/settings/hooks/useSettingsHook.tsx";
 import {useAuthQuery} from "../store/auth/hooks/useAuthHook.ts";
-import {useAuthLogout} from "../store/auth/hooks/useAuthLogoutHook.ts";
+import {publish} from "../subscribe.ts";
 
 export const AppMenu: React.FC = () => {
 	const navigate = useNavigate();
 
 	const {isLoading: userLoading, data: userData} = useAuthQuery();
 	const {isLoading: settingsLoading} = useSettingsQuery();
-	const {mutate: logout} = useAuthLogout();
 
-	const handleLogout = useCallback(() => {
-		void logout();
+	const handleProfile = useCallback(() => {
+		publish('profile-show');
 	}, []);
 
 	const handleLogin = useCallback(() => {
@@ -64,14 +63,14 @@ export const AppMenu: React.FC = () => {
 
 			{loggedIn && <ul>
 				<div className={'user-avatar'} tabIndex={0}>
-					<UserAvatar src={userData.avatar} name={userData.name}/>
+					<UserAvatar src={userData.avatar} name={userData.name} onClick={handleProfile}/>
 
-					<div className={'actions'}>
-						<p>
-							Logged in as <b>{userData.name}</b>
-						</p>
-						<Button type={'danger'} onClick={handleLogout}>Log out</Button>
-					</div>
+					{/*<div className={'actions'}>*/}
+					{/*	<p>*/}
+					{/*		Logged in as <b>{userData.name}</b>*/}
+					{/*	</p>*/}
+					{/*	<Button type={'danger'} onClick={handleProfile}>Log out</Button>*/}
+					{/*</div>*/}
 				</div>
 
 				<li className={'icon-only'}>
