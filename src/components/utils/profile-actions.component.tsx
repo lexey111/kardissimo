@@ -19,6 +19,7 @@ export const ProfileActions: React.FC = () => {
 	}, []);
 
 	const handleLogout = useCallback(() => {
+		setIsOpen(false);
 		void logout();
 	}, []);
 

@@ -117,8 +117,12 @@
 	.page-32 {
 		border-width: 8px;
 	}
+	.app-page {
+		border-radius: 0;
+		box-shadow: none;
+	}
 	body {
-		padding: 0;
+		padding: 0 !important;
 	}
 }
 
