@@ -28,9 +28,6 @@ export const CardboxListItem: React.FC<TCardboxItemProps> = ({cardbox}) => {
 	const hasCards = cardbox.cards_count > 0;
 
 	return <div className={'cardbox-item-content-wrapper' + (cardbox.id === 0 || cardbox.unstable ? ' unstable' : '')}>
-		<div className={'cardbox-title'}>
-			<span>{cardbox.title}</span>
-		</div>
 		<div className={'cardbox-item-content'}>
 			<div className={'cardbox-card-info'}>
 				<div
@@ -57,6 +54,9 @@ export const CardboxListItem: React.FC<TCardboxItemProps> = ({cardbox}) => {
 				{hasCards && <div className={'card-shadow'}></div>}
 			</div>
 			<div className={'cardbox-wrapper'}>
+				<div className={'cardbox-title'}>
+					<span>{cardbox.title}</span>
+				</div>
 				<div className={'cardbox-author'}><b>by</b> {cardbox.author || 'Unknown'}</div>
 				<div className={'cardbox-sides'}><b>Sides:</b> {cardbox.side1title}, {cardbox.side2title}</div>
 				{cardbox.description &&

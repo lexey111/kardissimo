@@ -1,18 +1,22 @@
 body.settings-lock {
 	overflow: hidden;
 
+	#app-menu {
+		z-index: 10;
+	}
+
 	canvas {
 		opacity: 0;
 	}
 }
 
 body.exclusive-lock {
-	#app-footer {
-		max-height: 0;
-		height: 0;
-		overflow: hidden;
-		opacity: 0;
-	}
+	//#app-footer {
+	//	max-height: 0;
+	//	height: 0;
+	//	overflow: hidden;
+	//	opacity: 0;
+	//}
 
 	#app-menu {
 		background: transparent;
