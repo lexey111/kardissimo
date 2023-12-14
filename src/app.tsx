@@ -12,14 +12,12 @@ import {assignGlobalStyles} from "./store/settings/settings-utils.ts";
 import {defaultAppState} from "./store/settings/types-settings.ts";
 import {ProfileActions} from "./components/utils/profile-actions.component.tsx";
 
-
 export const App: React.FC = () => {
 	const [busy, setBusy] = useState(true);
 	const {isLoading: userLoading, data: userData} = useAuthQuery();
 	const {isLoading: settingsLoading, data: settingsData} = useSettingsQuery();
 
 	const checkResize = useCallback(() => {
-		console.log('ch!');
 		if (window.scrollY > 10) {
 			document.body.classList.add('scrolled');
 		} else {
@@ -80,6 +78,7 @@ export const App: React.FC = () => {
 		/>
 
 		<AppFooter/>
+
 		<ProfileActions/>
 
 		<ToastContainer

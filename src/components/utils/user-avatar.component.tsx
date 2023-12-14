@@ -20,8 +20,18 @@ export const UserAvatar: React.FC<TUserAvatarProps> = ({src, name, onClick}) => 
 		setError(true);
 	}, [loaded, error]);
 
+	const handleKeydown = useCallback((e: any) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			onClick && onClick();
+			e.preventDefault();
+			e.stopPropagation();
+		}
+	}, []);
+
 	return <div
-		className={'avatar-container' + (loaded ? ' loaded' : '') + (error ? ' fallback' : '')}
+		onKeyDown={handleKeydown}
+		tabIndex={onClick ? 0 : -1}
+		className={'avatar-container' + (loaded ? ' loaded' : '') + (error ? ' fallback' : '') + (onClick ? ' active' : '')}
 		onClick={onClick}>
 		<img src={src} onLoad={handleLoaded} onError={handleError} referrerPolicy="no-referrer"/>
 		<div className={'avatar-fallback'}>{name?.substring(0, 1).toUpperCase()}</div>

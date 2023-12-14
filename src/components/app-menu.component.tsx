@@ -62,15 +62,8 @@ export const AppMenu: React.FC = () => {
 			</ul>}
 
 			{loggedIn && <ul>
-				<div className={'user-avatar'} tabIndex={0}>
+				<div className={'user-avatar'}>
 					<UserAvatar src={userData.avatar} name={userData.name} onClick={handleProfile}/>
-
-					{/*<div className={'actions'}>*/}
-					{/*	<p>*/}
-					{/*		Logged in as <b>{userData.name}</b>*/}
-					{/*	</p>*/}
-					{/*	<Button type={'danger'} onClick={handleProfile}>Log out</Button>*/}
-					{/*</div>*/}
 				</div>
 
 				<li className={'icon-only'}>
