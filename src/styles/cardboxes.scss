@@ -11,7 +11,6 @@ body.theme-snow {
 
 .cardbox-list {
 	width: 100%;
-	max-width: 1500px;
 	margin: 0 auto;
 	display: grid;
 	gap: 16px;
@@ -21,12 +20,6 @@ body.theme-snow {
 	&.empty {
 		grid-template-columns: 1fr;
 		display: block;
-	}
-}
-
-@media screen and (max-width: 1200px) {
-	.cardbox-list {
-		grid-template-columns: 1fr;
 	}
 }
 
@@ -94,13 +87,15 @@ body.deep-scroll-size {
 	}
 }
 
-.cardbox-item-content {
-	display: flex;
-	flex-flow: row nowrap;
-	align-items: flex-start;
-	flex-grow: 2;
+.cardbox-item-content-wrapper {
+	display: grid;
+	grid-template-columns: minmax(150px, 1fr) 3fr;
+	overflow: hidden;
+	grid-column-gap: 20px;
+	height: 100%;
 	margin: 0;
-	padding: 32px;
+	padding: 0;
+	border-radius: 20px;
 
 	.create-cardbox & {
 		color: var(--app-text);
@@ -108,40 +103,45 @@ body.deep-scroll-size {
 }
 
 .cardbox-card-info {
-	width: 120px;
+	border-radius: 20px 0 0 20px;
 	display: flex;
 	position: relative;
 	flex-flow: column nowrap;
+	background: var(--app-primary-background);
+	box-shadow: inset 0 0 120px mixins.blackTrans(.2), 1px 0 0 mixins.blackTrans(.2);
 
-	&:hover, &:focus-within {
-		outline: none;
+	.cardbox-card-stack {
+		&:hover, &:focus-within {
+			outline: none;
 
-		.cardbox-pseudo-card {
-			transform: translateY(-2px) scale(1.02);
-			box-shadow: 0 4px 18px mixins.blackTrans(.2), 0 0 0 4px var(--app-accent-background);
+			.cardbox-pseudo-card {
+				transform: translateY(-2px) scale(1.02);
+				box-shadow: 0 4px 18px mixins.blackTrans(.2), 0 0 0 4px var(--app-accent-background);
 
-			&.single {
-				box-shadow: 0 0 0 4px var(--app-accent-background);
+				&.single {
+					box-shadow: 0 0 0 4px var(--app-accent-background);
+				}
+
+				span {
+					background: mixins.whiteTrans(.4);
+				}
 			}
 
-			span {
-				background: mixins.whiteTrans(.4);
+			.extra-cards {
+				transform: translateX(4px);
 			}
-		}
-
-		.card-shadow {
-			transform: translateY(2px) scale(.8);
-			opacity: .3;
-		}
-
-		.extra-cards {
-			transform: translateX(4px);
 		}
 	}
 }
 
+.cardbox-run-buttons {
+	@include mixins.center();
+	color: var(--app-success-text);
+	margin: auto 0 16px 0;
+}
+
 .cardbox-pseudo-card {
-	width: 100%;
+	margin: 32px;
 	aspect-ratio: 2/3;
 	background: mixins.whiteTrans(.4);
 	border-radius: 20px;
@@ -156,7 +156,7 @@ body.deep-scroll-size {
 	transition: all .2s ease;
 	box-shadow: 2px 2px 8px mixins.blackTrans(.2);
 
-	transform: rotate3d(0, 1, 1, -4deg);
+	transform: rotate3d(0, 1, 1, -4deg) translateX(-6px);
 	outline: none;
 
 	span {
@@ -166,8 +166,7 @@ body.deep-scroll-size {
 		font-weight: 200;
 		width: 64px;
 		height: 64px;
-		background: mixins.whiteTrans(.1);
-		box-shadow: inset 0 0 1px mixins.blackTrans(.2);
+		background: mixins.whiteTrans(.3);
 		border-radius: 100%;
 		align-items: center;
 		justify-content: center;
@@ -179,36 +178,23 @@ body.deep-scroll-size {
 		background: none !important;
 		transform: none;
 		border-style: dashed;
-		margin-left: 6px;
 	}
-}
-
-.card-shadow {
-	display: block;
-	position: absolute;
-	height: 20px;
-	left: -4px;
-	right: -20px;
-	bottom: -16px;
-	background: radial-gradient(ellipse at center, mixins.blackTrans(0.4), transparent 70%);
-	transition: all .2s ease;
-	z-index: -1;
-	opacity: .9;
 }
 
 .extra-cards {
 	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
+	top: 32px;
+	left: 32px;
+	bottom: 32px;
+	right: 32px;
 	aspect-ratio: 2/3;
 	background: mixins.whiteTrans(.4);
-	border-radius: 12px;
+	border-radius: 20px;
 	display: flex;
 	z-index: 1;
 
 	transition: all .2s ease;
-	transform: rotate3d(0, 1, 1, 2deg) scale(.95) translateX(14px) translateY(1px);
+	transform: rotate3d(0, 1, 1, 2deg) scale(.95) translateX(6px) translateY(1px);
 	box-shadow: 2px 2px 8px mixins.blackTrans(.2);
 
 	&:before {
@@ -219,11 +205,11 @@ body.deep-scroll-size {
 		right: 0;
 		bottom: 0;
 		background: mixins.blackTrans(0.2);
-		border-radius: 12px;
+		border-radius: 20px;
 	}
 
 	&.second {
-		transform: rotate3d(0, 1, 1, 6deg) scale(.92) translateX(26px) translateY(1px);
+		transform: rotate3d(0, 1, 1, 6deg) scale(.92) translateX(16px) translateY(1px);
 		z-index: 0;
 
 		&:before {
@@ -236,27 +222,18 @@ body.deep-scroll-size {
 	display: flex;
 	flex-flow: column wrap;
 	align-items: stretch;
-	height: 100%;
+	padding: 0 16px 16px 0;
 	font-size: .9rem;
 	flex-grow: 2;
 	color: var(--app-card-text);
 	font-weight: 200;
-	margin-left: 48px;
-}
-
-.cardbox-item-content-wrapper {
-	display: flex;
-	width: 100%;
-	border-radius: 20px;
-	flex-flow: column nowrap;
-	transition: all .4s ease;
 }
 
 .cardbox-title {
 	font-size: 2rem;
 	font-weight: 200;
 	margin: 0;
-	padding: 32px 0 0 0;
+	padding: 16px 0 0 0;
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;
@@ -264,42 +241,23 @@ body.deep-scroll-size {
 	//border-radius: 20px 20px 0 0;
 	//background: mixins.blackTrans(.1);
 	width: 100%;
-
-	span {
-		flex-grow: 2;
-		margin-left: 32px;
-	}
-
-	button {
-		margin-left: auto;
-		margin-right: 16px !important;
-	}
 }
 
 .cardbox-item-actions {
 	display: flex;
-	color: var(--app-text);
-	flex-flow: row wrap;
+	flex-flow: row nowrap;
 	margin-top: auto;
 	justify-items: flex-end;
+	margin-bottom: 12px;
 
 	button {
+		margin-right: 16px;
+
 		&:last-of-type {
 			margin-left: auto;
+			margin-right: 0;
 			align-self: flex-end;
 		}
-	}
-}
-
-.cardbox-item-actions-stack {
-	display: flex;
-	flex-flow: column wrap;
-	align-items: flex-end;
-	align-content: stretch;
-
-	button {
-		margin: 6px 0 0 0;
-		width: 100%;
 	}
 }
 
@@ -325,14 +283,22 @@ body.deep-scroll-size {
 	}
 }
 
-@media screen and (max-width: 600px) {
-	.cardbox-card-info {
-		width: 90px; // 180
+@media screen and (max-width: 1150px) {
+	.cardbox-list {
+		grid-template-columns: 1fr;
 	}
-	.cardbox-wrapper {
-		margin-left: 16px;
-	}
-	.cardbox-pseudo-card, .extra-cards {
-		width: 80%;
+}
+
+@media screen and (max-width: 700px) {
+	.cardbox-item-actions {
+		button {
+			span.button-text {
+				display: none;
+			}
+
+			svg {
+				margin: 0 !important;
+			}
+		}
 	}
 }

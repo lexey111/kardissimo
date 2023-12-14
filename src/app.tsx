@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Outlet, ScrollRestoration} from "react-router-dom";
 import {AppMenu} from "./components/app-menu.component.tsx";
 import {AppFooter} from "./components/app-footer.component.tsx";
@@ -16,6 +16,27 @@ export const App: React.FC = () => {
 	const [busy, setBusy] = useState(true);
 	const {isLoading: userLoading, data: userData} = useAuthQuery();
 	const {isLoading: settingsLoading, data: settingsData} = useSettingsQuery();
+
+	const checkResize = useCallback(() => {
+		console.log('ch!');
+		if (window.scrollY > 10) {
+			document.body.classList.add('scrolled');
+		} else {
+			document.body.classList.remove('scrolled');
+		}
+
+	}, []);
+
+	useEffect(() => {
+		window.addEventListener('resize', checkResize);
+		document.addEventListener('scroll', checkResize);
+		checkResize();
+
+		return () => {
+			window.removeEventListener('resize', checkResize);
+			document.removeEventListener('scroll', checkResize);
+		};
+	}, []);
 
 	useEffect(() => {
 		if (!userLoading && !settingsLoading) {

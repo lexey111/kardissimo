@@ -10,6 +10,16 @@ body.theme-snow {
 	}
 }
 
+body.scrolled {
+	#app-menu {
+		&:focus-within {
+			z-index: 10;
+			background: var(--app-dark-background);
+			box-shadow: 0 2px 20px mixins.blackTrans(.6);
+		}
+	}
+}
+
 #app-menu {
 	display: flex;
 	position: fixed;
@@ -23,12 +33,6 @@ body.theme-snow {
 	flex-grow: 0;
 	flex-shrink: 0;
 	max-height: 2000px; // for transition
-
-	&:focus-within {
-		z-index: 10;
-		background: var(--app-dark-background);
-		box-shadow: 0 2px 20px mixins.blackTrans(.6);
-	}
 
 	.app-menu-content {
 		display: grid;

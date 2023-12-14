@@ -23,7 +23,7 @@ export const RunCardboxCard: React.FC<TRunCardboxCardProps> = ({cardbox, onRun})
 							onClick={() => onRun(cardbox.id)}
 							size={'xl'}
 							disabled={cardbox.cards_count < 2}
-							variant={'white-ring'}
+							// variant={'white-ring'}
 							type={'round-success'}
 							icon={<FaPlay/>}>Start</Button>
 					</div>

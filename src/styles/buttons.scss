@@ -438,7 +438,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	}
 
 	&:hover, &:focus {
-		border: 2px solid var(--app-accent-background);
+		border: 4px solid var(--app-accent-background);
 	}
 
 	&.white-ring {
@@ -509,7 +509,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	}
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 480px) {
 	button.text-icon {
 		span.button-text {
 			display: none;

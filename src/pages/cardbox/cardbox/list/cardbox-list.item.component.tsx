@@ -3,6 +3,8 @@ import {useNavigate} from "react-router-dom";
 import {TSCardbox} from "../../../../store/cardboxes/types-cardbox.ts";
 import {getSideColorsBySchema} from "../../../../store/cardboxes/cardboxes-utils.ts";
 import {CardboxActions} from "./cardbox-actions.component.tsx";
+import {Button} from "../../../../components/utils/button.component.tsx";
+import {FaPlay} from "react-icons/fa6";
 
 export type TCardboxItemProps = {
 	cardbox: TSCardbox
@@ -21,6 +23,10 @@ export const CardboxListItem: React.FC<TCardboxItemProps> = ({cardbox}) => {
 		}
 	}, [goCards]);
 
+	const goRun = useCallback((id: number) => {
+		navigate(`/run?id=${id}`);
+	}, [navigate]);
+
 	if (!cardbox) {
 		return null;
 	}
@@ -28,8 +34,8 @@ export const CardboxListItem: React.FC<TCardboxItemProps> = ({cardbox}) => {
 	const hasCards = cardbox.cards_count > 0;
 
 	return <div className={'cardbox-item-content-wrapper' + (cardbox.id === 0 || cardbox.unstable ? ' unstable' : '')}>
-		<div className={'cardbox-item-content'}>
-			<div className={'cardbox-card-info'}>
+		<div className={'cardbox-card-info'}>
+			<div className={'cardbox-card-stack'}>
 				<div
 					className={'cardbox-pseudo-card' + (!hasCards ? ' single' : '')}
 					style={{
@@ -51,35 +57,45 @@ export const CardboxListItem: React.FC<TCardboxItemProps> = ({cardbox}) => {
 						background: getSideColorsBySchema(cardbox.side2schema).color || '#eee',
 					}}></div>
 				</>}
-				{hasCards && <div className={'card-shadow'}></div>}
 			</div>
-			<div className={'cardbox-wrapper'}>
-				<div className={'cardbox-title'}>
-					<span>{cardbox.title}</span>
+
+			<div className={'cardbox-run-buttons'}>
+				<div className={'run-card-button'}>
+					<Button
+						onClick={() => goRun(cardbox.id)}
+						size={'xl'}
+						disabled={cardbox.cards_count < 2}
+						type={'round-success'}
+						icon={<FaPlay/>}>Start</Button>
 				</div>
-				<div className={'cardbox-author'}><b>by</b> {cardbox.author || 'Unknown'}</div>
-				<div className={'cardbox-sides'}><b>Sides:</b> {cardbox.side1title}, {cardbox.side2title}</div>
-				{cardbox.description &&
-					<div className={'cardbox-sides'}><b>Description:</b> {cardbox.description}</div>}
+			</div>
+		</div>
+		<div className={'cardbox-wrapper'}>
+			<div className={'cardbox-title'}>
+				<span>{cardbox.title}</span>
+			</div>
+			<div className={'cardbox-author'}><b>by</b> {cardbox.author || 'Unknown'}</div>
+			<div className={'cardbox-sides'}><b>Sides:</b> {cardbox.side1title}, {cardbox.side2title}</div>
+			{cardbox.description &&
+				<div className={'cardbox-sides'}><b>Description:</b> {cardbox.description}</div>}
 
-				{(cardbox.created_at || cardbox.changed_at) && <div className={'cardbox-times'}>
-					{cardbox.created_at && <div className={'cardbox-created'}>
-						<b>Created:</b> {new Intl.DateTimeFormat(undefined, {
-						dateStyle: 'long',
-						timeStyle: 'short',
-					}).format(new Date(cardbox.created_at))}
-					</div>}
-
-					{cardbox.changed_at && <div className={'cardbox-changed'}>
-						<b>Last change:</b> {new Intl.DateTimeFormat(undefined, {
-						dateStyle: 'long',
-						timeStyle: 'short',
-					}).format(new Date(cardbox.changed_at))}
-					</div>}
+			{(cardbox.created_at || cardbox.changed_at) && <div className={'cardbox-times'}>
+				{cardbox.created_at && <div className={'cardbox-created'}>
+					<b>Created:</b> {new Intl.DateTimeFormat(undefined, {
+					dateStyle: 'long',
+					timeStyle: 'short',
+				}).format(new Date(cardbox.created_at))}
 				</div>}
 
-				<CardboxActions cardbox={cardbox}/>
-			</div>
+				{cardbox.changed_at && <div className={'cardbox-changed'}>
+					<b>Last change:</b> {new Intl.DateTimeFormat(undefined, {
+					dateStyle: 'long',
+					timeStyle: 'short',
+				}).format(new Date(cardbox.changed_at))}
+				</div>}
+			</div>}
+
+			<CardboxActions cardbox={cardbox}/>
 		</div>
 	</div>;
 };

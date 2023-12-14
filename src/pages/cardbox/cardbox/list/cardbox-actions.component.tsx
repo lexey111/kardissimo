@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Modal} from "../../../../components/utils/modal-component.tsx";
-import {FaGrip, FaPlay, FaTrashCan} from "react-icons/fa6";
+import {FaGrip, FaTrashCan} from "react-icons/fa6";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {FaArrowLeft, FaCog} from "react-icons/fa";
 import {useCardboxDelete} from "../../../../store/cardboxes/hooks/useCardboxDeleteHook.tsx";
@@ -20,10 +20,6 @@ export const CardboxActions: React.FC<TCardboxActionsProps> = ({cardbox}) => {
 
 	const goEdit = useCallback((id: number) => {
 		navigate(`/cardboxes/${id}/details`);
-	}, [navigate]);
-
-	const goRun = useCallback((id: number) => {
-		navigate(`/run?id=${id}`);
 	}, [navigate]);
 
 	const goCards = useCallback((id: number) => {
@@ -59,24 +55,13 @@ export const CardboxActions: React.FC<TCardboxActionsProps> = ({cardbox}) => {
 		/>
 
 		<div className={'cardbox-item-actions'}>
-			<div className={'cardbox-item-actions-stack'}>
-				<Button
-					onClick={() => goRun(cardbox.id)}
-					icon={<FaPlay/>}
-					disabled={(cardbox.cards_count || 0) < 2}
-					type='success'>
-					Run
-				</Button>
+			<Button onClick={() => goEdit(cardbox.id)} icon={<FaCog/>} type={'secondary'}>
+				Preferences
+			</Button>
 
-				<Button onClick={() => goEdit(cardbox.id)} icon={<FaCog/>}>
-					Preferences
-				</Button>
-
-				<Button onClick={() => goCards(cardbox.id)} icon={<FaGrip/>}>
-					Cards {(cardbox.cards_count || 0) > 0 ? ' (' + cardbox.cards_count + ')' : ''}
-				</Button>
-			</div>
-
+			<Button onClick={() => goCards(cardbox.id)} icon={<FaGrip/>} type={'secondary'}>
+				Cards {(cardbox.cards_count || 0) > 0 ? ' (' + cardbox.cards_count + ')' : ''}
+			</Button>
 
 			<Button onClick={() => setIsOpen(true)} icon={<FaTrashCan/>} type={'round'}/>
 		</div>
