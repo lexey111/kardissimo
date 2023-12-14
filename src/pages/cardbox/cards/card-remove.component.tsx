@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useState} from "react";
 import {FaTrashCan} from "react-icons/fa6";
 import {Modal} from "../../../components/utils/modal-component.tsx";
 import {Button} from "../../../components/utils/button.component.tsx";
 import {FaArrowLeft} from "react-icons/fa";
 import {useCardDelete} from "../../../store/cards/hooks/useCardDeleteHook.tsx";
-import {subscribe, unsubscribe} from "../../../subscribe.ts";
+import {useSubscribe} from "../../../subscribe.ts";
 
 export type TCardRemove = {
 	cardboxId: number
@@ -24,12 +24,7 @@ export const CardRemove: React.FC<TCardRemove> = ({cardboxId}) => {
 		setIsOpen(true);
 	}, []);
 
-	useEffect(() => {
-		subscribe('card-delete', handleDeleteSignal);
-		return () => {
-			unsubscribe('card-delete', handleDeleteSignal);
-		}
-	}, []);
+	useSubscribe('card-delete', handleDeleteSignal);
 
 	return <Modal
 		open={isOpen}

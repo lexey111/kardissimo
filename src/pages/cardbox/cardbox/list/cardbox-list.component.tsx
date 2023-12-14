@@ -5,6 +5,7 @@ import {CardboxListAddItem} from "./cardbox-list.add-item.component.tsx";
 import {IoIosAddCircle} from "react-icons/io";
 import {useCardboxes} from "../../../../store/cardboxes/hooks/useCardboxesHook.tsx";
 import {WaitGlobal} from "../../../../components/utils/wait-global.component.tsx";
+import {CardboxActions} from "./cardbox-actions.component.tsx";
 
 export const CardboxList: React.FC = () => {
 	const {data, isLoading} = useCardboxes();
@@ -30,6 +31,7 @@ export const CardboxList: React.FC = () => {
 				<CardboxListItem cardbox={cardbox}/>
 			</div>;
 		})}
+		<CardboxActions/>
 
 		<CardboxListAddItem/>
 	</div>;

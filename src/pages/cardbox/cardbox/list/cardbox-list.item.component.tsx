@@ -2,9 +2,9 @@ import React, {useCallback} from "react";
 import {useNavigate} from "react-router-dom";
 import {TSCardbox} from "../../../../store/cardboxes/types-cardbox.ts";
 import {getSideColorsBySchema} from "../../../../store/cardboxes/cardboxes-utils.ts";
-import {CardboxActions} from "./cardbox-actions.component.tsx";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {FaPlay} from "react-icons/fa6";
+import {CardboxActionsButtons} from "./cardbox-actions-buttons.component.tsx";
 
 export type TCardboxItemProps = {
 	cardbox: TSCardbox
@@ -95,7 +95,7 @@ export const CardboxListItem: React.FC<TCardboxItemProps> = ({cardbox}) => {
 				</div>}
 			</div>}
 
-			<CardboxActions cardbox={cardbox}/>
+			<CardboxActionsButtons cardbox={cardbox}/>
 		</div>
 	</div>;
 };

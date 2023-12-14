@@ -1,3 +1,5 @@
+import {useEffect} from "react";
+
 function subscribe(eventName: string, listener: any) {
 	document.addEventListener(eventName, listener);
 }
@@ -11,4 +13,14 @@ function publish(eventName: string, data: any) {
 	document.dispatchEvent(event);
 }
 
-export {publish, subscribe, unsubscribe};
+function useSubscribe(signal: string, processFn: (data?: any) => any) {
+	useEffect(() => {
+		subscribe(signal, processFn);
+
+		return () => {
+			unsubscribe(signal, processFn);
+		}
+	}, [signal, processFn]);
+}
+
+export {publish, subscribe, unsubscribe, useSubscribe};

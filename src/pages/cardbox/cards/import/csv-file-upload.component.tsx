@@ -1,7 +1,7 @@
-import React, {useEffect, useRef} from "react";
+import React, {useRef} from "react";
 import {Button} from "../../../../components/utils/button.component.tsx";
 import {FaFileCsv} from "react-icons/fa";
-import {subscribe, unsubscribe} from "../../../../subscribe.ts";
+import {useSubscribe} from "../../../../subscribe.ts";
 
 export type TCSVFileUploadProps = {
 	handleFile: (text: string) => void
@@ -38,15 +38,8 @@ export const CSVFileUpload: React.FC<TCSVFileUploadProps> = ({handleFile, showBu
 		reader.readAsText(event.detail);
 	};
 
-	useEffect(() => {
-		subscribe('cards-import-csv', handleClick);
-		subscribe('cards-import-drop', handleDrop);
-
-		return () => {
-			unsubscribe('cards-import-csv', handleClick);
-			unsubscribe('cards-import-drop', handleDrop);
-		}
-	}, [handleFile]);
+	useSubscribe('cards-import-csv', handleClick);
+	useSubscribe('cards-import-drop', handleDrop);
 
 	return <>
 		{showButton && <Button type={'primary'} onClick={handleClick} icon={<FaFileCsv/>}>
