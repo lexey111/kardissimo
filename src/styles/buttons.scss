@@ -341,10 +341,11 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	flex-direction: row;
 	@include mixins.center();
 	flex-wrap: nowrap;
-	border: 2px solid mixins.whiteTrans(.4);
+	//border: 1px solid mixins.whiteTrans(.2);
 	background: transparent;
 	flex-grow: 0;
 	flex-shrink: 0;
+	box-shadow: 0 0 0 1px mixins.blackTrans(.2), inset 0 1px 0 0 mixins.whiteTrans(.2), inset 0 -4px 32px mixins.blackTrans(.1), inset 0 4px 32px mixins.whiteTrans(.2);
 
 	&.round-danger, &.round-primary {
 		color: var(--app-danger-text);
@@ -363,6 +364,10 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 
 	&.round-danger {
 		background: var(--app-danger-background);
+
+		&:hover, &:focus {
+			box-shadow: inset 0 1px 0 0 mixins.whiteTrans(.2), inset 0 -4px 16px mixins.blackTrans(.1), inset 0 4px 32px mixins.whiteTrans(.2);
+		}
 	}
 
 	&.round-primary {
@@ -371,6 +376,10 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 
 	&.round-success {
 		background: var(--app-success-background);
+
+		&:hover, &:focus {
+			box-shadow: 0 0 0 4px var(--app-accent-background), inset 0 1px 0 0 mixins.whiteTrans(.2), inset 0 -4px 16px mixins.blackTrans(.1), inset 0 4px 32px mixins.whiteTrans(.2);
+		}
 	}
 
 	&.button-sm {
@@ -438,11 +447,11 @@ https://github.com/pure-css/pure/blob/master/LICENSE
 	}
 
 	&:hover, &:focus {
-		border: 4px solid var(--app-accent-background);
+		box-shadow: 0 0 0 1px mixins.blackTrans(.2), inset 0 1px 0 0 mixins.whiteTrans(.2), inset 0 -4px 16px mixins.blackTrans(.1), inset 0 4px 32px mixins.whiteTrans(.8);
 	}
 
 	&.white-ring {
-		border: 2px solid mixins.whiteTrans(.7);
+		//border: 2px solid mixins.whiteTrans(.7);
 	}
 }
 

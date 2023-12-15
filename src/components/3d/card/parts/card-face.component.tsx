@@ -71,7 +71,7 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 			position-y={130}
 			{...headerProps}
 			color={textProps.textColor}
-			clipRect={[-95, -20, 95, 20]}
+			clipRect={[-95, -60, 95, 20]}
 			anchorX={'center'}
 			anchorY="top">{textProps.header}</Text>}
 
@@ -89,7 +89,7 @@ export const CardFace: React.FC<TCardFaceProps> = (props: TCardFaceProps) => {
 			position-z={cardThickness / 2 + 0.5}
 			position-y={-130}
 			{...footerProps}
-			clipRect={[-95, -20, 95, 20]}
+			clipRect={[-95, -20, 95, 60]}
 			color={textProps.textColor}
 			anchorX={'center'}
 			anchorY="bottom">{textProps.footer}</Text>}

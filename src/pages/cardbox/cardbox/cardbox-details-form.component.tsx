@@ -111,7 +111,7 @@ export const CardboxDetailsForm: React.FC<TCardboxDetailsFormProps> = (
 				footer: 'footer',
 			},
 			{
-				header: 'encabezamdo de tarjeta',
+				header: 'encabezado de la tarjeta',
 				text: '¡Hola!',
 				footer: 'pie de tarjeta',
 			},
