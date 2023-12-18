@@ -13,18 +13,40 @@
 
 	.scene-go-back {
 		position: absolute;
-		top: 12px;
+		top: 16px;
 		left: 20px;
 		z-index: 2;
+		opacity: .7;
+		transition: all .2s ease;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	.session-collection-title {
+		position: absolute;
+		top: 12px;
+		left: 50%;
+		font-size: 1.5rem;
+		font-weight: 200;
+		transform: translateX(-50%);
+		opacity: .7;
 	}
 
 	.scene-info {
 		position: absolute;
-		top: 12px;
+		top: 16px;
 		right: 20px;
 		z-index: 2;
+		opacity: .7;
+		transition: all .2s ease;
 
-		&:focus {
+		&:hover {
+			opacity: 1;
+		}
+
+		&:hover, &:focus, &:focus-within {
 			.scene-info-content {
 				opacity: 1;
 				transform: scaleX(1) translateY(0);
@@ -101,7 +123,7 @@
 }
 
 .scene-controls {
-	margin-bottom: 32px;
+	margin-bottom: 48px;
 	display: flex;
 	position: relative;
 	flex-flow: row nowrap;

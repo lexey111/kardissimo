@@ -233,7 +233,7 @@ export const SessionPage: React.FC = () => {
 		return <WaitInline text={'Preparing data...'}/>;
 	}
 
-	console.log('cardbox', params.cardboxId);
+	console.log('cardbox', params.cardboxId, cardbox.title);
 	console.log('from', from, 'to', to, 'number', to - from + 1);
 	console.log('side', side);
 	console.log('order', order);
@@ -244,6 +244,7 @@ export const SessionPage: React.FC = () => {
 		<div className={'page-32'}>
 			{cards && cards.length > 0 && <div className={'scene-wrapper'}>
 				<BackToRunButton/>
+				<div className={'session-collection-title'}>{cardbox.title} &mdash; {cards.length} of {cardbox.cards_count}</div>
 				<SceneInfoButton info={<div>
 					<h3>Session Info</h3>
 					<p>
