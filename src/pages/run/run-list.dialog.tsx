@@ -202,7 +202,7 @@ export const RunListDialog: React.FC<TRunListDialogProps> = ({currentCardbox, ha
 		sideElement={show && <div className={'run-dialog-scene'}>
 			<ChoosePreview
 				total={cardCount}
-				delay={500}
+				delay={200}
 				mode={modeText}
 				side={sideText}
 				isRandom={(!advanced && pieceType === 'random') || (order === 'random')}

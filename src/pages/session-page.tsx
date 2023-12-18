@@ -5,13 +5,12 @@ import {useExclusiveHook} from "../hooks/useExclusive.hook.tsx";
 import {PageError} from "../types.ts";
 import {SessionStage} from "./session/session-stage.tsx";
 import {BackToRunButton} from "./run/back-to-run.button.component.tsx";
-import {SceneInfoButton} from "./run/scene-info.button.component.tsx";
 import {useCardbox} from "../store/cardboxes/hooks/useCardboxHook.tsx";
 import {useCards} from "../store/cards/hooks/useCardsHook.tsx";
 import {WaitInline} from "../components/utils/wait-inline.component.tsx";
 import {PageNotFound} from "../components/utils/page-not-found.component.tsx";
 import {TCardSide, TPreparedCard, TPreparedCards} from "./session/types-session.ts";
-import {TSCardbox, TSCardboxKey} from "../store/cardboxes/types-cardbox.ts";
+import {TSCardbox} from "../store/cardboxes/types-cardbox.ts";
 import {TSCard} from "../store/cards/types-card.ts";
 import {getSideColorsBySchema} from "../store/cardboxes/cardboxes-utils.ts";
 import {WaitGlobal} from "../components/utils/wait-global.component.tsx";
@@ -142,6 +141,7 @@ export const SessionPage: React.FC = () => {
 	const [searchParams] = useSearchParams();
 	const params = useParams();
 	const cardboxId = isNaN(parseInt(params.cardboxId || '', 10)) ? -1 : parseInt(params.cardboxId || '', 10);
+	const [runText, setRunText] = useState('');
 
 	const {data: cardbox, error: cardboxError, isLoading: isCardboxLoading} = useCardbox(cardboxId);
 	const {data: cardsData, error: cardsError, isLoading} = useCards(cardboxId);
@@ -149,8 +149,8 @@ export const SessionPage: React.FC = () => {
 	const from = Number(searchParams?.get('from'));
 	const to = Number(searchParams?.get('to'));
 	const order = searchParams?.get('order');
-	const chunkType = searchParams?.get('chunk');
 	const side = Number(searchParams?.get('side'));
+	const chunkType = searchParams?.get('chunk');
 
 	useExclusiveHook(); // hide menu
 
@@ -164,22 +164,37 @@ export const SessionPage: React.FC = () => {
 		if (!cardbox || !cardsData) {
 			return;
 		}
+		let text = '';
+
+		const amount = Math.abs(to - from + 1);
+		let _chunkType = chunkType;
+		if (chunkType === 'random' && amount >= cardbox.cards_count) {
+			_chunkType = 'exact';
+		}
 
 		let chunk: TPreparedCards = [];
-		if (chunkType === 'exact') {
+		if (_chunkType === 'exact') {
+			if (amount >= cardbox.cards_count) {
+				text = 'all ' + cardbox.cards_count + ' cards';
+			} else {
+				text = amount + ' cards of ' + cardbox.cards_count + ' (chunk ' + (from + 1) + '...' + (to + 1) + ')';
+			}
+
 			chunk = getExactChunk(cardbox, cardsData, from, to, side);
-			console.log('=== get exact chunk', from, to)
 			if (order === 'random') {
-				console.log('+random order')
+				text += ', shuffled';
 				chunk = shuffle(chunk);
+			} else {
+				text += ', one by one';
 			}
 		}
 
-		if (chunkType === 'random') {
-			console.log('=== get random chunk', from, to)
+		if (_chunkType === 'random') {
 			chunk = getRandomChunk(cardbox, cardsData, to - from + 1, side);
+			text = amount + ' random cards of ' + cardbox.cards_count;
 		}
 
+		setRunText(text);
 		setCards(chunk);
 	}, [cardbox, cardsData, from, chunkType, side, to]);
 
@@ -233,35 +248,20 @@ export const SessionPage: React.FC = () => {
 		return <WaitInline text={'Preparing data...'}/>;
 	}
 
-	console.log('cardbox', params.cardboxId, cardbox.title);
-	console.log('from', from, 'to', to, 'number', to - from + 1);
-	console.log('side', side);
-	console.log('order', order);
-	console.log('chunk', chunkType);
-	console.log('data', cards);
+	// console.log('cardbox', params.cardboxId, cardbox.title);
+	// console.log('from', from, 'to', to, 'number', to - from + 1);
+	// console.log('side', side);
+	// console.log('order', order);
+	// console.log('chunk', chunkType);
+	// console.log('data', cards);
 
 	return <AppPage title={'Run'}>
 		<div className={'page-32'}>
 			{cards && cards.length > 0 && <div className={'scene-wrapper'}>
 				<BackToRunButton/>
-				<div className={'session-collection-title'}>{cardbox.title} &mdash; {cards.length} of {cardbox.cards_count}</div>
-				<SceneInfoButton info={<div>
-					<h3>Session Info</h3>
-					<p>
-						<b>Card Box:</b> {cardbox.title}
-						{cardbox.author && ' by ' + cardbox.author}
-					</p>
-					<p>
-						<b>Cards: </b> {from + 1}..{to + 1} ({cards.length})
-					</p>
-					<p>
-						<b>Primary
-							side:</b> {side === -1 ? 'random' : cardbox[`side${side + 1}title` as TSCardboxKey] as string}
-					</p>
-					<p>
-						<b>Order:</b> {order}
-					</p>
-				</div>}/>
+				<div className={'session-collection-title'}>
+					{cardbox.title} <span>{runText}</span>
+				</div>
 
 				<div className={'scene-content'}>
 					<SessionStage

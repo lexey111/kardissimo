@@ -26,78 +26,25 @@
 
 	.session-collection-title {
 		position: absolute;
-		top: 12px;
+		top: 18px;
 		left: 50%;
 		font-size: 1.5rem;
 		font-weight: 200;
 		transform: translateX(-50%);
 		opacity: .7;
-	}
+		display: flex;
+		@include mixins.center();
+		line-height: 1;
 
-	.scene-info {
-		position: absolute;
-		top: 16px;
-		right: 20px;
-		z-index: 2;
-		opacity: .7;
-		transition: all .2s ease;
-
-		&:hover {
-			opacity: 1;
-		}
-
-		&:hover, &:focus, &:focus-within {
-			.scene-info-content {
-				opacity: 1;
-				transform: scaleX(1) translateY(0);
-			}
+		span {
+			display: inline-flex;
+			margin-left: 1rem;
+			font-size: .9rem;
+			font-weight: normal;
+			opacity: .5;
 		}
 	}
 
-	.scene-info-content {
-		position: absolute;
-		right: 100%;
-		margin-right: 16px;
-		top: -4px;
-		background: mixins.whiteTrans(.9);
-		padding: 16px;
-		max-width: 500px;
-		width: 400px;
-		border-radius: 8px;
-		box-shadow: 0 2px 2px mixins.blackTrans();
-		opacity: 0;
-		transform: scaleX(0.01) translateY(-20px);
-		transition: all .2s ease;
-		transform-origin: top right;
-		text-align: left;
-		user-select: none;
-		cursor: default;
-		font-size: .8rem;
-
-		h3 {
-			margin: 0 0 1rem 0;
-			font-size: 1.2rem;
-			font-weight: 300;
-		}
-
-		p {
-			margin: 0;
-			line-height: 1.8;
-		}
-
-		&:after {
-			content: '';
-			position: absolute;
-			width: 0;
-			height: 0;
-			border-top: 7px solid transparent;
-			border-bottom: 7px solid transparent;
-
-			border-left: 7px solid mixins.whiteTrans(.9);
-			right: -7px;
-			top: 12px;
-		}
-	}
 }
 
 .scene-content {
